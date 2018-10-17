@@ -1,0 +1,37 @@
+To do:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	meaning of backquote:
+		- execute cmd inside backquote and take result as argument
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+=== LEXER ===
+	- Clean input if quote '"' -> change by env var
+	- Add backquote, but convert it later;
+
+=== PARSER ===
+	- Syntaxtic analyzer type of LL or LR
+	- fill struct t_ast (cmd, option, txt, left, right)
+		- if operator -> cmd = 'operator' or an int
+		- detect aggregator (2>&-)
+	- Add to binary tree
+
+=== AUTOCOMPLETION ===
+	- TAB => find all builtin with the same begining or display them
+	- if CMD ok + TAB => display all the possibilities (files / repositories)
+
+=== BUILTINS ===
+	For 42sh
+
+Idea:
+- include -> create Global and Enum
+- getconf MAX_ARG
+- check backquote
+
+
+
+CONVERT QUOTE:
+	STEP:
+		1 - Check if quote
+		2 - if simple quote => copy inside
+		3 - if double quote => copy and replace var env
