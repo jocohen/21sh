@@ -1,0 +1,29 @@
+BUILTINS:
+
+	ENV:
+		- cf man env -> standard POSIX:
+			- options: -i (initiate env = NULL with name=value)
+			- arg env: if name=value add it to env just for one
+			- if no utility print it
+			- utility:
+				- if no path (no '/'), take PATH
+			- return:
+				- 0 on success
+				- 127 utility not be found (env -i 21sh => no path so error 127)
+				- 126 utility found but can't be executed
+				- >0 error
+
+	ECHO:
+		- cf man echo -> standard POSIX:
+			- options: -n (no new line at the end)
+			- return:
+				- 0 on success
+				- >0 error
+			- Add env VAR on dquote or no quote
+
+	CD:
+
+
+	UNSETENV:
+
+	SETENV:

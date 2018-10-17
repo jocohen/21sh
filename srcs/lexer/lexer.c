@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:29:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/17 17:42:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	ADD TERMCAPS OF JO TO ADD NEW INPUT
 */
 
-void	lexer(char *input)
+void	lexer(char *input, char **tab_env)
 {
 	int		i;
 	char	**lexer;
@@ -35,7 +35,7 @@ void	lexer(char *input)
 	while (lexer && lexer[i])
 	{
 		ft_printf("lexer[%d]: %s\n", i, lexer[i]);
-		clean_input(lexer[i], lst);
+		clean_input(lexer[i], lst, tab_env);
 		free(lexer[i]);
 		i += 1;
 	}
@@ -43,7 +43,7 @@ void	lexer(char *input)
 	free(input);
 }
 
-void	clean_input(char *str, t_ast *lst)
+void	clean_input(char *str, t_ast *lst, char **tab_env)
 {
 	char	**split;
 	int		i;
@@ -67,5 +67,5 @@ void	clean_input(char *str, t_ast *lst)
 		}
 		i += 1;
 	}
-	parser(split, lst);
+	parser(split, lst, tab_env);
 }
