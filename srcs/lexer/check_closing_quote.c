@@ -1,0 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_closing_quote.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/01 11:25:41 by tcollard          #+#    #+#             */
+/*   Updated: 2018/10/01 11:26:35 by tcollard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/ft_21sh.h"
+
+void	check_opening_quote(char **str)
+{
+	int	i;
+
+	i = 0;
+	while ((*str)[i])
+	{
+		if (ft_isquote((*str)[i]) == 1)
+			find_closing(str, &i);
+		i += 1;
+	}
+}
+
+void	find_closing(char **str, int *i)
+{
+	char	c;
+	char	*tmp;
+	char	*save;
+
+	tmp = NULL;
+	save = NULL;
+	c = (*str)[*i];
+	*i += 1;
+	while ((*str)[*i] && (*str)[*i] != c)
+		*i += 1;
+	if ((*str)[*i] == c)
+		return ;
+	else
+	{
+		tmp = missing_quote_prompt(c);
+		save = ft_strdup(*str);
+		free(*str);
+		*str = ft_strjoin(save, tmp);
+		free(save);
+		free(tmp);
+		*i = ft_strlen(*str);
+	}
+}

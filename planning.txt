@@ -1,0 +1,16 @@
+TO_DO:
+
+	Today:
+		- Execute cmd on execve / or builtins
+		- Check operator / logic
+		- leaks => Lexer Parser
+
+Next session:
+- Add back quote execution
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!! A VOIR AVEC JONAS !!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	1 - Si gesttion error correct -> copy of zsh
+	2 -
