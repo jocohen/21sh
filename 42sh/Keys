@@ -1,0 +1,26 @@
+Tab -> 9
+Arrow Keys -> 27 91 -> 	UP 65
+						Down 66
+						Left 68
+						Right 67
+ESC -> 27
+Delete 	-> 127
+		-> 27 91 51 126
+Ctrl C -> 3
+Ctrl D -> 4
+Enter -> 13 mnt 10 who knows why
+HOME -> 27 91 72
+END -> 27 91 70
+Pageup -> 27 91 53 126
+PageDown -> 27 91 54 126
+Ctrl L -> 12
+Ctrl arrow keys -> 27 91 49 59 53 -> see above for last number
+Maj pomme C -> 27 116 49 | t1
+Maj pomme V -> 27 116 50 | t2
+Maj pomme X -> 27 116 51 | t3
+
+
+13 multiple read Keys
+
+Termcaps:
+bl ->bell
