@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 void	*ft_realloc(void *ptr, size_t size, size_t len)
 {

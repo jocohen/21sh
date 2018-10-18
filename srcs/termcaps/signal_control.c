@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 void	sig_c(int sig)
 {

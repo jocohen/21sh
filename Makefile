@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/18 16:13:45 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/18 17:16:45 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TERMCAPS)ft_realloc.c \
 		$(PATH_TERMCAPS)ft_writestdin.c \
 		$(PATH_TERMCAPS)set_term.c \
+		$(PATH_TERMCAPS)termcaps.c \
 		$(PATH_TERMCAPS)var_env_management.c \
 		$(PATH_TERMCAPS)lst_deletion.c \
 		$(PATH_TERMCAPS)eol_work.c \

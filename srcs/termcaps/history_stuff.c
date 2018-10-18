@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 t_historic	*ft_new_cmd_hist(void)
 {

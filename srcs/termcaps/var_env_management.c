@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 t_list	*add_var_env(char *var, char *value, t_list **fp)
 {

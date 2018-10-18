@@ -6,13 +6,15 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 17:02:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/18 18:27:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_21SH_H
 # define FT_21SH_H
-# include <stdlib.h>
+
+# include "../libft/includes/libft.h"
+
 # include <unistd.h>
 # include <curses.h>
 # include <term.h>
@@ -20,22 +22,19 @@
 # include <stdio.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include "../libft/includes/libft.h"
+# include <stdlib.h>
 
 /*
 ** # define FALSE 0
 ** # define TRUE 1
 */
 
-# define NO_TYPE -1
-# define CMD	0
-# define LOGIC	1
-# define REDIR	2
+# define NO_TYPE 	-1
+# define CMD		0
+# define LOGIC		1
+# define REDIR		2
 # define OPERATOR	3
-# define AGGREG	4
+# define AGGREG		4
 
 typedef	struct			s_ast
 {

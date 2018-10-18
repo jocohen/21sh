@@ -1,4 +1,4 @@
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 int		ft_writestdin(int c)
 {

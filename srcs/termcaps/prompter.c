@@ -6,11 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/17 20:01:33 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/10/18 18:26:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/shell.h"
+#include "../../includes/ft_21sh.h"
 
 void	check_over_buffer(t_buf *input, char *into_buff)
 {
