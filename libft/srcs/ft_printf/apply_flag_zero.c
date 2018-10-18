@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 11:24:15 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 17:59:58 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/18 19:07:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ char		*zero(char **var, char c, t_flag *tab_p)
 	i = 0;
 	modif = ft_strdup(*var);
 	len = (int)ft_strlen(*var);
-	if ((c == 'd' || c == 'D' || c == 'i' || c == 'u') && tab_p->precision == -1)
+	if ((c == 'd' || c == 'D' || c == 'i' || c == 'u') &&
+		tab_p->precision == -1)
 	{
 		(**var == '-' || **var == '+') ? (i = 1) : i;
 		if (tab_p->flag[4] == 1)

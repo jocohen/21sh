@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 17:21:27 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 18:02:58 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/18 19:07:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void		conv_wchar_c(va_list *ap, t_flag *tab_p, char c)
 		ft_display_prev(tab_p);
 		tab_p->ret = -1;
 	}
-	(tab_p->flag[2] == 1 && tab_p->width > nb_octet) ? add_var(tab_p, width) : 0;
+	(tab_p->flag[2] == 1 && tab_p->width > nb_octet) ?
+		add_var(tab_p, width) : 0;
 	ft_display(tab_p);
 }
 

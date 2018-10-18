@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/18 18:34:09 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/18 19:05:17 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ NAME = 21sh
 END = \x1b[0m
 GREEN = \x1b[32m
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 LDFLAGS = -Llibft
-LDLIBS = -lft
+LDLIBS = -lft -ltermcap
 
 PATH_LEXER = lexer/
 PATH_PROMPT = prompt/
@@ -64,7 +64,6 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TERMCAPS)ft_realloc.c \
 		$(PATH_TERMCAPS)ft_writestdin.c \
 		$(PATH_TERMCAPS)set_term.c \
-		$(PATH_TERMCAPS)termcaps.c \
 		$(PATH_TERMCAPS)var_env_management.c \
 		$(PATH_TERMCAPS)lst_deletion.c \
 		$(PATH_TERMCAPS)eol_work.c \
@@ -83,7 +82,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -o $@ $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
 	@echo "$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c
@@ -126,4 +125,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	gcc $(CFLAGS) -fsanitize=address -g -o $@ $(OBJS) ./libft/libft.a
+	gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS ) -fsanitize=address -g3 $^ -o $(NAME)
