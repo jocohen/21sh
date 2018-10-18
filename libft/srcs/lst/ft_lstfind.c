@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwhcpy.c                                      :+:      :+:    :+:   */
+/*   ft_lstfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:46:27 by jocohen           #+#    #+#             */
-/*   Updated: 2018/01/14 17:45:14 by jocohen          ###   ########.fr       */
+/*   Created: 2017/11/21 14:28:01 by jocohen           #+#    #+#             */
+/*   Updated: 2018/01/14 17:21:07 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strwhcpy(char *dst, char const *src, unsigned int start,
-		unsigned int end)
+t_list	*ft_lstfind(t_list *alst, void *data, int (*cmp)())
 {
-	unsigned int	x;
-
-	x = 0;
-	while (src[start] && start < end + 1)
+	while (alst)
 	{
-		dst[x] = src[start];
-		x += 1;
-		start += 1;
+		if (!(cmp(alst->content, data)))
+			return (alst);
+		alst = alst->next;
 	}
-	dst[x] = 0;
-	return (dst);
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/17 17:33:17 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/18 16:13:45 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ PATH_TOOLS = tools/
 PATH_PARSER = parser/
 PATH_BUILT = builtins/
 PATH_ERROR = error/
+PATH_TERMCAPS = termcaps/
 
 INCLUDE = ./includes/
 PATH_LIB = ./libft/
@@ -53,7 +54,24 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
-		$(PATH_ERROR)error.c
+		$(PATH_ERROR)error.c \
+		$(PATH_TERMCAPS)shell.c \
+		$(PATH_TERMCAPS)prompter.c \
+		$(PATH_TERMCAPS)caller_display.c \
+		$(PATH_TERMCAPS)env_analysis.c \
+		$(PATH_TERMCAPS)escape_analysis.c \
+		$(PATH_TERMCAPS)ft_exit.c \
+		$(PATH_TERMCAPS)ft_realloc.c \
+		$(PATH_TERMCAPS)ft_writestdin.c \
+		$(PATH_TERMCAPS)set_term.c \
+		$(PATH_TERMCAPS)var_env_management.c \
+		$(PATH_TERMCAPS)lst_deletion.c \
+		$(PATH_TERMCAPS)eol_work.c \
+		$(PATH_TERMCAPS)signal_control.c \
+		$(PATH_TERMCAPS)historic_move.c \
+		$(PATH_TERMCAPS)history_stuff.c
+
+
 
 OBJ = $(SRC:.c=.o)
 
@@ -75,6 +93,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
+	@mkdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
 	@gcc $(CFLAGS) -I $(INCLUDE) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
@@ -90,6 +109,7 @@ clean:
 	@rmdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
+	@rmdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
 	@rmdir $(PATH_OBJ) 2> /dev/null || true
 
 fclean: clean

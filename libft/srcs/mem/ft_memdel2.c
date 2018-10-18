@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwhcpy.c                                      :+:      :+:    :+:   */
+/*   ft_memdel2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:46:27 by jocohen           #+#    #+#             */
-/*   Updated: 2018/01/14 17:45:14 by jocohen          ###   ########.fr       */
+/*   Created: 2017/11/23 17:20:22 by jocohen           #+#    #+#             */
+/*   Updated: 2018/05/26 17:18:16 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strwhcpy(char *dst, char const *src, unsigned int start,
-		unsigned int end)
+void	ft_memdel2(char ***ap)
 {
-	unsigned int	x;
+	size_t	x;
+	char	**a;
 
+	a = *ap;
 	x = 0;
-	while (src[start] && start < end + 1)
+	if (!ap || !(*ap))
+		return ;
+	while (a[x])
 	{
-		dst[x] = src[start];
+		ft_memdel0(&a[x]);
 		x += 1;
-		start += 1;
 	}
-	dst[x] = 0;
-	return (dst);
+	free(*ap);
+	*ap = 0;
 }

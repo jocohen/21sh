@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwhcpy.c                                      :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:46:27 by jocohen           #+#    #+#             */
-/*   Updated: 2018/01/14 17:45:14 by jocohen          ###   ########.fr       */
+/*   Created: 2017/11/13 16:53:10 by jocohen           #+#    #+#             */
+/*   Updated: 2018/01/14 17:21:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strwhcpy(char *dst, char const *src, unsigned int start,
-		unsigned int end)
+unsigned int	ft_lstsize(t_list *lst)
 {
-	unsigned int	x;
+	unsigned int	n;
 
-	x = 0;
-	while (src[start] && start < end + 1)
+	n = 0;
+	while (lst->next)
 	{
-		dst[x] = src[start];
-		x += 1;
-		start += 1;
+		n += 1;
+		lst = lst->next;
 	}
-	dst[x] = 0;
-	return (dst);
+	return (n + 1);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwhcpy.c                                      :+:      :+:    :+:   */
+/*   ft_lenbyte.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:46:27 by jocohen           #+#    #+#             */
-/*   Updated: 2018/01/14 17:45:14 by jocohen          ###   ########.fr       */
+/*   Created: 2018/02/28 15:28:03 by jocohen           #+#    #+#             */
+/*   Updated: 2018/03/08 14:32:26 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strwhcpy(char *dst, char const *src, unsigned int start,
-		unsigned int end)
+size_t		ft_lenbyte(unsigned int c)
 {
-	unsigned int	x;
+	size_t			x;
+	unsigned int	y;
 
-	x = 0;
-	while (src[start] && start < end + 1)
-	{
-		dst[x] = src[start];
+	y = c;
+	x = 1;
+	while (y /= 2)
 		x += 1;
-		start += 1;
-	}
-	dst[x] = 0;
-	return (dst);
+	if (c <= 127 || (c <= 255 && MB_CUR_MAX == 1))
+		return (1);
+	else if (x > 7 && x <= 11)
+		return (2);
+	else if (x > 11 && x <= 16)
+		return (3);
+	else
+		return (4);
 }

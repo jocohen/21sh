@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwhcpy.c                                      :+:      :+:    :+:   */
+/*   ft_strcatc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:46:27 by jocohen           #+#    #+#             */
-/*   Updated: 2018/01/14 17:45:14 by jocohen          ###   ########.fr       */
+/*   Created: 2017/11/11 18:26:02 by jocohen           #+#    #+#             */
+/*   Updated: 2018/01/14 17:35:53 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strwhcpy(char *dst, char const *src, unsigned int start,
-		unsigned int end)
+char	*ft_strcatc(char *s, int c)
 {
-	unsigned int	x;
+	int		x;
 
 	x = 0;
-	while (src[start] && start < end + 1)
-	{
-		dst[x] = src[start];
+	while (s[x])
 		x += 1;
-		start += 1;
-	}
-	dst[x] = 0;
-	return (dst);
+	s[x] = c;
+	x += 1;
+	s[x] = 0;
+	return (s);
 }
