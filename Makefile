@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/18 17:16:45 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/18 18:34:09 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ PATH_BUILT = builtins/
 PATH_ERROR = error/
 PATH_TERMCAPS = termcaps/
 
-INCLUDE = ./includes/
+INCLUDE = ./includes
 PATH_LIB = ./libft/
 PATH_SRC = ./srcs/
 PATH_OBJ = ./obj/
