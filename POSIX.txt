@@ -22,8 +22,21 @@ BUILTINS:
 			- Add env VAR on dquote or no quote
 
 	CD:
+		-options:
+			- L: ???
+			- P: ???
+			- -: go to OLDPWD
+		- If no directory (Path) go to $HOME (if HOME doesn't exist error "cd:
+		  HOME not set")
+		- as always when start by / or . ..
+		- retrun:
+			- 0 on success
+			- >0 error
+
 
 
 	UNSETENV:
+			???
 
 	SETENV:
+			???
