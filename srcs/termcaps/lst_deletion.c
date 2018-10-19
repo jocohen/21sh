@@ -6,20 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 17:14:04 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/18 18:13:30 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/19 10:45:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
-
-// int		ft_error(void **a1, void **a2, void **a3, void **a4)
-// {
-// 	ft_memdel(a1);
-// 	ft_memdel(a2);
-// 	ft_memdel(a3);
-// 	ft_memdel(a4);
-// 	return (0);
-// }
 
 int		lst_deletion(t_list **fp)
 {

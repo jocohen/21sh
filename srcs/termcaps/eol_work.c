@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 14:58:55 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/18 15:16:42 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/10/19 10:58:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	enter_section(t_buf *input, t_list **lst, t_historic **history, int read)
 		move -= 1;
 	}
 	historic_entry(input, history, read);
+	lexer(input->s, lst);
 	// input start fct
 	input->x = 0;
 	ft_bzero(input->s, ft_strlen(input->s));

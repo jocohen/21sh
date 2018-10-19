@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 17:42:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/19 11:08:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	ADD TERMCAPS OF JO TO ADD NEW INPUT
 */
 
-void	lexer(char *input, char **tab_env)
+void	lexer(char *input, t_list **env)
 {
 	int		i;
 	char	**lexer;
@@ -35,15 +35,15 @@ void	lexer(char *input, char **tab_env)
 	while (lexer && lexer[i])
 	{
 		ft_printf("lexer[%d]: %s\n", i, lexer[i]);
-		clean_input(lexer[i], lst, tab_env);
+		clean_input(lexer[i], lst, env);
 		free(lexer[i]);
 		i += 1;
 	}
 	(lexer != NULL) ? free(lexer) : 0;
-	free(input);
+	// free(input);
 }
 
-void	clean_input(char *str, t_ast *lst, char **tab_env)
+void	clean_input(char *str, t_ast *lst, t_list **env)
 {
 	char	**split;
 	int		i;
@@ -67,5 +67,5 @@ void	clean_input(char *str, t_ast *lst, char **tab_env)
 		}
 		i += 1;
 	}
-	parser(split, lst, tab_env);
+	parser(split, lst, env);
 }

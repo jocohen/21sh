@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 18:35:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/19 11:06:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef	struct			s_ast
 	struct s_ast		*prev;
 }						t_ast;
 
-typedef void			(*t_dispatch)(t_ast*, char**);
+typedef void			(*t_dispatch)(t_ast*, t_list**);
 
 typedef struct			s_buf
 {
@@ -99,8 +99,8 @@ void					check_over_buffer(t_buf *input, char *into_buff);
 /*
 ** LEXER:
 */
-void					lexer(char *input, char **tab_env);
-void					clean_input(char *str, t_ast *lst, char **tab_env);
+void					lexer(char *input, t_list **env);
+void					clean_input(char *str, t_ast *lst, t_list **env);
 void					check_closing_quote(char *c, char *s, char **input);
 void					check_cmd_pipe(char **input);
 void					find_closing(char **str, int *i);
@@ -112,20 +112,20 @@ void					remove_quote(char **s, int *i);
 /*
 ** PARSER:
 */
-void					parser(char **input, t_ast *lst, char **tab_env);
+void					parser(char **input, t_ast *lst, t_list **env);
 void					fill_ast(char *s, t_ast **lst);
 void					replace_quote(char *s, int *i);
-void					analyzer(t_ast *lst, char **tab_env);
+void					analyzer(t_ast *lst, t_list **env);
 
 /*
 **	BUILTINS:
 */
-void					builtins_dispatch(t_ast *elem, char **tab_env);
+void					builtins_dispatch(t_ast *elem, t_list **env);
 
 /*
 ** ENV:
 */
-void					env_cp(char **env, char ***tab_env);
+
 
 /*
 ** ERROR:
@@ -154,11 +154,11 @@ void					replace_quote(char *s, int *i);
 /*
 ** 		analyzer:
 */
-void					dispatch_cmd(t_ast *elem, char **tab_env);
-void					dispatch_logic(t_ast *elem, char **tab_env);
-void					dispatch_redir(t_ast *elem, char **tab_env);
-void					dispatch_operator(t_ast *elem, char **tab_env);
-void					dispatch_aggreg(t_ast *elem, char **tab_env);
+void					dispatch_cmd(t_ast *elem, t_list **env);
+void					dispatch_logic(t_ast *elem, t_list **env);
+void					dispatch_redir(t_ast *elem, t_list **env);
+void					dispatch_operator(t_ast *elem, t_list **env);
+void					dispatch_aggreg(t_ast *elem, t_list **env);
 
 /*
 ** 		split:

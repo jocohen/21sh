@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:32:45 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 18:03:48 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/19 11:03:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 **		- ENV
 */
 
-void	builtins_dispatch(t_ast *elem, char **tab_env)
+void	builtins_dispatch(t_ast *elem, t_list **env)
 {
 	static char	*lst_built[5] = {"cd", "echo", "setenv", "unsetenv", "env"};
 	int			i;
 
-	// (void)tab_env;
+	(void)env;
 	// ft_printf("Value = %s\n", elem->value);
 	ft_printf("\n\nENV:\n");
-	i = 0;
-	while (tab_env[i])
-	{
-		ft_printf("%s\n", tab_env[i]);
-		i += 1;
-	}
+	// i = 0;
+	// while (tab_env[i])
+	// {
+	// 	ft_printf("%s\n", tab_env[i]);
+	// 	i += 1;
+	// }
 	i = 0;
 	while (i < 5)
 	{

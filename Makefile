@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/18 19:05:17 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/19 10:57:14 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,4 +125,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS ) -fsanitize=address -g3 $^ -o $(NAME)
+	gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -fsanitize=address -g3 $^ -o $(NAME)
