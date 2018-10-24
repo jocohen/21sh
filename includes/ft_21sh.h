@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 17:55:05 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/24 14:53:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@
 # define LOGIC	1
 # define REDIR	2
 # define OPERATOR	3
-# define AGGREG	4
+# define AGREG	4
 
 typedef	struct		s_ast
 {
 	int				type;
-	char			*value;
-	char			*opt;
-	char			*content;
+	char			**input;
 	struct s_ast	*back_quote;
 	struct s_ast	*next;
-	struct s_ast	*prev;
 }					t_ast;
 
 typedef void		(*t_dispatch)(t_ast*, char**);
@@ -60,7 +57,7 @@ void				remove_quote(char **s, int *i);
 ** PARSER:
 */
 void				parser(char **input, t_ast *lst, char **tab_env);
-void				fill_ast(char *s, t_ast **lst);
+void				fill_ast(char **s, t_ast **lst);
 void				replace_quote(char *s, int *i);
 void				analyzer(t_ast *lst, char **tab_env);
 

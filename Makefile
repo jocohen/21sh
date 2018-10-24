@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/17 17:33:17 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/24 11:26:11 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)lexer_tools.c \
 		$(PATH_TOOLS)split_tools.c \
 		$(PATH_TOOLS)quote_tools.c \
-		$(PATH_TOOLS)lst_tools.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
@@ -105,4 +104,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	gcc $(CFLAGS) -fsanitize=address -g -o $@ $(OBJS) ./libft/libft.a
+	gcc $(CFLAGS) -fsanitize=address -g -o $(NAME) $(OBJS) ./libft/libft.a

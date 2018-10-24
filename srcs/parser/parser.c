@@ -6,37 +6,52 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 17:43:31 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/24 15:40:05 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
-
-/*
-** ft_printf("Elem[%d]:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-**	i, tmp->type, tmp->value, tmp->opt, tmp->content);
-*/
 
 void	parser(char **input, t_ast *lst, char **tab_env)
 {
 	int		i;
 	t_ast	*tmp;
 
+	int	x;
+	x = 0;
+
 	i = 0;
 	tmp = NULL;
-	while (input[i])
-	{
-		fill_ast(input[i], &lst);
-		free(input[i]);
-		i += 1;
-	}
-	free(input);
-	i = 0;
+	(void)tab_env;
+	(void)lst;
+	fill_ast(input, &lst);
+	// ft_printf("lst->input[0]: %s\n", lst->input[0]);
 	tmp = lst;
-	while (tmp != NULL)
+	while (tmp)
 	{
+		ft_printf("Elem %d:\ntype: %d\n", i, tmp->type);
+		x = 0;
+		while (tmp->input[x] != NULL)
+		{
+			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
+			x += 1;
+		}
 		tmp = tmp->next;
 		i += 1;
 	}
-	analyzer(lst, tab_env);
+	// while (input[i])
+	// {
+	// 	ft_printf("input[%d]: %s\n", i, input[i]);
+	// 	free(input[i]);
+	// 	i += 1;
+	// }
+	// free(input);
+	// i = 0;
+	// tmp = lst;
+	// while (tmp != NULL)
+	// {
+	// 	tmp = tmp->next;
+	// 	i += 1;
+	// }
+	// analyzer(lst, tab_env);
 }

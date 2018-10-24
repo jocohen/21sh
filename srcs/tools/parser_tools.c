@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/16 18:42:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/23 19:23:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ t_ast	*create_new_elem(t_ast **lst)
 	if (!(new = (t_ast *)malloc(sizeof(t_ast))))
 		return (NULL);
 	new->type = NO_TYPE;
-	new->value = NULL;
-	new->opt = NULL;
-	new->content = NULL;
+	new->input = NULL;
 	new->back_quote = NULL;
 	new->next = NULL;
-	new->prev = NULL;
 	(*lst == NULL) ? *lst = new : 0;
 	return (new);
 }
@@ -47,6 +44,5 @@ t_ast	*add_new_elem(t_ast **lst)
 	new = create_new_elem(lst);
 	end = get_last_elem(lst);
 	end->next = new;
-	new->prev = end;
 	return (new);
 }

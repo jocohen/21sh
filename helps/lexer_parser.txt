@@ -1,0 +1,300 @@
+redirection:
+	- if X>&Y ok
+	- if X>& Y ok
+	- if X >&Y or X >& Y (X is a arg or cmd not an fd)
+
+<& and &< works
+
+To do:
+	1) Test each behavior of redirection:
+		echo "test" > file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" >> file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" < file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" << file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" <> file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" <<>> file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" >& file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" >>& file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" &> file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" &>> file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" <& file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" <<& file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" &< file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" &<< file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2>&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2>>&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&>0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&>>0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2<&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2<<&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&<0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&<<0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+
+		echo "test" 0/1/2>& 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2>>& 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&> 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&>> 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2<& 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2<<& 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&< 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2&<< 0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+
+		echo "test" 0/1/2 >&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 >>&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 &>0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 &>>0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 <&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 <<&0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 &<0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+		echo "test" 0/1/2 &<<0/1/2 file.txt :
+			- return:
+
+			- behavior:
+
+			- error:
+
+	2)Analyse result and find pathern
+		Analyse:
+			- Works like ->
+			- Exceptions ->
+		Pathern:
+			-
+			-
+
+	3)Modify of lexer to split when redirection
+		- How to cut ?
+
+	4)Modify parser to insert redirection
+		- Do struct redir with fd_in / fd_out ?
+
+	5)fill struct ast correctly
+
+	7)chek if it works
+
+	8)merge it on master
+
+	9)add new branch for builtins
+
+	10)Go to builtins helps and start it
