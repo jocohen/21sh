@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitwhitespace_shell.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:45:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/25 18:49:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 			{
 				if (check_operator(s, &i, nb_word) == -1)
 					return (-1);
+					ft_printf("i = %d\ns: |%s|\n", i, &s[i]);
 			}
 			else
 				i += 1;
@@ -111,6 +112,7 @@ char		**ft_splitwhitespace_shell(char *s)
 		return (NULL);
 	if (ft_word_counter(s, &nb_word) == -1)
 		return (NULL);
+	ft_printf("NB WORD = %d\n", nb_word);
 	if (!(split = (char**)malloc(sizeof(char*) * (nb_word + 1))))
 		return (NULL);
 	while (i < nb_word)
