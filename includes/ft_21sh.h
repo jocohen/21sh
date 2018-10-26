@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/24 14:53:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/26 18:16:47 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int					ft_error_parse(char *s, int count);
 **	 	lexer:
 */
 int					ft_isquote(char c);
+int					ft_isoperator(char c);
 void				ft_insert(char **source, char *insert, int pos);
 
 /*
@@ -109,9 +110,11 @@ void				dispatch_aggreg(t_ast *elem, char **tab_env);
 */
 void				in_quote(char const *s, int *i);
 void				lettre_in_quote(char const *s, int *i, int *nb_lettre);
-void				lettre_operator(char const *s, int *i, int *nb_lettre);
+void				digit_number(char *s, int i, int add, int *nb_lettre);
+// void				lettre_operator(char const *s, int *i, int *nb_lettre);
 int					check_operator(char *s, int *i, unsigned int *nb_word);
 int					position_operator(char const *s, int *i, int wn, int *iw);
+
 
 /*
 ** OTHER:

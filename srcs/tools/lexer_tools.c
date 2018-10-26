@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:57 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:52:26 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/26 18:10:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int		ft_isquote(char c)
 {
 	if (c == '\'' || c == '"' || c == '`')
+		return (1);
+	return (0);
+}
+
+int		ft_isoperator(char c)
+{
+	if (c == '>' || c == '<' || c == '|' || c == '&')
 		return (1);
 	return (0);
 }

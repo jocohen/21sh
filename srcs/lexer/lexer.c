@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/26 12:43:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/26 18:17:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	lexer(char *input, char **tab_env)
 	}
 	while (lexer && lexer[i])
 	{
-		// ft_printf("lexer[%d]: %s\n", i, lexer[i]);
 		clean_input(lexer[i], lst, tab_env);
 		free(lexer[i]);
 		i += 1;
