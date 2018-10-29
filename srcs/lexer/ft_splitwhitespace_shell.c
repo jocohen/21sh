@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/26 18:25:28 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:03:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,24 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nl)
 	i = 0;
 	add = 0;
 	ft_position_word(s, word_n, &i);
-	if (ft_isdigit(s[i]) == 1)
-		digit_number(s, i, add, nl);
-	else if (ft_isoperator(s[i]) == 1)
+	(ft_isdigit(s[i]) == 1) ? digit_number(s, i, add, nl) : 0;
+	if (ft_isoperator(s[i]) == 1 && *nl == 0)
 	{
 		while (s[i + *nl] && ft_isoperator(s[i + *nl]) == 1)
 			*nl += 1;
-		add = *nl;
-		while (s[i + add] && ft_isdigit(s[i + add]) == 1)
-			add += 1;
-		*nl += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add - *nl : 0;
+		(s[i + *nl] == '-' && ft_isspace(s[i + *nl + 1]) == 1) ? *nl += 1 : 0;
+		if (s[i + *nl] != '-' && ft_isspace(s[i + *nl + 1]) == 0)
+			while (s[i + add + *nl] && ft_isdigit(s[i + add + *nl]) == 1)
+				add += 1;
+			*nl += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
 	}
-	else
-	{
-		while (s[i + add] && ft_isoperator(s[i + add]) == 0
-		&& ft_isspace(s[i + add]) == 0)
+	else if (*nl == 0)
+		while (s[i] && ft_isoperator(s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
 			(ft_isquote(s[i]) == 1) ? lettre_in_quote(s, &i, nl) : 0;
-			add += 1;
+			i += 1;
+			*nl += 1;
 		}
-		*nl += add;
-	}
 }
 
 static void	ft_fill(char *s, unsigned int wrd_n, char **split, int max_lettre)
@@ -129,6 +126,7 @@ char		**ft_splitwhitespace_shell(char *s)
 	{
 		nb_lettre = 0;
 		ft_counter_lettre((char*)s, i, &nb_lettre);
+		ft_printf("word %d nb lettre = %d\n", i, nb_lettre);
 		if (!(split[i] = (char*)malloc(sizeof(char) * (nb_lettre + 1))))
 			return (NULL);
 		ft_fill((char *)s, i, split, nb_lettre);

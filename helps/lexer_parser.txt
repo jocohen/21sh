@@ -6,43 +6,6 @@ redirection:
 <& and &< works
 
 To do:
-	2)Analyse result and find pathern
-		Analyse:
-			- Works like ->
-			- Exceptions ->
-		Pathern:
-			-
-			-
-
-	correctif:
-
-		add:
-			1>
-			1>>
-			2>
-			2>>
-			&>
-			&>>
-			>&
-
-		error:
-			only >> ou >>& if more > or &
-				parse error near `2 after >> or >>& if 2 else just 1'
-			only < over 3
-				parse error near `2 after >> or >>& if 2 else just 1'
-
-
-
-
-
-
-	3)Modify of lexer to split when redirection
-		- How to cut ?
-
-	4)Modify parser to insert redirection
-		- Do struct redir with fd_in / fd_out ?
-		- Add error
-
 	5)fill struct ast correctly
 
 	7)chek if it works
