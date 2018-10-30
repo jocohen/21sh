@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/26 18:16:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 16:11:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void				env_cp(char **env, char ***tab_env);
 /*
 ** ERROR:
 */
-int					ft_error(char *s, int error);
-int					ft_error_parse(char *s, int count);
+int					ft_error(char **input);
+// int					ft_error_parse(char *s, int count);
 
 /*
 ** TOOLS:

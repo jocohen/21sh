@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/29 18:03:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 15:58:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
-			{
-				if (check_operator(s, &i, nb_word) == -1)
-					return (-1);
-			}
+				check_operator(s, &i, nb_word);
 			else
 				i += 1;
 		}
@@ -80,10 +77,11 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nl)
 		while (s[i + *nl] && ft_isoperator(s[i + *nl]) == 1)
 			*nl += 1;
 		(s[i + *nl] == '-' && ft_isspace(s[i + *nl + 1]) == 1) ? *nl += 1 : 0;
-		if (s[i + *nl] != '-' && ft_isspace(s[i + *nl + 1]) == 0)
+		if (s[i + *nl] != '-' || ft_isspace(s[i + *nl + 1]) == 0)
 			while (s[i + add + *nl] && ft_isdigit(s[i + add + *nl]) == 1)
 				add += 1;
-			*nl += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
+		*nl += (!s[i + add + *nl] || ft_isspace(s[i + add + *nl]) == 1) ?
+		add : 0;
 	}
 	else if (*nl == 0)
 		while (s[i] && ft_isoperator(s[i]) == 0 && ft_isspace(s[i]) == 0)

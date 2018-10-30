@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/29 18:03:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 14:58:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,21 @@ void	clean_input(char *str, t_ast *lst, char **tab_env)
 	{
 		convert_quote(&(split[i]));
 		ft_printf("Split[%d]: %s\n", i, split[i]);
-		/* if ((split[i][0] == '<' || split[i][0] == '>') && !split[i + 1])
-		** {
-		** 	(ft_strlen(split[i]) > 2) ? ft_error(split[i], 2) : ft_error(0, 10);
-		** 	return ;
-		** }
-		** else if (i == 0 && (split[i][0] == '|' || split[i][0] == '&'))
-		** {
-		** 	ft_error(split[i], 2);
-		** 	return ;
-		** }
-		*/
 		i += 1;
 	}
 	// parser(split, lst, tab_env);
 }
+
+/*
+** ERROR LEXER IN PLACE IN CLEAN INPUT SPLIT LOOP:
+** if ((split[i][0] == '<' || split[i][0] == '>') && !split[i + 1])
+** {
+** 	(ft_strlen(split[i]) > 2) ? ft_error(split[i], 2) : ft_error(0, 10);
+** 	return ;
+** }
+** else if (i == 0 && (split[i][0] == '|' || split[i][0] == '&'))
+** {
+** 	ft_error(split[i], 2);
+** 	return ;
+** }
+*/

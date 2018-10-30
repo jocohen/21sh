@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/29 11:54:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 10:34:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,28 @@ void	parser(char **input, t_ast *lst, char **tab_env)
 	tmp = NULL;
 	(void)tab_env;
 	(void)lst;
+	////////////////
+	//CHECK ERROR//
+	//////////////
+	if (ft_error(input) == 1)
+	{
+		ft_printf("ERROR\n\n");
+		return ;
+	}
 	fill_ast(input, &lst);
 	tmp = lst;
-	while (tmp)
-	{
-		ft_printf("Elem %d:\ntype: %d\n", i, tmp->type);
-		x = 0;
-		while (tmp->input[x] != NULL)
-		{
-			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
-			x += 1;
-		}
-		tmp = tmp->next;
-		i += 1;
-	}
+	// while (tmp)
+	// {
+	// 	ft_printf("Elem %d:\ntype: %d\n", i, tmp->type);
+	// 	x = 0;
+	// 	while (tmp->input[x] != NULL)
+	// 	{
+	// 		ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
+	// 		x += 1;
+	// 	}
+	// 	tmp = tmp->next;
+	// 	i += 1;
+	// }
 	// while (input[i])
 	// {
 	// 	ft_printf("input[%d]: %s\n", i, input[i]);

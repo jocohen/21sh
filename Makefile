@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/24 11:26:11 by tcollard         ###   ########.fr        #
+#    Updated: 2018/10/30 10:32:46 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(PATH_LIB)
 	@gcc $(CFLAGS) -o $@ $(OBJS) ./libft/libft.a
-	@echo "$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
+	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
@@ -104,4 +104,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	gcc $(CFLAGS) -fsanitize=address -g -o $(NAME) $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) -fsanitize=address -g3 -o $(NAME) $(OBJS) ./libft/libft.a

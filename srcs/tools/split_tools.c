@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/29 16:42:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 17:33:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,25 @@ void	digit_number(char *s, int i, int add, int *nb_lettre)
 	}
 }
 
-int		check_operator(char *s, int *i, unsigned int *nb_word)
+void	check_operator(char *s, int *i, unsigned int *nb_word)
 {
-	int	x;
+	int		x;
+	char	c;
 
 	x = 1;
-	while (*i - x >= 0 && ft_isspace(s[*i - x]) == 0 &&
-	ft_isdigit(s[*i - x]) == 1)
+	if ((s[*i] == '&' && s[*i + 1] != '<' && s[*i + 1] != '>') || s[*i] == '|')
+	{
+		c = s[*i];
+		while (s[*i] == c)
+			*i += 1;
+		*nb_word += (s[*i] && ft_isspace(s[*i]) == 0) ? 2 : 1;
+		return ;
+	}
+	while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 		x += 1;
 	*nb_word += (*i - x >= 0 && ft_isspace(s[*i - x]) == 0) ? 1 : 0;
 	x = 1;
-	while (s[*i + x] && (s[*i + x] == '<' || s[*i + x] == '>' ||
-	s[*i + x] == '&' || s[*i + x] == '|'))
+	while (s[*i + x] && ft_isoperator(s[*i + x]) == 1)
 		x += 1;
 	if (s[*i + x] == '-' && ft_isspace(s[*i + x + 1]) == 1)
 		*i += x + 1;
@@ -91,7 +98,6 @@ int		check_operator(char *s, int *i, unsigned int *nb_word)
 		*i += x;
 	}
 	*nb_word += (s[*i] && ft_isspace(s[*i]) == 0) ? 1 : 0;
-	return (0);
 }
 
 int		position_operator(char const *s, int *i, int wn, int *iw)

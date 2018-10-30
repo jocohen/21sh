@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/29 14:38:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 13:52:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void		fill_ast(char **s, t_ast **lst)
 	i= 0;
 	x = 0;
 	new = (*lst == NULL) ? create_new_elem(lst) : get_last_elem(lst);
+	if (new->type != NO_TYPE)
+		new = add_new_elem(lst);
 	while (s[i])
 	{
 		while (s[i][x])

@@ -1,39 +1,42 @@
 Comportement des redirections et agregation:
+ 
+ Todo for 21sh / 42sh:
 
 	REDIRECTION:
 
-	`>`: (X > Z) (X>Z) (info: X>Z X fd = 1 si ndef Z = file)
+	21sh -> `>`: (X > Z) (X>Z) (info: X>Z X fd = 1 si ndef Z = file)
 		permet ecrire le resultat de la commande X (fd = 1) dans Z.
 		si Z n'existe pas, il le creer
 		si il existe il afface son contenu avant la copie
 		si X n'existe pas, laisse ecrire le  text a inserer jusque fin ctrl D/C
 		si X == : , vide Z
 
-	`>>`: (X >> Z) (X>>Z) aussi `>>&`
+	21sh ->	`>>`: (X >> Z) (X>>Z) aussi `>>&`
 		permet ecrire le resultat de la commande X (fd = 1) dans Z.
 		si Z n'existe pas, il le creer
 		si il existe, il ecrit sur une nouvelle ligne a la fin du Z
 
-	`<`: (X < Z) (X<Z) aussi `<<<` `<>`
+	21sh ->	`<`: (X < Z) (X<Z) aussi `<<<` `<>`
 		permet d'envoyer le contenu de Z (etant un file) vers X
 		si Z different de file/directory -> no such file or directory: `name`
 
-	`<<`: (X << Z) (X<<Z)
+	21sh ->	`<<`: (X << Z) (X<<Z)
 		permet d'ouvrir un prompt `heredoc`, Z etant le mot clé pour fermer le heredoc.
 		si X n'existe pas faire comme `cat` sinon executer X
 		Pour cloturer le `heredoc`, ecrire Z seulement sur une ligne
 
 
 	with fd:
-	`1>`:
+
+	21sh ->	`1>`:
 		meme que `>`
-	`1>>`:
+	21sh ->	`1>>`:
 		meme que `>>`
 
-	`2>`:
+	21sh ->	`2>`:
 		comme `>`, mais seulement pour les erreurs (2 = stderr)
 		affiche tout fd = 1 (stdout)
-	`2>>`:
+	21sh ->	`2>>`:
 		comme `>>`, mais seulemet pour les erreurs (2 = stderr)
 		affiche tout fd = 1 (stdout)
 
@@ -44,27 +47,27 @@ Comportement des redirections et agregation:
 	AGREGATION:
 
 
-	`&>`: (X&>Z) (X &> Z)
+	21sh ->	`&>`: (X&>Z) (X &> Z)
 		permet d'ecrire stdout et stderr dans le fichier Z
 
-	`&>>`: == `&>`
+	21sh ->	`&>>`: == `&>`
 		permet d'ecrire stdout et stderr a la fin du fichier Z
 
-	`>&`: (X&>Z) (info: X fd, if ndef X = 1 et Z fd)
+	21sh ->	`>&`: (X&>Z) (info: X fd, if ndef X = 1 et Z fd)
 		redirge fdX vers fdZ
 
 	FERMETURE FD:
 
-	`X<&-`:
+	21sh ->	`X<&-`:
 		ferme le descripteur de fichier X.
 
-	`0<&-` 0u `<&-`:
+	21sh ->	`0<&-` 0u `<&-`:
 		ferme entrer standard
 
-	`X>&-`:
+	21sh ->	`X>&-`:
 		ferme le descripteur de fichier de sortie X
 
-	`1>&-` 0u `>&-`:
+	21sh ->	`1>&-` 0u `>&-`:
 		ferme la sortie standard
 
 
@@ -84,5 +87,8 @@ Comportement des redirections et agregation:
 
 		 Pour <<& :
 		  parse error near `&'
+
+		 Error:
+		 	parse error near `2 char left after the last correct one'
 
 (cf: https://abs.traduc.org/abs-5.3-fr/ch19.html)
