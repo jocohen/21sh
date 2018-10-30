@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 15:58:00 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 19:16:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
-				check_operator(s, &i, nb_word);
+				check_redir(s, &i, nb_word);
 			else
 				i += 1;
 		}
@@ -52,7 +52,7 @@ static void	ft_position_word(char *s, int wn, int *pos)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
 			{
-				*pos = position_operator(s, &i, wn, &wd_search);
+				*pos = position_redir(s, &i, wn, &wd_search);
 				if (wn == wd_search)
 					return ;
 			}

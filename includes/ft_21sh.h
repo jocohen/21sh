@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 16:11:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 19:12:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ void				in_quote(char const *s, int *i);
 void				lettre_in_quote(char const *s, int *i, int *nb_lettre);
 void				digit_number(char *s, int i, int add, int *nb_lettre);
 // void				lettre_operator(char const *s, int *i, int *nb_lettre);
+void				check_redir(char *s, int *i, unsigned int *nb_word);
 int					check_operator(char *s, int *i, unsigned int *nb_word);
-int					position_operator(char const *s, int *i, int wn, int *iw);
+int					position_redir(char const *s, int *i, int wn, int *iw);
+void				position_operator(char const *s, int *i, int wn, int *iw);
 
 
 /*

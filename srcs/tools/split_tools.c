@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 17:33:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/10/30 19:12:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,13 @@ void	digit_number(char *s, int i, int add, int *nb_lettre)
 	}
 }
 
-void	check_operator(char *s, int *i, unsigned int *nb_word)
+void	check_redir(char *s, int *i, unsigned int *nb_word)
 {
 	int		x;
-	char	c;
 
 	x = 1;
-	if ((s[*i] == '&' && s[*i + 1] != '<' && s[*i + 1] != '>') || s[*i] == '|')
-	{
-		c = s[*i];
-		while (s[*i] == c)
-			*i += 1;
-		*nb_word += (s[*i] && ft_isspace(s[*i]) == 0) ? 2 : 1;
+	if (check_operator(s, i, nb_word) == 1)
 		return ;
-	}
 	while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 		x += 1;
 	*nb_word += (*i - x >= 0 && ft_isspace(s[*i - x]) == 0) ? 1 : 0;
@@ -100,13 +93,16 @@ void	check_operator(char *s, int *i, unsigned int *nb_word)
 	*nb_word += (s[*i] && ft_isspace(s[*i]) == 0) ? 1 : 0;
 }
 
-int		position_operator(char const *s, int *i, int wn, int *iw)
+int		position_redir(char const *s, int *i, int wn, int *iw)
 {
 	int	x;
 	int pos;
 
 	x = 1;
 	pos = 0;
+	position_operator(s, i, wn, iw);
+	if (*iw == wn)
+		return (*i);
 	while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 		x += 1;
 	pos = (*i - x < 0 || ft_isspace(s[*i - x]) == 1) ? *i - x + 1 : *i;
