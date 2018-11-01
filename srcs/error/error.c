@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 15:37:10 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/01 20:03:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,27 @@ SOLUTION WITH:
 // 	}
 // 	return (0);
 // }
+
+
+LEXER ERROR:
+	-	ON split shell -> 21sh: parse error near `;;'\n
+	-	ON splitwhitespace_shell -> 21sh: parse error near `ERR'\n
+		- need to get length of OPERATOR
+		- have to compare lettre by lettre:
+		size = 0;
+		while (i < 16)
+		{
+			if (ft_strncmp(tab_ope[i], op, size) == 1)
+			{
+				i = 0;
+				size += 1;
+			}
+			i += 1;
+		}
+		ERR = strnsub(&op[size], len - size (+ 1));
+		return (-1);
+
+
 
 int	ft_error(char **input)
 {

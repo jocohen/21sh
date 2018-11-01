@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 19:16:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/01 19:42:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
-				check_redir(s, &i, nb_word);
+			{
+				if (check_redir(s, &i, nb_word) == -1)
+					return (-1);
+			}
 			else
 				i += 1;
 		}
@@ -63,33 +66,26 @@ static void	ft_position_word(char *s, int wn, int *pos)
 	}
 }
 
-static void	ft_counter_lettre(char *s, unsigned int word_n, int *nl)
+static void	ft_counter_lettre(char *s, unsigned int word_n, int *nb_lettre)
 {
-	int i;
-	int	add;
+	int	i;
 
 	i = 0;
-	add = 0;
 	ft_position_word(s, word_n, &i);
-	(ft_isdigit(s[i]) == 1) ? digit_number(s, i, add, nl) : 0;
-	if (ft_isoperator(s[i]) == 1 && *nl == 0)
+	while (s[i + *nb_lettre] && ft_isdigit(s[i + *nb_lettre]) == 1)
+		*nb_lettre += 1;
+	i += *nb_lettre;
+	if (ft_isoperator(s[i]) == 1)
+		nb_lettre_operator(s, i, nb_lettre);
+	else
 	{
-		while (s[i + *nl] && ft_isoperator(s[i + *nl]) == 1)
-			*nl += 1;
-		(s[i + *nl] == '-' && ft_isspace(s[i + *nl + 1]) == 1) ? *nl += 1 : 0;
-		if (s[i + *nl] != '-' || ft_isspace(s[i + *nl + 1]) == 0)
-			while (s[i + add + *nl] && ft_isdigit(s[i + add + *nl]) == 1)
-				add += 1;
-		*nl += (!s[i + add + *nl] || ft_isspace(s[i + add + *nl]) == 1) ?
-		add : 0;
-	}
-	else if (*nl == 0)
 		while (s[i] && ft_isoperator(s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
-			(ft_isquote(s[i]) == 1) ? lettre_in_quote(s, &i, nl) : 0;
+			(ft_isquote(s[i]) == 1) ? lettre_in_quote(s, &i, nb_lettre) : 0;
 			i += 1;
-			*nl += 1;
+			*nb_lettre += 1;
 		}
+	}
 }
 
 static void	ft_fill(char *s, unsigned int wrd_n, char **split, int max_lettre)
@@ -124,7 +120,6 @@ char		**ft_splitwhitespace_shell(char *s)
 	{
 		nb_lettre = 0;
 		ft_counter_lettre((char*)s, i, &nb_lettre);
-		ft_printf("word %d nb lettre = %d\n", i, nb_lettre);
 		if (!(split[i] = (char*)malloc(sizeof(char) * (nb_lettre + 1))))
 			return (NULL);
 		ft_fill((char *)s, i, split, nb_lettre);
