@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 12:24:48 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 19:38:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 	}
 	else
 	{
-		ft_printf("check before after\n");
 		check_before_operator(s, i, nb_word);
 		check_after_operator(s, i, nb_word, len);
 	}
@@ -110,10 +109,13 @@ void		get_position(char const *s, int *i, int wn, int *iw)
 		*i += 1;
 		return ;
 	}
-	while (s[*i + x] && ft_isdigit(s[*i + x]) == 1)
-		x += 1;
-	if (s[*i + x] && ft_isspace(s[*i + x]) == 0)
-		*iw += 1;
 	else
-		*i += x;
+	{
+		while (s[*i + x] && ft_isdigit(s[*i + x]) == 1)
+			x += 1;
+		if (s[*i + x] && ft_isspace(s[*i + x]) == 0)
+			*iw += 1;
+		else
+			*i += x;
+	}
 }

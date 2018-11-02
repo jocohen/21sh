@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 15:50:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 19:35:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,3 @@ void	clean_input(char *str, t_ast *lst, char **tab_env)
 	ft_printf("\nGo to Parser:\n");
 	parser(split, lst, tab_env);
 }
-
-/*
-** ERROR LEXER IN PLACE IN CLEAN INPUT SPLIT LOOP:
-** if ((split[i][0] == '<' || split[i][0] == '>') && !split[i + 1])
-** {
-** 	(ft_strlen(split[i]) > 2) ? ft_error(split[i], 2) : ft_error(0, 10);
-** 	return ;
-** }
-** else if (i == 0 && (split[i][0] == '|' || split[i][0] == '&'))
-** {
-** 	ft_error(split[i], 2);
-** 	return ;
-** }
-*/
