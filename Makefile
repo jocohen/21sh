@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/30 19:03:47 by tcollard         ###   ########.fr        #
+#    Updated: 2018/11/02 14:48:01 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
-		$(PATH_ERROR)error.c
+		$(PATH_ERROR)lexer_error.c \
+		$(PATH_ERROR)parser_error.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 11:50:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 12:31:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	nb_lettre_operator(char *s, int i, int *nb_lettre)
 	!s[i + 1])) ? 1 : 0;
 	while (s[i + add] && ft_isdigit(s[i + add]) == 1)
 		add += 1;
-	*nb_lettre += (!s[i + add] || ft_isspace(s[i + add]) == 0) ? 0 : add;
+	*nb_lettre += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
 	*nb_lettre += x;
 }
 

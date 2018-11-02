@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   lexer_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 11:41:37 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 14:47:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,4 @@ int	ft_error_redir_format(char *ope, int len)
 	write(2, &ope[size - 1], (len - size == 0) ? 1 : 2);
 	write(2, "'\n", 2);
 	return (-1);
-}
-
-int	ft_error(char **input)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (input[x])
-	{
-		y = 0;
-		while (input[x][y])
-		{
-			if (ft_isoperator(input[x][y]))
-				y += 1;
-		}
-		x += 1;
-	}
-	return (0);
 }

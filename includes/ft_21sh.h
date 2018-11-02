@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 11:18:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 12:33:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				env_cp(char **env, char ***tab_env);
 /*
 ** ERROR:
 */
-int					ft_error(char **input);
+int					ft_error_parse_redir(char **input);
 int					ft_error_splitshell(void);
 int					ft_error_redir_format(char *ope, int len);
 

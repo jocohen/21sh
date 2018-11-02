@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 12:05:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 12:24:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 	}
 	else
 	{
+		ft_printf("check before after\n");
 		check_before_operator(s, i, nb_word);
 		check_after_operator(s, i, nb_word, len);
 	}

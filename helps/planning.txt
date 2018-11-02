@@ -6,3 +6,9 @@ TO_DO:
 	- Do execve
 	- Merge it on master !!!
 	- Replace doube_quote or back_quote (find solution on execve)
+
+
+Add on:
+	when pipe prompt > if no txt redo prompt till txt on it
+	Same for cmdand>
+	Same for cmdor>

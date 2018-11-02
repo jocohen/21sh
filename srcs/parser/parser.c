@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/30 10:34:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 15:12:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,12 @@ void	parser(char **input, t_ast *lst, char **tab_env)
 	tmp = NULL;
 	(void)tab_env;
 	(void)lst;
-	////////////////
-	//CHECK ERROR//
-	//////////////
-	if (ft_error(input) == 1)
+	if (ft_error_parse_redir(input) == 1)
 	{
-		ft_printf("ERROR\n\n");
+		ft_printf("Free input here\n\n");
 		return ;
 	}
-	fill_ast(input, &lst);
+	// fill_ast(input, &lst);
 	tmp = lst;
 	// while (tmp)
 	// {
