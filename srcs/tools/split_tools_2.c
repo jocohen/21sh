@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/01 19:51:43 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 12:05:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 		x += 1;
 	}
 	if (x == 16)
-		return (0);
+		return (ft_error_redir_format(&s[*i], len));
 	else if (x >= 12)
 	{
 		*nb_word += (*i > 0 && ft_isspace(s[*i - 1]) == 0) ? 1 : 0;
@@ -77,7 +77,7 @@ int			type_operator(char const *s, int *i)
 	while (s[*i + len] && ft_isoperator(s[*i + len]) == 1)
 		len += 1;
 	if (s[*i + len] == '-' && s[*i + len - 1] == '&' &&
-	ft_isspace(s[*i + len + 1]) == 1)
+	(ft_isspace(s[*i + len + 1]) == 1 || !s[*i + len + 1]))
 		len += 1;
 	while (x < 16)
 	{

@@ -6,113 +6,44 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/01 20:03:30 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 11:41:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-/*
-**	int	ft_error_parse(char *s, int count)
-**	{
-**		int	error;
-**
-**		error = 0;
-**		if (s[0] == '<')
-**		{
-**			if (count <= 3)
-**				error = ft_printf("21sh: parse error near `\\n'\n");
-**			else if (count == 4)
-**				error = ft_printf("21sh: parse error near `<'\n");
-**			else if (count == 5)
-**				error = ft_printf("21sh: parse error near `<<'\n");
-**			else if (count >= 6)
-**				error = ft_printf("21sh: parse error near `<<<'\n");
-**		}
-**		else if (s[0] == '>')
-**		{
-**			if (count < 3)
-**				error = ft_printf("21sh: parse error near `\\n'\n");
-**			else if (count == 3)
-**				error = ft_printf("21sh: parse error near `>'\n");
-**			else if (count == 4)
-**				error = ft_printf("21sh: parse error near `>>'\n");
-**		}
-**		if (error != 0)
-**			return (-1);
-**		return (0);
-**	}
-*/
+int	ft_error_splitshell(void)
+{
+	write(2, "21sh: parse error near `;;'\n", 28);
+	return (-1);
+}
 
-/*
-SOLUTION WITH:
- 		>
-		>>
-		>>&
-		>&
-		>&-
+int	ft_error_redir_format(char *ope, int len)
+{
+	int			i;
+	int			size;
+	int			save;
+	static char	*operator[16] = {">>", ">>&", ">&-", ">&", ">", "<<<", "<<",
+	"<>", "<&-", "<", "&>>", "&>", "&&", "&", "||", "|"};
 
-		<
-		<<
-		<<<
-		<>
-		<&-
-
-		&
-		&&
-		&>
-		&>>
-
-		|
-		||
-*/
-
-// static int	error_operator(char *s)
-// {
-// 	int		i;
-// 	int		count;
-// 	char	c;
-//
-// 	i = 0;
-// 	c = s[i];
-// 	count = 0;
-// 	while (s[i] == c)
-// 	{
-// 		count += 1;
-// 		i += 1;
-// 	}
-// 	ft_printf("count = %d\n", count);
-// 	if (count > 2 || ft_isoperator(s[2]) == 1)
-// 	{
-// 		write (2, "21sh: parse error near `", 24);
-// 		write (2, &s[2], 1);
-// 		(s[3]) ? write (2, &s[3], 1) : 0;
-// 		write (2,"'\n", 2);
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-
-LEXER ERROR:
-	-	ON split shell -> 21sh: parse error near `;;'\n
-	-	ON splitwhitespace_shell -> 21sh: parse error near `ERR'\n
-		- need to get length of OPERATOR
-		- have to compare lettre by lettre:
-		size = 0;
-		while (i < 16)
+	i = 0;
+	save = -1;
+	size = 1;
+	while (i < 16)
+	{
+		if (ft_strncmp(operator[i], ope, size) == 0)
 		{
-			if (ft_strncmp(tab_ope[i], op, size) == 1)
-			{
-				i = 0;
-				size += 1;
-			}
-			i += 1;
+			save = i;
+			i = 0;
+			size += 1;
 		}
-		ERR = strnsub(&op[size], len - size (+ 1));
-		return (-1);
-
-
+		i += 1;
+	}
+	write(2, "21sh: parse error near `", 24);
+	write(2, &ope[size - 1], (len - size == 0) ? 1 : 2);
+	write(2, "'\n", 2);
+	return (-1);
+}
 
 int	ft_error(char **input)
 {
@@ -126,24 +57,9 @@ int	ft_error(char **input)
 		while (input[x][y])
 		{
 			if (ft_isoperator(input[x][y]))
-			y += 1;
+				y += 1;
 		}
 		x += 1;
 	}
 	return (0);
 }
-
-/*
-** int	ft_error(char *s, int error)
-** {
-** 	if (error == 0)
-** 		ft_printf("21sh: parse error near `%s'\n", s);
-** 	else if (error == 1)
-** 		ft_printf("21sh: parse error near `%c'\n", s[0]);
-** 	else if (error == 2)
-** 		ft_printf("21sh: parse error near `%c%c'\n", s[0], s[1]);
-** 	else
-** 		ft_printf("21sh: parse error near `\\n'\n");
-** 	return (-1);
-** }
-*/
