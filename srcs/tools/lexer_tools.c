@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:57 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 11:09:03 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 17:35:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,18 @@ void	ft_insert(char **source, char *insert, int pos)
 	*source = ft_strjoin(tmp, end);
 	free(begin);
 	free(tmp);
+	free(end);
+}
+
+void	ft_delete_inside(char **source, int start, int len)
+{
+	char	*begin;
+	char	*end;
+
+	begin = ft_strsub(*source, 0, start);
+	end = ft_strsub(*source, start + len, ft_strlen(*source));
+	free(*source);
+	*source = ft_strjoin(begin, end);
+	free(begin);
 	free(end);
 }

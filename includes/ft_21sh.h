@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 12:26:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 17:34:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void				check_cmd_pipe(char **input);
 void				find_closing(char **str, int *i);
 char				**ft_splitwhitespace_shell(char *s);
 char				**ft_strsplit_shell(char *str, char c);
-void				convert_quote(char **s);
-void				remove_quote(char **s, int *i);
+void				convert_quote(char **s, char **tab_env);
+void				remove_quote(char **s, int *i, char **tab_env);
 
 /*
 ** PARSER:
@@ -86,7 +86,7 @@ void				unsetenv_builtins(t_ast *elem, char **tab_env);
 */
 void				env_cp(char **env, char ***tab_env);
 void				env_builtins(t_ast *elem, char **tab_env);
-void				get_env_value(char **tab, char *str);
+char				*get_env_value(char **tab, char *str);
 
 /*
 ** ERROR:
@@ -104,6 +104,7 @@ int					ft_error_redir_format(char *ope, int len);
 int					ft_isquote(char c);
 int					ft_isoperator(char c);
 void				ft_insert(char **source, char *insert, int pos);
+void				ft_delete_inside(char **source, int start, int len);
 
 /*
 **		parser:

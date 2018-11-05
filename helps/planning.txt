@@ -1,5 +1,14 @@
 TO_DO:
 
+
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	! In replace_env_var return position of last character of that Value	!!
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
 	- Do parser and dispatch for builtins / logic / ... / execve
 	- Do execve
 	- Merge it on master !!!
