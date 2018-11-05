@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 19:35:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 20:10:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	clean_input(char *str, t_ast *lst, char **tab_env)
 	split = NULL;
 	if ((split = ft_splitwhitespace_shell(str)) == NULL)
 		return ;
-	ft_printf("Lexer:\n");
+	// ft_printf("Lexer:\n");
 	while (split[i])
 	{
 		convert_quote(&(split[i]));
-		ft_printf("Split[%d]: %s\n", i, split[i]);
+		// ft_printf("Split[%d]: %s\n", i, split[i]);
 		i += 1;
 	}
 	ft_printf("\nGo to Parser:\n");

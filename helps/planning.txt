@@ -1,7 +1,5 @@
 TO_DO:
 
-	- To do Gestion Error on lexer.
-	- Check leaks if error on LEXER
 	- Do parser and dispatch for builtins / logic / ... / execve
 	- Do execve
 	- Merge it on master !!!
