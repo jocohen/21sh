@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_quote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:41:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 14:35:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@
  ** execute commande
 */
 
+static void	replace_env_var(char **str, int i)
+{
+	int			save;
+	static char	value[];
+
+	save = 0;
+	while (*str[i] != '$')
+	{
+		if (*str[i] == '$')
+		{
+			while (*str[i] && ft_isspace(*str[i]) == 0)
+			{
+
+				i += 1;
+			}
+		}
+		i += 1;
+	}
+}
+
 void	remove_quote(char **s, int *i)
 {
 	char	*sub;
@@ -34,7 +54,11 @@ void	remove_quote(char **s, int *i)
 	quote = (*s)[(*i)++];
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
+	{
+		if (*s[*i] == '$')
+			replace_env_var(s, *i);
 		*i += 1;
+	}
 	if (quote == '\'')
 		sub = ft_strsub(*s, save, *i - save);
 	else if (quote == '"')

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 18:18:49 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 12:25:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,28 @@ void	env_cp(char **env, char ***tab_env)
 		len += 1;
 	}
 	(*tab_env)[len] = NULL;
+}
+
+void	get_env_value(char **tab, char *str)
+{
+	int		i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(str) - 1;
+	while (tab[i])
+	{
+		if (ft_strncmp(tab[i], &str[1], len) == 0)
+			break ;
+		else
+			i += 1;
+	}
+	ft_printf("value = |%s|\n", &tab[i][len + 1]);
+}
+
+void	env_builtins(t_ast *elem, char **tab_env)
+{
+	(void)elem;
+	(void)tab_env;
+	ft_printf("env\n");
 }

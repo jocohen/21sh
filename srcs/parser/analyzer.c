@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/17 17:44:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 11:52:47 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 void		analyzer(t_ast *lst, char **tab_env)
 {
-	t_dispatch	dispatch[5];
+	static t_dispatch	dispatch[5];
 
 	dispatch[0] = dispatch_cmd;
 	dispatch[1] = dispatch_logic;
 	dispatch[2] = dispatch_redir;
 	dispatch[3] = dispatch_operator;
-	dispatch[4] = dispatch_aggreg;
+	dispatch[4] = dispatch_agreg;
 	while (lst != NULL)
 	{
 		dispatch[lst->type](lst, tab_env);

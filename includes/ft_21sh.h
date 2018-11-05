@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 11:21:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 12:26:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,29 @@ void				analyzer(t_ast *lst, char **tab_env);
 /*
 **	BUILTINS:
 */
-void				builtins_dispatch(t_ast *elem, char **tab_env);
 
 /*
-** ENV:
+** 		ECHO:
+*/
+void				echo_builtins(t_ast *elem, char **tab_env);
+/*
+** 		CD:
+*/
+void				cd_builtins(t_ast *elem, char **tab_env);
+/*
+** 		SETENV:
+*/
+void				setenv_builtins(t_ast *elem, char **tab_env);
+/*
+** 		UNSETENV:
+*/
+void				unsetenv_builtins(t_ast *elem, char **tab_env);
+/*
+** 		ENV:
 */
 void				env_cp(char **env, char ***tab_env);
+void				env_builtins(t_ast *elem, char **tab_env);
+void				get_env_value(char **tab, char *str);
 
 /*
 ** ERROR:
@@ -105,7 +122,7 @@ void				dispatch_cmd(t_ast *elem, char **tab_env);
 void				dispatch_logic(t_ast *elem, char **tab_env);
 void				dispatch_redir(t_ast *elem, char **tab_env);
 void				dispatch_operator(t_ast *elem, char **tab_env);
-void				dispatch_aggreg(t_ast *elem, char **tab_env);
+void				dispatch_agreg(t_ast *elem, char **tab_env);
 
 /*
 ** 		split:

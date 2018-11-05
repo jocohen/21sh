@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/23 19:22:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 12:03:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,55 @@
 
 void	dispatch_cmd(t_ast *elem, char **tab_env)
 {
-	// ft_printf("CMD:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-	// elem->type, elem->value, elem->opt, elem->content);
-	builtins_dispatch(elem, tab_env);
+	int					i;
+	static char			*lst_built[5] = {"cd", "echo", "setenv", "unsetenv",
+	"env"};
+	static t_dispatch	dispatch[5];
+
+	i = 0;
+	ft_printf("CMD:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	elem->input[0]);
+	dispatch[0] = cd_builtins;
+	dispatch[1] = echo_builtins;
+	dispatch[2] = setenv_builtins;
+	dispatch[3] = unsetenv_builtins;
+	dispatch[4] = env_builtins;
+	while (i < 5)
+	{
+		if (ft_strcmp(elem->input[0], lst_built[i]) == 0)
+			break ;
+		i += 1;
+	}
+	if (i < 5)
+		dispatch[i](elem, tab_env);
+	else
+		ft_printf("go to execve\n");
 }
 
 void	dispatch_logic(t_ast *elem, char **tab_env)
 {
 	(void)tab_env;
-	(void)elem;
-	// ft_printf("LOGIC:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-	// elem->type, elem->value, elem->opt, elem->content);
+	ft_printf("LOGIC:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	elem->input[0]);
 }
 
 void	dispatch_redir(t_ast *elem, char **tab_env)
 {
 	(void)tab_env;
-	(void)elem;
-	// ft_printf("REDIR:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-	// elem->type, elem->value, elem->opt, elem->content);
+	ft_printf("REDIR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	elem->input[0]);
 }
 
 void	dispatch_operator(t_ast *elem, char **tab_env)
 {
 	(void)tab_env;
-	(void)elem;
-	// ft_printf("OPER:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-	// elem->type, elem->value, elem->opt, elem->content);
+	ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	elem->input[0]);
 }
 
-void	dispatch_aggreg(t_ast *elem, char **tab_env)
+void	dispatch_agreg(t_ast *elem, char **tab_env)
 {
 	(void)tab_env;
-	(void)elem;
-	// ft_printf("AGGREG:\n->type: %d\n->value: %s\n->opt: %s\n->content: %s\n\n",
-	// elem->type, elem->value, elem->opt, elem->content);
+	ft_printf("AGREG:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	elem->input[0]);
 }
