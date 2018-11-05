@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 12:33:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 11:21:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ int					position_redir(char const *s, int *i, int wn, int *iw);
 int					type_operator(char const *s, int *i);
 void				get_position(char const *s, int *i, int wn, int *iw);
 
-
+/*
+**		clean:
+*/
+void				delete_str_tab(char **tab);
 
 /*
 ** OTHER:

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 20:07:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/05 11:16:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	parser(char **input, t_ast *lst, char **tab_env)
 	(void)lst;
 	if (ft_error_parse_redir(input) == 1)
 	{
-		while (input[i])
-		{
-			free(input[i]);
-			i += 1;
-		}
-		free(input);
+		delete_str_tab(input);
+		// while (input[i])
+		// {
+		// 	free(input[i]);
+		// 	i += 1;
+		// }
+		// free(input);
 		return ;
 	}
 	fill_ast(input, &lst);

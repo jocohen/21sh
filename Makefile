@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/11/02 14:48:01 by tcollard         ###   ########.fr        #
+#    Updated: 2018/11/05 11:21:56 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_BUILT)echo.c \
 		$(PATH_BUILT)env.c \
 		$(PATH_TOOLS)lexer_tools.c \
+		$(PATH_TOOLS)clean_tools.c \
 		$(PATH_TOOLS)split_tools.c \
 		$(PATH_TOOLS)split_tools_2.c \
 		$(PATH_TOOLS)quote_tools.c \
