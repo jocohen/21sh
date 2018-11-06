@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 18:25:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 09:54:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	env_cp(char **env, char ***tab_env)
 	int	len;
 
 	len = 0;
-	while(env[len])
+	while (env[len])
 		len += 1;
 	if (!(*tab_env = (char**)malloc(sizeof(char *) * (len + 1))))
 		return ;
@@ -44,7 +44,7 @@ char	*get_env_value(char **tab, char *str)
 		else
 			i += 1;
 	}
-	return (&tab[i][len + 1]);
+	return ((tab[i]) ? &tab[i][len + 1] : "");
 }
 
 void	env_builtins(t_ast *elem, char **tab_env)

@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/11/05 12:14:39 by tcollard         ###   ########.fr        #
+#    Updated: 2018/11/06 09:20:32 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,6 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@echo " "
 	@printf "\033[1A"
 	@./progress_bar.sh $(NAME) $(shell ls -lR $(PATH_SRC) 2> /dev/null | grep -c -o "\.c") $(shell ls -lR $(PATH_OBJ) 2> /dev/null | grep -c -o "\.o")
-	@#./progress_bar.sh $(NAME) 11 $(shell ls -lR $(PATH_OBJ) 2> /dev/null | grep -c -o "\.o")
 
 clean:
 	@/bin/rm -f $(OBJS)
@@ -109,4 +108,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -fsanitize=address -g3 -o $(NAME) $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -g3 -o $(NAME) $(OBJS) ./libft/libft.a

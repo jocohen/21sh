@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 18:44:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 10:48:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,18 @@ static void	replace_str(char **str, char *insert, int pos)
 		*str = ft_strdup(insert);
 	else
 	{
-		ft_printf("else\n");
 		begin = ft_strsub(*str, 0, pos);
-		ft_printf("After begin: |%s|\n", begin);
 		end = ft_strsub(*str, pos, ft_strlen(*str));
-		ft_printf("After end: %s\n", end);
 		free(*str);
 		tmp = ft_strjoin(begin, insert);
-		ft_printf("TMP: %s\n", tmp);
 		*str = ft_strjoin(tmp, end);
-		ft_printf("STR: %s\n", *str);
 		free(tmp);
 		free(begin);
 		free(end);
 	}
 }
 
-static void	replace_env_var(char **str, int i, char **tab_env)
+static int	replace_env_var(char **str, int i, char **tab_env)
 {
 	char	*key;
 	char	*value;
@@ -63,46 +58,47 @@ static void	replace_env_var(char **str, int i, char **tab_env)
 
 	x = 0;
 	value = NULL;
-	ft_printf("Before loop\n");
-	while ((*str)[i + x] && ft_isspace((*str)[i + x]) == 0 && x < 10)
+	while ((*str)[i + x] && ft_isspace((*str)[i + x]) == 0 && x < 80)
 		x += 1;
 	key = ft_strsub(*str, i, x);
-	ft_printf("key = |%s|\n", key);
-	if (x >= 10)
-		ft_printf("21sh: error too long arguments\n");
+	if (x >= 80)
+	{
+		write(2, "21sh: env: error too long arguments\n", 31);
+		free(key);
+		return (-1);
+	}
 	else
 	{
 		value = get_env_value(tab_env, key);
-		ft_printf("===> Value = |%s|\n", value);
-		// if (i > 0)
-			ft_delete_inside(str, i, x);
-		ft_printf("str = |%s|\n", *str);
-		// ft_insert(str, value, i);
+		ft_delete_inside(str, i, x);
+		ft_printf("str after delete: |%s|\n", *str);
 		replace_str(str, value, i);
-		ft_printf("AFTER INSERT: |%s|\n", *str);
 	}
 	free(key);
+	return (0);
 }
 
-void	remove_quote(char **s, int *i, char **tab_env)
+void		remove_quote(char **s, int *i, char **tab_env)
 {
 	char	*sub;
 	char	*str;
 	char	quote;
 	int		save;
+	int		x;
 
+	x = -1;
 	sub = NULL;
 	str = NULL;
-	(void)tab_env;
 	quote = (*s)[(*i)++];
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
 		*i += 1;
-	if (quote == '\'')
-		sub = ft_strsub(*s, save, *i - save);
-	else if (quote == '"')
+	sub = (quote == '\'') ? ft_strsub(*s, save, *i - save) : 0;
+	if (quote == '"')
 	{
 		sub = ft_strsub(*s, save, *i - save);
+		while (sub[x++])
+			(sub[x] == '$') ? replace_env_var(&sub, x, tab_env) : 0;
 	}
 	else if (quote == '`')
 	{
@@ -111,20 +107,19 @@ void	remove_quote(char **s, int *i, char **tab_env)
 	(sub != NULL) ? ft_insert(s, sub, save - 1) : 0;
 }
 
-void	convert_quote(char **s, char **tab_env)
+void		convert_quote(char **s, char **tab_env)
 {
 	int		i;
 
 	i = 0;
 	while ((*s)[i])
 	{
-		if (*s[i] == '$')
+		if ((*s)[i] == '$')
 		{
-			ft_printf("GO TO REPLACE IT: |%s|\n", &(*s[i]));
-			replace_env_var(s, i, tab_env);
+			if (replace_env_var(s, i, tab_env) == -1)
+				return ;
 		}
-		ft_printf("NEXT: %d\n", i);	
-		if (ft_isquote((*s)[i]) == 1)
+		else if (ft_isquote((*s)[i]) == 1)
 		{
 			remove_quote(s, &i, tab_env);
 			i -= 2;
