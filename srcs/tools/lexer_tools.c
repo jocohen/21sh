@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:57 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 17:35:59 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 18:54:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int		ft_isoperator(char c)
 	return (0);
 }
 
-void	ft_insert(char **source, char *insert, int pos)
+void	ft_insert(char **source, char *insert, int pos1, int pos2)
 {
 	char	*begin;
 	char	*end;
 	char	*tmp;
 
-	begin = ft_strsub(*source, 0, pos);
-	end = ft_strsub(*source, pos + ft_strlen(insert) + 2, ft_strlen(*source));
+	begin = ft_strsub(*source, 0, pos1);
+	end = ft_strsub(*source, pos2 + 1, (ft_strlen(&((*source)[pos2]) - 1)));
 	free(*source);
 	tmp = ft_strjoin(begin, insert);
 	*source = ft_strjoin(tmp, end);
@@ -48,7 +48,7 @@ void	ft_delete_inside(char **source, int start, int len)
 	char	*end;
 
 	begin = ft_strsub(*source, 0, start);
-	end = ft_strsub(*source, start + len, ft_strlen(*source));
+	end = ft_strsub(*source, start + len, ft_strlen(&(*source)[len + start]));
 	free(*source);
 	*source = ft_strjoin(begin, end);
 	free(begin);

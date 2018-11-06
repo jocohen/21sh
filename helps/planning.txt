@@ -1,19 +1,9 @@
 TO_DO:
 
-
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	! In replace_env_var return position of last character of that Value	!!
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-
-	- Do parser and dispatch for builtins / logic / ... / execve
-	- Do execve
+	- Do execve and check if it works with echo
 	- Merge it on master !!!
-	- Replace doube_quote or back_quote (find solution on execve)
-
+	- Builtin cd (check on minishell and get files pormpt)
+	- Replace back_quote (find solution on execve)
 
 Add on:
 	when pipe prompt > if no txt redo prompt till txt on it

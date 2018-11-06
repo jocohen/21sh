@@ -13,14 +13,6 @@ BUILTINS:
 				- 126 utility found but can't be executed
 				- >0 error
 
-	ECHO:
-		- cf man echo -> standard POSIX:
-			- options: -n (no new line at the end)
-			- return:
-				- 0 on success
-				- >0 error
-			- Add env VAR on dquote or no quote
-
 	CD:
 		-options:
 			- L: ???

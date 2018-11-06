@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/06 09:54:25 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 16:57:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*get_env_value(char **tab, char *str)
 {
 	int		i;
 	size_t	len;
+	// char	*tmp;
 
 	i = 0;
 	len = ft_strlen(str) - 1;
@@ -44,6 +45,7 @@ char	*get_env_value(char **tab, char *str)
 		else
 			i += 1;
 	}
+	ft_printf("i = %d\n%s\n", i, tab[i]);
 	return ((tab[i]) ? &tab[i][len + 1] : "");
 }
 

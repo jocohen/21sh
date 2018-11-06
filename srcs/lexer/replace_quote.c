@@ -6,27 +6,15 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/06 10:48:59 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 18:58:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
 /*
- ** In double quote
- ** check for env var
-*/
-
-/*
  ** In back quote
  ** execute commande
-*/
-
-/*
-**	Repclace env var:
-**		1 - Get the key and Value
-**		2 - rm key from str input
-**		3 - insert value at the good place
 */
 
 static void	replace_str(char **str, char *insert, int pos)
@@ -56,25 +44,23 @@ static int	replace_env_var(char **str, int i, char **tab_env)
 	char	*value;
 	int		x;
 
-	x = 0;
+	x = 1;
 	value = NULL;
-	while ((*str)[i + x] && ft_isspace((*str)[i + x]) == 0 && x < 80)
+	while ((*str)[i + x] && x < 80 && ft_isalnum((*str)[i + x]) == 1)
 		x += 1;
-	key = ft_strsub(*str, i, x);
 	if (x >= 80)
 	{
 		write(2, "21sh: env: error too long arguments\n", 31);
-		free(key);
 		return (-1);
 	}
 	else
 	{
+		key = ft_strsub(*str, i, x);
 		value = get_env_value(tab_env, key);
 		ft_delete_inside(str, i, x);
-		ft_printf("str after delete: |%s|\n", *str);
-		replace_str(str, value, i);
+		(value[0] != '\0') ? replace_str(str, value, i) : 0;
+		free(key);
 	}
-	free(key);
 	return (0);
 }
 
@@ -104,7 +90,7 @@ void		remove_quote(char **s, int *i, char **tab_env)
 	{
 		sub = ft_strsub(*s, save, *i - save);
 	}
-	(sub != NULL) ? ft_insert(s, sub, save - 1) : 0;
+	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
 void		convert_quote(char **s, char **tab_env)
@@ -112,6 +98,12 @@ void		convert_quote(char **s, char **tab_env)
 	int		i;
 
 	i = 0;
+	if (ft_strcmp(*s, "~") == 0)
+	{
+		free(*s);
+		*s = ft_strdup(get_env_value(tab_env, "$HOME"));
+		return ;
+	}
 	while ((*s)[i])
 	{
 		if ((*s)[i] == '$')

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 17:34:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/06 18:25:53 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void				analyzer(t_ast *lst, char **tab_env);
 /*
 ** 		ECHO:
 */
-void				echo_builtins(t_ast *elem, char **tab_env);
+int					echo_builtins(t_ast *elem, char **tab_env);
 /*
 ** 		CD:
 */
@@ -103,7 +103,7 @@ int					ft_error_redir_format(char *ope, int len);
 */
 int					ft_isquote(char c);
 int					ft_isoperator(char c);
-void				ft_insert(char **source, char *insert, int pos);
+void				ft_insert(char **source, char *insert, int pos1, int pos2);
 void				ft_delete_inside(char **source, int start, int len);
 
 /*
