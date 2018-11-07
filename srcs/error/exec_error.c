@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetenv.c                                         :+:      :+:    :+:   */
+/*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 12:10:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 11:49:26 by tcollard         ###   ########.fr       */
+/*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
+/*   Updated: 2018/11/07 12:16:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	unsetenv_builtins(t_ast *elem, char **tab_env)
+int	exec_error(int err, char *files)
 {
-	(void)elem;
-	(void)tab_env;
-	ft_printf("unsetenv\n");
+	(err == 0) ? write(2, "21sh: commnande not found: ", 27) : 0;
+	if (err == 0)
+		write(2, files, ft_strlen(files));
+	write(2, "\n", 1);
+	return (err);
 }

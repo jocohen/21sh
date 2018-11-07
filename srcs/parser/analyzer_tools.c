@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 12:03:20 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 11:37:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	dispatch_cmd(t_ast *elem, char **tab_env)
 	if (i < 5)
 		dispatch[i](elem, tab_env);
 	else
+	{
 		ft_printf("go to execve\n");
+		exec_input(tab_env, elem);
+	}
 }
 
 void	dispatch_logic(t_ast *elem, char **tab_env)

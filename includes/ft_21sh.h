@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/06 18:25:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 12:15:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_21SH_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/libft.h"
@@ -68,7 +69,7 @@ void				analyzer(t_ast *lst, char **tab_env);
 /*
 ** 		ECHO:
 */
-int					echo_builtins(t_ast *elem, char **tab_env);
+void				echo_builtins(t_ast *elem, char **tab_env);
 /*
 ** 		CD:
 */
@@ -89,8 +90,14 @@ void				env_builtins(t_ast *elem, char **tab_env);
 char				*get_env_value(char **tab, char *str);
 
 /*
+**	EXEC INPUT:
+*/
+void				exec_input(char **tab, t_ast *elem);
+
+/*
 ** ERROR:
 */
+int					exec_error(int err, char *files);
 int					ft_error_parse_redir(char **input);
 int					ft_error_splitshell(void);
 int					ft_error_redir_format(char *ope, int len);
