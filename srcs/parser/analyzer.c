@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/06 11:16:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 17:18:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **	 	 	- check if first char is operator (cmd = operator / option = <>|)
 */
 
-void		analyzer(t_ast *lst, char **tab_env)
+void		analyzer(t_ast *lst, t_env **lst_env)
 {
 	static t_dispatch	dispatch[5];
 
@@ -32,7 +32,7 @@ void		analyzer(t_ast *lst, char **tab_env)
 	dispatch[4] = dispatch_agreg;
 	while (lst != NULL)
 	{
-		dispatch[lst->type](lst, tab_env);
+		dispatch[lst->type](lst, lst_env);
 		lst = lst->next;
 	}
 	ft_printf("==> FINISH :-) <==\n\n");

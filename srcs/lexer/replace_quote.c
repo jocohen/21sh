@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 14:34:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 17:17:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
  ** execute commande
 */
 
-static void	short_cut(char **s,char **tab_env)
+static void	short_cut(char **s,char **lst_env)
 {
 	if (ft_strcmp("~", *s) == 0)
 	{
 		free(*s);
-		*s = ft_strdup(get_env_value(tab_env, "$HOME"));
+		*s = ft_strdup(get_env_value(lst_env, "$HOME"));
 	}
 	else if (ft_strcmp("~-", *s) == 0)
 	{
 		free(*s);
-		*s = ft_strdup(get_env_value(tab_env, "$OLDPWD"));
+		*s = ft_strdup(get_env_value(lst_env, "$OLDPWD"));
 	}
 	else if (ft_strcmp("~+", *s) == 0)
 	{
 		free(*s);
-		*s = ft_strdup(get_env_value(tab_env, "$PWD"));
+		*s = ft_strdup(get_env_value(lst_env, "$PWD"));
 	}
 }
 
@@ -57,7 +57,7 @@ static void	replace_str(char **str, char *insert, int pos)
 	}
 }
 
-static int	replace_env_var(char **str, int i, char **tab_env)
+static int	replace_env_var(char **str, int i, t_env **lst_env)
 {
 	char	*key;
 	char	*value;
@@ -75,7 +75,7 @@ static int	replace_env_var(char **str, int i, char **tab_env)
 	else
 	{
 		key = ft_strsub(*str, i, x);
-		value = get_env_value(tab_env, key);
+		value = get_env_value(lst_env, key);
 		ft_delete_inside(str, i, x);
 		(value[0] != '\0') ? replace_str(str, value, i) : 0;
 		free(key);
@@ -83,7 +83,7 @@ static int	replace_env_var(char **str, int i, char **tab_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, char **tab_env)
+void		remove_quote(char **s, int *i, t_env **lst_env)
 {
 	char	*sub;
 	char	*str;
@@ -103,7 +103,7 @@ void		remove_quote(char **s, int *i, char **tab_env)
 	{
 		sub = ft_strsub(*s, save, *i - save);
 		while (sub[x++])
-			(sub[x] == '$') ? replace_env_var(&sub, x, tab_env) : 0;
+			(sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 0;
 	}
 	else if (quote == '`')
 	{
@@ -112,28 +112,22 @@ void		remove_quote(char **s, int *i, char **tab_env)
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
-void		convert_quote(char **s, char **tab_env)
+void		convert_quote(char **s, t_env **lst_env)
 {
 	int		i;
 
 	i = 0;
-	short_cut(s, tab_env);
-	// if (ft_strcmp(*s, "~") == 0)
-	// {
-	// 	free(*s);
-	// 	*s = ft_strdup(get_env_value(tab_env, "$HOME"));
-	// 	return ;
-	// }
+	short_cut(s, lst_env);
 	while ((*s)[i])
 	{
 		if ((*s)[i] == '$')
 		{
-			if (replace_env_var(s, i, tab_env) == -1)
+			if (replace_env_var(s, i, lst_env) == -1)
 				return ;
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			remove_quote(s, &i, tab_env);
+			remove_quote(s, &i, lst_env);
 			i -= 2;
 		}
 		else
