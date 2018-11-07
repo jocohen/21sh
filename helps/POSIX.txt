@@ -21,11 +21,9 @@ BUILTINS:
 		- If no directory (Path) go to $HOME (if HOME doesn't exist error "cd:
 		  HOME not set")
 		- as always when start by / or . ..
-		- retrun:
+		- return:
 			- 0 on success
 			- >0 error
-
-
 
 	UNSETENV:
 			???

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 12:16:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 13:18:22 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exec_input(char **tab_env, t_ast *elem)
 			if (tab_path != NULL && ft_strcmp(tab_path[0], "") != 0)
 				while (tab_path[i] && err == -1)
 				{
+					ft_bzero(path, PATH_MAX);
 					ft_strcat(ft_strcpy(path, tab_path[i]), "/");
 					err = execve(ft_strcat(path, elem->input[0]), elem->input,
 					tab_env);

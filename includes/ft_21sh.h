@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 12:15:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 15:03:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <sys/stat.h>
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/libft.h"
@@ -40,6 +41,7 @@ typedef	struct		s_ast
 }					t_ast;
 
 typedef void		(*t_dispatch)(t_ast*, char**);
+// typedef int			(*t_builtin)(t_ast*, char**);
 
 /*
 ** LEXER:

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/06 18:58:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/07 14:34:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,25 @@
  ** In back quote
  ** execute commande
 */
+
+static void	short_cut(char **s,char **tab_env)
+{
+	if (ft_strcmp("~", *s) == 0)
+	{
+		free(*s);
+		*s = ft_strdup(get_env_value(tab_env, "$HOME"));
+	}
+	else if (ft_strcmp("~-", *s) == 0)
+	{
+		free(*s);
+		*s = ft_strdup(get_env_value(tab_env, "$OLDPWD"));
+	}
+	else if (ft_strcmp("~+", *s) == 0)
+	{
+		free(*s);
+		*s = ft_strdup(get_env_value(tab_env, "$PWD"));
+	}
+}
 
 static void	replace_str(char **str, char *insert, int pos)
 {
@@ -98,12 +117,13 @@ void		convert_quote(char **s, char **tab_env)
 	int		i;
 
 	i = 0;
-	if (ft_strcmp(*s, "~") == 0)
-	{
-		free(*s);
-		*s = ft_strdup(get_env_value(tab_env, "$HOME"));
-		return ;
-	}
+	short_cut(s, tab_env);
+	// if (ft_strcmp(*s, "~") == 0)
+	// {
+	// 	free(*s);
+	// 	*s = ft_strdup(get_env_value(tab_env, "$HOME"));
+	// 	return ;
+	// }
 	while ((*s)[i])
 	{
 		if ((*s)[i] == '$')
