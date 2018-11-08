@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/11/08 11:44:04 by tcollard         ###   ########.fr        #
+#    Updated: 2018/11/08 18:52:17 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_PROMPT)quote_prompt.c \
 		$(PATH_ERROR)lexer_error.c \
 		$(PATH_ERROR)parser_error.c \
+		$(PATH_ERROR)error_cd.c \
 		$(PATH_ERROR)exec_error.c
 
 OBJ = $(SRC:.c=.o)
@@ -111,4 +112,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -g3 -o $(NAME) $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) -fsanitize=address -g3 -o $(NAME) $(OBJS) ./libft/libft.a

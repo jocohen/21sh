@@ -1,9 +1,8 @@
 TO_DO:
 
-	- Do execve and check if it works with echo
-	- Merge it on master !!!
-	- Builtin cd (check on minishell and get files pormpt)
+	- Builtin cd with option and modification of OLDPWD and PWD
 	- Replace back_quote (find solution on execve)
+	- Merge it on master !!!
 
 Add on:
 	when pipe prompt > if no txt redo prompt till txt on it

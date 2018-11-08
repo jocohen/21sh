@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 12:10:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 18:51:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int					exec_error(int err, char *files);
 int					ft_error_parse_redir(char **input);
 int					ft_error_splitshell(void);
 int					ft_error_redir_format(char *ope, int len);
-
+int					error_cd(char *err);
 
 /*
 ** TOOLS:

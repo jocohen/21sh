@@ -14,10 +14,13 @@ BUILTINS:
 				- >0 error
 
 	CD:
+		if no option, works like -L
 		-options:
-			- L: ???
-			- P: ???
+				(ex: link->Folder)
+			- L: go to link
+			- P: go to Folder
 			- -: go to OLDPWD
+			if -L -P or -LP or -PL or -P -L get -P option
 		- If no directory (Path) go to $HOME (if HOME doesn't exist error "cd:
 		  HOME not set")
 		- as always when start by / or . ..
