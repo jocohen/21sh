@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 13:18:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 10:43:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	exec_input(char **tab_env, t_ast *elem)
+void	exec_input(char **tab_env, t_ast *elem, t_env *lst_env)
 {
 		char	**tab_path;
 		char	path[PATH_MAX];
@@ -22,7 +22,7 @@ void	exec_input(char **tab_env, t_ast *elem)
 
 		err = -1;
 		i = 0;
-		tab_path = ft_strsplit(get_env_value(tab_env, "$PATH"), ':');
+		tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
 		father = fork();
 		wait(0);
 		if (!father)

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 17:17:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 09:45:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  ** execute commande
 */
 
-static void	short_cut(char **s,char **lst_env)
+static void	short_cut(char **s,t_env *lst_env)
 {
 	if (ft_strcmp("~", *s) == 0)
 	{
@@ -57,7 +57,7 @@ static void	replace_str(char **str, char *insert, int pos)
 	}
 }
 
-static int	replace_env_var(char **str, int i, t_env **lst_env)
+static int	replace_env_var(char **str, int i, t_env *lst_env)
 {
 	char	*key;
 	char	*value;
@@ -83,7 +83,7 @@ static int	replace_env_var(char **str, int i, t_env **lst_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, t_env **lst_env)
+void		remove_quote(char **s, int *i, t_env *lst_env)
 {
 	char	*sub;
 	char	*str;
@@ -112,7 +112,7 @@ void		remove_quote(char **s, int *i, t_env **lst_env)
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
-void		convert_quote(char **s, t_env **lst_env)
+void		convert_quote(char **s, t_env *lst_env)
 {
 	int		i;
 

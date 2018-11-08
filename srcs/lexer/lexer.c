@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 17:10:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 09:44:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	lexer(char *input, t_env **lst_env)
+void	lexer(char *input, t_env *lst_env, char **tab_env)
 {
 	int		i;
 	char	**lexer;
@@ -30,7 +30,7 @@ void	lexer(char *input, t_env **lst_env)
 	}
 	while (lexer && lexer[i])
 	{
-		clean_input(lexer[i], lst, lst_env);
+		clean_input(lexer[i], lst, lst_env, tab_env);
 		free(lexer[i]);
 		i += 1;
 	}
@@ -38,7 +38,7 @@ void	lexer(char *input, t_env **lst_env)
 	free(input);
 }
 
-void	clean_input(char *str, t_ast *lst, t_env **lst_env)
+void	clean_input(char *str, t_ast *lst, t_env *lst_env, char **tab_env)
 {
 	char	**split;
 	int		i;
@@ -52,5 +52,5 @@ void	clean_input(char *str, t_ast *lst, t_env **lst_env)
 		convert_quote(&(split[i]), lst_env);
 		i += 1;
 	}
-	parser(split, lst, lst_env);
+	parser(split, lst, lst_env, tab_env);
 }

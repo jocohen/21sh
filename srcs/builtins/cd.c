@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 16:53:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 09:51:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@
 // 		add_pwd(tab_env)
 // }
 
-void	cd_builtins(t_ast *elem, char **tab_env)
+void	cd_builtins(t_ast *elem, t_env *lst_env, char **tab_env)
 {
+	(void)elem;
+	(void)lst_env;
+	(void)tab_env;
 	// char		path[PATH_MAX];
 	// struct stat	buf;
 	//

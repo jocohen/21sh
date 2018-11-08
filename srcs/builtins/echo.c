@@ -6,18 +6,19 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:07:27 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/07 11:35:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/08 09:53:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	echo_builtins(t_ast *elem, char **tab_env)
+void	echo_builtins(t_ast *elem, t_env *lst_env, char **tab_env)
 {
 	int i;
 	int option;
 
 	(void)tab_env;
+	(void)lst_env;
 	option = (ft_strcmp(elem->input[1], "-n") == 0) ? 1 : 0;
 	i = (option == 1 || ft_strcmp(elem->input[1], "-") == 0) ? 2 : 1;
 	while (elem->input[i])
