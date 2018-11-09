@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 09:45:25 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/09 11:29:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,32 @@
  ** execute commande
 */
 
-static void	short_cut(char **s,t_env *lst_env)
+static void	short_cut(char **s, t_env *lst_env)
 {
-	if (ft_strcmp("~", *s) == 0)
+	static char	tmp[PATH_MAX];
+
+	ft_bzero(tmp, PATH_MAX);
+	if ((*s)[0] == '~' && ((*s)[1] == '/' || (*s)[1] == '\0'))
 	{
-		free(*s);
-		*s = ft_strdup(get_env_value(lst_env, "$HOME"));
+		ft_strcat(tmp, get_env_value(lst_env, "$HOME"));
+		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[1]) : 0;
 	}
-	else if (ft_strcmp("~-", *s) == 0)
+	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/' ||
+	(*s)[2] == '\0'))
 	{
-		free(*s);
-		*s = ft_strdup(get_env_value(lst_env, "$OLDPWD"));
+		ft_strcat(tmp, get_env_value(lst_env, "$OLDPWD"));
+		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
 	}
-	else if (ft_strcmp("~+", *s) == 0)
+	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/' ||
+	(*s)[2] == '\0'))
+	{
+		ft_strcat(tmp, get_env_value(lst_env, "$PWD"));
+		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
+	}
+	if (tmp[0] != '\0')
 	{
 		free(*s);
-		*s = ft_strdup(get_env_value(lst_env, "$PWD"));
+		*s = ft_strdup(tmp);
 	}
 }
 

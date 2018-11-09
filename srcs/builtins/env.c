@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 12:04:26 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/09 12:24:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		env_cp(char **env, t_env **lst_env)
 	i = 0;
 	if (!(*lst_env) && env)
 	{
-		ft_printf("in tha env cp if\n");
 		while (env[i])
 		{
 			x = 0;

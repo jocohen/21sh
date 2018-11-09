@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 18:51:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/09 13:15:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int					exec_error(int err, char *files);
 int					ft_error_parse_redir(char **input);
 int					ft_error_splitshell(void);
 int					ft_error_redir_format(char *ope, int len);
-int					error_cd(char *err);
+int					error_cd(char *err, int type);
 
 /*
 ** TOOLS:
@@ -162,8 +162,9 @@ void				get_position(char const *s, int *i, int wn, int *iw);
 ** 		env:
 */
 t_env				*find_elem_env(t_env **lst, char *key);
-void				add_shlvl(t_env **lst);
 t_env				*get_last_elem_env(t_env **lst);
+void				add_shlvl(t_env **lst);
+void				add_elem_env(t_env **lst, char *key, char *value);
 
 /*
 **		clean:

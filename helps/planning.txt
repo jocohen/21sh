@@ -8,3 +8,8 @@ Add on:
 	when pipe prompt > if no txt redo prompt till txt on it
 	Same for cmdand>
 	Same for cmdor>
+
+
+Hepl for cd:
+	- When cd -L go to the path and env path = same
+	- When cd -L go to the path (Target files) env path = getcwd

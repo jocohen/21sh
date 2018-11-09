@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:19:18 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 12:09:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/09 13:22:05 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ t_env	*get_last_elem_env(t_env **lst)
 	while (tmp && tmp->next)
 		tmp = tmp->next;
 	return (tmp);
+}
+
+void	add_elem_env(t_env **lst, char *key, char *value)
+{
+	t_env	*new;
+	t_env	*last;
+
+	if (!(new = (t_env*)malloc(sizeof(t_env))))
+		return ;
+	last = get_last_elem_env(lst);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	new->next = NULL;
+	last->next = new;
 }
 
 void	add_shlvl(t_env **lst)
