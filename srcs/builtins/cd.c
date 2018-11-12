@@ -6,11 +6,39 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/09 19:13:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/12 16:50:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
+
+static void	new_path(t_env *elem, char *path, char **tab)
+{
+	char	new[PATH_MAX];
+	int		i;
+	int		x;
+
+	x = 0;
+	(path[0] == '/') ? ft_bzero(new, PATH_MAX) : ft_strcpy(new, elem->value);
+	while (tab[x])
+	{
+		if (ft_strcmp(tab[x], "..") == 0)
+		{
+			i = ft_strlen(new) - 1;
+			while (i >= 0 && new[i] != '/')
+				i -= 1;
+			(i < 0) ? i = 0 : 0;
+			new[i] = '\0';
+		}
+		else if (ft_strcmp(tab[x], ".") != 0)
+			ft_strcat(ft_strcat(new, "/"), tab[x]);
+		free(tab[x]);
+		x += 1;
+	}
+	(tab != NULL) ? free(tab) : 0;
+	free(elem->value);
+	elem->value = ft_strdup(new);
+}
 
 static int	check_access(char *dir)
 {
@@ -47,14 +75,11 @@ static int	check_options(t_ast *elem, int *options)
 	return (i);
 }
 
-static void	modif_env(char *path, char **tab_env, t_env *lst_env)
+static void	modif_env(char *path, t_env *lst_env, int options)
 {
 	t_env	*tmp;
 	char	*buf;
 
-	(void)tab_env;
-	(void)path;
-	tmp = NULL;
 	buf = NULL;
 	if (!(tmp = find_elem_env(&lst_env, "PWD")))
 	{
@@ -68,58 +93,31 @@ static void	modif_env(char *path, char **tab_env, t_env *lst_env)
 	}
 	else
 		add_elem_env(&lst_env, "OLDPWD", find_elem_env(&lst_env, "PWD")->value);
-	tmp = find_elem_env(&lst_env, "PWD");
-	free(tmp->value);
-	tmp->value = getcwd(buf, PATH_MAX);
+	if (options != 2)
+		new_path(find_elem_env(&lst_env, "PWD"), path, ft_strsplit(path, '/'));
+	else
+	{
+		free(find_elem_env(&lst_env, "PWD")->value);
+		find_elem_env(&lst_env, "PWD")->value =
+		ft_strdup(getcwd(buf, PATH_MAX));
+		free(buf);
+	}
 }
 
-void	cd_builtins(t_ast *elem, t_env *lst_env, char **tab_env)
+void		cd_builtins(t_ast *elem, t_env *lst_env)
 {
-	(void)elem;
-	(void)lst_env;
-	(void)tab_env;
-	ft_printf("cd\n");
-	//option:
-		// -L = 1;
-		// -P = 2;
-		// -LP = 3;
-	char		path[PATH_MAX];
 	int			options;
 	int			i;
-	struct stat	buf;
 	char		*buf_pwd;
-
-	int ret;
-
-	ret = 1;
 
 	buf_pwd = NULL;
 	options = 0;
 	if ((i = check_options(elem, &options)) == -1)
 		return ;
-	ft_printf("input[%d]: |%s|\n", i, elem->input[i]);
-	ret = lstat(elem->input[i], &buf);
-	if (ret == 0)
-	{
-		if (S_IFLNK == (S_IFMT & buf.st_mode))
-			ft_printf("--> Link\n");
-		else
-			ft_printf("--> No link\n");
-	}
-	else if (ret == -1)
-	{
-		ft_printf("error lstat\n");
-	}
-	else
-		ft_printf("Nothing lstat ret = %d\n", ret);
-	ft_bzero(path, PATH_MAX);
 	if (check_access(elem->input[i]) == -1 || chdir(elem->input[i]) == -1)
 	{
 		ft_printf("error here\n");
 		return ;
 	}
-	chdir("./First");
-	modif_env(elem->input[i], tab_env, lst_env);
-	getcwd(buf_pwd, PATH_MAX);
-	ft_printf("PWD: |%s|\n", buf_pwd);
+	modif_env(elem->input[i], lst_env, options);
 }

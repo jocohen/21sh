@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 09:46:25 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/12 14:24:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	read_lst(t_ast *lst)
 	}
 }
 
-void		parser(char **input, t_ast *lst, t_env *lst_env, char **tab_env)
+void		parser(char **input, t_ast *lst, t_env *lst_env)
 {
 	int		i;
 	t_ast	*tmp;
@@ -49,5 +49,5 @@ void		parser(char **input, t_ast *lst, t_env *lst_env, char **tab_env)
 	}
 	fill_ast(input, &lst);
 	read_lst(lst);
-	analyzer(lst, lst_env, tab_env);
+	analyzer(lst, lst_env);
 }

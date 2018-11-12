@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/08 12:49:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/12 14:43:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,17 @@
 int		main(int argc, char **argv, char **env)
 {
 	char	*s;
-	char	**tab_env;
 	t_env	*lst_env;
 	int		r;
 
 	s = NULL;
 	lst_env = NULL;
-	tab_env = NULL;
 	r = 1;
 	(void)argv;
 	(void)argc;
 	env_cp(env, &lst_env);
 	add_shlvl(&lst_env);
-	convert_lst_tab(lst_env, &tab_env);
+	// convert_lst_tab(lst_env, &tab_env);
 	// display_env_lst_and_table(lst_env, tab_env);
 	while (r > 0)
 	{
@@ -59,7 +57,7 @@ int		main(int argc, char **argv, char **env)
 		r = get_next_line(0, &s);
 		if (ft_strcmp("exit", s) == 0)
 			break ;
-		lexer(s, lst_env, tab_env);
+		lexer(s, lst_env);
 	}
 	free(s);
 	return (0);
