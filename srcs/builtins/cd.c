@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 16:50:43 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/13 08:59:05 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ static int	check_options(t_ast *elem, int *options)
 				*options = (*options == 2) ? 2 : 1;
 			x += 1;
 		}
-		if (elem->input[i][x] != '\0')
+		if (ft_strcmp(elem->input[i], "-") == 0)
+			return (i);
+		else if (elem->input[i][x] != '\0')
 			return (error_cd(elem->input[i], 0));
 		i += 1;
 	}
@@ -114,6 +116,12 @@ void		cd_builtins(t_ast *elem, t_env *lst_env)
 	options = 0;
 	if ((i = check_options(elem, &options)) == -1)
 		return ;
+	if (ft_strcmp(elem->input[i], "-") == 0)
+	{
+		free(elem->input[i]);
+		elem->input[i] = ft_strdup(get_env_value(lst_env, "$OLDPWD"));
+		ft_printf("%s\n", elem->input[i]);
+	}
 	if (check_access(elem->input[i]) == -1 || chdir(elem->input[i]) == -1)
 	{
 		ft_printf("error here\n");

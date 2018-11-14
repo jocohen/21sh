@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:19:18 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 15:08:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/13 13:26:24 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	add_elem_env(t_env **lst, char *key, char *value)
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
 	new->next = NULL;
-	last->next = new;
+	if (!(*lst))
+		*lst = new;
+	else
+		last->next = new;
 }
 
 void	add_shlvl(t_env **lst)
@@ -72,5 +75,17 @@ void	add_shlvl(t_env **lst)
 			*lst = shlvl;
 		else
 			get_last_elem_env(lst)->next = shlvl;
+	}
+}
+
+void	display_env(t_env *lst)
+{
+	t_env	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		ft_printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
 }

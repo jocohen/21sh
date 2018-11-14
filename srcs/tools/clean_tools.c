@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:16:32 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/05 11:26:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/13 10:33:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,20 @@ void	delete_str_tab(char **tab)
 	}
 	free(tab);
 	tab = NULL;
+}
+
+void	del_lst_env(t_env **lst)
+{
+	t_env	*tmp;
+
+	tmp = *lst;
+	while (tmp)
+	{
+		*lst = tmp->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		tmp = *lst;
+	}
+	*lst = NULL;
 }

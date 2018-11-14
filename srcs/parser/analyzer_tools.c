@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 14:26:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/13 14:43:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	dispatch_cmd(t_ast *elem, t_env *lst_env)
+void	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	int					i;
 	static char			*lst_built[5] = {"cd", "echo", "setenv", "unsetenv",
@@ -36,33 +36,37 @@ void	dispatch_cmd(t_ast *elem, t_env *lst_env)
 	if (i < 5)
 		dispatch[i](elem, lst_env);
 	else
-		exec_input(elem, lst_env);
+		exec_input(elem, lst_env, tab_path);
 }
 
-void	dispatch_logic(t_ast *elem, t_env *lst_env)
+void	dispatch_logic(t_ast *elem, t_env *lst_env,  char **tab_path)
 {
 	(void)lst_env;
+	(void)tab_path;
 	ft_printf("LOGIC:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 }
 
-void	dispatch_redir(t_ast *elem, t_env *lst_env)
+void	dispatch_redir(t_ast *elem, t_env *lst_env,  char **tab_path)
 {
 	(void)lst_env;
+	(void)tab_path;
 	ft_printf("REDIR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 }
 
-void	dispatch_operator(t_ast *elem, t_env *lst_env)
+void	dispatch_operator(t_ast *elem, t_env *lst_env,  char **tab_path)
 {
 	(void)lst_env;
+	(void)tab_path;
 	ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 }
 
-void	dispatch_agreg(t_ast *elem, t_env *lst_env)
+void	dispatch_agreg(t_ast *elem, t_env *lst_env,  char **tab_path)
 {
 	(void)lst_env;
+	(void)tab_path;
 	ft_printf("AGREG:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 }

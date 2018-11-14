@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 16:53:07 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/13 14:42:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef	struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef void		(*t_dispatch)(t_ast*, t_env*);
+typedef void		(*t_dispatch)(t_ast*, t_env*,  char **tab_path);
 // typedef int			(*t_builtin)(t_ast*, char**);
 
 /*
@@ -136,11 +136,12 @@ void				replace_quote(char *s, int *i);
 /*
 ** 		analyzer:
 */
-void				dispatch_cmd(t_ast *elem, t_env *lst_env);
-void				dispatch_logic(t_ast *elem, t_env *lst_env);
-void				dispatch_redir(t_ast *elem, t_env *lst_env);
-void				dispatch_operator(t_ast *elem, t_env *lst_env);
-void				dispatch_agreg(t_ast *elem, t_env *lst_env);
+void				dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path);
+void				dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path);
+void				dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path);
+void				dispatch_operator(t_ast *elem, t_env *lst_env,
+					char **tab_path);
+void				dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path);
 
 /*
 ** 		split:
@@ -162,11 +163,14 @@ t_env				*find_elem_env(t_env **lst, char *key);
 t_env				*get_last_elem_env(t_env **lst);
 void				add_shlvl(t_env **lst);
 void				add_elem_env(t_env **lst, char *key, char *value);
+void				display_env(t_env *lst);
 
 /*
 **		clean:
 */
 void				delete_str_tab(char **tab);
+void				del_lst_env(t_env **lst);
+
 
 /*
 ** OTHER:
