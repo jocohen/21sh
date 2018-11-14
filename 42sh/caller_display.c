@@ -6,11 +6,29 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/09/27 15:28:53 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/10/29 15:09:45 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
+
+int		window_width_size(void)
+{
+	struct winsize	wind;
+
+	ioctl(0, TIOCGWINSZ, &wind);
+	return ((int)wind.ws_col);
+}
+
+int		display_sizing(int size)
+{
+	static int	g;
+
+	if (!size)
+		return (g);
+	g = size;
+	return (0);
+}
 
 char	*get_end_pwd(char *pwd)
 {
@@ -39,13 +57,14 @@ void	fancy_display(char *pwd)
 		ft_putstr_fd(ANSI_BOLD, 1);
 		ft_putstr_fd(ANSI_WHITE, 1);
 		pwd = get_end_pwd(pwd);
+		display_sizing(ft_strlen(pwd) + 6);
 		write(1, pwd, ft_strlen(pwd));
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
 	write(1, " > ", 3);
 }
 
-void	caller_display(t_list *fp)
+void	caller_display(t_list *fp, t_buf *input)
 {
 	char	path[PATH_MAX];
 	char	*pwd;
@@ -54,4 +73,6 @@ void	caller_display(t_list *fp)
 	if (!(pwd = find_var_value(fp, "PWD")))
 		pwd = getcwd(path, PATH_MAX);
 	fancy_display(pwd);
+	input->pos.l = (display_sizing(0)) / window_width_size();
+	input->pos.c = display_sizing(0) % (window_width_size());
 }

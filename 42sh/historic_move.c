@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/17 17:52:52 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/10/31 22:05:49 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,45 +101,36 @@ void	move_front_or_back(t_historic **lst, int direction)
 	(*lst) = tmp;
 }
 
-void	delete_line_pos(t_buf *input, size_t save, size_t size)
+void	delete_line_pos(t_buf *input)
 {
-	size_t	q;
-	size_t	e;
-	static int x;
-	size_t	w;
-	int l = 0;
+	int		x;
 
-	q = save;
-	w = size;
-	x += 1;
-	while (save < size)
+	x = display_sizing(0);
+	input->pos.c = 0;
+	tputs(tgetstr("cr",	0), 1, ft_writestdin);
+	while (input->pos.l)
 	{
-		tputs(tgetstr("nd", 0), 1, ft_writestdin);
-		save += 1;
+		tputs(tgetstr("up",	0), 1, ft_writestdin);
+		input->pos.l -= 1;
 	}
-	e = save;
-	tputs(tgetstr("dm", 0), 1, ft_writestdin);
-	while (save)
+	while (x)
 	{
-		tputs(tgetstr("le", 0), 1, ft_writestdin);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
-		save -= 1;
+		cursor_movement(input, 2);
+		x -= 1;
 	}
-	tputs(tgetstr("ed", 0), 1, ft_writestdin);
-	write(0, input->s, input->x);
-	if (x == 2)
-		ft_printf("\n index cursor origin =%zu size old input =%zu ind cursor after move =%zu err=%d\n", q, w, e, l);
+	tputs(tgetstr("cd",	0), 1, ft_writestdin);
+	write(1, input->s, input->x);
+	x = display_sizing(0) + input->x;
+	input->pos.l = x / window_width_size();
+	input->pos.c = x % window_width_size();
 }
 
 void	cmd_spe_search(t_historic **history, t_buf *input, int direction)
 {
 	char			c;
 	t_historic		*tmp;
-	size_t			x[2];
 	static char		*search_s;
 
-	x[0] = input->x;
-	x[1] = ft_strlen(input->s);
 	if (search_s && check_prev_read(0) != -6)
 		ft_memdel((void **)&search_s);
 	if (!search_s)
@@ -166,18 +157,14 @@ void	cmd_spe_search(t_historic **history, t_buf *input, int direction)
 	check_over_buffer(input, (*history)->modif ? (*history)->modif : (*history)->origin);
 	ft_strcpy(input->s, (tmp->modif) ? tmp->modif : tmp->origin);
 	input->x = ft_strlen(input->s);
-	delete_line_pos(input, x[0], x[1]);
+	delete_line_pos(input);
 }
 
 void	historic_move(t_buf *input, t_historic **history, int direction)
 {
-	size_t			save;
-	size_t			size;
 	static int		in_zero;
 
 	check_prev_read(-6);
-	save = input->x;
-	size = ft_strlen(input->s);
 	if (check_prev_read(0) != -6 && in_zero)
 		in_zero = 0;
 	if (ft_strcmp(input->s, (*history)->origin))
@@ -197,5 +184,5 @@ void	historic_move(t_buf *input, t_historic **history, int direction)
 	check_over_buffer(input, (*history)->modif ? (*history)->modif : (*history)->origin);
 	ft_strcpy(input->s, (*history)->modif ? (*history)->modif : (*history)->origin);
 	input->x = ft_strlen(input->s);
-	delete_line_pos(input, save, size);
+	delete_line_pos(input);
 }

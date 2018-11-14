@@ -6,7 +6,7 @@
 #    By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/24 06:17:23 by jocohen           #+#    #+#              #
-#    Updated: 2018/10/05 14:08:01 by jocohen          ###   ########.fr        #
+#    Updated: 2018/10/21 17:17:45 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,8 @@ INCLUDE = ./includes
 PATH_LIB = ./libft/
 PATH_SRC = ./
 PATH_OBJ = ./obj/
+
+# NAME_SRC = termcaps.c
 
 NAME_SRC = shell.c \
 		   prompter.c \

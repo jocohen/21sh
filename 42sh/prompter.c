@@ -6,11 +6,29 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/17 20:01:33 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/10/31 21:36:54 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
+
+void	write_log(t_buf input)
+{
+	int fd;
+	fd = open("/Users/jocohen/Documents/42_saves/42sh/log", O_WRONLY, O_APPEND);
+	ft_putstr_fd(": colum :", fd);
+	ft_putstr_fd(ft_itoa(input.pos.c), fd);
+	ft_putstr_fd(": line :", fd);
+	ft_putstr_fd(ft_itoa(input.pos.l), fd);
+	ft_putstr_fd(": widsize col :", fd);
+	ft_putstr_fd(ft_itoa(window_width_size()), fd);
+	ft_putstr_fd(": totalc:", fd);
+	ft_putstr_fd(ft_itoa(display_sizing(0) + ft_strlen(input.s)), fd);
+	ft_putstr_fd(": ind : ", fd);
+	ft_putstr_fd(ft_itoa(input.x), fd);
+	ft_putstr_fd(" :", fd);
+	close(fd);
+}
 
 void	check_over_buffer(t_buf *input, char *into_buff)
 {
@@ -56,7 +74,11 @@ void	end_or_keep(t_buf *input, char k, t_list **lst, t_historic **history)
 	if (k > 31 && k < 127)
 	{
 		tputs(tgetstr("im", 0), 1, ft_writestdin);
-		ft_writestdin(k);
+		write(1, &k, 1);
+		if (input->pos.c + 1 == (size_t)window_width_size())
+			cursor_movement(input, 2);
+		else
+			input->pos.c += 1;
 		ft_memmove(input->s + input->x + 1, input->s + input->x,
 			ft_strlen(input->s + input->x) + 1);
 		input->s[input->x++] = k;
@@ -71,11 +93,11 @@ void	analyse_input(t_buf *input, char k, t_list **lst, t_historic **history)
 	if (k == 12)
 	{
 		tputs(tgetstr("cl", 0), 1, ft_writestdin);
-		caller_display(*lst);
+		caller_display(*lst, input);
 	}
 	else if (k == 27)
 	{
-		escape_analysis(input, 0, 0, history);
+		escape_analysis(input, history);
 		return ;
 	}
 	else if (k == 4 || (k == 127 && input->x))
@@ -97,27 +119,34 @@ void	prompt(t_list **lst, t_historic **history)
 	if (!(input.s = ft_memalloc(input.buf_size)))
 		ft_exit(0);
 	input.x = 0;
-	caller_display(*lst);
+	caller_display(*lst, &input);
 	stdin_cpy = dup(0);
 	while (1)
 	{
 		check_over_buffer(&input, 0);
+		write_log(input);
 		if (read(0, &k, 1) == -1)
 		{
+			k = -1;
 			if (g_pid == 1)
 			{
 				dup2(stdin_cpy, 0);
 				enter_section(&input, lst, history, 1);
-				k = -1;
 				g_pid = 0;
+			}
+			else if (g_resize == 1)
+			{
+				dup2(stdin_cpy, 0);
+				g_resize = 0;
+				check_resize_curs_pos(&input);
 			}
 			else
 				ft_exit(0);
 		}
 		check_prev_read(k);
-		(k == 4 && !input.s[0]) ? tputs(tgetstr("do", 0), 1, ft_writestdin) : 0;
 		if (k == 4 && !input.s[0])
 		{
+			tputs(tgetstr("do", 0), 1, ft_writestdin);
 			lst_deletion(lst);
 			ft_memdel((void **)&input.s);
 			break ;

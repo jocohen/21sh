@@ -137,6 +137,11 @@ int		main()
 			ft_memmove(input + x, input + x + 1, ft_strlen(input + x + 1) + 1);
 			tputs(tgetstr("dc", 0), 1, ft_writestdin);
 		}
+		else if (line == 32)
+		{
+			// test sequence for termcaps cap
+			tputs(tgetstr("ic", 0), 1, ft_writestdin);
+		}
 		else if (line == 127 && x)
 		{
 			x -= 1;
