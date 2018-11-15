@@ -6,7 +6,7 @@
 #    By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/24 06:17:23 by jocohen           #+#    #+#              #
-#    Updated: 2018/10/21 17:17:45 by jocohen          ###   ########.fr        #
+#    Updated: 2018/11/14 15:55:57 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,9 @@ NAME_OBJ = $(NAME_SRC:.c=.o)
 
 SRC = $(addprefix $(PATH_SRC),$(NAME_SRC))
 OBJ = $(addprefix $(PATH_OBJ),$(NAME_OBJ))
+
+run:
+	./42sh
 
 all: $(NAME)
 

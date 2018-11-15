@@ -6,11 +6,19 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/29 15:09:45 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/14 17:17:18 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
+
+int		window_line_size(void)
+{
+	struct winsize	wind;
+
+	ioctl(0, TIOCGWINSZ, &wind);
+	return ((int)wind.ws_row);
+}
 
 int		window_width_size(void)
 {

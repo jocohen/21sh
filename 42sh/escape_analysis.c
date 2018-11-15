@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/23 16:17:12 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/15 15:57:19 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	ctrl_arrow_move(t_buf *input, char k)
 			if (input->s[input->x] && !(ft_isalnum(input->s[input->x - 1])) && ft_isalnum(input->s[input->x]))
 				break ;
 		}
+	else if (k == 65)
+		vertical_cursor(input, -1);
+	else if (k == 66)
+		vertical_cursor(input, 1);
 }
 
 void	del_char(t_buf *input, int type)

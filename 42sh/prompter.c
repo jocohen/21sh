@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/31 21:36:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/14 16:51:50 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,13 @@ void	end_or_keep(t_buf *input, char k, t_list **lst, t_historic **history)
 		tputs(tgetstr("im", 0), 1, ft_writestdin);
 		write(1, &k, 1);
 		if (input->pos.c + 1 == (size_t)window_width_size())
-			cursor_movement(input, 2);
+		{
+			input->pos.l += 1;
+			write(1, "c", 1);
+			input->pos.c = 1;
+			cursor_movement(input, -2);
+			tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		}
 		else
 			input->pos.c += 1;
 		ft_memmove(input->s + input->x + 1, input->s + input->x,
