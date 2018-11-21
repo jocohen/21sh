@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 14:43:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:04:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 	int					i;
 	static char			*lst_built[5] = {"cd", "echo", "setenv", "unsetenv",
 	"env"};
-	static t_dispatch	dispatch[5];
+	static t_buitins	dispatch[5];
 
+	(void)tab_path;
 	i = 0;
 	ft_printf("CMD:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
@@ -36,7 +37,8 @@ void	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 	if (i < 5)
 		dispatch[i](elem, lst_env);
 	else
-		exec_input(elem, lst_env, tab_path);
+		exec_input(elem, lst_env);
+	// exec_input(elem, lst_env, tab_path);
 }
 
 void	dispatch_logic(t_ast *elem, t_env *lst_env,  char **tab_path)

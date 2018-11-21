@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 13:28:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:10:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void		env_builtins(t_ast *elem, t_env *lst_env)
 	elem->input = &(elem->input[i]);
 	if (option == 0)
 		tmp = lst_env_dup(&lst_env, &tmp);
-	(elem->input[0]) ? dispatch_cmd(elem, tmp) : display_env(tmp);
+	(elem->input[0]) ? dispatch_cmd(elem, tmp, NULL) : display_env(tmp);
 	del_lst_env(&tmp);
 }

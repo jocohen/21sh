@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 14:42:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:03:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef	struct		s_env
 }					t_env;
 
 typedef void		(*t_dispatch)(t_ast*, t_env*,  char **tab_path);
+typedef void			(*t_buitins)(t_ast *elem, t_env *lst_env);
 // typedef int			(*t_builtin)(t_ast*, char**);
 
 /*

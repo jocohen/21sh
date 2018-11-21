@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tcollard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 14:51:47 by tcollard          #+#    #+#              #
-#    Updated: 2018/09/18 15:43:10 by tcollard         ###   ########.fr        #
+#    Updated: 2018/11/21 18:06:01 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,7 +141,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_PUT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_STR) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_PRINTF) 2> /dev/null || true
-	@gcc $(CFLAGS) -I $(INCS_LIB) -I $(INCS_PRINT) -c -o $@ $<
+	@gcc $(CFLAGS) -I $(INCS_LIB) -I $(INCS_PRINT) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
 	@./progress_bar.sh $(NAME)

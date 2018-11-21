@@ -6,26 +6,28 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 15:07:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/21 15:11:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
+// void	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
+void	exec_input(t_ast *elem, t_env *lst_env)
 {
-	// char	**tab_path;
+	char	**tab_path;
 	char	path[PATH_MAX];
 	pid_t	father;
 	int		err;
 	int		i;
 	char	**tab_env;
 
+	tab_path = NULL;
 	tab_env = NULL;
 	err = -1;
 	i = 0;
 	convert_lst_tab(lst_env, &tab_env);
-	// tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
+	tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
 	father = fork();
 	wait(0);
 	if (!father)

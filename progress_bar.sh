@@ -6,8 +6,8 @@ PURPLE='\033[0;35m'
 COLOR=0
 NAME=$1;
 x=0;
-MAX=$2;
-COUNT=$3;
+MAX=`ls -lR ./srcs | grep -o -c "\.c"`;
+COUNT=`ls -lR ./obj | grep -o -c "\.o"`;
 i=0;
 
 if [ $MAX = 0 ]
@@ -16,7 +16,7 @@ then
 else
     let "x = COUNT * 20 / MAX"
 fi
-echo -n -e "$NAME:\t\t\t["; 
+echo -n -e "$NAME:\t\t\t[";
 
 while [ $i -lt $x ]
 do
