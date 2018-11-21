@@ -6,7 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
+<<<<<<< HEAD:srcs/termcaps/set_term.c
 /*   Updated: 2018/10/18 18:54:58 by tcollard         ###   ########.fr       */
+=======
+/*   Updated: 2018/11/05 14:58:09 by jocohen          ###   ########.fr       */
+>>>>>>> Jonas:srcs/termcaps/set_term.c
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/17 18:35:08 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/15 15:57:19 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ void	ctrl_arrow_move(t_buf *input, char k)
 	if (k == 68)
 		while (input->x)
 		{
-			input->x -= 1;
-			tputs(tgetstr("le", 0), 1, ft_writestdin);
+			cursor_movement(input, -1);
 			if (input->x && !(ft_isalnum(input->s[input->x - 1])) && ft_isalnum(input->s[input->x]))
 				break ;
 		}
 	else if (k == 67)
 		while (input->s[input->x])
 		{
-			input->x += 1;
-			tputs(tgetstr("nd", 0), 1, ft_writestdin);
+			cursor_movement(input, 1);
 			if (input->s[input->x] && !(ft_isalnum(input->s[input->x - 1])) && ft_isalnum(input->s[input->x]))
 				break ;
 		}
+	else if (k == 65)
+		vertical_cursor(input, -1);
+	else if (k == 66)
+		vertical_cursor(input, 1);
 }
 
 void	del_char(t_buf *input, int type)
@@ -38,11 +40,10 @@ void	del_char(t_buf *input, int type)
 	{
 		if (!input->x)
 			return ;
-		input->x -= 1;
+		cursor_movement(input, -1);
+		tputs(tgetstr("dc", 0), 1, ft_writestdin);
 		ft_memmove(input->s + input->x, input->s + input->x + 1,
 			ft_strlen(input->s + input->x + 1) + 1);
-		tputs(tgetstr("le", 0), 1, ft_writestdin);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
 	}
 	else if (input->s[input->x])
 	{
@@ -56,40 +57,32 @@ void	home_end_move(t_buf *input, char k)
 {
 	if (k == 72)
 		while (input->x)
-		{
-			input->x -= 1;
-			tputs(tgetstr("le", 0), 1, ft_writestdin);
-		}
+			cursor_movement(input, -1);
 	else if (k == 70)
 		while (input->s[input->x])
-		{
-			tputs(tgetstr("nd", 0), 1, ft_writestdin);
-			input->x += 1;
-		}
+			cursor_movement(input, 1);
 }
 
 void	arrow_move(t_buf *input, char k, t_historic **history)
 {
 	if (k == 68 && input->x)
-	{
-		input->x -= 1;
-		tputs(tgetstr("le", 0), 1, ft_writestdin);
-	}
+		cursor_movement(input, -1);
 	else if (k == 67 && input->s[input->x])
-	{
-		input->x += 1;
-		tputs(tgetstr("nd", 0), 1, ft_writestdin);
-	}
+		cursor_movement(input, 1);
 	else if (k == 65)
 		historic_move(input, history, -1);
 	else if (k == 66)
 		historic_move(input, history, 1);
 }
 
-void	escape_analysis(t_buf *input, char c, size_t y, t_historic **history)
+void	escape_analysis(t_buf *input, t_historic **history)
 {
 	char	key[6];
+	char	c;
+	size_t	y;
 
+	c = 0;
+	y = 0;
 	ft_bzero(key, 6);
 	while (y < 5)
 	{
