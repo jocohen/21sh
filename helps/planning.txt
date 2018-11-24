@@ -1,15 +1,22 @@
 TO_DO:
 
-	- Builtin cd with option and modification of OLDPWD and PWD
-	- Replace back_quote (find solution on execve)
-	- Merge it on master !!!
+	Builtins:
+		- ECHO: DONE
+		- CD: DONE (Need to check when unsetenv PWD or OLDPWD)
+		- ENV: DONE (Norme ok)
+===>	- SETENV: IN PROGRESS
+		- UNSETENV: IN PROGRESS
+		- ADD real return value for each builtins
 
-Add on:
-	when pipe prompt > if no txt redo prompt till txt on it
-	Same for cmdand>
-	Same for cmdor>
+	Run like minishell and looking for:
+		- leaks
+		- error as not correct usage of cmd
+		- other to crash or segv 21sh
 
+Afternoon:
+	To do:
 
-Hepl for cd:
-	- When cd -L go to the path and env path = same
-	- When cd -L go to the path (Target files) env path = getcwd
+	Add if times:
+		- SETENV
+		- UNSETENV
+		- Check leaks

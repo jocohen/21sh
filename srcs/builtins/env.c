@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/21 15:10:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/24 18:52:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static void	add_env(t_env **lst_env, char *env, int x)
+static void		add_env(t_env **lst_env, char *env, int x)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -20,10 +20,10 @@ static void	add_env(t_env **lst_env, char *env, int x)
 
 	tmp = *lst_env;
 	if (!(new = (t_env*)malloc(sizeof(t_env))))
-		return;
+		return ;
 	len = ft_strlen(env);
 	new->key = ft_strsub(env, 0, x);
-	new->value = ft_strsub(env, x + 1,len - 1);
+	new->value = ft_strsub(env, x + 1, len - 1);
 	new->next = NULL;
 	if (!(*lst_env))
 		*lst_env = new;
@@ -35,12 +35,6 @@ static void	add_env(t_env **lst_env, char *env, int x)
 	}
 }
 
-// dup lst orig
-// check if elem add exist in dup:
-// 	if oui -> change value
-// 	else -> add atthe end
-
-
 static t_env	*lst_env_dup(t_env **orig, t_env **add)
 {
 	t_env *tmp;
@@ -49,8 +43,6 @@ static t_env	*lst_env_dup(t_env **orig, t_env **add)
 
 	tmp = *orig;
 	dup = NULL;
-	swap = NULL;
-	(void)add;
 	while (tmp)
 	{
 		add_elem_env(&dup, tmp->key, tmp->value);
@@ -66,16 +58,13 @@ static t_env	*lst_env_dup(t_env **orig, t_env **add)
 		}
 		else
 			add_elem_env(&dup, tmp->key, tmp->value);
-		*add = (*add)->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		tmp = *add;
+		tmp = tmp->next;
 	}
+	del_lst_env(add);
 	return (dup);
 }
 
-void		env_cp(char **env, t_env **lst_env)
+void			env_cp(char **env, t_env **lst_env)
 {
 	int	i;
 	int	x;
@@ -94,7 +83,7 @@ void		env_cp(char **env, t_env **lst_env)
 	}
 }
 
-void		env_builtins(t_ast *elem, t_env *lst_env)
+void			env_builtins(t_ast *elem, t_env *lst_env)
 {
 	int		i;
 	int		option;
@@ -106,7 +95,7 @@ void		env_builtins(t_ast *elem, t_env *lst_env)
 	tmp = NULL;
 	option = (elem->input[1] && ft_strcmp(elem->input[1], "-i") == 0) ? 1 : 0;
 	i = option;
-	while (++i && elem->input[i] && (s = ft_strchr(elem->input[i],'=')))
+	while (++i && elem->input[i] && (s = ft_strchr(elem->input[i], '=')))
 		add_env(&tmp, elem->input[i], ft_strlen(elem->input[i]) - ft_strlen(s));
 	x = 0;
 	while (x < i)
@@ -114,6 +103,7 @@ void		env_builtins(t_ast *elem, t_env *lst_env)
 	elem->input = &(elem->input[i]);
 	if (option == 0)
 		tmp = lst_env_dup(&lst_env, &tmp);
-	(elem->input[0]) ? dispatch_cmd(elem, tmp, NULL) : display_env(tmp);
+	(elem->input[0]) ? dispatch_cmd(elem, tmp,
+	ft_strsplit(get_env_value(lst_env, "$PATH"), ':')) : display_env(tmp);
 	del_lst_env(&tmp);
 }

@@ -6,28 +6,26 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/21 15:11:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/24 19:02:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-// void	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
-void	exec_input(t_ast *elem, t_env *lst_env)
+void	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	char	**tab_path;
 	char	path[PATH_MAX];
 	pid_t	father;
 	int		err;
 	int		i;
 	char	**tab_env;
 
-	tab_path = NULL;
 	tab_env = NULL;
 	err = -1;
 	i = 0;
 	convert_lst_tab(lst_env, &tab_env);
-	tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
+	(!tab_path) ? tab_path = ft_strsplit(get_env_value(lst_env,
+	"$PATH"), ':') : 0;
 	father = fork();
 	wait(0);
 	if (!father)
@@ -35,13 +33,9 @@ void	exec_input(t_ast *elem, t_env *lst_env)
 		err = execve(elem->input[0], elem->input, tab_env);
 		if (tab_path != NULL && ft_strcmp(tab_path[0], "") != 0)
 			while (tab_path[i] && err == -1)
-			{
-				ft_bzero(path, PATH_MAX);
-				ft_strcat(ft_strcpy(path, tab_path[i]), "/");
-				err = execve(ft_strcat(path, elem->input[0]), elem->input,
-				tab_env);
-				i += 1;
-			}
+				err = execve(ft_strcat(ft_strcat(ft_strcpy(path,
+				tab_path[i++]), "/"), elem->input[0]), elem->input, tab_env);
 		(err == -1) ? (exit(exec_error(0, elem->input[0]))) : 0;
 	}
+	delete_str_tab(tab_path);
 }

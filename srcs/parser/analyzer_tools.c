@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/21 15:04:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/24 18:59:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 	"env"};
 	static t_buitins	dispatch[5];
 
-	(void)tab_path;
 	i = 0;
-	ft_printf("CMD:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
-	elem->input[0]);
 	dispatch[0] = cd_builtins;
 	dispatch[1] = echo_builtins;
 	dispatch[2] = setenv_builtins;
@@ -37,11 +34,10 @@ void	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 	if (i < 5)
 		dispatch[i](elem, lst_env);
 	else
-		exec_input(elem, lst_env);
-	// exec_input(elem, lst_env, tab_path);
+		exec_input(elem, lst_env, tab_path);
 }
 
-void	dispatch_logic(t_ast *elem, t_env *lst_env,  char **tab_path)
+void	dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;
@@ -49,7 +45,7 @@ void	dispatch_logic(t_ast *elem, t_env *lst_env,  char **tab_path)
 	elem->input[0]);
 }
 
-void	dispatch_redir(t_ast *elem, t_env *lst_env,  char **tab_path)
+void	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;
@@ -57,7 +53,7 @@ void	dispatch_redir(t_ast *elem, t_env *lst_env,  char **tab_path)
 	elem->input[0]);
 }
 
-void	dispatch_operator(t_ast *elem, t_env *lst_env,  char **tab_path)
+void	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;
@@ -65,7 +61,7 @@ void	dispatch_operator(t_ast *elem, t_env *lst_env,  char **tab_path)
 	elem->input[0]);
 }
 
-void	dispatch_agreg(t_ast *elem, t_env *lst_env,  char **tab_path)
+void	dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;

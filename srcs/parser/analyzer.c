@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 14:40:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/24 18:56:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,4 @@ void		analyzer(t_ast *lst, t_env *lst_env)
 		lst = lst->next;
 	}
 	delete_str_tab(tab_path);
-	ft_printf("==> FINISH :-) <==\n\n");
 }
