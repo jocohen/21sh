@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 11:20:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 19:40:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,16 @@ void			env_cp(char **env, t_env **lst_env)
 		}
 	}
 }
+
+/*
+**	ERROR WHEN env -i to bash or zsh
+**  		when env simple double free
+**	To do:
+**		Create a new elem ast -> input => dup(orig->input[i++])
+**							-> next = orig -> next etc ...
+**		when finished -> delete new ast elem
+88					-> continue normaly
+*/
 
 int				env_builtins(t_ast *elem, t_env *lst_env)
 {

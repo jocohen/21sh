@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 15:38:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 19:05:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void		parser(char **input, t_ast *lst, t_env *lst_env)
 	analyzer(lst, lst_env);
 	if (input)
 		delete_str_tab(input);
-	if (lst)
-		del_lst_ast(&lst);
+	del_lst_ast(&lst);
 }
 
 /*
