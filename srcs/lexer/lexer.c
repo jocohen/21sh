@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 14:24:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 16:15:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	lexer(char *input, t_env *lst_env)
 {
 	int		i;
+	int		x;
 	char	**lexer;
 	t_ast	*lst;
 
@@ -23,14 +24,21 @@ void	lexer(char *input, t_env *lst_env)
 	lst = NULL;
 	check_opening_quote(&input);
 	check_cmd_pipe(&input);
-	if ((lexer = ft_strsplit_shell(input, ';')) == NULL)
+	while (input[i] == ';')
+		i += 1;
+	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
 		free(input);
 		return ;
 	}
+	i = 0;
 	while (lexer && lexer[i])
 	{
-		clean_input(lexer[i], lst, lst_env);
+		x = 0;
+		while (lexer[i][x] && ft_isspace(lexer[i][x]))
+			x += 1;
+		if (lexer[i][x])
+			clean_input(lexer[i], lst, lst_env);
 		free(lexer[i]);
 		i += 1;
 	}
@@ -49,7 +57,8 @@ void	clean_input(char *str, t_ast *lst, t_env *lst_env)
 		return ;
 	while (split[i])
 	{
-		convert_quote(&(split[i]), lst_env);
+		if (convert_quote(&(split[i]), lst_env) == -1)
+			return ;
 		i += 1;
 	}
 	parser(split, lst, lst_env);

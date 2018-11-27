@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/24 18:33:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 15:47:49 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ typedef	struct		s_env
 }					t_env;
 
 typedef void		(*t_dispatch)(t_ast*, t_env*,  char **tab_path);
-typedef void			(*t_buitins)(t_ast *elem, t_env *lst_env);
-// typedef int			(*t_builtin)(t_ast*, char**);
+typedef int			(*t_buitins)(t_ast *elem, t_env *lst_env);
 
 /*
 ** LEXER:
@@ -61,7 +60,7 @@ void				check_cmd_pipe(char **input);
 void				find_closing(char **str, int *i);
 char				**ft_splitwhitespace_shell(char *s);
 char				**ft_strsplit_shell(char *str, char c);
-void				convert_quote(char **s, t_env *lst_env);
+int					convert_quote(char **s, t_env *lst_env);
 void				remove_quote(char **s, int *i, t_env *lst_env);
 
 /*
@@ -79,24 +78,24 @@ void				analyzer(t_ast *lst, t_env *lst_env);
 /*
 ** 		ECHO:
 */
-void				echo_builtins(t_ast *elem, t_env *lst_env);
+int					echo_builtins(t_ast *elem, t_env *lst_env);
 /*
 ** 		CD:
 */
-void				cd_builtins(t_ast *elem, t_env *lst_env);
+int					cd_builtins(t_ast *elem, t_env *lst_env);
 /*
 ** 		SETENV:
 */
-void				setenv_builtins(t_ast *elem, t_env *lst_env);
+int					setenv_builtins(t_ast *elem, t_env *lst_env);
 /*
 ** 		UNSETENV:
 */
-void				unsetenv_builtins(t_ast *elem, t_env *lst_env);
+int					unsetenv_builtins(t_ast *elem, t_env *lst_env);
 /*
 ** 		ENV:
 */
 void				env_cp(char **env, t_env **lst_env);
-void				env_builtins(t_ast *elem, t_env *lst_env);
+int					env_builtins(t_ast *elem, t_env *lst_env);
 char				*get_env_value(t_env *lst_env, char *str);
 void				convert_lst_tab(t_env *lst_env, char ***tab);
 
@@ -171,7 +170,7 @@ void				display_env(t_env *lst);
 */
 void				delete_str_tab(char **tab);
 void				del_lst_env(t_env **lst);
-
+void				del_lst_ast(t_ast **lst);
 
 /*
 ** OTHER:

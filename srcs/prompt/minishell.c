@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/12 14:43:08 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 11:28:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int		main(int argc, char **argv, char **env)
 		lexer(s, lst_env);
 	}
 	free(s);
+	del_lst_env(&lst_env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/09 11:29:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 16:03:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 		x += 1;
 	if (x >= 80)
 	{
-		write(2, "21sh: env: error too long arguments\n", 31);
+		write(2, "21sh: env: error too long arguments\n", 36);
 		return (-1);
 	}
 	else
@@ -122,7 +122,7 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
-void		convert_quote(char **s, t_env *lst_env)
+int		convert_quote(char **s, t_env *lst_env)
 {
 	int		i;
 
@@ -133,7 +133,7 @@ void		convert_quote(char **s, t_env *lst_env)
 		if ((*s)[i] == '$')
 		{
 			if (replace_env_var(s, i, lst_env) == -1)
-				return ;
+				return (-1);
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
@@ -143,4 +143,5 @@ void		convert_quote(char **s, t_env *lst_env)
 		else
 			i += 1;
 	}
+	return (0);
 }

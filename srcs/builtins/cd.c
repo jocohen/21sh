@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 08:59:05 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/27 15:33:16 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,26 +106,30 @@ static void	modif_env(char *path, t_env *lst_env, int options)
 	}
 }
 
-void		cd_builtins(t_ast *elem, t_env *lst_env)
+int			cd_builtins(t_ast *elem, t_env *lst_env)
 {
 	int			options;
 	int			i;
 	char		*buf_pwd;
+	char		*dir;
 
 	buf_pwd = NULL;
 	options = 0;
+	dir = NULL;
 	if ((i = check_options(elem, &options)) == -1)
-		return ;
-	if (ft_strcmp(elem->input[i], "-") == 0)
+		return (1);
+	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
 	{
-		free(elem->input[i]);
-		elem->input[i] = ft_strdup(get_env_value(lst_env, "$OLDPWD"));
-		ft_printf("%s\n", elem->input[i]);
+		dir = get_env_value(lst_env, "$OLDPWD");
+		(ft_strcmp(dir, "") != 0) ? ft_printf("%s\n", dir) : error_cd("OLDPWD", 2);
 	}
-	if (check_access(elem->input[i]) == -1 || chdir(elem->input[i]) == -1)
+	else if (!elem->input[i])
 	{
-		ft_printf("error here\n");
-		return ;
+		dir = get_env_value(lst_env, "$HOME");
+		(ft_strcmp(dir, "") != 0) ? 0 : error_cd("HOME", 2);
 	}
-	modif_env(elem->input[i], lst_env, options);
+	if (ft_strcmp(dir, "") != 0 && (check_access(dir) == -1 || chdir(dir) == -1))
+		return (1);
+	modif_env(dir, lst_env, options);
+	return (0);
 }
