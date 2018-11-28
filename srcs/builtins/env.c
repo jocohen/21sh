@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 19:40:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/28 11:54:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,24 +97,29 @@ int				env_builtins(t_ast *elem, t_env *lst_env)
 {
 	int		i;
 	int		option;
-	int		x;
+	// int		x;
 	char	*s;
 	t_env	*tmp;
+	char	**save_input;
 
 	s = NULL;
 	tmp = NULL;
+	save_input = NULL;
 	option = (elem->input[1] && ft_strcmp(elem->input[1], "-i") == 0) ? 1 : 0;
 	i = option;
 	while (++i && elem->input[i] && (s = ft_strchr(elem->input[i], '=')))
 		add_env(&tmp, elem->input[i], ft_strlen(elem->input[i]) - ft_strlen(s));
-	x = 0;
-	while (x < i)
-		free(elem->input[x++]);
+	// x = 0;
+	// while (x < i)
+	// 	free(elem->input[x++]);
+	// elem->input = &(elem->input[i]);
+	save_input = elem->input;
 	elem->input = &(elem->input[i]);
 	if (option == 0)
 		tmp = lst_env_dup(&lst_env, &tmp);
 	(elem->input[0]) ? dispatch_cmd(elem, tmp,
 	ft_strsplit(get_env_value(lst_env, "$PATH"), ':')) : display_env(tmp);
+	elem->input = save_input;
 	del_lst_env(&tmp);
 	return (0);
 }

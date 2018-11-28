@@ -18,7 +18,9 @@ Afternoon:
 
 	Add if times:
 		- SETENV
-		- UNSETENV
+		- UNSETENV	=> when unsetenv QWT crash
+					=>
+
 		- Check leaks
 
 

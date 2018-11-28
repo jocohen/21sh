@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:10:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 13:33:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/28 15:33:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ int	unsetenv_builtins(t_ast *elem, t_env *lst_env)
 		tmp = tmp_next;
 		tmp_next = tmp_next->next;
 	}
-	tmp->next = tmp_next->next;
-	free(tmp_next->key);
-	free(tmp_next->value);
-	free(tmp_next);
+	if (tmp_next)
+	{
+		tmp->next = tmp_next->next;
+		free(tmp_next->key);
+		free(tmp_next->value);
+		free(tmp_next);
+	}
+	else
+	{
+		ft_printf("ERROR\n");
+		return (-1);
+	}
 	return (0);
 }

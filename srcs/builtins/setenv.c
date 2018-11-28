@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:08:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 13:43:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/28 15:26:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ int	setenv_builtins(t_ast *elem, t_env *lst_env)
 	t_env *tmp;
 
 	tmp = lst_env;
-	if (!elem->input[1] || !elem->input[2] || ft_strchr(elem->input[1], '='))
-		return (-1);
+	if (elem->input[1] && ft_strchr(elem->input[1], '='))
+		return (error_setenv(2));
+	else if (!elem->input[1] || !elem->input[2])
+		return (error_setenv(1));
+	else if (elem->input[3] && elem->input[4])
+		return (error_setenv(3));
 	while (tmp)
 	{
 		if (ft_strcmp(elem->input[1], tmp->key) == 0)
