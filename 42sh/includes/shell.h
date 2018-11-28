@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/15 16:59:00 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/28 15:46:54 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_historic
 
 int				g_pid;
 int				g_resize;
+char			*g_clip;
 
 int				env_to_lst(char **s, t_list **fp);
 char			*find_var_value(t_list *fp, char *var);
@@ -54,7 +55,7 @@ void			ft_exit(int status);
 void			set_terminal(t_list *fp, int reset);
 void			prompt(t_list **lst, t_historic **history);
 void			*ft_realloc(void *ptr, size_t size, size_t len);
-void			caller_display(t_list *fp, t_buf *input);
+void			caller_display(t_list *fp, t_buf *input, int change_pos);
 void			escape_analysis(t_buf *input, t_historic **history);
 void			del_char(t_buf *input, int type);
 int				ft_writestdin(int c);
@@ -73,10 +74,18 @@ void			check_over_buffer(t_buf *input, char *into_buff);
 int				display_sizing(int size);
 void			cursor_movement(t_buf *input, int dir);
 int				window_width_size(void);
-int				window_line_size(void);
 void			sig_window(int t);
 void			check_resize_curs_pos(t_buf *input);
 void			delete_line_pos(t_buf *input);
 void			vertical_cursor(t_buf *input, int direction);
+t_buf			*selec_buffer(int t, t_buf *input);
+void			replace_cursor(t_buf *input, size_t c, size_t l);
+void			reactualize_output(t_buf *input);
+void			selection_init(t_buf *input, int dir);
+void			input_character(t_buf *input, char k);
+void			check_last_char_column(t_buf *input);
+void			paste_intra_clip(t_buf *input);
+void			cut_selection(t_buf *input, t_buf *selec);
+int				historic_opening(t_list *lst, int open_type);
 
 #endif

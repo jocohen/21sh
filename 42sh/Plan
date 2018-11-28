@@ -41,3 +41,6 @@ ctrl C =
 
 termcaps cap =
 				-cd clear du curseur jusqua botom of the screen
+				do qui descend dune ligne et et cariage return
+
+ne pas oublier de free le clipboard (le presspapier/ copier string)

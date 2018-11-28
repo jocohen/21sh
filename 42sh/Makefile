@@ -6,7 +6,7 @@
 #    By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/24 06:17:23 by jocohen           #+#    #+#              #
-#    Updated: 2018/11/14 15:55:57 by jocohen          ###   ########.fr        #
+#    Updated: 2018/11/19 16:31:00 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ NAME_SRC = shell.c \
 		   eol_work.c \
 		   signal_control.c \
 		   historic_move.c \
-		   history_stuff.c
+		   history_stuff.c \
+		   selection_input.c
 
 NAME_OBJ = $(NAME_SRC:.c=.o)
 

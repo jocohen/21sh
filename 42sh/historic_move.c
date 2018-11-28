@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/31 22:05:49 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/28 17:23:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
 
-int		historic_opening(t_list *lst)
+int		historic_opening(t_list *lst, int open_type)
 {
 	int		fd;
 	char	*home;
@@ -26,7 +26,10 @@ int		historic_opening(t_list *lst)
 		s = ft_strjoin(home, ".21sh_history");
 	if (!s)
 		ft_exit(EXIT_FAILURE);
-	fd = open(s, O_RDONLY);
+	if (!open_type)
+		fd = open(s, O_RDONLY);
+	else
+		fd = open(s, O_WRONLY | O_APPEND | O_CREAT);
 	ft_memdel((void **)&s);
 	return (fd);
 }
@@ -37,7 +40,7 @@ int		init_hist(t_historic **history, t_list *lst)
 	t_historic	*tmp;
 
 	tmp = 0;
-	fd = historic_opening(lst);
+	fd = historic_opening(lst, 0);
 	if (!((*history) = ft_new_cmd_hist()))
 		ft_exit(EXIT_FAILURE);
 	if (fd == -1)
@@ -119,10 +122,11 @@ void	delete_line_pos(t_buf *input)
 		x -= 1;
 	}
 	tputs(tgetstr("cd",	0), 1, ft_writestdin);
-	write(1, input->s, input->x);
-	x = display_sizing(0) + input->x;
+	write(1, input->s, ft_strlen(input->s));
+	x = display_sizing(0) + ft_strlen(input->s);
 	input->pos.l = x / window_width_size();
 	input->pos.c = x % window_width_size();
+	check_last_char_column(input);
 }
 
 void	cmd_spe_search(t_historic **history, t_buf *input, int direction)

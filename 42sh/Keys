@@ -14,11 +14,12 @@ END -> 27 91 70
 Pageup -> 27 91 53 126
 PageDown -> 27 91 54 126
 Ctrl L -> 12
-Ctrl arrow keys -> 27 91 49 59 53 -> see above for last number
+Ctrl arrow keys -> 27 91 49 59 53 + see above for last number
 Maj pomme C -> 27 116 49 | t1
 Maj pomme V -> 27 116 50 | t2
 Maj pomme X -> 27 116 51 | t3
 
+shift arrow keys -> 27 91 49 59 50 + see above
 
 13 multiple read Keys
 

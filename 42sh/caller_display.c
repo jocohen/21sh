@@ -6,19 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/14 17:17:18 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/26 15:15:37 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
-
-int		window_line_size(void)
-{
-	struct winsize	wind;
-
-	ioctl(0, TIOCGWINSZ, &wind);
-	return ((int)wind.ws_row);
-}
 
 int		window_width_size(void)
 {
@@ -72,7 +64,7 @@ void	fancy_display(char *pwd)
 	write(1, " > ", 3);
 }
 
-void	caller_display(t_list *fp, t_buf *input)
+void	caller_display(t_list *fp, t_buf *input, int change_pos)
 {
 	char	path[PATH_MAX];
 	char	*pwd;
@@ -81,6 +73,9 @@ void	caller_display(t_list *fp, t_buf *input)
 	if (!(pwd = find_var_value(fp, "PWD")))
 		pwd = getcwd(path, PATH_MAX);
 	fancy_display(pwd);
-	input->pos.l = (display_sizing(0)) / window_width_size();
-	input->pos.c = display_sizing(0) % (window_width_size());
+	if (change_pos)
+	{
+		input->pos.l = (display_sizing(0)) / window_width_size();
+		input->pos.c = display_sizing(0) % (window_width_size());
+	}
 }

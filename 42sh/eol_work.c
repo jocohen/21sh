@@ -5,12 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/05 14:58:55 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/15 17:57:53 by jocohen          ###   ########.fr       */
+/*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
+/*   Updated: 2018/11/28 17:24:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
+
+void	check_last_char_column(t_buf *input)
+{
+	if (input->pos.l && !input->pos.c)
+	{
+		tputs(tgetstr("im", 0), 1, ft_writestdin);
+		write(1, "c", 1);
+		input->pos.c += 1;
+		cursor_movement(input, -2);
+		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		tputs(tgetstr("ei", 0), 1, ft_writestdin);
+	}
+}
+
+void	reactualize_output(t_buf *input)
+{
+	t_cursor	prev;
+
+	prev.c = input->pos.c;
+	prev.l = input->pos.l;
+	check_last_char_column(input);
+	delete_line_pos(input);
+	replace_cursor(input, prev.c, prev.l);
+}
+
+void	replace_cursor(t_buf *input, size_t c, size_t l)
+{
+	if (input->pos.l > l || (input->pos.l == l && input->pos.c > c))
+	{
+		while (input->pos.l != l || input->pos.c != c)
+			cursor_movement(input, -2);
+	}
+	else if (input->pos.l < l || (input->pos.l == l && input->pos.c < c))
+	{
+		while (input->pos.l != l || input->pos.c != c)
+			cursor_movement(input, 2);
+	}
+}
 
 void	check_resize_curs_pos(t_buf *input)
 {
@@ -21,7 +59,7 @@ void	check_resize_curs_pos(t_buf *input)
 	x = display_sizing(0) + input->x;
 	input->pos.l = x / window_width_size();
 	input->pos.c = x % window_width_size();
-	if (l == (size_t)window_width_size() && !input->pos.c && !input->s[input->x])
+	if ((l == (size_t)window_width_size() || (input->pos.l && l == 1)) && !input->pos.c && !input->s[input->x])
 	{
 		write(1, "c", 1);
 		input->pos.c += 1;
@@ -58,16 +96,18 @@ void	vertical_cursor(t_buf *input, int direction)
 			return ;
 		input->x += window_width_size();
 		if (x.l == input->pos.l + 1 && input->pos.c > x.c)
-		{
-			while (input->pos.c > x.c)
-			{
-				tputs(tgetstr("le", 0), 1, ft_writestdin);
-				input->pos.c -= 1;
-			}
 			input->x = ft_strlen(input->s);
-		}
+		else
+			x.c = input->pos.c;
 		tputs(tgetstr("do",	0), 1, ft_writestdin);
+		tputs(tgetstr("cr",	0), 1, ft_writestdin);
+		input->pos.c = 0;
 		input->pos.l += 1;
+		while (input->pos.c != x.c)
+		{
+			tputs(tgetstr("nd", 0), 1, ft_writestdin);
+			input->pos.c += 1;
+		}
 	}
 }
 
@@ -100,7 +140,7 @@ void	cursor_movement(t_buf *input, int dir)
 		if (input->pos.c + 1 == (size_t)window_width_size())
 		{
 			tputs(tgetstr("do",	0), 1, ft_writestdin);
-			// tputs(tgetstr("cr",	0), 1, ft_writestdin);
+			tputs(tgetstr("cr",	0), 1, ft_writestdin);
 			input->pos.c = 0;
 			input->pos.l += 1;
 			return ;
@@ -110,8 +150,10 @@ void	cursor_movement(t_buf *input, int dir)
 	}
 }
 
-void	historic_entry(t_buf *input, t_historic **history, int read)
+void	historic_entry(t_buf *input, t_historic **history, int read, t_list *lst)
 {
+	int		fd;
+
 	while ((*history)->next)
 		(*history) = (*history)->next;
 	ft_memdel((void **)&((*history)->origin));
@@ -119,6 +161,10 @@ void	historic_entry(t_buf *input, t_historic **history, int read)
 	reset_hist((*history)->prev);
 	if (!input->s[0] || read || ((*history)->prev && !ft_strcmp(input->s, ((*history)->prev)->origin)))
 		return ;
+	fd = historic_opening(lst, 1);
+	write(fd, input->s, ft_strlen(input->s));
+	write(fd, "\n", 1);
+	close(fd);
 	if (!((*history)->origin = ft_strdup(input->s)) || !(((*history)->next) = ft_new_cmd_hist()))
 		ft_exit(EXIT_FAILURE);
 	((*history)->next)->prev = (*history);
@@ -127,11 +173,17 @@ void	historic_entry(t_buf *input, t_historic **history, int read)
 
 void	enter_section(t_buf *input, t_list **lst, t_historic **history, int read)
 {
-	tputs(tgetstr("do", 0), 1, ft_writestdin);
+	size_t	x;
+
+	x = (((display_sizing(0) + ft_strlen(input->s) - 1) / window_width_size()) - (input->pos.l - 1)) + 1;
+	while (--x)
+		tputs(tgetstr("do", 0), 1, ft_writestdin);
 	tputs(tgetstr("cr", 0), 1, ft_writestdin);
-	historic_entry(input, history, read);
+	ft_printf("%9s|%s|\n", "", input->s);
+	historic_entry(input, history, read, *lst);
 	// input start fct
+	// input needed to be free and thats it
 	input->x = 0;
 	ft_bzero(input->s, input->buf_size);
-	caller_display(*lst, input);
+	caller_display(*lst, input, 1);
 }
