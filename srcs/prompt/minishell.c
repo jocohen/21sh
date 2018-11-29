@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/29 16:20:07 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 18:56:53 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,43 @@ int		main(int argc, char **argv, char **env)
 	t_env	*lst_env;
 	int		r;
 	int		i;
+	int 	nb;
 
 	s = NULL;
 	lst_env = NULL;
+	nb = 0;
 	r = 1;
 	i = 0;
 	(void)argv;
 	(void)argc;
 	env_cp(env, &lst_env);
 	add_shlvl(&lst_env);
-	// convert_lst_tab(lst_env, &tab_env);
-	// display_env_lst_and_table(lst_env, tab_env);
 	while (r > 0)
 	{
 		write(1, "prompt > ", 9);
 		r = get_next_line(0, &s);
 		if (s && ft_strncmp("exit", s, 4) == 0)
 			break ;
-		(s) ? lexer(s, lst_env): 0;
+		// ft_printf("*s = |%c|\n", *s);
+		if (r != 0 && ft_strcmp(s, "") != 0)
+		{
+			ft_printf("YO C'est la merde!\nr = %d\n", r);
+			lexer(s, lst_env);
+		}
 	}
-	r = 0;
-	if (ft_isspace(s[4]) == 1)
+	if (r != 0 && ft_isspace(s[4]) == 1)
+	{
 		while (s[4 + i])
 		{
 			if (ft_isdigit(s[4 + i]) == 1)
 			{
-				r = ft_atoi(&s[4 + i]);
+				nb = ft_atoi(&s[4 + i]);
 				break ;
 			}
 			i += 1;
 		}
-	free(s);
+	}
+	(s && r != 0) ? free(s) : 0;
 	del_lst_env(&lst_env);
-	return (r);
+	return (nb);
 }
