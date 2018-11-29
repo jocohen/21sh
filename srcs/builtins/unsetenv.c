@@ -6,31 +6,28 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:10:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/29 10:21:34 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:55:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	unsetenv_builtins(t_ast *elem, t_env *lst_env)
+static int	check_unsetenv_error(t_ast *elem)
+{
+	if (!elem->input[1])
+		return (error_unsetenv(2, NULL));
+	else if (elem->input[2])
+		return (error_unsetenv(1, NULL));
+	return (0);
+}
+
+static int	unset_exist_env(t_ast *elem, t_env *lst_env)
 {
 	t_env	*tmp;
 	t_env	*tmp_next;
 
 	tmp = lst_env;
 	tmp_next = tmp->next;
-	if (!elem->input[1])
-		return (error_unsetenv(2, NULL));
-	else if (elem->input[2])
-		return (error_unsetenv(1, NULL));
-	else if (ft_strcmp(elem->input[1], tmp->key) == 0)
-	{
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		lst_env = tmp->next;
-		return (0);
-	}
 	while (tmp_next && ft_strcmp(elem->input[1], tmp_next->key) != 0)
 	{
 		tmp = tmp_next;
@@ -45,5 +42,24 @@ int	unsetenv_builtins(t_ast *elem, t_env *lst_env)
 	}
 	else
 		return (error_unsetenv(3, elem->input[1]));
+	return (0);
+}
+
+int			unsetenv_builtins(t_ast *elem, t_env *lst_env)
+{
+	t_env	*tmp;
+
+	tmp = lst_env;
+	if (check_unsetenv_error(elem) == -1)
+		return (-1);
+	else if (ft_strcmp(elem->input[1], tmp->key) == 0)
+	{
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		lst_env = tmp->next;
+	}
+	else if (unset_exist_env(elem, lst_env) == -1)
+		return (-1);
 	return (0);
 }

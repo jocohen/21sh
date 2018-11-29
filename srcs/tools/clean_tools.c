@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:16:32 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 19:18:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:46:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ void	del_lst_ast(t_ast **lst)
 	{
 		*lst = tmp->next;
 		delete_str_tab(tmp->input);
-		// while (tmp->input[i] != NULL)
-		// {
-		// 	free(tmp->input[i]);
-		// 	i += 1;
-		// }
-		// free(tmp->input);
 		free(tmp);
 		tmp = *lst;
 	}
+}
+
+void	del_double_tab(char **tab1, char **tab2)
+{
+	if (tab1)
+		delete_str_tab(tab1);
+	if (tab2)
+		delete_str_tab(tab2);
 }

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/28 11:54:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:57:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,10 @@ void			env_cp(char **env, t_env **lst_env)
 	}
 }
 
-/*
-**	ERROR WHEN env -i to bash or zsh
-**  		when env simple double free
-**	To do:
-**		Create a new elem ast -> input => dup(orig->input[i++])
-**							-> next = orig -> next etc ...
-**		when finished -> delete new ast elem
-88					-> continue normaly
-*/
-
 int				env_builtins(t_ast *elem, t_env *lst_env)
 {
 	int		i;
 	int		option;
-	// int		x;
 	char	*s;
 	t_env	*tmp;
 	char	**save_input;
@@ -109,10 +98,6 @@ int				env_builtins(t_ast *elem, t_env *lst_env)
 	i = option;
 	while (++i && elem->input[i] && (s = ft_strchr(elem->input[i], '=')))
 		add_env(&tmp, elem->input[i], ft_strlen(elem->input[i]) - ft_strlen(s));
-	// x = 0;
-	// while (x < i)
-	// 	free(elem->input[x++]);
-	// elem->input = &(elem->input[i]);
 	save_input = elem->input;
 	elem->input = &(elem->input[i]);
 	if (option == 0)

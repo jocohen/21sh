@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/29 10:16:20 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:47:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ void				display_env(t_env *lst);
 */
 void				delete_str_tab(char **tab);
 void				del_lst_env(t_env **lst);
+void				del_double_tab(char **tab1, char **tab2);
 void				del_lst_ast(t_ast **lst);
 
 /*
