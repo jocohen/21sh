@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 11:28:30 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:20:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int		main(int argc, char **argv, char **env)
 	char	*s;
 	t_env	*lst_env;
 	int		r;
+	int		i;
 
 	s = NULL;
 	lst_env = NULL;
 	r = 1;
+	i = 0;
 	(void)argv;
 	(void)argc;
 	env_cp(env, &lst_env);
@@ -55,11 +57,22 @@ int		main(int argc, char **argv, char **env)
 	{
 		write(1, "prompt > ", 9);
 		r = get_next_line(0, &s);
-		if (ft_strcmp("exit", s) == 0)
+		if (s && ft_strncmp("exit", s, 4) == 0)
 			break ;
-		lexer(s, lst_env);
+		(s) ? lexer(s, lst_env): 0;
 	}
+	r = 0;
+	if (ft_isspace(s[4]) == 1)
+		while (s[4 + i])
+		{
+			if (ft_isdigit(s[4 + i]) == 1)
+			{
+				r = ft_atoi(&s[4 + i]);
+				break ;
+			}
+			i += 1;
+		}
 	free(s);
 	del_lst_env(&lst_env);
-	return (0);
+	return (r);
 }

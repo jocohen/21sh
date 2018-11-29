@@ -25,3 +25,4 @@ Afternoon:
 
 
 Error:
+	- When PWD delete cd .. segv

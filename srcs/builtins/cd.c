@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 15:33:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/29 10:39:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ static void	new_path(t_env *elem, char *path, char **tab)
 static int	check_access(char *dir)
 {
 	if (access(dir, F_OK) == -1)
+	{
+		ft_printf("ERROR: dir: |%s|\n", dir);
 		return (error_cd(dir, 0));
+	}
 	if (access(dir, X_OK) == -1)
 		return (error_cd(dir, 1));
 	return (0);
@@ -118,18 +121,28 @@ int			cd_builtins(t_ast *elem, t_env *lst_env)
 	dir = NULL;
 	if ((i = check_options(elem, &options)) == -1)
 		return (1);
+	ft_printf("i = %d\n", i);
 	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
 	{
+		ft_printf("OK1\n");
 		dir = get_env_value(lst_env, "$OLDPWD");
 		(ft_strcmp(dir, "") != 0) ? ft_printf("%s\n", dir) : error_cd("OLDPWD", 2);
+		ft_printf("OK2\n");
 	}
 	else if (!elem->input[i])
 	{
 		dir = get_env_value(lst_env, "$HOME");
 		(ft_strcmp(dir, "") != 0) ? 0 : error_cd("HOME", 2);
+		ft_printf("OK3\n");
 	}
+	else
+		dir = elem->input[i];
+	ft_printf("OK4 dir: |%s|\n", dir);
 	if (ft_strcmp(dir, "") != 0 && (check_access(dir) == -1 || chdir(dir) == -1))
+	{
+		ft_printf("OK5\n");
 		return (1);
+	}
 	modif_env(dir, lst_env, options);
 	return (0);
 }
