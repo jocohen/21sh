@@ -1,28 +1,9 @@
 TO_DO:
 
-	Builtins:
-		- ECHO: DONE
-		- CD: DONE (Need to check when unsetenv PWD or OLDPWD)
-		- ENV: DONE (Norme ok)
-===>	- SETENV: IN PROGRESS
-		- UNSETENV: IN PROGRESS
-		- ADD real return value for each builtins
+ Update t_ast:
+ 	- add ->left
+	- add ->right
+	- keep ->next for free
 
-	Run like minishell and looking for:
-		- leaks
-		- error as not correct usage of cmd
-		- other to crash or segv 21sh
-
-Afternoon:
-	To do:
-
-	Add if times:
-		- SETENV
-		- UNSETENV	=> when unsetenv QWT crash
-					=>
-
-		- Check leaks
-
-
-Error:
-	- When PWD delete cd .. segv
+	Create logic ast binaire:
+		- Head Logic

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/24 18:59:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/30 17:18:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 
 void	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
+	if (elem->input[0][0] == '|')
+		do_pipe(elem);
 	(void)lst_env;
 	(void)tab_path;
-	ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
-	elem->input[0]);
+	// ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
+	// elem->input[0]);
 }
 
 void	dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path)
