@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/28 15:44:24 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/11/29 13:46:25 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
 
-void	cut_selection(t_buf *input, t_buf *selec)
+void	cut_selection(t_buf *input, t_buf *selec, t_list **lst)
 {
 	size_t	x;
 
@@ -34,10 +34,10 @@ void	cut_selection(t_buf *input, t_buf *selec)
 		}
 	}
 	(input->s[input->x]) ? cursor_movement(input, 1) : 0;
-	selec_buffer(0, input);
+	selec_buffer(0, input, lst);
 }
 
-void	paste_intra_clip(t_buf *input)
+void	paste_intra_clip(t_buf *input, t_list **lst)
 {
 	size_t	x;
 
@@ -56,7 +56,7 @@ void	paste_intra_clip(t_buf *input)
 	x = ft_strlen(g_clip) + 1;
 	while (--x)
 		cursor_movement(input, 1);
-	reactualize_output(input);
+	reactualize_output(input, lst);
 }
 
 void	display_spe_line(t_buf *selec, t_buf *input)
@@ -79,32 +79,26 @@ void	display_spe_line(t_buf *selec, t_buf *input)
 	ft_memdel((void **)&output);
 }
 
-void	redisplay_line_selec(t_buf *selec, t_buf *input)
+void	redisplay_line_selec(t_buf *selec, t_buf *input, t_list **lst)
 {
 	t_cursor	prev;
 	int			x;
 
 	if (!selec->s || !selec->s[0])
 	{
-		reactualize_output(input);
+		reactualize_output(input, lst);
 		return ;
 	}
 	prev.c = input->pos.c;
 	prev.l = input->pos.l;
-	x = display_sizing(0);
-	input->pos.c = 0;
 	tputs(tgetstr("cr",	0), 1, ft_writestdin);
 	while (input->pos.l)
 	{
 		tputs(tgetstr("up",	0), 1, ft_writestdin);
 		input->pos.l -= 1;
 	}
-	while (x)
-	{
-		cursor_movement(input, 2);
-		x -= 1;
-	}
 	tputs(tgetstr("cd",	0), 1, ft_writestdin);
+	caller_display(*lst, input, 0);
 	display_spe_line(selec, input);
 	x = display_sizing(0) + ft_strlen(input->s);
 	input->pos.l = x / window_width_size();
@@ -113,7 +107,7 @@ void	redisplay_line_selec(t_buf *selec, t_buf *input)
 	replace_cursor(input, prev.c, prev.l);
 }
 
-t_buf	*selec_buffer(int t, t_buf *input)
+t_buf	*selec_buffer(int t, t_buf *input, t_list **lst)
 {
 	static t_buf	selection;
 
@@ -121,17 +115,20 @@ t_buf	*selec_buffer(int t, t_buf *input)
 		return (&selection);
 	else
 	{
-		reactualize_output(input);
-		ft_memdel((void **)&(selection.s));
+		if (selection.s)
+		{
+			reactualize_output(input, lst);
+			ft_memdel((void **)&(selection.s));
+		}
 		return (0);
 	}
 }
 
-void	selection_init(t_buf *input, int dir)
+void	selection_init(t_buf *input, int dir, t_list **lst)
 {
 	t_buf	*selec;
 
-	selec = selec_buffer(1, 0);
+	selec = selec_buffer(1, 0, 0);
 	if (!selec->s)
 	{
 		selec->buf_size = 64;
@@ -155,7 +152,7 @@ void	selection_init(t_buf *input, int dir)
 			ft_memmove(selec->s, selec->s + 1, selec->x + 1);
 		if (!selec->x)
 			ft_memdel((void **)&(selec->s));
-		redisplay_line_selec(selec, input);
+		redisplay_line_selec(selec, input, lst);
 		return ;
 	}
 	if (!input->s[input->x] || selec->pos.l == 1)
@@ -178,5 +175,5 @@ void	selection_init(t_buf *input, int dir)
 		cursor_movement(input, 1);
 	}
 	selec->pos.c = dir;
-	redisplay_line_selec(selec, input);
+	redisplay_line_selec(selec, input, lst);
 }
