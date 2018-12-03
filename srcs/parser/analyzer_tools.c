@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/30 17:18:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/03 10:38:32 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ void	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 
 void	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	if (elem->input[0][0] == '|')
-		do_pipe(elem);
+	// if (elem->input[0][0] == '|')
+	// 	do_pipe(elem);
 	(void)lst_env;
 	(void)tab_path;
+	(void)elem;
 	// ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	// elem->input[0]);
 }

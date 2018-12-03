@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/30 16:41:58 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/03 09:19:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef	struct		s_ast
 	struct s_ast	*back_quote;
 	struct s_ast	*next;
 	struct s_ast	*back;
+	struct s_ast	*left;
+	struct s_ast	*right;
 }					t_ast;
 
 typedef	struct		s_env

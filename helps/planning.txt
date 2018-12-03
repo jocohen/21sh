@@ -6,4 +6,108 @@ TO_DO:
 	- keep ->next for free
 
 	Create logic ast binaire:
-		- Head Logic
+		- if type = 0 (CMD)
+
+		- if type = 1 (LOGIC)
+
+		- if type = 2 (REDIR)
+
+		- if type = 3 (OPERATOR)
+
+		- if type = 4 (AGGREG)
+
+
+
+	A | B || C && D >> file.txt
+
+
+				||
+		|				>>
+	A		B		&&		file.txt
+				C		D
+
+
+Creation AST:
+	sort = lst;
+	tmp = lst->next;
+
+	while (tmp)
+	{
+		if tmp != ||
+			if sort == ||
+				go right;
+			else
+				go left;
+		else tmp == ||
+			tmp->left = sort && sort = tmp;
+	}
+=======================================================================================
+	static void		add_right(t_ast *elem, t_ast **sort)
+	{
+		t_ast	*tmp;
+
+		tmp = *sort->right;
+		while (tmp->left)
+			tmp = tmp->left;
+		if (tmp->type != CMD)
+		{
+			tmp->left = elem;
+			elem->back = tmp;
+		}
+	}
+
+	static void		add_left(t_ast *elem, t_ast **sort)
+	{
+		t_ast *tmp;
+
+		tmp = NULL;
+		if (*sort->type != CMD)
+			tmp = *sort->left;
+		else
+		{
+			elem->left = *sort;
+			*sort->back = elem;
+			*sort = elem;
+		}
+		while (tmp->left)
+			tmp = tmp->left;
+		if (tmp->type != CMD)
+		{
+			tmp->left = elem;
+			elem->back = tmp;
+		}
+		else
+		{
+			while (tmp->back)
+				tmp = tmp->back;
+		}
+	}
+
+	static void		sort_ast(t_ast *lst, t_ast **sort)
+	{
+		t_ast	*tmp;
+
+		*sort = lst;
+		tmp = lst->next;
+		while (tmp)
+		{
+			if (ft_strcmp(tmp->input[0], "||") != 0)
+			{
+				if (ft_strcmp(*sort->input[0], "||") == 0)
+				{
+					// add_right(tmp, sort);
+				}
+				else
+				{
+					// go left;
+				}
+			}
+			else if (ft_strcmp(tmp->input[0], "||") == 0)
+			{
+				tmp->left = *sort;
+				*sort->back = tmp;
+				*sort = tmp;
+			}
+			tmp = tmp->next;
+		}
+	}
