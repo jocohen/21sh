@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/03 12:35:58 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/04 11:46:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_ast	*create_new_elem(t_ast **lst)
 
 	if (!(new = (t_ast *)malloc(sizeof(t_ast))))
 		return (NULL);
+	new->print = 0;
 	new->fd = 3;
 	new->type = NO_TYPE;
 	new->input = NULL;

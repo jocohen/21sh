@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/03 09:19:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/04 15:39:55 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 typedef	struct		s_ast
 {
+	int				print;
 	int				fd;
 	int				type;
 	char			**input;
