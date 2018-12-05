@@ -6,33 +6,33 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/04 17:13:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/05 12:47:53 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static void	read_lst(t_ast *lst)
-{
-	t_ast	*tmp;
-	int		x;
-	int		i;
-	i = 0;
-	tmp = lst;
-	while (tmp)
-	{
-		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
-		x = 0;
-		while (tmp->input[x])
-		{
-			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
-			x += 1;
-		}
-		ft_printf("\n\n");
-		tmp = tmp->next;
-		i += 1;
-	}
-}
+// static void	read_lst(t_ast *lst)
+// {
+// 	t_ast	*tmp;
+// 	int		x;
+// 	int		i;
+// 	i = 0;
+// 	tmp = lst;
+// 	while (tmp)
+// 	{
+// 		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
+// 		x = 0;
+// 		while (tmp->input[x])
+// 		{
+// 			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
+// 			x += 1;
+// 		}
+// 		ft_printf("\n\n");
+// 		tmp = tmp->next;
+// 		i += 1;
+// 	}
+// }
 
 static t_ast		*get_available_node(t_ast **sort)
 {
@@ -64,6 +64,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 	tmp = lst->next;
 	while (tmp)
 	{
+	    	ft_printf("NEW TOKEN:\n");
 		ft_printf("tmp input: %s\n", tmp->input[0]);
 		node = get_available_node(sort);
 		ft_printf("node input: %s\n", node->input[0]);
@@ -75,9 +76,24 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 		}
 		else if (tmp->type != CMD)
 		{
+		    if (!node->right && node->type != CMD)
+		    {
+			node->right = tmp;
+			tmp->back = node;
+		    }
+		    else if (node->type == CMD)
+		    {
 			tmp->left = *sort;
 			(*sort)->back = tmp;
 			*sort = tmp;
+		    }
+		    else if (node->right->type == CMD)
+		    {
+			tmp->left = node->right;
+			node->right->back = tmp;
+			tmp->back = node;
+			node->right = tmp;
+		    }
 		}
 		else if (tmp->type == CMD)
 		{
@@ -237,9 +253,9 @@ void			parser(char **input, t_ast *lst, t_env *lst_env)
 	}
 	fill_ast(input, &lst);
 	// ft_printf("SORT type = %d sort input[0]: %s\n", sort->type, sort->input[0]);
-	ft_printf("\n== READ LIST ==\n\n");
+	// ft_printf("\n== READ LIST ==\n\n");
 	sort_ast(lst, &sort);
-	read_lst(lst);
+	// read_lst(lst);
 	ft_printf("\n=== READ SORT ==\n\n");
 	read_sort(sort);
 	// analyzer(lst, lst_env);
