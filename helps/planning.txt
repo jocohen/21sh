@@ -1,52 +1,17 @@
 TO_DO:
+	OK - Add read AST descent
+	OK - Try both lecture and fix if some mistake
+	OK - Norm it
+	- Update parser to send elem in good way
+	- Norm it
 
- Update t_ast:
- 	- add ->left
-	- add ->right
-	- keep ->next for free
+	1 - Add LOGIC
+	2 - Add PIPE
+	3 - Merge on Tibo branch
 
-	Create logic ast binaire:
-		- if type = 0 (CMD)
-
-		- if type = 1 (LOGIC)
-
-		- if type = 2 (REDIR)
-
-		- if type = 3 (OPERATOR)
-
-		- if type = 4 (AGGREG)
-
-
-
-	A | B || C && D >> file.txt
-
-
-				||
-		|				>>
-	A		B		&&		file.txt
-				C		D
-
-
-Creation AST:
-	sort = lst;
-	tmp = lst->next;
-
-	while (tmp)
-	{
-		if tmp != ||
-			if sort == ||
-				go right;
-			else
-				go left;
-		else tmp == ||
-			tmp->left = sort && sort = tmp;
-	}
-=======================================================================================
-
-To do for AST:
-	1 - Read function => OK
-	2 - Find last node available => NO
-	3 - Create AST =>
-	4 - Try it =>
-
-	5 - Add AST lecture to travel in there
+Next day:
+	- Add REDIR
+	- Add AGREG
+	- Norm it
+	- Check leaks
+	- Crash test

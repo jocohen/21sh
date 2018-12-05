@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/05 12:47:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/05 16:29:14 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ static t_ast		*get_available_node(t_ast **sort)
 	t_ast	*tmp;
 
 	tmp = *sort;
-	// ft_printf("OK\n");
 	if (tmp && ft_strcmp(tmp->input[0], "||") == 0)
 	{
-		// ft_printf("OK2\n");
 		if (tmp->right)
 		{
 			while (tmp->right && tmp->right->type != CMD)
@@ -50,8 +48,29 @@ static t_ast		*get_available_node(t_ast **sort)
 			return (tmp);
 		}
 	}
-	// ft_printf("OK end\n");
 	return (tmp);
+}
+
+static void		link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
+{
+	if (!node->right && node->type != CMD)
+	{
+		node->right = tmp;
+		tmp->back = node;
+	}
+	else if (node->type == CMD)
+	{
+		tmp->left = *sort;
+		(*sort)->back = tmp;
+		*sort = tmp;
+	}
+	else if (node->right->type == CMD)
+	{
+		tmp->left = node->right;
+		node->right->back = tmp;
+		tmp->back = node;
+		node->right = tmp;
+	}
 }
 
 static void		sort_ast(t_ast *lst, t_ast **sort)
@@ -64,10 +83,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 	tmp = lst->next;
 	while (tmp)
 	{
-	    	ft_printf("NEW TOKEN:\n");
-		ft_printf("tmp input: %s\n", tmp->input[0]);
 		node = get_available_node(sort);
-		ft_printf("node input: %s\n", node->input[0]);
 		if (ft_strcmp(tmp->input[0], "||") == 0)
 		{
 			tmp->left = *sort;
@@ -75,114 +91,85 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 			*sort = tmp;
 		}
 		else if (tmp->type != CMD)
-		{
-		    if (!node->right && node->type != CMD)
-		    {
-			node->right = tmp;
-			tmp->back = node;
-		    }
-		    else if (node->type == CMD)
-		    {
-			tmp->left = *sort;
-			(*sort)->back = tmp;
-			*sort = tmp;
-		    }
-		    else if (node->right->type == CMD)
-		    {
-			tmp->left = node->right;
-			node->right->back = tmp;
-			tmp->back = node;
-			node->right = tmp;
-		    }
-		}
+			link_new_node(sort, tmp, node);
 		else if (tmp->type == CMD)
 		{
-			if (!node->left)
-				node->left = tmp;
-			else if (!node->right)
-				node->right = tmp;
+			(!node->left) ? node->left = tmp : 0;
+			(!node->right) ? node->right = tmp : 0;
 			tmp->back = node;
 		}
 		tmp = tmp->next;
 	}
 }
 
-static void			read_sort(t_ast *sort)
-{
-	t_ast	*tmp;
-	int		i;
+// static void			read_sort_descent(t_ast *sort)
+// {
+// 	t_ast	*tmp;
+// 	int		i;
+//
+// 	tmp = sort;
+// 	while (tmp->left)
+// 	{
+// 		ft_printf("\ntype= %d\n", tmp->type);
+// 		i = 0;
+// 		while (tmp->input[i])
+// 		{
+// 			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+// 			i += 1;
+// 		}
+// 		tmp->print = 1;
+// 		tmp = tmp->left;
+// 	}
+// 	ft_printf("\ntype= %d\n", tmp->type);
+// 	i = 0;
+// 	while (tmp->input[i])
+// 	{
+// 		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+// 		i += 1;
+// 	}
+// 	tmp->print = 1;
+// 	while (tmp)
+// 	{
+// 		if (tmp->left && tmp->left->print == 0)
+// 		{
+// 			tmp = tmp->left;
+// 			ft_printf("\ntype= %d\n", tmp->type);
+// 			i = 0;
+// 			while (tmp->input[i])
+// 			{
+// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+// 				i += 1;
+// 			}
+// 			tmp->print = 1;
+// 		}
+// 		else if (tmp->right && tmp->right->print == 0)
+// 		{
+// 			tmp = tmp->right;
+// 			ft_printf("\ntype= %d\n", tmp->type);
+// 			i = 0;
+// 			while (tmp->input[i])
+// 			{
+// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+// 				i += 1;
+// 			}
+// 			tmp->print = 1;
+// 		}
+// 		else
+// 			tmp = tmp->back;
+// 	}
+// }
 
-	tmp = sort;
-	while (tmp->left)
-	{
-		ft_printf("\ntype= %d\n", tmp->type);
-		i = 0;
-		while (tmp->input[i])
-		{
-			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-			i += 1;
-		}
-		tmp->print = 1;
-		tmp = tmp->left;
-	}
-	ft_printf("\ntype= %d\n", tmp->type);
-	i = 0;
-	while (tmp->input[i])
-	{
-		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-		i += 1;
-	}
-	tmp->print = 1;
-	// while (tmp)
-	// {
- 	// 	(tmp->print == 0) ? ft_printf("\ntype = %d\n", tmp->type) : 0;
- 	// 	i = 0;
- 	// 	while (tmp->input[i] && tmp->print == 0)
- 	// 	{
- 	// 		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
- 	// 		i += 1;
- 	// 	}
-	// 	tmp->print = 1;
- 	// 	if (tmp->right && tmp->right->print == 0)
- 	// 	{
- 	// 		if (tmp->right->type != CMD)
- 	// 		{
- 	// 			tmp = tmp->right;
-	// 			while (tmp->left)
-	// 			{
-	// 				ft_printf("\ntype= %d\n", tmp->type);
-	// 				i = 0;
-	// 				while (tmp->input[i])
-	// 				{
-	// 					ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-	// 					i += 1;
-	// 				}
-	// 				tmp->print = 1;
-	// 				tmp = tmp->left;
-	// 			}
- 	// 			(tmp->print == 0) ? ft_printf("\ntype = %d\n", tmp->type) : 0;
- 	// 			i = 0;
- 	// 			while (tmp->input[i] && tmp->print == 0)
- 	// 			{
- 	// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
- 	// 				i += 1;
- 	// 			}
- 	// 			tmp->print = 1;
- 	// 		}
- 	// 		else
- 	// 		{
- 	// 			(tmp->right->print == 0) ? ft_printf("\ntype = %d\n", tmp->right->type) : 0;
- 	// 			i = 0;
- 	// 			while (tmp->right->input[i] && tmp->right->print == 0)
- 	// 			{
- 	// 				ft_printf("input[%d]: %s\n", i, tmp->right->input[i]);
- 	// 				i += 1;
- 	// 			}
- 	// 			tmp->right->print = 1;
- 	// 		}
-	// 	}
-	// }
-}
+// static void		reinit_print(t_ast *lst)
+// {
+// 	t_ast	*tmp;
+//
+// 	tmp = lst;
+// 	while (tmp)
+// 	{
+// 		tmp->print = 0;
+// 		tmp = tmp->next;
+// 	}
+// }
 
 // static void		read_sort(t_ast *sort)
 // {
@@ -252,12 +239,14 @@ void			parser(char **input, t_ast *lst, t_env *lst_env)
 		return ;
 	}
 	fill_ast(input, &lst);
-	// ft_printf("SORT type = %d sort input[0]: %s\n", sort->type, sort->input[0]);
-	// ft_printf("\n== READ LIST ==\n\n");
 	sort_ast(lst, &sort);
+	// ft_printf("\n== READ LIST ==\n\n");
 	// read_lst(lst);
-	ft_printf("\n=== READ SORT ==\n\n");
-	read_sort(sort);
+	// ft_printf("\n=== READ SORT ==\n\n");
+	// read_sort(sort);
+	// reinit_print(lst);
+	// ft_printf("\n=== READ SORT DESCENT ==\n\n");
+	// read_sort_descent(sort);
 	// analyzer(lst, lst_env);
 	// if (input)
 	// 	delete_str_tab(input);
