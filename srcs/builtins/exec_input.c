@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 16:27:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/06 16:48:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 				err = execve(ft_strcat(ft_strcat(ft_strcpy(path,
 				tab_path[i++]), "/"), elem->input[0]), elem->input, tab_env);
 		del_double_tab(tab_path, tab_env);
-		(err == -1) ? (exit(exec_error(0, elem->input[0]))) : 0;
+		(err == -1) ? (exit(exec_error(-1, elem->input[0]))) : 0;
 	}
 	del_double_tab(tab_path, tab_env);
 	return (err);

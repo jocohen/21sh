@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 16:46:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/06 16:49:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 		ret = dispatch[i](elem, lst_env);
 	else
 		ret = exec_input(elem, lst_env, tab_path);
+	// ft_printf("ret = %d\n", ret);
 	return (ret);
 }
 
