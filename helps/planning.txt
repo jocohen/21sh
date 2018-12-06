@@ -5,7 +5,7 @@ TO_DO:
 	OK - Update parser to send elem in good way
 	OK - Norm it
 
-	1 - Add LOGIC
+	OK - Add LOGIC
 	2 - Add PIPE
 	3 - Merge on Tibo branch
 
@@ -15,24 +15,3 @@ Next day:
 	- Norm it
 	- Check leaks
 	- Crash test
-
-
-CHECK UNIFICATION RETURN BUILTINS:
-	CD:
-		OK:	return (0);
-		NO: return >0;
-	ECHO:
-		OK: return (0);
-		NO: return >0;
-	ENV:
-		OK: return (0);
-		NO:	return >0;
-	SETENV:
-		OK:	return (0);
-		NO:	return -1;
-	UNSETENV:
-		OK:	return (0);
-		NO:	return -1;
-	EXECVE:
-		OK:
-		NO:	return -1;
