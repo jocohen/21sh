@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 11:41:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:06:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef	struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef void		(*t_dispatch)(t_ast*, t_env*,  char **tab_path);
-typedef int			(*t_buitins)(t_ast *elem, t_env *lst_env);
+typedef int			(*t_dispatch)(t_ast*, t_env*,  char **tab_path);
+typedef int			(*t_builtins)(t_ast *elem, t_env *lst_env);
 
 /*
 ** LEXER:
@@ -74,7 +74,7 @@ void				remove_quote(char **s, int *i, t_env *lst_env);
 void				parser(char **input, t_ast *lst, t_env *lst_env);
 void				fill_ast(char **s, t_ast **lst);
 void				replace_quote(char *s, int *i);
-void				analyzer(t_ast *sort, t_env *lst_env);
+int					analyzer(t_ast *sort, t_env *lst_env);
 
 /*
 **	BUILTINS:
@@ -107,7 +107,7 @@ void				convert_lst_tab(t_env *lst_env, char ***tab);
 /*
 **	EXEC INPUT:
 */
-void				exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
+int					exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
 
 /*
 ** ERROR:
@@ -143,12 +143,12 @@ void				replace_quote(char *s, int *i);
 /*
 ** 		analyzer:
 */
-void				dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path);
-void				dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path);
-void				dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path);
-void				dispatch_operator(t_ast *elem, t_env *lst_env,
+int					dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path);
+int					dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path);
+int					dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path);
+int					dispatch_operator(t_ast *elem, t_env *lst_env,
 					char **tab_path);
-void				dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path);
+int					dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path);
 
 /*
 ** 		split:

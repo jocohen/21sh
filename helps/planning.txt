@@ -2,8 +2,8 @@ TO_DO:
 	OK - Add read AST descent
 	OK - Try both lecture and fix if some mistake
 	OK - Norm it
-	- Update parser to send elem in good way
-	- Norm it
+	OK - Update parser to send elem in good way
+	OK - Norm it
 
 	1 - Add LOGIC
 	2 - Add PIPE
@@ -15,3 +15,24 @@ Next day:
 	- Norm it
 	- Check leaks
 	- Crash test
+
+
+CHECK UNIFICATION RETURN BUILTINS:
+	CD:
+		OK:	return (0);
+		NO: return >0;
+	ECHO:
+		OK: return (0);
+		NO: return >0;
+	ENV:
+		OK: return (0);
+		NO:	return >0;
+	SETENV:
+		OK:	return (0);
+		NO:	return -1;
+	UNSETENV:
+		OK:	return (0);
+		NO:	return -1;
+	EXECVE:
+		OK:
+		NO:	return -1;
