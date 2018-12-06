@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/04 15:39:55 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/06 11:41:46 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				remove_quote(char **s, int *i, t_env *lst_env);
 void				parser(char **input, t_ast *lst, t_env *lst_env);
 void				fill_ast(char **s, t_ast **lst);
 void				replace_quote(char *s, int *i);
-void				analyzer(t_ast *lst, t_env *lst_env);
+void				analyzer(t_ast *sort, t_env *lst_env);
 
 /*
 **	BUILTINS:
