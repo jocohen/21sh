@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 18:25:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/07 10:40:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,39 +72,48 @@ int	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 
 int	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	int	fd[2];
-	int	pid;
+	// int		fd[2];
+	// int		pid;
 
-	if (pipe(fd) == -1)
-	{
-		ft_printf("Error: pipe failed\n");
-		return (-1);
-	}
-	pid = fork();
-	if (!pid)
-	{
-		close(fd[1]);
-		dup2(fd[0], 0);
-		close(fd[0]);
-		ft_printf("START\n");
-		analyzer(elem->right, lst_env);
-		ft_printf("ICI\n");
-		exit(0);
-	}
-	else
-	{
-		close(fd[0]);
-		dup2(fd[1], 1);
-		close(fd[1]);
-		analyzer(elem->left, lst_env);
-	}
-	// if (elem->input[0][0] == '|')
-	// 	do_pipe(elem);
-	(void)lst_env;
 	(void)tab_path;
-	(void)elem;
-//	ft_printf("OPERATOR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
-//	elem->input[0]);
+	if (ft_strcmp(elem->input[0], "|") == 0)
+		return (do_pipe(elem, lst_env));
+	else if (ft_strcmp(elem->input[0], "&") == 0)
+		return (job_control(elem, lst_env));
+	return (1);
+	// if (pipe(fd) == -1)
+	// {
+	// 	ft_printf("Error: pipe failed\n");
+	// 	return (-1);
+	// }
+	// pid = fork();
+	// if (!pid)
+	// {
+	// 	dup2(fd[0], 0);
+	// 	close(fd[0]);
+	// 	close(fd[1]);
+	// 	analyzer(elem->right, lst_env);
+	// 	exit(0);
+	// }
+	// else
+	// {
+	// 	pid = fork();
+	// 	if (!pid)
+	// 	{
+	// 		dup2(fd[1], 1);
+	// 		close(fd[0]);
+	// 		close(fd[1]);
+	// 		analyzer(elem->left, lst_env);
+	// 		exit(0);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(fd[0]);
+	// 		close(fd[1]);
+	// 		waitpid(-1, NULL, 0);
+	// 		waitpid(-1, NULL, 0);
+	// 	}
+	// }
 	return (1);
 }
 

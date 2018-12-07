@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/11/29 10:18:06 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/07 10:43:00 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ PATH_PROMPT = prompt/
 PATH_TOOLS = tools/
 PATH_PARSER = parser/
 PATH_BUILT = builtins/
+PATH_OPERATOR = operator/
 PATH_ERROR = error/
 
 INCLUDE = ./includes/
@@ -57,6 +58,8 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_TOOLS)env_tools.c \
 		$(PATH_TOOLS)env_tools_2.c \
+		$(PATH_OPERATOR)pipe.c \
+		$(PATH_OPERATOR)job_control.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
 		$(PATH_ERROR)lexer_error.c \
@@ -86,6 +89,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
+	@mkdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
 	@gcc $(CFLAGS) -I $(INCLUDE) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
@@ -100,6 +104,7 @@ clean:
 	@rmdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
+	@rmdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
 	@rmdir $(PATH_OBJ) 2> /dev/null || true
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 15:06:20 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/07 10:24:47 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,12 @@ void				convert_lst_tab(t_env *lst_env, char ***tab);
 **	EXEC INPUT:
 */
 int					exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
+
+/*
+**	OPERATOR:
+*/
+int					do_pipe(t_ast *elem, t_env *lst_env);
+int					job_control(t_ast *elem, t_env *lst_env);
 
 /*
 ** ERROR:

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 18:24:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/07 07:12:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	int		err;
 	int		i;
 	char	**tab_env;
+
+	// ft_printf("Enter exec_input\n");
 
 	tab_env = NULL;
 	err = -1;
