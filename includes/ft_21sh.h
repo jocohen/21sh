@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/07 10:24:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/07 20:49:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 typedef	struct		s_ast
 {
 	int				print;
-	int				fd;
+	int				fd[2];
 	int				type;
 	char			**input;
 	struct s_ast	*back_quote;
