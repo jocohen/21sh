@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/10 17:42:11 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/10 23:35:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,86 +70,11 @@ int	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 	return (1);
 }
 
-// void    loop_pipe(char ***cmd)
-// {
-//   int   p[2];
-//   pid_t pid;
-//   int   fd_in = 0;
-//
-//   while (*cmd != NULL)
-//     {
-//       pipe(p);
-//       if ((pid = fork()) == -1)
-//         {
-//           exit(EXIT_FAILURE);
-//         }
-//       else if (pid == 0)
-//         {
-//           dup2(fd_in, 0); //change the input according to the old one
-//           if (*(cmd + 1) != NULL)
-//             dup2(p[1], 1);
-//           close(p[0]);
-//           execvp((*cmd)[0], *cmd);
-//           exit(EXIT_FAILURE);
-//         }
-//       else
-//         {
-//           wait(NULL);
-//           close(p[1]);
-//           fd_in = p[0]; //save the input for the next command
-//           cmd++;
-//         }
-//     }
-
 int	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	t_ast	*tmp;
-	int		fd_in;
-	// int		pid;
-
-	tmp = NULL;
-	fd_in = 0;
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "|") == 0)
-	{
-// 		if (elem->left && elem->fd[0] == -1 && elem->fd[1] == -1 && ft_strcmp(elem->left->input[0], "|") == 0)
-// 		{
-// //			ft_printf("PIPE CREATION\n");
-// 			pid = fork();
-// 			if (!pid)
-// 			{
-// 				tmp = elem->left;
-// 				while (tmp->left && ft_strcmp(tmp->left->input[0], "|") == 0)
-// 					tmp = tmp->left;
-// 					pipe(tmp->fd);
-// 					dup2(tmp->fd[1], 1);
-// 					dup2(tmp->fd[0], 0);
-// 					fd_in = tmp->fd[0];
-// 				while (tmp && ft_strcmp(tmp->input[0], "|") == 0)
-// 				{
-// 					if (tmp->fd[0] == -1 && tmp->fd[1] == -1)
-// 					{
-// 						pipe(tmp->fd);
-// 						dup2(tmp->fd[1], fd_in);
-// 						// dup2(tmp->fd[0], 0);
-// 					}
-// 					fd_in = tmp->fd[0];
-// 					tmp = tmp->back;
-// 				}
-// 				// dup2(elem->fd[0], 0);
-// 				do_pipe(elem, lst_env);
-// 				exit(1);
-// 			}
-// 			//close(elem->fd[0]);
-// 			// close(elem->fd[1]);
-// 			// waitpid(pid, NULL, 0);
-// 		}
-// 		else
-			return (do_pipe(elem, lst_env));
-//		else if (elem->right && elem->fd[0] == -1 && elem->fd[1] == -1 && ft_strcmp(elem->right->input[0], "|") == 0)
-//		{
-//		}
-	}
+		return (do_pipe(elem, lst_env));
 	else if (ft_strcmp(elem->input[0], "&") == 0)
 		return (job_control(elem, lst_env));
 	return (1);
