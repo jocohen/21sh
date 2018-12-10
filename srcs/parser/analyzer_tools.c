@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/10 00:57:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/10 17:42:11 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,36 +103,52 @@ int	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 
 int	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	int		fd_in;
 	t_ast	*tmp;
-	int		pid;
+	int		fd_in;
+	// int		pid;
 
+	tmp = NULL;
 	fd_in = 0;
-	tmp = elem;
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "|") == 0)
 	{
-		pid = fork();
-		if (!pid)
-		{
-			while (tmp && ft_strcmp(tmp->input[0], "|") == 0)
-			{
-				if (elem->fd[0] == -1 && elem->fd[1] == -1)
-				{
-					pipe(elem->fd);
-					dup2(fd_in, 0);
-					fd_in = elem->fd[0];
-					// ft_printf("fd[0] = %d fd[1] = %d\n", elem->fd[0], elem->fd[1]);
-				}
-				tmp = elem->left;
-			}
-			do_pipe(elem, lst_env);
-		}
-		else
-		{
-			wait(NULL);
-			close(elem->fd[1]);
-		}
+// 		if (elem->left && elem->fd[0] == -1 && elem->fd[1] == -1 && ft_strcmp(elem->left->input[0], "|") == 0)
+// 		{
+// //			ft_printf("PIPE CREATION\n");
+// 			pid = fork();
+// 			if (!pid)
+// 			{
+// 				tmp = elem->left;
+// 				while (tmp->left && ft_strcmp(tmp->left->input[0], "|") == 0)
+// 					tmp = tmp->left;
+// 					pipe(tmp->fd);
+// 					dup2(tmp->fd[1], 1);
+// 					dup2(tmp->fd[0], 0);
+// 					fd_in = tmp->fd[0];
+// 				while (tmp && ft_strcmp(tmp->input[0], "|") == 0)
+// 				{
+// 					if (tmp->fd[0] == -1 && tmp->fd[1] == -1)
+// 					{
+// 						pipe(tmp->fd);
+// 						dup2(tmp->fd[1], fd_in);
+// 						// dup2(tmp->fd[0], 0);
+// 					}
+// 					fd_in = tmp->fd[0];
+// 					tmp = tmp->back;
+// 				}
+// 				// dup2(elem->fd[0], 0);
+// 				do_pipe(elem, lst_env);
+// 				exit(1);
+// 			}
+// 			//close(elem->fd[0]);
+// 			// close(elem->fd[1]);
+// 			// waitpid(pid, NULL, 0);
+// 		}
+// 		else
+			return (do_pipe(elem, lst_env));
+//		else if (elem->right && elem->fd[0] == -1 && elem->fd[1] == -1 && ft_strcmp(elem->right->input[0], "|") == 0)
+//		{
+//		}
 	}
 	else if (ft_strcmp(elem->input[0], "&") == 0)
 		return (job_control(elem, lst_env));

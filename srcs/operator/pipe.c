@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/09 16:15:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/10 18:44:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,25 @@
 // 	exit(ret);
 // }
 
+// static void	close_all(t_ast *elem)
+// {
+// 	t_ast	*tmp;
+//
+// 	tmp = elem->back->back;
+// 	while (tmp && ft_strcmp(tmp->input[0], "|") == 0)
+// 	{
+// 		close(tmp->fd[0]);
+// 		close(tmp->fd[1]);
+// 		tmp = tmp->back;
+// 	}
+// }
+
 static int	process_pipe_left(t_ast *elem, t_env *lst_env)
 {
 	int	ret;
 
 	close(elem->back->fd[0]);
-	// if (ft_strcmp(elem->input[0], "|") == 0)
-	// {
-	// 	dup2(elem->back->fd[1], elem->right->fd[0]);
-	// 	dup2(elem->right->fd[0], elem->back->fd[1]);
-	// }
-	// if (elem->back->fd[1] != -1)
-		dup2(elem->back->fd[1], 1);
+	dup2(elem->back->fd[1], 1);
 	ret = analyzer(elem, lst_env);
 	exit(ret);
 }
@@ -50,13 +57,10 @@ static int	process_pipe_right(t_ast *elem, t_env *lst_env)
 	int	ret;
 
 	close(elem->back->fd[1]);
-	// if (elem->back->back && ft_strcmp(elem->back->back->input[0], "|") == 0)
-	// {
-	// 	dup2(elem->back->fd[0], elem->back->back->fd[0]);
-	// 	close(elem->back->back->fd[0]);
-	// }
-	// if (elem->back->fd[0] != -1)
-	// 	dup2(elem->back->fd[0], 0);
+	if (elem->back->back && ft_strcmp(elem->back->back->input[0], "|") == 0)
+		dup2(elem->back->fd[0], elem->back->back->fd[1]);
+	else
+		dup2(elem->back->fd[0], 0);
 	ret = analyzer(elem, lst_env);
 	exit(ret);
 }
@@ -65,33 +69,23 @@ int			do_pipe(t_ast *elem, t_env *lst_env)
 {
 	int	pid1;
 	int	pid2;
-	// int	save_fd;
 
-	// if (elem->fd[0] == -1 && elem->fd[1] == -1)
-	// 	pipe(elem->fd);
-	// else
-	// {
-	// 	save_fd = elem->fd[0];
-	// 	pipe(elem->fd);
-	// 	elem->fd[0] = save_fd;
-	// }
+	pipe(elem->fd);
+	// if (elem->back && ft_strcmp(elem->back->input[0], "|") == 0)
+	// 	dup2(elem->back->fd[0], elem->fd[1]);
 	pid1 = fork();
 	if (!pid1)
 		process_pipe_left(elem->left, lst_env);
 	else
 	{
+		waitpid(pid1, NULL, 0);
 		pid2 = fork();
 		if (!pid2)
-					process_pipe_right(elem->right, lst_env);
+			process_pipe_right(elem->right, lst_env);
 		else
 		{
-			// if (!elem->back || ft_strcmp(elem->back->input[0], "|") != 0)
-			// {
-				// close(elem->fd[1]);
-				close(elem->fd[0]);
-			// }
+			// if (old_fd == 0)
 			close(elem->fd[1]);
-			waitpid(pid1, NULL, 0);
 			waitpid(pid2, NULL, 0);
 		}
 	}
