@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/10 23:35:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:42:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
+int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path)
 {
 	int					i;
 	int					ret;
@@ -32,12 +32,13 @@ int	dispatch_cmd(t_ast *elem, t_env *lst_env, char **tab_path)
 	if (i < 5)
 		ret = dispatch[i](elem, lst_env);
 	else
-		ret = exec_input(elem, lst_env, tab_path);
-	// ft_printf("ret = %d\n", ret);
+		ret = exec_input(elem, *lst_env, tab_path);
+	// ft_printf("ENV: %s\n", (*lst_env)->key);
+	// ft_printf("ret = %d\n", *ret);
 	return (ret);
 }
 
-int	dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path)
+int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path)
 {
 	int	ret;
 
@@ -61,7 +62,7 @@ int	dispatch_logic(t_ast *elem, t_env *lst_env, char **tab_path)
 	return (-1);
 }
 
-int	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
+int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;
@@ -70,17 +71,17 @@ int	dispatch_redir(t_ast *elem, t_env *lst_env, char **tab_path)
 	return (1);
 }
 
-int	dispatch_operator(t_ast *elem, t_env *lst_env, char **tab_path)
+int	dispatch_operator(t_ast *elem, t_env **lst_env, char **tab_path)
 {
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "|") == 0)
 		return (do_pipe(elem, lst_env));
 	else if (ft_strcmp(elem->input[0], "&") == 0)
-		return (job_control(elem, lst_env));
+		return (job_control(elem, *lst_env));
 	return (1);
 }
 
-int	dispatch_agreg(t_ast *elem, t_env *lst_env, char **tab_path)
+int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path)
 {
 	(void)lst_env;
 	(void)tab_path;

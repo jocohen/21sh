@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/29 18:05:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:29:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	modif_env(char *path, t_env *lst_env, int options)
 	}
 }
 
-int			cd_builtins(t_ast *elem, t_env *lst_env)
+int			cd_builtins(t_ast *elem, t_env **lst_env)
 {
 	int			options;
 	int			i;
@@ -122,16 +122,16 @@ int			cd_builtins(t_ast *elem, t_env *lst_env)
 	if ((i = check_options(elem, &options)) == -1)
 		return (1);
 	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
-		(ft_strcmp((dir = get_env_value(lst_env, "$OLDPWD")), "") != 0) ? 0 :
+		(ft_strcmp((dir = get_env_value(*lst_env, "$OLDPWD")), "") != 0) ? 0 :
 		error_cd("OLDPWD", 2);
 	else if (!elem->input[i])
-		(ft_strcmp((dir = get_env_value(lst_env, "$HOME")), "") != 0) ? 0 :
+		(ft_strcmp((dir = get_env_value(*lst_env, "$HOME")), "") != 0) ? 0 :
 		error_cd("HOME", 2);
 	else
 		dir = elem->input[i];
 	if (ft_strcmp(dir, "") != 0 && (check_access(dir) == -1 ||
 	chdir(dir) == -1))
 		return (1);
-	modif_env(dir, lst_env, options);
+	modif_env(dir, *lst_env, options);
 	return (0);
 }

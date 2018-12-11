@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/07 11:21:40 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:36:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int		analyzer(t_ast *sort, t_env *lst_env)
+int		analyzer(t_ast *sort, t_env **lst_env)
 {
 	static t_dispatch	dispatch[] = { &dispatch_cmd, &dispatch_logic,
 		&dispatch_redir, &dispatch_operator, &dispatch_agreg};

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/04 15:46:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:34:42 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		main(int argc, char **argv, char **env)
 			break ;
 		// ft_printf("*s = |%c|\n", *s);
 		if (r != 0 && ft_strcmp(s, "") != 0)
-			lexer(s, lst_env);
+			lexer(s, &lst_env);
 	}
 	if (r != 0 && ft_isspace(s[4]) == 1)
 	{

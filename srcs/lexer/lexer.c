@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/29 17:38:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:35:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static void	read_lexer(char **lexer, t_env *lst_env, t_ast *lst)
+static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst)
 {
 	int	i;
 	int	x;
@@ -30,7 +30,7 @@ static void	read_lexer(char **lexer, t_env *lst_env, t_ast *lst)
 	(lexer != NULL) ? free(lexer) : 0;
 }
 
-void		lexer(char *input, t_env *lst_env)
+void		lexer(char *input, t_env **lst_env)
 {
 	int		i;
 	char	**lexer;
@@ -52,7 +52,7 @@ void		lexer(char *input, t_env *lst_env)
 	free(input);
 }
 
-void		clean_input(char *str, t_ast *lst, t_env *lst_env)
+void		clean_input(char *str, t_ast *lst, t_env **lst_env)
 {
 	char	**split;
 	int		i;

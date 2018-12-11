@@ -6,17 +6,17 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:08:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/28 15:26:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:28:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	setenv_builtins(t_ast *elem, t_env *lst_env)
+int	setenv_builtins(t_ast *elem, t_env **lst_env)
 {
 	t_env *tmp;
 
-	tmp = lst_env;
+	tmp = *lst_env;
 	if (elem->input[1] && ft_strchr(elem->input[1], '='))
 		return (error_setenv(2));
 	else if (!elem->input[1] || !elem->input[2])
@@ -35,6 +35,6 @@ int	setenv_builtins(t_ast *elem, t_env *lst_env)
 		tmp->value = ft_strdup(elem->input[2]);
 	}
 	else if (!tmp)
-		add_elem_env(&lst_env, elem->input[1], elem->input[2]);
+		add_elem_env(lst_env, elem->input[1], elem->input[2]);
 	return (0);
 }

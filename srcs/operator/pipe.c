@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 11:53:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:42:46 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static int	process_pipe_left(t_ast *elem, t_env *lst_env)
+static int	process_pipe_left(t_ast *elem, t_env **lst_env)
 {
 	int	ret;
 
@@ -23,7 +23,7 @@ static int	process_pipe_left(t_ast *elem, t_env *lst_env)
 	exit(ret);
 }
 
-static int	process_pipe_right(t_ast *elem, t_env *lst_env)
+static int	process_pipe_right(t_ast *elem, t_env **lst_env)
 {
 	int	ret;
 
@@ -34,7 +34,7 @@ static int	process_pipe_right(t_ast *elem, t_env *lst_env)
 	exit(ret);
 }
 
-int			do_pipe(t_ast *elem, t_env *lst_env)
+int			do_pipe(t_ast *elem, t_env **lst_env)
 {
 	int	pid1;
 	int	pid2;
