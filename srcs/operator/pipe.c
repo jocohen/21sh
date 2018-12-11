@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/10 23:54:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 11:53:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static int	process_pipe_left(t_ast *elem, t_env *lst_env)
 
 	close(elem->back->fd[0]);
 	dup2(elem->back->fd[1], 1);
-	ret = analyzer(elem, lst_env);
 	close(elem->back->fd[1]);
+	ret = analyzer(elem, lst_env);
 	exit(ret);
 }
 
@@ -29,8 +29,8 @@ static int	process_pipe_right(t_ast *elem, t_env *lst_env)
 
 	close(elem->back->fd[1]);
 	dup2(elem->back->fd[0], 0);
-	ret = analyzer(elem, lst_env);
 	close(elem->back->fd[0]);
+	ret = analyzer(elem, lst_env);
 	exit(ret);
 }
 
@@ -53,9 +53,8 @@ int			do_pipe(t_ast *elem, t_env *lst_env)
 		{
 			close(elem->fd[1]);
 			waitpid(pid1, NULL, 0);
-			waitpid(pid2, NULL, 0);
 			close(elem->fd[0]);
-			// waitpid(pid2, NULL, 0);
+			waitpid(pid2, NULL, 0);
 		}
 	}
 	return (1);
