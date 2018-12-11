@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 19:35:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 18:21:10 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nb_lettre)
 	{
 		while (s[i] && ft_isoperator(s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
-			(ft_isquote(s[i]) == 1) ? lettre_in_quote(s, &i, nb_lettre) : 0;
-			i += 1;
-			*nb_lettre += 1;
+			if (ft_isquote(s[i]) == 1)
+				lettre_in_quote(s, &i, nb_lettre);
+			else
+			{
+				i += 1;
+				*nb_lettre += 1;
+			}
 		}
 	}
 }
