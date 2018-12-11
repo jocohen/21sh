@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/06 12:20:28 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 19:00:10 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 // 	}
 // }
 
-void			parser(char **input, t_ast *lst, t_env *lst_env)
+void			parser(char **input, t_ast *lst, t_env **lst_env)
 {
 	int		i;
 	t_ast	*sort;

@@ -6,8 +6,13 @@ TO_DO:
 	OK - Norm it
 
 	OK - Add LOGIC
-	2 - Add PIPE
-	3 - Merge on Tibo branch
+	OK - Add PIPE
+
+	1 - Add alloc strcut for clean free
+	2 - Update funtions -> add new struct
+	3 - Check leaks
+	4 - Norm it
+	5 - Merge on Tibo branch
 
 Next day:
 	- Add REDIR

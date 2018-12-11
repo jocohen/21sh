@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:28:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/11 19:00:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int				env_builtins(t_ast *elem, t_env **lst_env)
 	elem->input = &(elem->input[i]);
 	if (option == 0)
 		tmp = lst_env_dup(lst_env, &tmp);
-	(elem->input[0]) ? dispatch_cmd(elem, tmp,
+	(elem->input[0]) ? dispatch_cmd(elem, &tmp,
 	ft_strsplit(get_env_value(*lst_env, "$PATH"), ':')) : display_env(tmp);
 	elem->input = save_input;
 	del_lst_env(&tmp);
