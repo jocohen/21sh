@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:36 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 19:23:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 15:21:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,22 @@ int		main(int argc, char **argv, char **env)
 	int		r;
 	int		i;
 	int 	nb;
+	t_alloc	*alloc;
 
 	s = NULL;
 	lst_env = NULL;
+	alloc = NULL;
 	nb = 0;
 	r = 1;
 	i = 0;
 	(void)argv;
 	(void)argc;
+	if (!(alloc = (t_alloc*)malloc(sizeof(t_alloc))))
+		return (-1);
 	env_cp(env, &lst_env);
 	add_shlvl(&lst_env);
+	alloc->ast = NULL;
+	alloc->env = &lst_env;
 	while (r > 0)
 	{
 		write(1, "prompt > ", 9);
@@ -61,7 +67,7 @@ int		main(int argc, char **argv, char **env)
 			break ;
 		// ft_printf("*s = |%c|\n", *s);
 		if (r != 0 && ft_strcmp(s, "") != 0)
-			lexer(s, &lst_env);
+			lexer(s, &lst_env, &alloc);
 		else if (ft_strcmp(s, "") == 0)
 			free(s);
 	}
@@ -79,5 +85,6 @@ int		main(int argc, char **argv, char **env)
 	}
 	(s && r != 0) ? free(s) : 0;
 	del_lst_env(&lst_env);
+	free(alloc);
 	return (nb);
 }

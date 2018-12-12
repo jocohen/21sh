@@ -8,9 +8,9 @@ TO_DO:
 	OK - Add LOGIC
 	OK - Add PIPE
 
-	1 - Add alloc strcut for clean free
-	2 - Update funtions -> add new struct
-	3 - Check leaks
+	OK - Add alloc strcut for clean free
+	OK - Update funtions -> add new struct
+	OK - Check leaks
 	4 - Norm it
 	5 - Merge on Tibo branch
 
@@ -20,3 +20,8 @@ Next day:
 	- Norm it
 	- Check leaks
 	- Crash test
+
+
+========================================
+		CHECK AST FOR A && B | C
+========================================

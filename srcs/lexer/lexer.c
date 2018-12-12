@@ -6,13 +6,14 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:35:15 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 13:21:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst)
+static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+	t_alloc **alloc)
 {
 	int	i;
 	int	x;
@@ -23,14 +24,14 @@ static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst)
 		x = 0;
 		while (lexer[i][x] && ft_isspace(lexer[i][x]))
 			x += 1;
-		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env) : 0;
+		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
 		free(lexer[i]);
 		i += 1;
 	}
 	(lexer != NULL) ? free(lexer) : 0;
 }
 
-void		lexer(char *input, t_env **lst_env)
+void		lexer(char *input, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
 	char	**lexer;
@@ -48,11 +49,12 @@ void		lexer(char *input, t_env **lst_env)
 		free(input);
 		return ;
 	}
-	read_lexer(lexer, lst_env, lst);
+	read_lexer(lexer, lst_env, lst, alloc);
 	free(input);
 }
 
-void		clean_input(char *str, t_ast *lst, t_env **lst_env)
+void		clean_input(char *str, t_ast *lst, t_env **lst_env,
+	t_alloc **alloc)
 {
 	char	**split;
 	int		i;
@@ -67,5 +69,5 @@ void		clean_input(char *str, t_ast *lst, t_env **lst_env)
 			return ;
 		i += 1;
 	}
-	parser(split, lst, lst_env);
+	parser(split, lst, lst_env, alloc);
 }

@@ -6,13 +6,14 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:42:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 17:25:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path)
+int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
+	t_alloc **alloc)
 {
 	int					i;
 	int					ret;
@@ -30,15 +31,14 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path)
 		i += 1;
 	}
 	if (i < 5)
-		ret = dispatch[i](elem, lst_env);
+		ret = dispatch[i](elem, lst_env, alloc);
 	else
-		ret = exec_input(elem, *lst_env, tab_path);
-	// ft_printf("ENV: %s\n", (*lst_env)->key);
-	// ft_printf("ret = %d\n", *ret);
+		ret = exec_input(elem, *lst_env, tab_path, alloc);
 	return (ret);
 }
 
-int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path)
+int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path,
+	t_alloc **alloc)
 {
 	int	ret;
 
@@ -46,45 +46,50 @@ int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path)
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "&&") == 0)
 	{
-		ret = analyzer(elem, lst_env);
+		ret = analyzer(elem, lst_env, alloc);
 		if (ret == 0)
-			ret = analyzer(elem, lst_env);
+			ret = analyzer(elem, lst_env, alloc);
 		if (ret == 0)
 			return (0);
 	}
 	else if (ft_strcmp(elem->input[0], "||") == 0)
 	{
 		while (ret != 0)
-			ret = analyzer(elem, lst_env);
+			ret = analyzer(elem, lst_env, alloc);
 		if (ret == 0)
 			return (0);
 	}
 	return (-1);
 }
 
-int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path)
+int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
+	t_alloc **alloc)
 {
 	(void)lst_env;
 	(void)tab_path;
+	(void)alloc;
 	ft_printf("REDIR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 	return (1);
 }
 
-int	dispatch_operator(t_ast *elem, t_env **lst_env, char **tab_path)
+int	dispatch_operator(t_ast *elem, t_env **lst_env, char **tab_path,
+	t_alloc **alloc)
 {
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "|") == 0)
-		return (do_pipe(elem, lst_env));
+		return (do_pipe(elem, lst_env, alloc));
 	else if (ft_strcmp(elem->input[0], "&") == 0)
 		return (job_control(elem, *lst_env));
 	return (1);
 }
 
-int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path)
+int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
+	t_alloc **alloc)
 {
 	(void)lst_env;
 	(void)tab_path;
+	(void)alloc;
 	ft_printf("AGREG:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 	return (1);

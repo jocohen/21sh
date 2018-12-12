@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/07 10:43:00 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/12 16:59:10 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -o $@ $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) -g3 -o $@ $(OBJS) ./libft/libft.a
 	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c
@@ -90,7 +90,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
-	@gcc $(CFLAGS) -I $(INCLUDE) -o $@ -c $<
+	@gcc $(CFLAGS) -g3 -I $(INCLUDE) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
 	@./progress_bar.sh $(NAME) $(shell ls -lR $(PATH_SRC) 2> /dev/null | grep -c -o "\.c") $(shell ls -lR $(PATH_OBJ) 2> /dev/null | grep -c -o "\.o")

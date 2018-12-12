@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:10:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:30:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 14:28:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ static int	unset_exist_env(t_ast *elem, t_env *lst_env)
 	return (0);
 }
 
-int			unsetenv_builtins(t_ast *elem, t_env **lst_env)
+int			unsetenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	t_env	*tmp;
 
+	(void)alloc;
 	tmp = *lst_env;
 	if (check_unsetenv_error(elem) == -1)
 		return (-1);

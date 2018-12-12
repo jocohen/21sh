@@ -6,18 +6,19 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:07:27 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:28:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 14:27:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	echo_builtins(t_ast *elem, t_env **lst_env)
+int	echo_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int i;
 	int option;
 
 	(void)lst_env;
+	(void)alloc;
 	if (!elem->input[1])
 	{
 		write(1, "\n", 1);

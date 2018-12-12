@@ -6,16 +6,17 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:08:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:28:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 14:28:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-int	setenv_builtins(t_ast *elem, t_env **lst_env)
+int	setenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	t_env *tmp;
 
+	(void)alloc;
 	tmp = *lst_env;
 	if (elem->input[1] && ft_strchr(elem->input[1], '='))
 		return (error_setenv(2));

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 19:00:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 17:19:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		add_env(t_env **lst_env, char *env, int x)
 		return ;
 	len = ft_strlen(env);
 	new->key = ft_strsub(env, 0, x);
-	new->value = ft_strsub(env, x + 1, len - 1);
+	new->value = ft_strsub(env, x + 1, len - x - 2);
 	new->next = NULL;
 	if (!(*lst_env))
 		*lst_env = new;
@@ -83,7 +83,7 @@ void			env_cp(char **env, t_env **lst_env)
 	}
 }
 
-int				env_builtins(t_ast *elem, t_env **lst_env)
+int				env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
 	int		option;
@@ -103,7 +103,8 @@ int				env_builtins(t_ast *elem, t_env **lst_env)
 	if (option == 0)
 		tmp = lst_env_dup(lst_env, &tmp);
 	(elem->input[0]) ? dispatch_cmd(elem, &tmp,
-	ft_strsplit(get_env_value(*lst_env, "$PATH"), ':')) : display_env(tmp);
+	ft_strsplit(get_env_value(*lst_env, "$PATH"), ':'), alloc) :
+	display_env(tmp);
 	elem->input = save_input;
 	del_lst_env(&tmp);
 	return (0);

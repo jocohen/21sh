@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 15:58:47 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:42:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 17:28:47 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,23 @@ typedef	struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef int			(*t_dispatch)(t_ast*, t_env **lst_env,  char **tab_path);
-typedef int			(*t_builtins)(t_ast *elem, t_env **lst_env);
+typedef	struct		s_alloc
+{
+	t_ast			**ast;
+	t_env			**env;
+}					t_alloc;
+
+typedef int			(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
+					t_alloc **alloc);
+typedef int			(*t_builtins)(t_ast *elem, t_env **lst_env,
+					t_alloc **alloc);
 
 /*
 ** LEXER:
 */
-void				lexer(char *input, t_env **lst_env);
-void				clean_input(char *str, t_ast *lst, t_env **lst_env);
+void				lexer(char *input, t_env **lst_env, t_alloc **alloc);
+void				clean_input(char *str, t_ast *lst, t_env **lst_env,
+					t_alloc **alloc);
 void				check_closing_quote(char *c, char *s, char **input);
 void				check_cmd_pipe(char **input);
 void				find_closing(char **str, int *i);
@@ -71,10 +80,11 @@ void				remove_quote(char **s, int *i, t_env *lst_env);
 /*
 ** PARSER:
 */
-void				parser(char **input, t_ast *lst, t_env **lst_env);
+void				parser(char **input, t_ast *lst, t_env **lst_env,
+					t_alloc **alloc);
 void				fill_ast(char **s, t_ast **lst);
 void				replace_quote(char *s, int *i);
-int					analyzer(t_ast *sort, t_env **lst_env);
+int					analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 
 /*
 **	BUILTINS:
@@ -83,42 +93,46 @@ int					analyzer(t_ast *sort, t_env **lst_env);
 /*
 ** 		ECHO:
 */
-int					echo_builtins(t_ast *elem, t_env **lst_env);
+int					echo_builtins(t_ast *elem, t_env **lst_env,
+					t_alloc **alloc);
 /*
 ** 		CD:
 */
-int					cd_builtins(t_ast *elem, t_env **lst_env);
+int					cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 /*
 ** 		SETENV:
 */
-int					setenv_builtins(t_ast *elem, t_env **lst_env);
+int					setenv_builtins(t_ast *elem, t_env **lst_env,
+					t_alloc **alloc);
 /*
 ** 		UNSETENV:
 */
-int					unsetenv_builtins(t_ast *elem, t_env **lst_env);
+int					unsetenv_builtins(t_ast *elem, t_env **lst_env,
+					t_alloc **alloc);
 /*
 ** 		ENV:
 */
 void				env_cp(char **env, t_env **lst_env);
-int					env_builtins(t_ast *elem, t_env **lst_env);
+int					env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 char				*get_env_value(t_env *lst_env, char *str);
 void				convert_lst_tab(t_env *lst_env, char ***tab);
 
 /*
 **	EXEC INPUT:
 */
-int					exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
+int					exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
+					t_alloc **alloc);
 
 /*
 **	OPERATOR:
 */
-int					do_pipe(t_ast *elem, t_env **lst_env);
+int					do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int					job_control(t_ast *elem, t_env *lst_env);
 
 /*
 ** ERROR:
 */
-int					exec_error(int err, char *files);
+int					exec_error(int err, char *files, t_alloc **alloc);
 int					ft_error_parse_redir(char **input);
 int					ft_error_splitshell(void);
 int					ft_error_redir_format(char *ope, int len);
@@ -145,16 +159,19 @@ t_ast				*add_new_elem(t_ast **lst);
 void				check_quote(char *s);
 void				replace_quote(char *s, int *i);
 
-
 /*
 ** 		analyzer:
 */
-int					dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path);
-int					dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path);
-int					dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path);
+int					dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
+					t_alloc **alloc);
+int					dispatch_logic(t_ast *elem, t_env **lst_env,
+					char **tab_path, t_alloc **alloc);
+int					dispatch_redir(t_ast *elem, t_env **lst_env,
+					char **tab_path, t_alloc **alloc);
 int					dispatch_operator(t_ast *elem, t_env **lst_env,
-					char **tab_path);
-int					dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path);
+					char **tab_path, t_alloc **alloc);
+int					dispatch_agreg(t_ast *elem, t_env **lst_env,
+					char **tab_path, t_alloc **alloc);
 
 /*
 ** 		split:
@@ -162,9 +179,9 @@ int					dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path);
 void				in_quote(char const *s, int *i);
 void				lettre_in_quote(char const *s, int *i, int *nb_lettre);
 void				nb_lettre_operator(char *s, int i, int *nb_lettre);
-// void				lettre_operator(char const *s, int *i, int *nb_lettre);
 int					check_redir(char *s, int *i, unsigned int *nb_word);
-int					check_operator(char *s, int *i, unsigned int *nb_word, size_t len);
+int					check_operator(char *s, int *i, unsigned int *nb_word,
+					size_t len);
 int					position_redir(char const *s, int *i, int wn, int *iw);
 int					type_operator(char const *s, int *i);
 void				get_position(char const *s, int *i, int wn, int *iw);
@@ -185,6 +202,7 @@ void				delete_str_tab(char **tab);
 void				del_lst_env(t_env **lst);
 void				del_double_tab(char **tab1, char **tab2);
 void				del_lst_ast(t_ast **lst);
+void				del_alloc(t_alloc **alloc);
 
 /*
 ** OTHER:
