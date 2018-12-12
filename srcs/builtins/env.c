@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 17:19:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/12 18:53:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		add_env(t_env **lst_env, char *env, int x)
 		return ;
 	len = ft_strlen(env);
 	new->key = ft_strsub(env, 0, x);
-	new->value = ft_strsub(env, x + 1, len - x - 2);
+	new->value = ft_strsub(env, x + 1, len - x - 1);
 	new->next = NULL;
 	if (!(*lst_env))
 		*lst_env = new;
