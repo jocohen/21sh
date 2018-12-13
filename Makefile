@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/13 17:06:13 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 17:13:56 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = 21sh
 END = \x1b[0m
 GREEN = \x1b[32m
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -Llibft
 LDLIBS = -lft -ltermcap
 
@@ -102,7 +102,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -g3 -o $@ $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@ $(OBJS)
 	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c
