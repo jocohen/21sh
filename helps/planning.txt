@@ -11,7 +11,7 @@ TO_DO:
 	OK - Add alloc strcut for clean free
 	OK - Update funtions -> add new struct
 	OK - Check leaks
-	4 - Norm it
+	OK - Norm it
 	5 - Merge on Tibo branch
 
 Next day:
@@ -22,6 +22,6 @@ Next day:
 	- Crash test
 
 
-========================================
-		CHECK AST FOR A && B | C
-========================================
+================================================================================
+				CHECK AST FOR A && B | C  ==> SHOULD BE OK
+================================================================================

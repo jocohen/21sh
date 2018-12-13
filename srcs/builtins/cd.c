@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 14:27:10 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 12:02:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ static void	new_path(t_env *elem, char *path, char **tab)
 static int	check_access(char *dir)
 {
 	if (access(dir, F_OK) == -1)
-	{
-		ft_printf("ERROR: dir: |%s|\n", dir);
 		return (error_cd(dir, 0));
-	}
 	if (access(dir, X_OK) == -1)
 		return (error_cd(dir, 1));
 	return (0);
