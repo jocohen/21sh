@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit_shell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:54 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:46:08 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/11/02 10:51:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static int			ft_word_counter(char *str, char c)
 	char			quote;
 
 	i = 0;
-	nb_word = 0;
-	(str[0] && str[0] != c) ? nb_word += 1 : 0;
+	nb_word = (str[0] && str[0] != c) ? 1 : 0;
 	while (str[i])
 	{
 		if (ft_isquote(str[i]) == 1)
@@ -34,7 +33,7 @@ static int			ft_word_counter(char *str, char c)
 		if (i > 0 && str[i] == c && str[i + 1] != c)
 			nb_word += 1;
 		else if (str[i] == c && str[i + 1] == c)
-			return (ft_error(";;", 0));
+			return (ft_error_splitshell());
 		(str[i]) ? i += 1 : 0;
 	}
 	return (nb_word);

@@ -1,0 +1,17 @@
+redirection:
+	- if X>&Y ok
+	- if X>& Y ok
+	- if X >&Y or X >& Y (X is a arg or cmd not an fd)
+
+<& and &< works
+
+To do:
+	5)fill struct ast correctly
+
+	7)chek if it works
+
+	8)merge it on master
+
+	9)add new branch for builtins
+
+	10)Go to builtins helps and start it

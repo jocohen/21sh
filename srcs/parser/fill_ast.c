@@ -5,74 +5,139 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 10:38:22 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/16 18:42:46 by tcollard         ###   ########.fr       */
+/*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
+/*   Updated: 2018/11/30 16:45:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-static void		fill_type_ast(char *s, t_ast *elem)
+static void	fill_input(char **s, int end, int start, t_ast *elem)
 {
-	if (elem->type == NO_TYPE)
+	int		i;
+	t_ast	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	if (!(elem->input = (char**)malloc(sizeof(char*) * (end - start + 1))))
+		return ;
+	while (start < end)
 	{
-		if (s[0] == '<' || s[0] == '>')
-			elem->type = (s[1] != '&') ? REDIR : AGGREG;
-		else if (s[0] == '|' || s[0] == '&')
-			elem->type = (s[1] == '\0') ? OPERATOR : LOGIC;
+		elem->input[i] = ft_strdup(s[start]);
+		start += 1;
+		i += 1;
+	}
+	elem->input[i] = NULL;
+	elem->type = CMD;
+}
+
+static void	fill_input_redir(char *s, t_ast *elem)
+{
+	int	i;
+	int	save;
+	int	wd;
+
+	i = 0;
+	save = i;
+	wd = 0;
+	while (s[i])
+		if (ft_isdigit(s[i]) == 1)
+		{
+			while (ft_isdigit(s[i]) == 1)
+				i += 1;
+			elem->input[wd] = ft_strsub(s, save, i - save);
+			wd += 1;
+			save = i;
+		}
 		else
-			elem->type = CMD;
-		elem->value = ft_strdup(s);
-	}
+		{
+			while (ft_isoperator(s[i]) == 1)
+				i += 1;
+			i += (s[i] == '-') ? 1 : 0;
+			elem->input[wd] = ft_strsub(s, save, i - save);
+			wd += 1;
+			save = i;
+		}
 }
 
-static void		fill_opt(char *s, t_ast *elem)
+static void	split_redir(char *s, t_ast *elem)
 {
-	char	*tmp;
+	int		wd;
+	int		i;
 
-	tmp = NULL;
-	if (elem->opt == NULL)
-		elem->opt = ft_strdup(s);
-	else
-	{
-		tmp = ft_strjoin(elem->opt, " ");
-		free(elem->opt);
-		elem->opt = ft_strjoin(tmp, s);
-		free(tmp);
-	}
+	wd = 0;
+	i = 0;
+	while (s[i])
+		if (ft_isdigit(s[i]) == 1)
+		{
+			wd += 1;
+			while (ft_isdigit(s[i]) == 1)
+				i += 1;
+		}
+		else
+		{
+			wd += 1;
+			while (ft_isoperator(s[i]) == 1)
+				i += 1;
+			i += (s[i] == '-') ? 1 : 0;
+		}
+	if (!(elem->input = (char**)malloc(sizeof(char*) * (wd + 1))))
+		return ;
+	elem->input[wd] = NULL;
+	fill_input_redir(s, elem);
 }
 
-static void		fill_content(char *s, t_ast *elem)
+static void	fill_operator(char **s, int i, int x, t_ast *elem)
 {
-	char	*tmp;
+	int			z;
+	size_t		len;
+	static char	*operator[16] = {">", ">>", ">>&", "<", "<<<", "<>", "<<",
+	"&>", "&>>", ">&", "<&-", ">&-", "&", "|", "&&", "||"};
 
-	tmp = NULL;
-	if (elem->content == NULL)
-		elem->content = ft_strdup(s);
+	z = -1;
+	len = 0;
+	while (s[i][x + len] && (ft_isoperator(s[i][x + len]) == 1 ||
+	s[i][x + len] == '-'))
+		len += 1;
+	while (z++ < 16)
+		if (ft_strlen(operator[z]) == len && ft_strncmp(&s[i][x], operator[z],
+			len) == 0)
+			break ;
+	if (z < 7)
+		elem->type = REDIR;
+	else if (z < 12)
+		elem->type = AGREG;
+	else if (z < 14)
+		elem->type = OPERATOR;
 	else
-	{
-		tmp = ft_strjoin(elem->content, " ");
-		free(elem->content);
-		elem->content = ft_strjoin(tmp, s);
-		free(tmp);
-	}
+		elem->type = LOGIC;
+	split_redir(s[i], elem);
 }
 
-void			fill_ast(char *s, t_ast **lst)
+void		fill_ast(char **s, t_ast **lst)
 {
 	t_ast	*new;
+	int		i;
+	int		x;
+	int		save;
 
-	new = (*lst == NULL) ? create_new_elem(lst) : get_last_elem(lst);
-	(new->type == LOGIC || new->type == OPERATOR) ? new = add_new_elem(lst) : 0;
-	if (new->type == NO_TYPE)
-		fill_type_ast(s, new);
-	else if (s[0] == '-' && new->type != NO_TYPE && new->content == NULL)
-		fill_opt(s, new);
-	else if (s[0] == '<' || s[0] == '>' || s[0] == '&' || s[0] == '|')
+	i = -1;
+	save = 0;
+	new = create_new_elem(lst);
+	while (s[++i])
 	{
-		new = add_new_elem(lst);
-		fill_type_ast(s, new);
+		x = -1;
+		while (s[i][++x])
+			if (ft_isoperator(s[i][x]) == 1)
+			{
+				(new->type != NO_TYPE) ? new = add_new_elem(lst) : 0;
+				fill_input(s, i, save, new);
+				new = add_new_elem(lst);
+				fill_operator(s, i, x, new);
+				save = i + 1;
+				break ;
+			}
 	}
-	else
-		fill_content(s, new);
+	(new->type != NO_TYPE && i != save) ? new = add_new_elem(lst) : 0;
+	(i != save) ? fill_input(s, i, save, new) : 0;
 }

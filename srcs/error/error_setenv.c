@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   error_setenv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 10:38:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 10:30:06 by tcollard         ###   ########.fr       */
+/*   Created: 2018/11/28 12:19:37 by tcollard          #+#    #+#             */
+/*   Updated: 2018/11/28 14:55:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/ft_21sh.h"
 
-char	*ft_strchr(const char *s, int c)
+int	error_setenv(int i)
 {
-	int		i;
-	char	*occurence;
-
-	i = 0;
-	while (s[i] != '\0' && s[i] != (char)c)
-		i++;
-	if (s[i] == (char)c)
+	if (i == 1)
+		write(2, "21sh: setenv: usage: setenv [key] [value] [int overwrite]\n",
+		58);
+	else if (i == 2)
+		write(2, "21sh: setenv: no '=' in the name\n", 33);
+	else if (i == 3)
 	{
-		occurence = ((char *)s + i);
-		return (occurence);
+		write(2, "21sh: setenv: too much arguments\n", 33);
+		write(2, "usage: setenv [key] [value] [int overwrite]\n", 44);
 	}
-	return (NULL);
+	return (-1);
 }

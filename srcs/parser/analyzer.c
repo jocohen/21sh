@@ -6,34 +6,33 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/19 11:03:40 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 14:00:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-/*
-**	TO DO:
-**	 	1 - clean quote:
-**	 		- cp str and remove quote
-**	 		- if quote = '"' check for var env '$' and replace
-**	 	2 - fill structure:
-**	 	 	- check if first char is operator (cmd = operator / option = <>|)
-*/
-
-void		analyzer(t_ast *lst, t_list **env)
+int		analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 {
-	t_dispatch	dispatch[5];
+	static t_dispatch	dispatch[] = { &dispatch_cmd, &dispatch_logic,
+		&dispatch_redir, &dispatch_operator, &dispatch_agreg};
+	char				**tab_path;
+	t_ast				*tmp;
+	int					ret;
 
-	dispatch[0] = dispatch_cmd;
-	dispatch[1] = dispatch_logic;
-	dispatch[2] = dispatch_redir;
-	dispatch[3] = dispatch_operator;
-	dispatch[4] = dispatch_aggreg;
-	while (lst != NULL)
+	ret = 0;
+	tmp = sort;
+	tab_path = NULL;
+	if (tmp && tmp->print == 0)
 	{
-		dispatch[lst->type](lst, env);
-		lst = lst->next;
+		tmp->print = 1;
+		return (dispatch[tmp->type](tmp, lst_env, tab_path, alloc));
 	}
-	ft_printf("FINISH :-)\n");
+	if (tmp && tmp->left && tmp->left->print == 0)
+		return (analyzer(tmp->left, lst_env, alloc));
+	else if (tmp && tmp->right && tmp->right->print == 0)
+		return (analyzer(tmp->right, lst_env, alloc));
+	else if (tmp->back)
+		return (analyzer(tmp->back, lst_env, alloc));
+	return (ret);
 }

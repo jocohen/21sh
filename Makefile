@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/19 10:57:14 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 13:59:10 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ PATH_PROMPT = prompt/
 PATH_TOOLS = tools/
 PATH_PARSER = parser/
 PATH_BUILT = builtins/
+PATH_OPERATOR = operator/
 PATH_ERROR = error/
 PATH_TERMCAPS = termcaps/
 
@@ -44,34 +45,30 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_PARSER)analyzer.c \
 		$(PATH_PARSER)fill_ast.c \
 		$(PATH_PARSER)analyzer_tools.c \
-		$(PATH_BUILT)dispatch_builtins.c \
 		$(PATH_BUILT)echo.c \
+		$(PATH_BUILT)cd.c \
+		$(PATH_BUILT)setenv.c \
+		$(PATH_BUILT)unsetenv.c \
 		$(PATH_BUILT)env.c \
+		$(PATH_BUILT)exec_input.c \
 		$(PATH_TOOLS)lexer_tools.c \
+		$(PATH_TOOLS)clean_tools.c \
 		$(PATH_TOOLS)split_tools.c \
+		$(PATH_TOOLS)split_tools_2.c \
 		$(PATH_TOOLS)quote_tools.c \
-		$(PATH_TOOLS)lst_tools.c \
 		$(PATH_TOOLS)parser_tools.c \
+		$(PATH_TOOLS)env_tools.c \
+		$(PATH_TOOLS)env_tools_2.c \
+		$(PATH_OPERATOR)pipe.c \
+		$(PATH_OPERATOR)job_control.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
-		$(PATH_ERROR)error.c \
-		$(PATH_TERMCAPS)shell.c \
-		$(PATH_TERMCAPS)prompter.c \
-		$(PATH_TERMCAPS)caller_display.c \
-		$(PATH_TERMCAPS)env_analysis.c \
-		$(PATH_TERMCAPS)escape_analysis.c \
-		$(PATH_TERMCAPS)ft_exit.c \
-		$(PATH_TERMCAPS)ft_realloc.c \
-		$(PATH_TERMCAPS)ft_writestdin.c \
-		$(PATH_TERMCAPS)set_term.c \
-		$(PATH_TERMCAPS)var_env_management.c \
-		$(PATH_TERMCAPS)lst_deletion.c \
-		$(PATH_TERMCAPS)eol_work.c \
-		$(PATH_TERMCAPS)signal_control.c \
-		$(PATH_TERMCAPS)historic_move.c \
-		$(PATH_TERMCAPS)history_stuff.c
-
-
+		$(PATH_ERROR)lexer_error.c \
+		$(PATH_ERROR)parser_error.c \
+		$(PATH_ERROR)error_cd.c \
+		$(PATH_ERROR)exec_error.c \
+		$(PATH_ERROR)error_setenv.c \
+		$(PATH_ERROR)error_unsetenv.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -82,8 +79,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
-	@echo "$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
+	@gcc $(CFLAGS) -g3 -o $@ $(OBJS) ./libft/libft.a
+	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
 $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
@@ -93,12 +90,11 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
-	@mkdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
-	@gcc $(CFLAGS) -I $(INCLUDE) -o $@ -c $<
+	@mkdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
+	@gcc $(CFLAGS) -g3 -I $(INCLUDE) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
 	@./progress_bar.sh $(NAME) $(shell ls -lR $(PATH_SRC) 2> /dev/null | grep -c -o "\.c") $(shell ls -lR $(PATH_OBJ) 2> /dev/null | grep -c -o "\.o")
-	@#./progress_bar.sh $(NAME) 11 $(shell ls -lR $(PATH_OBJ) 2> /dev/null | grep -c -o "\.o")
 
 clean:
 	@/bin/rm -f $(OBJS)
@@ -109,7 +105,7 @@ clean:
 	@rmdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
-	@rmdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
+	@rmdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
 	@rmdir $(PATH_OBJ) 2> /dev/null || true
 
 fclean: clean
@@ -125,4 +121,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -fsanitize=address -g3 $^ -o $(NAME)
+	@gcc $(CFLAGS) -fsanitize=address -g3 -o $(NAME) $(OBJS) ./libft/libft.a

@@ -6,17 +6,32 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/19 11:08:59 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 14:00:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-/*
-**	ADD TERMCAPS OF JO TO ADD NEW INPUT
-*/
+static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+	t_alloc **alloc)
+{
+	int	i;
+	int	x;
 
-void	lexer(char *input, t_list **env)
+	i = 0;
+	while (lexer && lexer[i])
+	{
+		x = 0;
+		while (lexer[i][x] && ft_isspace(lexer[i][x]))
+			x += 1;
+		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
+		free(lexer[i]);
+		i += 1;
+	}
+	(lexer != NULL) ? free(lexer) : 0;
+}
+
+void		lexer(char *input, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
 	char	**lexer;
@@ -27,23 +42,19 @@ void	lexer(char *input, t_list **env)
 	lst = NULL;
 	check_opening_quote(&input);
 	check_cmd_pipe(&input);
-	if ((lexer = ft_strsplit_shell(input, ';')) == NULL)
+	while (input[i] == ';')
+		i += 1;
+	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
 		free(input);
 		return ;
 	}
-	while (lexer && lexer[i])
-	{
-		ft_printf("lexer[%d]: %s\n", i, lexer[i]);
-		clean_input(lexer[i], lst, env);
-		free(lexer[i]);
-		i += 1;
-	}
-	(lexer != NULL) ? free(lexer) : 0;
-	// free(input);
+	read_lexer(lexer, lst_env, lst, alloc);
+	free(input);
 }
 
-void	clean_input(char *str, t_ast *lst, t_list **env)
+void		clean_input(char *str, t_ast *lst, t_env **lst_env,
+	t_alloc **alloc)
 {
 	char	**split;
 	int		i;
@@ -54,18 +65,9 @@ void	clean_input(char *str, t_ast *lst, t_list **env)
 		return ;
 	while (split[i])
 	{
-		convert_quote(&(split[i]));
-		if ((split[i][0] == '<' || split[i][0] == '>') && !split[i + 1])
-		{
-			(ft_strlen(split[i]) > 2) ? ft_error(split[i], 2) : ft_error(0, 10);
+		if (convert_quote(&(split[i]), lst_env) == -1)
 			return ;
-		}
-		else if (i == 0 && (split[i][0] == '|' || split[i][0] == '&'))
-		{
-			ft_error(split[i], 2);
-			return ;
-		}
 		i += 1;
 	}
-	parser(split, lst, env);
+	parser(split, lst, lst_env, alloc);
 }

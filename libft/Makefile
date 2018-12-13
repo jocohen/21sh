@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 14:51:47 by tcollard          #+#    #+#              #
-#    Updated: 2018/10/18 16:56:12 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 13:59:00 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,7 +156,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_STR) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_OTHER) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_PRINTF) 2> /dev/null || true
-	@gcc $(CFLAGS) -I $(INCS_LIB) -I $(INCS_PRINT) -c -o $@ $<
+	@gcc $(CFLAGS) -I $(INCS_LIB) -I $(INCS_PRINT) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
 	@./progress_bar.sh $(NAME)

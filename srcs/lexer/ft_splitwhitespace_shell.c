@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splitwhitespace_shell.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:45:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 14:14:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 		{
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
-			else if (s[i] == '<' || s[i] == '>' || s[i] == '|' || s[i] == '&')
+			else if (ft_isoperator(s[i]) == 1)
 			{
-				if (check_operator(s, &i, nb_word) == -1)
+				if (check_redir(s, &i, nb_word) == -1)
 					return (-1);
 			}
 			else
@@ -40,26 +40,28 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 static void	ft_position_word(char *s, int wn, int *pos)
 {
 	int	i;
-	int	nb_word;
+	int	wd_search;
 
 	i = 0;
-	nb_word = -1;
+	wd_search = -1;
 	while (s[i])
 	{
-		(ft_isspace(s[i]) == 0 && (nb_word += 1) == wn) ? *pos = i : 0;
-		if (nb_word == wn)
+		*pos = (ft_isspace(s[i]) == 0 && (wd_search += 1) == wn) ? i : 0;
+		if (wn == wd_search)
 			return ;
 		while (s[i] && ft_isspace(s[i]) == 0)
+		{
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
-			else if (s[i] == '<' || s[i] == '>' || s[i] == '|' || s[i] == '&')
+			else if (ft_isoperator(s[i]) == 1)
 			{
-				*pos = position_operator(s, &i, wn, &nb_word);
-				if (nb_word == wn)
+				*pos = position_redir(s, &i, wn, &wd_search);
+				if (wn == wd_search)
 					return ;
 			}
 			else
 				i += 1;
+		}
 		(s[i]) ? i += 1 : 0;
 	}
 }
@@ -70,19 +72,24 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nb_lettre)
 
 	i = 0;
 	ft_position_word(s, word_n, &i);
-	while (s[i] && ft_isspace(s[i]) == 0)
-		if (ft_isquote(s[i]) == 1)
-			lettre_in_quote(s, &i, nb_lettre);
-		else if (s[i] == '>' || s[i] == '<' || s[i] == '|' || s[i] == '&')
+	while (s[i + *nb_lettre] && ft_isdigit(s[i + *nb_lettre]) == 1)
+		*nb_lettre += 1;
+	i += *nb_lettre;
+	if (ft_isoperator(s[i]) == 1)
+		nb_lettre_operator(s, i, nb_lettre);
+	else
+	{
+		while (s[i] && ft_isoperator(s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
-			lettre_operator(s, &i, nb_lettre);
-			break ;
+			if (ft_isquote(s[i]) == 1)
+				lettre_in_quote(s, &i, nb_lettre);
+			else
+			{
+				i += 1;
+				*nb_lettre += 1;
+			}
 		}
-		else
-		{
-			i += 1;
-			*nb_lettre += 1;
-		}
+	}
 }
 
 static void	ft_fill(char *s, unsigned int wrd_n, char **split, int max_lettre)

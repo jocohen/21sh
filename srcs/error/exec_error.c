@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 10:58:53 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 14:23:58 by jocohen          ###   ########.fr       */
+/*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
+/*   Updated: 2018/12/12 15:31:26 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_21sh.h"
 
-void	ft_exit(int status)
+int	exec_error(int err, char *files, t_alloc **alloc)
 {
-	if (!status)
-		exit(EXIT_FAILURE);
+	(err == -1) ? write(2, "21sh: commande not found: ", 26) : 0;
+	if (err == -1)
+		write(2, files, ft_strlen(files));
+	write(2, "\n", 1);
+	del_alloc(alloc);
+	return (err);
 }
