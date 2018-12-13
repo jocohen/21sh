@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 14:50:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:47:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		main(int ac, char **av, char **env)
 {
-	t_list		*lst;
+	t_env		*lst;
 	t_alloc		al;
 
 	(void)ac;
@@ -24,10 +24,10 @@ int		main(int ac, char **av, char **env)
 	g_pid = 0;
 	g_resize = 0;
 	lst = 0;
-	if (!env_to_lst(env, &lst))
+	if (!env_cp(env, &lst))
 		ft_exit(0);
 	al.env = &lst;
 	prompt(al);
-	lst_deletion(al.env);
+	del_lst_env(al.env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 15:09:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 17:01:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 *********************************** INCLUDES ***********************************
 */
 
-# include <unistd.h>
 # include <curses.h>
 # include <term.h>
+# include <unistd.h>
 # include <termios.h>
 # include <stdio.h>
 # include <signal.h>
@@ -68,15 +68,6 @@ typedef struct			s_historic
 	struct s_historic	*prev;
 }						t_historic;
 
-typedef struct			s_alloc
-{
-	t_list				**env;
-	t_historic			**history;
-	t_buf				*input;
-	t_ast				**ast;
-	t_env				**env;
-}						t_alloc;
-
 typedef struct			s_ast
 {
 	int					print;
@@ -96,6 +87,14 @@ typedef	struct			s_env
 	char				*value;
 	struct s_env		*next;
 }						t_env;
+
+typedef struct			s_alloc
+{
+	t_historic			**history;
+	t_buf				*input;
+	t_ast				**ast;
+	t_env				**env;
+}						t_alloc;
 
 typedef int				(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
@@ -121,9 +120,9 @@ char					*g_clip;
 ************************************* ENV **************************************
 */
 
-int						env_to_lst(char **s, t_list **fp);
-char					*find_var_value(t_list *fp, char *var);
-int						lst_deletion(t_list **fp);
+int						env_to_lst(char **s, t_env **fp);
+char					*find_var_value(t_env *fp, char *var);
+int						lst_deletion(t_env **fp);
 char					*get_end_pwd(char *pwd);
 
 /*
@@ -150,39 +149,39 @@ char					*enter_section(t_alloc al, int read);
 void					escape_analysis(t_alloc al);
 int						check_wrong_key(char *key);
 int						input_keys_def(t_alloc al, char *key);
-void					del_char(t_buf *input, int type, t_list **lst);
+void					del_char(t_buf *input, int type, t_env **lst);
 void					page_move(t_buf *input, char k, t_historic **history,
-									t_list **lst);
+									t_env **lst);
 void					arrow_move(t_buf *input, char k, t_historic **history,
-									t_list **lst);
+									t_env **lst);
 void					home_end_move(t_buf *input, char k);
 void					ctrl_arrow_move(t_buf *input, char k);
-void					selection_cmd(t_buf *input, char k, t_list **lst);
-void					selection_input(t_buf *input, char k, t_list **lst);
+void					selection_cmd(t_buf *input, char k, t_env **lst);
+void					selection_input(t_buf *input, char k, t_env **lst);
 
 /*
 ************************************ TERMIOS ***********************************
 */
 
-void					set_terminal(t_list *fp, int reset);
+void					set_terminal(t_env *fp, int reset);
 
 /*
 *********************************** HISTORIC ***********************************
 */
 
 void					historic_move(t_buf *input, t_historic **history,
-										int direction, t_list **lst);
+										int direction, t_env **lst);
 void					move_front_or_back(t_historic **lst, int direction);
 void					cmd_spe_search(t_historic **history, t_buf *input,
-										int direction, t_list **lst);
+										int direction, t_env **lst);
 void					install_new_line(t_historic **history, t_buf *input,
-										t_list **env);
+										t_env **env);
 int						search_cmd_common(const char *s, const char *sch);
 
-int						init_hist(t_historic **history, t_list *lst);
-int						historic_opening(t_list *lst, int open_type);
+int						init_hist(t_historic **history, t_env *lst);
+int						historic_opening(t_env *lst, int open_type);
 void					historic_entry(t_buf *input, t_historic **history,
-										int read, t_list *lst);
+										int read, t_env *lst);
 t_historic				*ft_new_cmd_hist(void);
 int						ft_del_hist(t_historic **fp);
 void					reset_hist(t_historic *tmp);
@@ -203,28 +202,28 @@ void					replace_cursor(t_buf *input, size_t c, size_t l);
 *********************************** SELECTION **********************************
 */
 
-t_buf					*selec_buffer(int t, t_buf *input, t_list **lst);
+t_buf					*selec_buffer(int t, t_buf *input, t_env **lst);
 t_buf					*alloc_selec_buff(int dir);
-void					selection_init(t_buf *input, int dir, t_list **lst);
-void					expand_selec(t_buf *selec, t_buf *input, t_list **lst,
+void					selection_init(t_buf *input, int dir, t_env **lst);
+void					expand_selec(t_buf *selec, t_buf *input, t_env **lst,
 										int dir);
-void					paste_intra_clip(t_buf *input, t_list **lst);
-void					cut_selection(t_buf *input, t_buf *selec, t_list **lst);
+void					paste_intra_clip(t_buf *input, t_env **lst);
+void					cut_selection(t_buf *input, t_buf *selec, t_env **lst);
 
 /*
 *********************************** DISPLAYS ***********************************
 */
 
-void					caller_display(t_list *fp, t_buf *input,
+void					caller_display(t_env *fp, t_buf *input,
 										int change_pos);
 void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
-void					reactualize_output(t_buf *input, t_list **lst);
+void					reactualize_output(t_buf *input, t_env **lst);
 int						display_sizing(int size);
-void					delete_line_pos(t_buf *input, t_list **lst);
+void					delete_line_pos(t_buf *input, t_env **lst);
 void					display_spe_line(t_buf *selec, t_buf *input);
 void					redisplay_line_selec(t_buf *selec, t_buf *input,
-											t_list **lst);
+											t_env **lst);
 
 /*
 *********************************** SIGNALS ************************************
@@ -276,10 +275,10 @@ int						setenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 int						unsetenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-void					env_cp(char **env, t_env **lst_env);
+int						env_cp(char **env, t_env **lst_env);
 int						env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 char					*get_env_value(t_env *lst_env, char *str);
-void					convert_lst_tab(t_env *lst_env, char ***tab);
+void					convert_lst_tab(t_env *lst_env, char ***_str);
 int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 						t_alloc **alloc);
 
@@ -360,7 +359,7 @@ void					display_env(t_env *lst);
 /*
 *********************************** CLEAN **************************************
 */
-void					delete_str_tab(char **tab);
+void					delete_str_tab(char **tab_str);
 void					del_lst_env(t_env **lst);
 void					del_double_tab(char **tab1, char **tab2);
 void					del_lst_ast(t_ast **lst);

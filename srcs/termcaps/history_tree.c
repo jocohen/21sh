@@ -6,19 +6,19 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 14:31:02 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:38:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		historic_opening(t_list *lst, int open_type)
+int		historic_opening(t_env *lst, int open_type)
 {
 	int		fd;
 	char	*home;
 	char	*s;
 
-	if (!(home = find_var_value(lst, "HOME")))
+	if (!(home = get_env_value(lst, "$HOME")))
 		return (-1);
 	if (home[ft_strlen(home) - 1] != '/')
 		s = ft_strjoin(home, "/.21sh_history");
@@ -34,7 +34,7 @@ int		historic_opening(t_list *lst, int open_type)
 	return (fd);
 }
 
-int		init_hist(t_historic **history, t_list *lst)
+int		init_hist(t_historic **history, t_env *lst)
 {
 	int			fd;
 	t_historic	*tmp;
@@ -59,7 +59,7 @@ int		init_hist(t_historic **history, t_list *lst)
 }
 
 void	historic_entry(t_buf *input, t_historic **history, int read,
-						t_list *lst)
+						t_env *lst)
 {
 	int		fd;
 

@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:32:45 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 14:21:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:18:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	builtins_dispatch(t_ast *elem, t_list **env)
+void	builtins_dispatch(t_ast *elem, t_env **env)
 {
 	static char	*lst_built[5] = {"cd", "echo", "setenv", "unsetenv", "env"};
 	int			i;

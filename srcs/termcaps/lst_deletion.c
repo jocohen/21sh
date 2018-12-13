@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 17:14:04 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 14:22:34 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:33:47 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		ft_error(void **a1, void **a2, void **a3, void **a4)
 	return (0);
 }
 
-int		lst_deletion(t_list **fp)
+int		lst_deletion(t_env **fp)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 
 	while ((*fp))
 	{

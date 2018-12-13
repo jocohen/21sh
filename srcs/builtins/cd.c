@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 12:02:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:12:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	new_path(t_env *elem, char *path, char **tab)
+static void	new_path(t_env *elem, char *path, char **tab_path)
 {
 	char	new[PATH_MAX];
 	int		i;
@@ -20,9 +20,9 @@ static void	new_path(t_env *elem, char *path, char **tab)
 
 	x = 0;
 	(path[0] == '/') ? ft_bzero(new, PATH_MAX) : ft_strcpy(new, elem->value);
-	while (tab[x])
+	while (tab_path[x])
 	{
-		if (ft_strcmp(tab[x], "..") == 0)
+		if (ft_strcmp(tab_path[x], "..") == 0)
 		{
 			i = ft_strlen(new) - 1;
 			while (i >= 0 && new[i] != '/')
@@ -30,12 +30,12 @@ static void	new_path(t_env *elem, char *path, char **tab)
 			(i < 0) ? i = 0 : 0;
 			new[i] = '\0';
 		}
-		else if (ft_strcmp(tab[x], ".") != 0)
-			ft_strcat(ft_strcat(new, "/"), tab[x]);
-		free(tab[x]);
+		else if (ft_strcmp(tab_path[x], ".") != 0)
+			ft_strcat(ft_strcat(new, "/"), tab_path[x]);
+		free(tab_path[x]);
 		x += 1;
 	}
-	(tab != NULL) ? free(tab) : 0;
+	(tab_path != NULL) ? free(tab_path) : 0;
 	free(elem->value);
 	elem->value = ft_strdup(new);
 }

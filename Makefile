@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/13 15:22:41 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 16:41:04 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,11 +69,10 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)exec_error.c \
 		$(PATH_ERROR)error_setenv.c \
 		$(PATH_ERROR)error_unsetenv.c \
-		$(PATH_TERMCAPS)aller_display.c \
+		$(PATH_TERMCAPS)caller_display.c \
 		$(PATH_TERMCAPS)cursor_fit.c \
 		$(PATH_TERMCAPS)cursor_shift.c \
 		$(PATH_TERMCAPS)ending_input_line.c \
-		$(PATH_TERMCAPS)env_analysis.c \
 		$(PATH_TERMCAPS)escape_analysis.c \
 		$(PATH_TERMCAPS)execute_spe_keys.c \
 		$(PATH_TERMCAPS)execute_spe_keys2.c \
@@ -85,7 +84,6 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TERMCAPS)history_tree.c \
 		$(PATH_TERMCAPS)input_analysis.c \
 		$(PATH_TERMCAPS)line_displays.c \
-		$(PATH_TERMCAPS)lst_deletion.c \
 		$(PATH_TERMCAPS)paste_and_cut.c \
 		$(PATH_TERMCAPS)prompter.c \
 		$(PATH_TERMCAPS)prompter_stuff.c \

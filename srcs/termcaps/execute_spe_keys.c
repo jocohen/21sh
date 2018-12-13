@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/11 19:33:32 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:21:24 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ctrl_arrow_move(t_buf *input, char k)
 		vertical_cursor(input, 1);
 }
 
-void	del_char(t_buf *input, int type, t_list **lst)
+void	del_char(t_buf *input, int type, t_env **lst)
 {
 	if (!type)
 	{
@@ -67,7 +67,7 @@ void	home_end_move(t_buf *input, char k)
 			cursor_movement(input, 1);
 }
 
-void	arrow_move(t_buf *input, char k, t_historic **history, t_list **lst)
+void	arrow_move(t_buf *input, char k, t_historic **history, t_env **lst)
 {
 	if (k == 68 && input->x)
 		cursor_movement(input, -1);
@@ -79,7 +79,7 @@ void	arrow_move(t_buf *input, char k, t_historic **history, t_list **lst)
 		historic_move(input, history, 1, lst);
 }
 
-void	page_move(t_buf *input, char k, t_historic **history, t_list **lst)
+void	page_move(t_buf *input, char k, t_historic **history, t_env **lst)
 {
 	if (k == 53)
 		historic_move(input, history, -1, lst);

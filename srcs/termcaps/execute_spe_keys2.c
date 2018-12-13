@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/11 19:33:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:21:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	selection_cmd(t_buf *input, char k, t_list **lst)
+void	selection_cmd(t_buf *input, char k, t_env **lst)
 {
 	if (k == 49 || k == 51)
 	{
@@ -28,7 +28,7 @@ void	selection_cmd(t_buf *input, char k, t_list **lst)
 		cut_selection(input, selec_buffer(1, 0, 0), lst);
 }
 
-void	selection_input(t_buf *input, char k, t_list **lst)
+void	selection_input(t_buf *input, char k, t_env **lst)
 {
 	if (k == 68)
 		selection_init(input, -1, lst);

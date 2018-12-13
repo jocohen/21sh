@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:45:41 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:37:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	classic_display(char *prompt)
 	display_sizing(ft_strlen(prompt) + 2);
 }
 
-void	caller_display(t_list *fp, t_buf *input, int change_pos)
+void	caller_display(t_env *fp, t_buf *input, int change_pos)
 {
 	char		path[PATH_MAX];
 	char		*pwd;
@@ -75,7 +75,7 @@ void	caller_display(t_list *fp, t_buf *input, int change_pos)
 	ft_bzero(path, PATH_MAX);
 	if ((pwd = recall_prompt(al, -1)))
 		mode = 0;
-	else if (!(pwd = find_var_value(fp, "PWD")))
+	else if (!(pwd = get_env_value(fp, "$PWD")))
 		pwd = getcwd(path, PATH_MAX);
 	(mode) ? fancy_display(pwd) : 0;
 	(!mode) ? classic_display(pwd) : 0;

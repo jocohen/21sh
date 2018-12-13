@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 15:08:52 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 10:56:47 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:40:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-t_list	*find_var(t_list *fp, char *var)
+t_env	*find_var(t_env *fp, char *var)
 {
 	int		y;
 
@@ -36,7 +36,7 @@ t_list	*find_var(t_list *fp, char *var)
 	return (0);
 }
 
-char	*find_var_value(t_list *fp, char *var)
+char	*find_var_value(t_env *fp, char *var)
 {
 	int		y;
 
@@ -60,10 +60,10 @@ char	*find_var_value(t_list *fp, char *var)
 	return (0);
 }
 
-int		env_to_lst(char **s, t_list **fp)
+int		env_to_lst(char **s, t_env **fp)
 {
 	int		x;
-	t_list	*tmp;
+	t_env	*tmp;
 
 	x = 0;
 	if (s && s[x])
@@ -76,16 +76,19 @@ int		env_to_lst(char **s, t_list **fp)
 	while (s && s[x])
 	{
 		if (!(tmp->next = ft_lstnew(s[x], ft_strlen(s[x]) + 1)))
-			return (lst_deletion(fp));
+		{
+			del_lst_env(fp);
+			return (0);
+		}
 		x += 1;
 		tmp = tmp->next;
 	}
 	return (1);
 }
 
-char	**lst_to_env(t_list *fp)
+char	**lst_to_env(t_env *fp)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 	char	**s;
 	size_t	x;
 
@@ -108,7 +111,7 @@ char	**lst_to_env(t_list *fp)
 	return (s);
 }
 
-int		all_path_exec(t_list *fp, char *blt_in, char ***out)
+int		all_path_exec(t_env *fp, char *blt_in, char ***out)
 {
 	int		x;
 	char	*s;

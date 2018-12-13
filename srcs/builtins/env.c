@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 13:59:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 16:51:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static t_env	*lst_env_dup(t_env **orig, t_env **add)
 	return (dup);
 }
 
-void			env_cp(char **env, t_env **lst_env)
+int				env_cp(char **env, t_env **lst_env)
 {
 	int	i;
 	int	x;
@@ -81,6 +81,9 @@ void			env_cp(char **env, t_env **lst_env)
 			i += 1;
 		}
 	}
+	if (!*lst_env)
+		return (0);
+	return (1);
 }
 
 int				env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)

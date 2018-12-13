@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:28:03 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 17:06:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:22:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	move_front_or_back(t_historic **lst, int direction)
 	(*lst) = tmp;
 }
 
-void	install_new_line(t_historic **history, t_buf *input, t_list **env)
+void	install_new_line(t_historic **history, t_buf *input, t_env **env)
 {
 	t_historic	*tmp;
 
@@ -53,7 +53,7 @@ void	install_new_line(t_historic **history, t_buf *input, t_list **env)
 }
 
 void	cmd_spe_search(t_historic **history, t_buf *input, int direction,
-						t_list **lst)
+						t_env **lst)
 {
 	char			c;
 	t_historic		*tmp;
@@ -83,7 +83,7 @@ void	cmd_spe_search(t_historic **history, t_buf *input, int direction,
 }
 
 void	historic_move(t_buf *input, t_historic **history, int direction,
-							t_list **lst)
+							t_env **lst)
 {
 	static int		in_zero;
 

@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/10 14:57:05 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:54:14 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	set_terminal(t_list *fp, int reset)
+void	set_terminal(t_env *fp, int reset)
 {
 	static struct termios	old;
 	struct termios			term;
@@ -21,7 +21,7 @@ void	set_terminal(t_list *fp, int reset)
 
 	if (!reset)
 	{
-		if (!(termtype = find_var_value(fp, "TERM")))
+		if (ft_strcmp((termtype = get_env_value(fp, "$TERM")), "") == 0)
 			termtype = "xterm-256color";
 		if ((term_valid = tgetent(0, termtype)) == -1 || !term_valid)
 			ft_exit(0);

@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 15:19:59 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:34:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	cut_selection(t_buf *input, t_buf *selec, t_list **lst)
+void	cut_selection(t_buf *input, t_buf *selec, t_env **lst)
 {
 	size_t	x;
 
@@ -37,7 +37,7 @@ void	cut_selection(t_buf *input, t_buf *selec, t_list **lst)
 	selec_buffer(0, input, lst);
 }
 
-void	paste_intra_clip(t_buf *input, t_list **lst)
+void	paste_intra_clip(t_buf *input, t_env **lst)
 {
 	size_t	x;
 

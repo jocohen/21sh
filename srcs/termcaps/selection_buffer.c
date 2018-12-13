@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 16:31:46 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:34:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-t_buf	*selec_buffer(int t, t_buf *input, t_list **lst)
+t_buf	*selec_buffer(int t, t_buf *input, t_env **lst)
 {
 	static t_buf	selection;
 
@@ -45,7 +45,7 @@ t_buf	*alloc_selec_buff(int dir)
 	return (selec);
 }
 
-void	expand_selec(t_buf *selec, t_buf *input, t_list **lst, int dir)
+void	expand_selec(t_buf *selec, t_buf *input, t_env **lst, int dir)
 {
 	if (dir == -1 && selec->pos.l != 1)
 	{
@@ -64,7 +64,7 @@ void	expand_selec(t_buf *selec, t_buf *input, t_list **lst, int dir)
 	redisplay_line_selec(selec, input, lst);
 }
 
-void	selection_init(t_buf *input, int dir, t_list **lst)
+void	selection_init(t_buf *input, int dir, t_env **lst)
 {
 	t_buf	*selec;
 

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/11 18:05:16 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:19:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_last_char_column(t_buf *input)
 	}
 }
 
-void	reactualize_output(t_buf *input, t_list **lst)
+void	reactualize_output(t_buf *input, t_env **lst)
 {
 	t_cursor	prev;
 

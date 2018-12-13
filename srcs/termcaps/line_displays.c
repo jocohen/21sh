@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 16:28:43 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 16:33:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	delete_line_pos(t_buf *input, t_list **lst)
+void	delete_line_pos(t_buf *input, t_env **lst)
 {
 	int		x;
 
@@ -51,7 +51,7 @@ void	display_spe_line(t_buf *selec, t_buf *input)
 	ft_memdel((void **)&output);
 }
 
-void	redisplay_line_selec(t_buf *selec, t_buf *input, t_list **lst)
+void	redisplay_line_selec(t_buf *selec, t_buf *input, t_env **lst)
 {
 	t_cursor	prev;
 	int			x;
