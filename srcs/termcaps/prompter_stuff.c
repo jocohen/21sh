@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 // void	write_log(t_buf input)
 // {

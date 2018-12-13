@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 t_env	*find_elem_env(t_env **lst, char *key)
 {

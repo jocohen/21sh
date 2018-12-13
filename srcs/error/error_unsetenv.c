@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 int	error_unsetenv(int i, char *s)
 {

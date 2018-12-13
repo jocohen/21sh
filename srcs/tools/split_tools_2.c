@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 static void	check_before_operator(char *s, int *i, unsigned int *nb_word)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 void	set_terminal(t_list *fp, int reset)
 {

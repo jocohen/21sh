@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 /*
 **static void	read_lst(t_ast *lst)

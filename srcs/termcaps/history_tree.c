@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 int		historic_opening(t_list *lst, int open_type)
 {

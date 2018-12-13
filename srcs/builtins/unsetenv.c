@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 static int	check_unsetenv_error(t_ast *elem)
 {

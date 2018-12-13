@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 11:41:58 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 14:24:50 by jocohen          ###   ########.fr       */
+/*   Created: 2018/06/24 10:58:53 by jocohen           #+#    #+#             */
+/*   Updated: 2018/06/24 14:23:58 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
-void	*ft_realloc(void *ptr, size_t size, size_t len)
+void	ft_exit(int status)
 {
-	void	*tmp;
-
-	if (!(tmp = ft_memalloc(size)))
-		return (0);
-	ft_memcpy(tmp, ptr, len);
-	ft_memdel((void **)&ptr);
-	return ((void *)tmp);
+	if (!status)
+		exit(EXIT_FAILURE);
 }

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_writestdin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 10:58:53 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 14:23:58 by jocohen          ###   ########.fr       */
+/*   Created: 2018/06/24 10:33:57 by jocohen           #+#    #+#             */
+/*   Updated: 2018/06/24 14:25:33 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
-void	ft_exit(int status)
+int		ft_writestdin(int c)
 {
-	if (!status)
-		exit(EXIT_FAILURE);
+	write(0, &c, 1);
+	return (0);
 }

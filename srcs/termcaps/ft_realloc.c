@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_deletion.c                                     :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 17:14:04 by jocohen           #+#    #+#             */
-/*   Updated: 2018/06/24 14:22:34 by jocohen          ###   ########.fr       */
+/*   Created: 2018/06/24 11:41:58 by jocohen           #+#    #+#             */
+/*   Updated: 2018/06/24 14:24:50 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
-int		ft_error(void **a1, void **a2, void **a3, void **a4)
+void	*ft_realloc(void *ptr, size_t size, size_t len)
 {
-	ft_memdel(a1);
-	ft_memdel(a2);
-	ft_memdel(a3);
-	ft_memdel(a4);
-	return (0);
-}
+	void	*tmp;
 
-int		lst_deletion(t_list **fp)
-{
-	t_list	*tmp;
-
-	while ((*fp))
-	{
-		tmp = (*fp)->next;
-		ft_memdel((void **)&((*fp)->content));
-		(*fp)->content_size = 0;
-		ft_memdel((void **)fp);
-		(*fp) = tmp;
-	}
-	return (0);
+	if (!(tmp = ft_memalloc(size)))
+		return (0);
+	ft_memcpy(tmp, ptr, len);
+	ft_memdel((void **)&ptr);
+	return ((void *)tmp);
 }

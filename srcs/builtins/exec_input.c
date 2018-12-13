@@ -6,11 +6,11 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 17:20:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 14:55:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 {
@@ -27,9 +27,16 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 	(!tab_path) ? tab_path = ft_strsplit(get_env_value(lst_env,
 	"$PATH"), ':') : 0;
 	father = fork();
+	(father) ? g_pid = father : 0;
 	wait(&err);
 	if (!father)
 	{
+		if (g_pid == -1)
+		{
+			//set return color prompt value
+			exit(1);
+		}
+		g_in_exec = 1;
 		err = execve(elem->input[0], elem->input, tab_env);
 		if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
 			while (tab_path[i] && err == -1)

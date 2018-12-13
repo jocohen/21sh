@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 int		analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 {

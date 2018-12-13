@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)

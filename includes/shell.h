@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 15:21:43 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 15:09:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ typedef struct			s_historic
 	struct s_historic	*prev;
 }						t_historic;
 
+typedef struct			s_alloc
+{
+	t_list				**env;
+	t_historic			**history;
+	t_buf				*input;
+	t_ast				**ast;
+	t_env				**env;
+}						t_alloc;
+
 typedef struct			s_ast
 {
 	int					print;
@@ -87,15 +96,6 @@ typedef	struct			s_env
 	char				*value;
 	struct s_env		*next;
 }						t_env;
-
-typedef struct			s_alloc
-{
-	t_list				**env;
-	t_historic			**history;
-	t_buf				*input;
-	t_ast				**ast;
-	t_env				**env;
-}						t_alloc;
 
 typedef int				(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);

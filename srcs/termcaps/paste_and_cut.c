@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 void	cut_selection(t_buf *input, t_buf *selec, t_list **lst)
 {

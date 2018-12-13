@@ -6,11 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:45:23 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 14:47:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 char	*recall_prompt(t_alloc al, int type)
 {
@@ -54,8 +54,6 @@ char	*enter_section(t_alloc al, int read)
 		return (al.input->s);
 	if (al.input->s[0] && !read)
 	{
-		set_terminal(0, 1);
-		set_terminal(*al.env, 0);
 		// test(al);
 		// input start fct
 		// input needed to be free and thats it

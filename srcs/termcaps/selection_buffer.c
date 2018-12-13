@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 t_buf	*selec_buffer(int t, t_buf *input, t_list **lst)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	t_alloc **alloc)

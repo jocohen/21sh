@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/13 13:59:10 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 15:22:41 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,32 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)error_cd.c \
 		$(PATH_ERROR)exec_error.c \
 		$(PATH_ERROR)error_setenv.c \
-		$(PATH_ERROR)error_unsetenv.c
+		$(PATH_ERROR)error_unsetenv.c \
+		$(PATH_TERMCAPS)aller_display.c \
+		$(PATH_TERMCAPS)cursor_fit.c \
+		$(PATH_TERMCAPS)cursor_shift.c \
+		$(PATH_TERMCAPS)ending_input_line.c \
+		$(PATH_TERMCAPS)env_analysis.c \
+		$(PATH_TERMCAPS)escape_analysis.c \
+		$(PATH_TERMCAPS)execute_spe_keys.c \
+		$(PATH_TERMCAPS)execute_spe_keys2.c \
+		$(PATH_TERMCAPS)ft_exit.c \
+		$(PATH_TERMCAPS)ft_realloc.c \
+		$(PATH_TERMCAPS)ft_writestdin.c \
+		$(PATH_TERMCAPS)history_movement.c \
+		$(PATH_TERMCAPS)history_stuff.c \
+		$(PATH_TERMCAPS)history_tree.c \
+		$(PATH_TERMCAPS)input_analysis.c \
+		$(PATH_TERMCAPS)line_displays.c \
+		$(PATH_TERMCAPS)lst_deletion.c \
+		$(PATH_TERMCAPS)paste_and_cut.c \
+		$(PATH_TERMCAPS)prompter.c \
+		$(PATH_TERMCAPS)prompter_stuff.c \
+		$(PATH_TERMCAPS)selection_buffer.c \
+		$(PATH_TERMCAPS)set_term.c \
+		$(PATH_TERMCAPS)shell.c \
+		$(PATH_TERMCAPS)signal_control.c \
+		$(PATH_TERMCAPS)var_env_management.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -91,6 +116,7 @@ $(PATH_OBJ)%.o : $(PATH_SRC)%.c
 	@mkdir $(PATH_OBJ)$(PATH_BUILT) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
+	@mkdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
 	@gcc $(CFLAGS) -g3 -I $(INCLUDE) -o $@ -c $<
 	@echo " "
 	@printf "\033[1A"
@@ -106,6 +132,7 @@ clean:
 	@rmdir $(PATH_OBJ)$(PATH_PROMPT) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_ERROR) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_OPERATOR) 2> /dev/null || true
+	@rmdir $(PATH_OBJ)$(PATH_TERMCAPS) 2> /dev/null || true
 	@rmdir $(PATH_OBJ) 2> /dev/null || true
 
 fclean: clean

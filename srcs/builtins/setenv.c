@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_21sh.h"
+#include "../../includes/shell.h"
 
 int	setenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {

@@ -6,11 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 19:03:53 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/13 14:48:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/shell.h"
+#include "../../includes/shell.h"
 
 char	*kill_or_give(t_alloc al, char k)
 {
@@ -40,12 +40,12 @@ char	*read_and_sig(t_alloc al, char *k, int stdin_cpy)
 			ft_exit(0);
 		*k = -1;
 		dup2(stdin_cpy, 0);
-		if (g_pid == 1 && recall_prompt(al, -1))
+		if (g_pid == -1 && recall_prompt(al, -1))
 		{
 			ft_memdel((void **)&(al.input->s));
 			return (enter_section(al, -1));
 		}
-		(g_pid == 1) ? enter_section(al, 1) : 0;
+		(g_pid == -1) ? enter_section(al, 1) : 0;
 		(g_resize == 1) ? check_resize_curs_pos(al.input) : 0;
 		g_pid = 0;
 		g_resize = 0;
