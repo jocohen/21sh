@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 19:00:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 19:06:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ static void	prompt_cmdand(char **input, t_alloc *alloc, int del)
 	check_opening_quote(input, alloc);
 }
 
-static int	check_next_empty(char **input, int i)
+static int	check_next_empty(char **input, int *i, int add)
 {
-	while ((*input)[i] && ft_isspace((*input)[i]) == 1)
-		i += 1;
-	if ((*input)[i] == '\0')
+	int	x;
+
+	x = 0;
+	*i += add;
+	while ((*input)[*i + x] && ft_isspace((*input)[*i + x]) == 1)
+		x += 1;
+	if ((*input)[*i] == '\0')
 		return (1);
 	return (0);
 }
@@ -85,14 +89,14 @@ void		check_cmd_pipe(char **input, t_alloc *alloc, int del)
 			if (i == j)
 				return ;
 		}
-		if ((*input)[i] == '|' && (*input)[i + 1] != '|' && (*input)[i - 1] != '|')
-			(check_next_empty(input, i + 1) == 1) ? prompt_pipe(input, alloc,
+		if ((*input)[i] == '|' && (*input)[i + 1] != '|')
+			(check_next_empty(input, &i, 1) == 1) ? prompt_pipe(input, alloc,
 																del++) : 0;
 		else if ((*input)[i] == '|' && (*input)[i + 1] == '|')
-			(check_next_empty(input, i + 2) == 1) ? prompt_cmdor(input, alloc,
+			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdor(input, alloc,
 																	del++) : 0;
 		else if ((*input)[i] == '&' && (*input)[i + 1] == '&')
-			(check_next_empty(input, i + 2) == 1) ? prompt_cmdand(input,
+			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdand(input,
 															alloc, del++) : 0;
 		i += 1;
 	}
