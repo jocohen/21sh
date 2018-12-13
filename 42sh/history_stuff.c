@@ -6,11 +6,25 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 14:02:45 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/05 15:50:35 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/12 18:58:27 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
+
+int			search_cmd_common(const char *s, const char *sch)
+{
+	size_t	y;
+	size_t	len;
+
+	y = 0;
+	len = ft_strlen(sch);
+	while (s && s[y] && sch[y] && s[y] == sch[y])
+		y += 1;
+	if (y == len)
+		return (1);
+	return (0);
+}
 
 t_historic	*ft_new_cmd_hist(void)
 {
@@ -25,7 +39,7 @@ t_historic	*ft_new_cmd_hist(void)
 	return (lst);
 }
 
-void	reset_hist(t_historic *tmp)
+void		reset_hist(t_historic *tmp)
 {
 	while (tmp)
 	{
@@ -34,10 +48,12 @@ void	reset_hist(t_historic *tmp)
 	}
 }
 
-int		ft_del_hist(t_historic **fp)
+int			ft_del_hist(t_historic **fp)
 {
 	t_historic	*tmp;
 
+	while ((*fp)->prev)
+		(*fp) = (*fp)->prev;
 	while ((*fp))
 	{
 		tmp = (*fp)->next;

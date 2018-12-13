@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/21 16:48:41 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/10 14:57:05 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	set_terminal(t_list *fp, int reset)
 			ft_exit(0);
 		if ((tcgetattr(0, &old)) == -1 || (tcgetattr(0, &term)) == -1)
 			ft_exit(0);
-		term.c_lflag &= ~(ICANON);
-		term.c_lflag &= ~(ECHO);
+		term.c_lflag &= ~(ICANON | ECHO);
 		term.c_cc[VMIN] = 1;
 		term.c_cc[VTIME] = 0;
 		if ((tcsetattr(0, TCSADRAIN, &term)) == -1)

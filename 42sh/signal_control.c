@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 15:04:43 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/16 16:24:23 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/12 16:32:08 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
 
-void	sig_c(int sig)
+void	sig_kill(int sig)
 {
 	(void)sig;
 	if (g_pid == 666)

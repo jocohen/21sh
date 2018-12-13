@@ -6,19 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/11/29 15:53:16 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/12 18:45:41 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/shell.h"
-
-int		window_width_size(void)
-{
-	struct winsize	wind;
-
-	ioctl(0, TIOCGWINSZ, &wind);
-	return ((int)wind.ws_col);
-}
 
 int		display_sizing(int size)
 {
@@ -73,13 +65,15 @@ void	classic_display(char *prompt)
 
 void	caller_display(t_list *fp, t_buf *input, int change_pos)
 {
-	char	path[PATH_MAX];
-	char	*pwd;
-	int		mode;
+	char		path[PATH_MAX];
+	char		*pwd;
+	int			mode;
+	t_alloc		al;
 
+	al.env = &fp;
 	mode = 1;
 	ft_bzero(path, PATH_MAX);
-	if ((pwd = recall_prompt(0, 0, -1)))
+	if ((pwd = recall_prompt(al, -1)))
 		mode = 0;
 	else if (!(pwd = find_var_value(fp, "PWD")))
 		pwd = getcwd(path, PATH_MAX);

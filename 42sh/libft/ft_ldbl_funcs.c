@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 15:36:34 by jocohen           #+#    #+#             */
-/*   Updated: 2018/10/01 15:48:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/12 15:25:32 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_l_dbl		*ft_ldblnew(void const *content, size_t content_size)
 	return (lst);
 }
 
-int		ft_ldbldel(t_l_dbl **fp)
+int			ft_ldbldel(t_l_dbl **fp)
 {
 	t_l_dbl	*tmp;
 
