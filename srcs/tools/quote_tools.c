@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:52 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/16 19:19:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:17:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,4 @@ void	replace_quote(char *s, int *i)
 	while (s[*i] != quote)
 		*i += 1;
 	extract = ft_strsub(s, j, *i - j + 1);
-	ft_printf("extract => |%s|\n", extract);
-	ft_printf("char = |%c|\n", s[*i]);
 }

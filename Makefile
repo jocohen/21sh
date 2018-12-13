@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/13 17:13:56 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/13 17:31:43 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,4 +146,4 @@ norme:
 
 debug: $(OBJS)
 	@make -C $(PATH_LIB)
-	@gcc $(CFLAGS) -fsanitize=address -g3 -o $(NAME) $(OBJS) ./libft/libft.a
+	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -fsanitize=address -g3 -o $(NAME) $(OBJS)

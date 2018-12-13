@@ -23,24 +23,24 @@ int		check_wrong_key(char *key)
 	return (0);
 }
 
-int		input_keys_def(t_alloc al, char *key)
+int		input_keys_def(t_alloc *al, char *key)
 {
 	if (key[0] == 91 && key[1] >= 65 && key[1] <= 68)
-		arrow_move(al.input, key[1], al.history, al.env);
+		arrow_move(al->input, key[1], al->history, al->env);
 	else if (key[0] == 91 && (key[1] == 72 || key[1] == 70))
-		home_end_move(al.input, key[1]);
+		home_end_move(al->input, key[1]);
 	else if (key[0] == 91 && key[1] == 51 && key[2] == 126)
-		del_char(al.input, 1, al.env);
+		del_char(al->input, 1, al->env);
 	else if (key[0] == 91 && key[1] == 49 && key[2] == 59 && key[3] == 53
 		&& key[4] >= 65 && key[4] <= 68)
-		ctrl_arrow_move(al.input, key[4]);
+		ctrl_arrow_move(al->input, key[4]);
 	else if (key[0] == 91 && key[1] == 49 && key[2] == 59 && key[3] == 50
 		&& key[4] >= 67 && key[4] <= 68)
-		selection_input(al.input, key[4], al.env);
+		selection_input(al->input, key[4], al->env);
 	else if (key[0] == 91 && key[2] == 126 && key[1] >= 53 && key[1] <= 54)
-		page_move(al.input, key[1], al.history, al.env);
+		page_move(al->input, key[1], al->history, al->env);
 	else if (key[0] == 116 && key[1] >= 49 && key[1] <= 51)
-		selection_cmd(al.input, key[1], al.env);
+		selection_cmd(al->input, key[1], al->env);
 	else if (check_wrong_key(key))
 		return (1);
 	else
@@ -48,7 +48,7 @@ int		input_keys_def(t_alloc al, char *key)
 	return (0);
 }
 
-void	escape_analysis(t_alloc al)
+void	escape_analysis(t_alloc *al)
 {
 	static char	key[6];
 	char		c;
@@ -64,7 +64,7 @@ void	escape_analysis(t_alloc al)
 		key[y++] = c;
 		if ((key[1] && key[1] != 49 && key[1] != 50 && key[1] != 51)
 			|| (key[3] && key[3] != 50))
-			selec_buffer(0, al.input, al.env);
+			selec_buffer(0, al->input, al->env);
 		if (input_keys_def(al, key) >= 0)
 			return ;
 	}

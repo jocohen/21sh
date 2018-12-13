@@ -12,37 +12,37 @@
 
 #include "../../includes/shell.h"
 
-void	input_visual_char(t_alloc al, char k)
+void	input_visual_char(t_alloc *al, char k)
 {
 	size_t	prev_line;
 
 	if (k > 31 && k < 127)
 	{
-		prev_line = al.input->pos.l;
-		input_character(al.input, k);
-		ft_memmove(al.input->s + al.input->x + 1, al.input->s + al.input->x,
-			ft_strlen(al.input->s + al.input->x) + 1);
-		al.input->s[al.input->x++] = k;
-		if (((display_sizing(0) + ft_strlen(al.input->s))
+		prev_line = al->input->pos.l;
+		input_character(al->input, k);
+		ft_memmove(al->input->s + al->input->x + 1, al->input->s + al->input->x,
+			ft_strlen(al->input->s + al->input->x) + 1);
+		al->input->s[al->input->x++] = k;
+		if (((display_sizing(0) + ft_strlen(al->input->s))
 			/ window_width_size()) != prev_line)
-			reactualize_output(al.input, al.env);
+			reactualize_output(al->input, al->env);
 	}
 }
 
-void	analyse_input(t_alloc al, char k)
+void	analyse_input(t_alloc *al, char k)
 {
 	if (k == 12)
 	{
 		tputs(tgetstr("cl", 0), 1, ft_writestdin);
-		caller_display(*al.env, al.input, 0);
-		reactualize_output(al.input, al.env);
+		caller_display(*al->env, al->input, 0);
+		reactualize_output(al->input, al->env);
 	}
 	else if (k == 27)
 		escape_analysis(al);
-	else if (k == 4 || (k == 127 && al.input->x))
+	else if (k == 4 || (k == 127 && al->input->x))
 	{
-		(k == 4) ? del_char(al.input, 1, al.env) : 0;
-		(k == 127) ? del_char(al.input, 0, al.env) : 0;
+		(k == 4) ? del_char(al->input, 1, al->env) : 0;
+		(k == 127) ? del_char(al->input, 0, al->env) : 0;
 	}
 	else
 		input_visual_char(al, k);

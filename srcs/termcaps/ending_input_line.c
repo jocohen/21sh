@@ -6,62 +6,67 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 14:47:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:53:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-char	*recall_prompt(t_alloc al, int type)
+char	*recall_prompt(t_alloc *al, int type, int del)
 {
+	t_alloc			alloc;
 	static char		*input;
 	char			*out;
 
 	if (type == -1)
 		return (input);
 	else if (type == 1)
-	{
 		input = "heredoc";
-		ft_memdel((void **)al.input->s);
-		out = read_input(al);
-		input = 0;
-		return (out);
-	}
-	//addd if for all the types or recall
-	return (0);
+	else if (type == 2)
+		input = "dquote";
+	else if (type == 3)
+		input = "quote";
+	else if (type == 4)
+		input = "bquote";
+	else if (type == 5)
+		input = "pipe";
+	else if (type == 6)
+		input = "cmdand";
+	else if (type == 7)
+		input = "cmdor";
+	alloc.history = al->history;
+	alloc.env = al->env;
+	del = 1;
+	// (del) ? ft_memdel((void **)al->input->s) : 0;
+	out = read_input(&alloc);
+	input = 0;
+	return (out);
 }
 
-void	test(t_alloc al)
-{
-	char	*s;
-
-	s = recall_prompt(al, 1);
-	ft_printf("|%s|\n", al.input);
-	ft_printf("|%s|\n", s);
-}
-
-char	*enter_section(t_alloc al, int read)
+char	*enter_section(t_alloc *al, int read)
 {
 	size_t		x;
 
-	x = (((display_sizing(0) + ft_strlen(al.input->s) - 1)
-		/ window_width_size()) - (al.input->pos.l - 1)) + 1;
+	x = (((display_sizing(0) + ft_strlen(al->input->s) - 1)
+		/ window_width_size()) - (al->input->pos.l - 1)) + 1;
 	while (--x)
 		tputs(tgetstr("do", 0), 1, ft_writestdin);
 	tputs(tgetstr("cr", 0), 1, ft_writestdin);
-	ft_printf("%9s|%s|\n", "", al.input->s);
+	// ft_printf("%9s|%s|\n", "", al->input->s);
 	if (read == -1)
-		return (al.input->s);
-	if (al.input->s[0] && !read)
+		return (al->input->s);
+	if (!read)
 	{
+
+		lexer(al->input->s, al->env, al);
 		// test(al);
 		// input start fct
 		// input needed to be free and thats it
 		// historic_entry(input, history, read, *lst);
 		// a effectuer quand input done
 	}
-	al.input->x = 0;
-	ft_bzero(al.input->s, al.input->buf_size);
-	caller_display(*al.env, al.input, 1);
+	al->input->x = 0;
+	ft_bzero(al->input->s, al->input->buf_size);
+	caller_display(*al->env, al->input, 1);
 	return (0);
 }

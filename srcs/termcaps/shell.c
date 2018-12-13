@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:47:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:35:22 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(int ac, char **av, char **env)
 	if (!env_cp(env, &lst))
 		ft_exit(0);
 	al.env = &lst;
-	prompt(al);
+	prompt(&al);
 	del_lst_env(al.env);
 	return (0);
 }

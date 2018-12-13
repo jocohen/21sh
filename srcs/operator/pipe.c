@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 14:47:20 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 17:33:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	process_pipe_left(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	dup2(elem->back->fd[1], 1);
 	close(elem->back->fd[1]);
 	ret = analyzer(elem, lst_env, alloc);
-	del_alloc(alloc);
-	alloc = NULL;
 	exit(ret);
 }
 
@@ -33,8 +31,6 @@ static int	process_pipe_right(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	dup2(elem->back->fd[0], 0);
 	close(elem->back->fd[0]);
 	ret = analyzer(elem, lst_env, alloc);
-	del_alloc(alloc);
-	alloc = NULL;
 	exit(ret);
 }
 

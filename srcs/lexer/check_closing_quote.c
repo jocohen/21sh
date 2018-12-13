@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   check_closing_quote.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/01 11:26:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:40:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	check_opening_quote(char **str)
+void	check_opening_quote(char **str, t_alloc *alloc)
 {
 	int	i;
 
 	i = 0;
+	if (!(*str))
+		return ;
 	while ((*str)[i])
 	{
 		if (ft_isquote((*str)[i]) == 1)
-			find_closing(str, &i);
+			find_closing(str, &i, alloc);
 		i += 1;
 	}
 }
 
-void	find_closing(char **str, int *i)
+void	find_closing(char **str, int *i, t_alloc *alloc)
 {
 	char	c;
 	char	*tmp;
@@ -41,7 +43,7 @@ void	find_closing(char **str, int *i)
 		return ;
 	else
 	{
-		tmp = missing_quote_prompt(c);
+		tmp = missing_quote_prompt(c, alloc);
 		save = ft_strdup(*str);
 		free(*str);
 		*str = ft_strjoin(save, tmp);

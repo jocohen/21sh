@@ -3,35 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   quote_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 15:00:27 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/02 15:00:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:32:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-char	*missing_quote_prompt(char c)
+char	*missing_quote_prompt(char c, t_alloc *al)
 {
 	int		r;
 	char	*s;
 	char	*input;
 
-	r = 1;
+	r = 0;
 	s = NULL;
 	input = NULL;
-	while (r > 0 && c != '\0')
+	while (c != '\0')
 	{
 		if (c == '\'')
-			write(1, "quote > ", 8);
+			s = recall_prompt(al, 3, r++);
 		else if (c == '"')
-			write(1, "dquote > ", 9);
+			s = recall_prompt(al, 2, r++);
 		else if (c == '`')
-			write(1, "bquote > ", 9);
-		r = get_next_line(0, &s);
-		check_closing_quote(&c, s, &input);
-		free(s);
+			s = recall_prompt(al, 4, r++);
+		check_closing_quote(&c, s, &input, al);
 	}
 	return (input);
 }
@@ -51,7 +49,7 @@ void	init_ast(char **input, char *s)
 	}
 }
 
-void	check_closing_quote(char *c, char *s, char **input)
+void	check_closing_quote(char *c, char *s, char **input, t_alloc *alloc)
 {
 	int	i;
 
@@ -71,7 +69,7 @@ void	check_closing_quote(char *c, char *s, char **input)
 		while ((*input)[i])
 		{
 			if (ft_isquote((*input)[i]) == 1)
-				find_closing(input, &i);
+				find_closing(input, &i, alloc);
 			i += 1;
 		}
 	}

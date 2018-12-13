@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 17:10:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 18:30:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,26 +129,26 @@ char					*get_end_pwd(char *pwd);
 *********************************** PROMPTER ***********************************
 */
 
-void					prompt(t_alloc al);
-char					*read_input(t_alloc al);
-char					*read_and_sig(t_alloc al, char *k, int stdin_cpy);
-char					*kill_or_give(t_alloc al, char k);
+void					prompt(t_alloc *al);
+char					*read_input(t_alloc *al);
+char					*read_and_sig(t_alloc *al, char *k, int stdin_cpy);
+char					*kill_or_give(t_alloc *al, char k);
 char					check_prev_read(char k);
 void					check_over_buffer(t_buf *input, char *into_buff);
 void					input_character(t_buf *input, char k);
 void					check_last_char_column(t_buf *input);
-char					*recall_prompt(t_alloc al, int type);
-void					analyse_input(t_alloc al, char k);
-void					input_visual_char(t_alloc al, char k);
-char					*enter_section(t_alloc al, int read);
+char					*recall_prompt(t_alloc *al, int type, int del);
+void					analyse_input(t_alloc *al, char k);
+void					input_visual_char(t_alloc *al, char k);
+char					*enter_section(t_alloc *al, int read);
 
 /*
 ***************************** EXEC OF SPECIAL KEYS *****************************
 */
 
-void					escape_analysis(t_alloc al);
+void					escape_analysis(t_alloc *al);
 int						check_wrong_key(char *key);
-int						input_keys_def(t_alloc al, char *key);
+int						input_keys_def(t_alloc *al, char *key);
 void					del_char(t_buf *input, int type, t_env **lst);
 void					page_move(t_buf *input, char k, t_historic **history,
 									t_env **lst);
@@ -245,12 +245,13 @@ int						ft_writestdin(int c);
 /*
 ************************************ LEXER *************************************
 */
-void					lexer(char *input, t_env **lst_env, t_alloc **alloc);
+void					lexer(char *input, t_env **lst_env, t_alloc *alloc);
 void					clean_input(char *str, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
-void					check_closing_quote(char *c, char *s, char **input);
-void					check_cmd_pipe(char **input);
-void					find_closing(char **str, int *i);
+void					check_closing_quote(char *c, char *s, char **input,
+											t_alloc *alloc);
+void					check_cmd_pipe(char **input, t_alloc *alloc, int del);
+void					find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
 int						convert_quote(char **s, t_env **lst_env);
@@ -368,9 +369,9 @@ void					del_alloc(t_alloc **alloc);
 /*
 *********************************** OTHER **************************************
 */
-void					check_opening_quote(char **str);
+void					check_opening_quote(char **str, t_alloc *alloc);
 void					init_ast(char **input, char *s);
-char					*missing_quote_prompt(char c);
+char					*missing_quote_prompt(char c, t_alloc *alloc);
 int						main(int argc, char **argv, char **env);
 
 #endif
