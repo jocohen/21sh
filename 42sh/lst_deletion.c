@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ldbl_funcs.c                                    :+:      :+:    :+:   */
+/*   lst_deletion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 15:36:34 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 14:36:36 by tcollard         ###   ########.fr       */
+/*   Created: 2018/04/25 17:14:04 by jocohen           #+#    #+#             */
+/*   Updated: 2018/06/24 14:22:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "includes/shell.h"
 
-t_l_dbl		*ft_ldblnew(void const *content, size_t content_size)
+int		ft_error(void **a1, void **a2, void **a3, void **a4)
 {
-	t_l_dbl		*lst;
-
-	if (!(lst = (t_l_dbl *)malloc(sizeof(t_l_dbl))))
-		return (0);
-	if (content)
-	{
-		if (!(lst->content = (void *)malloc(content_size)))
-			return (0);
-		ft_memcpy(lst->content, content, content_size);
-		lst->content_size = content_size;
-	}
-	else
-	{
-		lst->content = 0;
-		lst->content_size = 0;
-	}
-	lst->next = 0;
-	lst->prev = 0;
-	return (lst);
+	ft_memdel(a1);
+	ft_memdel(a2);
+	ft_memdel(a3);
+	ft_memdel(a4);
+	return (0);
 }
 
-int			ft_ldbldel(t_l_dbl **fp)
+int		lst_deletion(t_list **fp)
 {
-	t_l_dbl	*tmp;
+	t_list	*tmp;
 
 	while ((*fp))
 	{

@@ -6,7 +6,7 @@
 #    By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/24 06:17:23 by jocohen           #+#    #+#              #
-#    Updated: 2018/11/14 15:55:57 by jocohen          ###   ########.fr        #
+#    Updated: 2018/12/12 16:42:08 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,23 +60,31 @@ PATH_LIB = ./libft/
 PATH_SRC = ./
 PATH_OBJ = ./obj/
 
-# NAME_SRC = termcaps.c
-
 NAME_SRC = shell.c \
-		   prompter.c \
-		   caller_display.c \
 		   env_analysis.c \
-		   escape_analysis.c \
+		   var_env_management.c \
+		   lst_deletion.c \
 		   ft_exit.c \
 		   ft_realloc.c \
 		   ft_writestdin.c \
 		   set_term.c \
-		   var_env_management.c \
-		   lst_deletion.c \
-		   eol_work.c \
 		   signal_control.c \
-		   historic_move.c \
-		   history_stuff.c
+		   prompter.c \
+		   prompter_stuff.c \
+		   ending_input_line.c \
+		   input_analysis.c \
+		   escape_analysis.c \
+		   execute_spe_keys.c \
+		   execute_spe_keys2.c \
+		   history_tree.c \
+		   history_stuff.c \
+		   history_movement.c \
+		   cursor_fit.c \
+		   cursor_shift.c \
+		   selection_buffer.c \
+		   paste_and_cut.c \
+		   caller_display.c \
+		   line_displays.c
 
 NAME_OBJ = $(NAME_SRC:.c=.o)
 

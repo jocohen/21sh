@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 12:50:58 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 16:54:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/13 14:36:32 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define ANSI_LIGHT_BLUE			"\x1b[104m"
 # define ANSI_LIGHT_MAGENTA			"\x1b[105m"
 # define ANSI_LIGHT_CYAN			"\x1b[106m"
+
+# define ANSI_DEF_BG				"\x1b[49m"
 # define ANSI_RESET					"\x1b[0m"
 
 # define ANSI_BOLD					"\e[1m"
