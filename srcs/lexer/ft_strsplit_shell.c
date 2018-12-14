@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:54 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 15:13:44 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:27:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ static void			ft_fill(char *str, char c, int word_n, char **split)
 	int		nb_letter;
 
 	j = 0;
-	ft_printf("\nINPUT:\n%s\n\n", str);
 	nb_letter = ft_counter_letter(str, c, word_n);
-	// ft_printf("NB LETTRE WRD %d = %d\n", word_n, nb_letter);
 	if (!(split[word_n] = (char*)malloc(sizeof(char) * (nb_letter + 1))))
 		return ;
 	i = ft_position_word(str, c, word_n);
