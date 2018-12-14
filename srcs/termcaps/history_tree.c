@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 15:58:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/14 16:13:05 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		historic_opening(t_env *lst, int open_type)
 	if (!open_type)
 		fd = open(s, O_RDONLY);
 	else
-		fd = open(s, O_WRONLY | O_APPEND | O_CREAT);
+		fd = open(s, O_WRONLY | O_APPEND | O_CREAT, 0600);
 	ft_memdel((void **)&s);
 	return (fd);
 }
