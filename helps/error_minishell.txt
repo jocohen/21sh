@@ -1,4 +1,0 @@
-ERROR:
-
-	EXIT:
-		- exit nb didn't work => cmd not found ???
