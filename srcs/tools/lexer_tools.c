@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:57 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 11:36:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 12:01:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ void	ft_delete_inside(char **source, int start, int len)
 	*source = ft_strjoin(begin, end);
 	free(begin);
 	free(end);
+}
+
+int		ft_str_is_empty(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (1);
+	while (s[i])
+	{
+		if (ft_isspace(s[i]) == 0)
+			return (0);
+		i += 1;
+	}
+	return (1);
 }

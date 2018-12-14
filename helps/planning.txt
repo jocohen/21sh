@@ -1,18 +1,10 @@
 TO_DO:
-	OK - Add read AST descent
-	OK - Try both lecture and fix if some mistake
-	OK - Norm it
-	OK - Update parser to send elem in good way
-	OK - Norm it
 
-	OK - Add LOGIC
-	OK - Add PIPE
+	RESOLVE CONFLICT:
+		-	Prompt -> pipe / and / or ...
+		
 
-	OK - Add alloc strcut for clean free
-	OK - Update funtions -> add new struct
-	OK - Check leaks
-	OK - Norm it
-	5 - Merge on Tibo branch
+
 
 Next day:
 	- Add REDIR
@@ -20,8 +12,3 @@ Next day:
 	- Norm it
 	- Check leaks
 	- Crash test
-
-
-================================================================================
-				CHECK AST FOR A && B | C  ==> SHOULD BE OK
-================================================================================

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 19:06:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 12:13:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ static void	prompt_pipe(char **input, t_alloc *alloc, int del)
 
 	s = NULL;
 	tmp = NULL;
-	s = recall_prompt(alloc, 5, del);
+	while (!s || ft_str_is_empty(s) == 1)
+		s = recall_prompt(alloc, 5, del);
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
 	*input = ft_strjoin(tmp, s);
 	free(tmp);
 	check_opening_quote(input, alloc);
+	check_cmd_pipe(input, alloc, 0);
 }
 
 static void	prompt_cmdor(char **input, t_alloc *alloc, int del)
@@ -34,14 +36,14 @@ static void	prompt_cmdor(char **input, t_alloc *alloc, int del)
 
 	s = NULL;
 	tmp = NULL;
-	s = recall_prompt(alloc, 7, del);
-	// ft_printf("s = |%s|\n", s);
+	while (!s || ft_str_is_empty(s) == 1)
+		s = recall_prompt(alloc, 7, del);
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
 	*input = ft_strjoin(tmp, s);
 	free(tmp);
-	// ft_printf("INPUT: |%s|\n", *input);
 	check_opening_quote(input, alloc);
+	check_cmd_pipe(input, alloc, 0);
 }
 
 static void	prompt_cmdand(char **input, t_alloc *alloc, int del)
@@ -51,12 +53,14 @@ static void	prompt_cmdand(char **input, t_alloc *alloc, int del)
 
 	s = NULL;
 	tmp = NULL;
-	s = recall_prompt(alloc, 6, del);
+	while (!s || ft_str_is_empty(s) == 1)
+		s = recall_prompt(alloc, 6, del);
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
 	*input = ft_strjoin(tmp, s);
 	free(tmp);
 	check_opening_quote(input, alloc);
+	check_cmd_pipe(input, alloc, 0);
 }
 
 static int	check_next_empty(char **input, int *i, int add)
@@ -81,7 +85,6 @@ void		check_cmd_pipe(char **input, t_alloc *alloc, int del)
 	j = 0;
 	while ((*input)[i])
 	{
-		// ft_printf("INPUT[%d]: |%c|\n", i, (*input)[i]);
 		if ((*input)[i] == '|' || (*input)[i] == '&')
 		{
 			while (j < i && ft_isspace((*input)[j]) == 1)
