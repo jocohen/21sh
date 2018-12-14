@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 18:34:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:13:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ char	*get_end_pwd(char *pwd)
 {
 	int		x;
 
-	if (!pwd)
+	if (!pwd && !pwd[0])
 		return (0);
-	if (pwd[1] == '/' && !pwd[1])
+	if (pwd[0] == '/' && !pwd[1])
 		return (pwd);
-	x = ft_strlen(pwd);
-	(x) ? x -= 1 : 0;
+	x = ft_strlen(pwd) - 1;
+	(pwd[x] == '/') ? pwd[x] = 0 : 0;
 	while (x && pwd[x] != '/')
 		x -= 1;
 	return (pwd + x + 1);
@@ -71,7 +71,7 @@ void	caller_display(t_env *fp, t_buf *input, int change_pos)
 
 	mode = 1;
 	ft_bzero(path, PATH_MAX);
-	if ((pwd = recall_prompt(0, -1, 0)))
+	if ((pwd = recall_prompt(0, -1)))
 		mode = 0;
 	else if (!(pwd = get_env_value(fp, "$PWD")))
 		pwd = getcwd(path, PATH_MAX);

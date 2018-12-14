@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 12:01:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 14:49:04 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ char					check_prev_read(char k);
 void					check_over_buffer(t_buf *input, char *into_buff);
 void					input_character(t_buf *input, char k);
 void					check_last_char_column(t_buf *input);
-char					*recall_prompt(t_alloc *al, int type, int del);
+char					*recall_prompt(t_alloc *al, int type);
 void					analyse_input(t_alloc *al, char k);
 void					input_visual_char(t_alloc *al, char k);
 char					*enter_section(t_alloc *al, int read);
@@ -250,7 +250,7 @@ void					clean_input(char *str, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
 void					check_closing_quote(char *c, char *s, char **input,
 											t_alloc *alloc);
-void					check_cmd_pipe(char **input, t_alloc *alloc, int del);
+void					check_cmd_pipe(char **input, t_alloc *alloc);
 void					find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);

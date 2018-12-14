@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 15:18:31 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:23:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 // 	(lexer != NULL) ? free(lexer) : 0;
 // }
 
+// exit si ctrl c dans le recall du prompt
+
 void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 {
 	int		i;
@@ -45,10 +47,12 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	lexer = NULL;
 	lst = NULL;
 	check_opening_quote(&input, alloc);
-	check_cmd_pipe(&input, alloc, 0);
+	check_cmd_pipe(&input, alloc);
 	while (input[i] == ';')
 		i += 1;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
+	{
+		ft_memdel((void **)&input);
 		return ;
 	int x;
 
@@ -58,7 +62,8 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 		ft_printf("LEXER[%d]: |%s|\n", x, lexer[x]);
 		x += 1;
 	}
-	// read_lexer(lexer, lst_env, lst, &alloc);
+	read_lexer(lexer, lst_env, lst, &alloc);
+	ft_memdel((void **)&input);
 }
 
 void		clean_input(char *str, t_ast *lst, t_env **lst_env,
