@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 18:53:40 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 14:45:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-char	*recall_prompt(t_alloc *al, int type, int del)
+char	*recall_prompt(t_alloc *al, int type)
 {
 	t_alloc			alloc;
 	static char		*input;
@@ -36,8 +36,6 @@ char	*recall_prompt(t_alloc *al, int type, int del)
 		input = "cmdor";
 	alloc.history = al->history;
 	alloc.env = al->env;
-	del = 1;
-	// (del) ? ft_memdel((void **)al->input->s) : 0;
 	out = read_input(&alloc);
 	input = 0;
 	return (out);
@@ -58,7 +56,7 @@ char	*enter_section(t_alloc *al, int read)
 	if (!read)
 	{
 
-		lexer(al->input->s, al->env, al);
+		lexer(ft_strdup(al->input->s), al->env, al);
 		// test(al);
 		// input start fct
 		// input needed to be free and thats it

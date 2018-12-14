@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 13:15:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 14:46:52 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*kill_or_give(t_alloc *al, char k)
 {
 	(k != 27 && k != -1) ? selec_buffer(0, al->input, al->env) : 0;
-	if (k == 4 && !al->input->s[0] && !recall_prompt(al, -1, 0))
+	if (k == 4 && !al->input->s[0] && !recall_prompt(al, -1))
 	{
 		tputs(tgetstr("do", 0), 1, ft_writestdin);
 		tputs(tgetstr("cr", 0), 1, ft_writestdin);
@@ -24,9 +24,9 @@ char	*kill_or_give(t_alloc *al, char k)
 	}
 	if (k == 10)
 	{
-		if (recall_prompt(al, -1, 0))
+		if (recall_prompt(al, -1))
 			return (enter_section(al, -1));
-		if (ft_strncmp("exit", al->input->s, 4) == 0)
+		if (ft_strncmp("exit", al->input->s, 4) == 0 && !recall_prompt(al, -1))
 		{
 			// del_alloc(&al);
 			ft_memdel((void *)(al->input->s));
@@ -46,7 +46,7 @@ char	*read_and_sig(t_alloc *al, char *k, int stdin_cpy)
 			ft_exit(0);
 		*k = -1;
 		dup2(stdin_cpy, 0);
-		if (g_pid == -1 && recall_prompt(al, -1, 0))
+		if (g_pid == -1 && recall_prompt(al, -1))
 		{
 			ft_memdel((void **)&(al->input->s));
 			return (enter_section(al, -1));
@@ -79,7 +79,7 @@ char	*read_input(t_alloc *al)
 			return (0);
 		if (!kill_or_give(al, k))
 			break ;
-		else if (k == 10 && recall_prompt(al, -1, 0))
+		else if (k == 10 && recall_prompt(al, -1))
 			return (al->input->s);
 		if (k != 10)
 			analyse_input(al, k);

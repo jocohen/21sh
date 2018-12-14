@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 19:08:49 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 14:48:25 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	(lexer != NULL) ? free(lexer) : 0;
 }
 
+// exit si ctrl c dans le recall du prompt
+
 void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 {
 	int		i;
@@ -41,12 +43,16 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	lexer = NULL;
 	lst = NULL;
 	check_opening_quote(&input, alloc);
-	check_cmd_pipe(&input, alloc, 0);
+	check_cmd_pipe(&input, alloc);
 	while (input[i] == ';')
 		i += 1;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
+	{
+		ft_memdel((void **)&input);
 		return ;
+	}
 	read_lexer(lexer, lst_env, lst, &alloc);
+	ft_memdel((void **)&input);
 }
 
 void		clean_input(char *str, t_ast *lst, t_env **lst_env,
