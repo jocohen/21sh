@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:38:06 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:58:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int		init_hist(t_historic **history, t_env *lst)
 	return (0);
 }
 
-void	historic_entry(t_buf *input, t_historic **history, int read,
-						t_env *lst)
+void	historic_entry(char *input, t_historic **history, t_env *lst)
 {
 	int		fd;
 
@@ -68,14 +67,14 @@ void	historic_entry(t_buf *input, t_historic **history, int read,
 	ft_memdel((void **)&((*history)->origin));
 	ft_memdel((void **)&((*history)->modif));
 	reset_hist((*history)->prev);
-	if (!input->s[0] || read || ((*history)->prev && !ft_strcmp(input->s,
+	if (!input[0] || ((*history)->prev && !ft_strcmp(input,
 		((*history)->prev)->origin)))
 		return ;
 	fd = historic_opening(lst, 1);
-	write(fd, input->s, ft_strlen(input->s));
+	write(fd, input, ft_strlen(input));
 	write(fd, "\n", 1);
 	close(fd);
-	if (!((*history)->origin = ft_strdup(input->s))
+	if (!((*history)->origin = ft_strdup(input))
 		|| !(((*history)->next) = ft_new_cmd_hist()))
 		ft_exit(EXIT_FAILURE);
 	((*history)->next)->prev = (*history);

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 14:49:04 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/14 15:59:19 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,8 @@ int						search_cmd_common(const char *s, const char *sch);
 
 int						init_hist(t_historic **history, t_env *lst);
 int						historic_opening(t_env *lst, int open_type);
-void					historic_entry(t_buf *input, t_historic **history,
-										int read, t_env *lst);
+void					historic_entry(char *input, t_historic **history,
+										t_env *lst);
 t_historic				*ft_new_cmd_hist(void);
 int						ft_del_hist(t_historic **fp);
 void					reset_hist(t_historic *tmp);
