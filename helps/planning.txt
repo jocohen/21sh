@@ -5,7 +5,8 @@ To Do:
 	6 - Check env if null what to do
 	5 - Error return value
 	4 - HEREDOC
-	- \n in tha cmd line
+	- \t
+	- \n in tha cmd line on delete les \n et on affiche ce quon verra
 	- Leaks
 	- Norme
 
