@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:16:32 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 14:10:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 12:39:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	del_lst_env(t_env **lst)
 {
 	t_env	*tmp;
 
-	tmp = *lst;
-	if (!lst || !tmp)
+	if (!lst || !(*lst))
 		return ;
+	tmp = *lst;
 	while (tmp)
 	{
 		*lst = tmp->next;
@@ -78,6 +78,16 @@ void	del_alloc(t_alloc **alloc)
 {
 	if (!(*alloc))
 		return ;
+	if ((*alloc)->history)
+	{
+		ft_del_hist((*alloc)->history);
+		(*alloc)->history = NULL;
+	}
+	if ((*alloc)->input)
+	{
+		((*alloc)->input->s) ? free((*alloc)->input->s) : 0;
+		(*alloc)->input = NULL;
+	}
 	if ((*alloc)->env)
 	{
 		del_lst_env((*alloc)->env);
@@ -88,6 +98,5 @@ void	del_alloc(t_alloc **alloc)
 		del_lst_ast((*alloc)->ast);
 		(*alloc)->ast = NULL;
 	}
-	free(*alloc);
 	*alloc = NULL;
 }

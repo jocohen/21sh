@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 14:02:45 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:58:27 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/14 12:38:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			ft_del_hist(t_historic **fp)
 {
 	t_historic	*tmp;
 
-	while ((*fp)->prev)
+	while ((*fp) && (*fp)->prev)
 		(*fp) = (*fp)->prev;
 	while ((*fp))
 	{

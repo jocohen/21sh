@@ -1,9 +1,6 @@
 TO_DO:
 
 	RESOLVE CONFLICT:
-		-	Prompt -> pipe / and / or ...
-		
-
 
 
 Next day:
