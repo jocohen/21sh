@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 15:13:57 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/14 17:56:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_end_pwd(char *pwd)
 		return (pwd);
 	x = ft_strlen(pwd) - 1;
 	(pwd[x] == '/') ? pwd[x] = 0 : 0;
-	while (x && pwd[x] != '/')
+	while (x >= 0 && pwd[x] != '/')
 		x -= 1;
 	return (pwd + x + 1);
 }
