@@ -6,30 +6,32 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 19:08:49 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:18:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
-	t_alloc **alloc)
-{
-	int	i;
-	int	x;
-
-	i = 0;
-	while (lexer && lexer[i])
-	{
-		x = 0;
-		while (lexer[i][x] && ft_isspace(lexer[i][x]))
-			x += 1;
-		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
-		free(lexer[i]);
-		i += 1;
-	}
-	(lexer != NULL) ? free(lexer) : 0;
-}
+// static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+// 	t_alloc **alloc)
+// {
+// 	int	i;
+// 	int	x;
+//
+// 	i = 0;
+// 	// ft_printf("READ LEXER\n");
+// 	while (lexer && lexer[i])
+// 	{
+// 		// ft_printf("LEXER[%d]: |%s|\n", i, lexer[i]);
+// 		x = 0;
+// 		while (lexer[i][x] && ft_isspace(lexer[i][x]))
+// 			x += 1;
+// 		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
+// 		free(lexer[i]);
+// 		i += 1;
+// 	}
+// 	(lexer != NULL) ? free(lexer) : 0;
+// }
 
 void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 {
@@ -37,6 +39,8 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	char	**lexer;
 	t_ast	*lst;
 
+	(void)lst_env;
+	ft_printf("IN THA LEXER\n");
 	i = 0;
 	lexer = NULL;
 	lst = NULL;
@@ -46,7 +50,15 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 		i += 1;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 		return ;
-	read_lexer(lexer, lst_env, lst, &alloc);
+	int x;
+
+	x = 0;
+	while (lexer && lexer[x])
+	{
+		ft_printf("LEXER[%d]: |%s|\n", x, lexer[x]);
+		x += 1;
+	}
+	// read_lexer(lexer, lst_env, lst, &alloc);
 }
 
 void		clean_input(char *str, t_ast *lst, t_env **lst_env,

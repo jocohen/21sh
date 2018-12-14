@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:54 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 10:51:58 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 15:13:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,19 @@ static int			ft_counter_letter(char *str, char c, int word_n)
 
 	nb_letter = 0;
 	pos_word = ft_position_word(str, c, word_n);
-	while (str[pos_word] && str[pos_word] != c)
+	while (str[pos_word + nb_letter] && str[pos_word + nb_letter] != c)
 	{
-		if (ft_isquote(str[pos_word]) == 1)
+		if (ft_isquote(str[pos_word + nb_letter]) == 1)
 		{
-			quote = str[pos_word];
-			pos_word += 1;
+			quote = str[pos_word + nb_letter];
 			nb_letter += 1;
-			while (str[pos_word] && str[pos_word] != quote)
-			{
-				pos_word += 1;
+			while (str[pos_word + nb_letter] && str[pos_word + nb_letter]
+				!= quote)
 				nb_letter += 1;
-			}
-			pos_word += 1;
 			nb_letter += 1;
 		}
-		pos_word += 1;
-		nb_letter += 1;
+		else
+			nb_letter += 1;
 	}
 	return (nb_letter);
 }
@@ -103,7 +99,9 @@ static void			ft_fill(char *str, char c, int word_n, char **split)
 	int		nb_letter;
 
 	j = 0;
+	ft_printf("\nINPUT:\n%s\n\n", str);
 	nb_letter = ft_counter_letter(str, c, word_n);
+	// ft_printf("NB LETTRE WRD %d = %d\n", word_n, nb_letter);
 	if (!(split[word_n] = (char*)malloc(sizeof(char) * (nb_letter + 1))))
 		return ;
 	i = ft_position_word(str, c, word_n);
