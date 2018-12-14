@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 12:40:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/14 13:15:14 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ char	*kill_or_give(t_alloc *al, char k)
 			return (enter_section(al, -1));
 		if (ft_strncmp("exit", al->input->s, 4) == 0)
 		{
-			del_alloc(&al);
-			// ft_memdel((void *)(al->input->s));
+			// del_alloc(&al);
+			ft_memdel((void *)(al->input->s));
 			return (0);
 		}
 		enter_section(al, 0);
