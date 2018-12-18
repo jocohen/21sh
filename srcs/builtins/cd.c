@@ -5,77 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 12:07:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 18:11:31 by tcollard         ###   ########.fr       */
+/*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
+/*   Updated: 2018/12/18 19:14:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-// static void	new_path(t_env *elem, char *path, char **tab_path)
-// {
-// 	char	new[PATH_MAX];
-// 	int		i;
-// 	int		x;
-//
-// 	x = 0;
-// 	(path[0] == '/') ? ft_bzero(new, PATH_MAX) : ft_strcpy(new, elem->value);
-// 	while (tab_path[x])
-// 	{
-// 		if (ft_strcmp(tab_path[x], "..") == 0)
-// 		{
-// 			i = ft_strlen(new) - 1;
-// 			while (i >= 0 && new[i] != '/')
-// 				i -= 1;
-// 			(i < 0) ? i = 0 : 0;
-// 			new[i] = '\0';
-// 		}
-// 		else if (ft_strcmp(tab_path[x], ".") != 0)
-// 			ft_strcat(ft_strcat(new, "/"), tab_path[x]);
-// 		free(tab_path[x]);
-// 		x += 1;
-// 	}
-// 	(tab_path != NULL) ? free(tab_path) : 0;
-// 	free(elem->value);
-// 	elem->value = ft_strdup(new);
-// }
-static void	new_path(t_env *elem, char *path, char **tab_path)
-{
-	char	new[PATH_MAX];
-	int		i;
-	int		x;
-
-	x = 0;
-	ft_printf("PATH: %s\n", path);
-	if (path[0] == '/')
-	{
-		ft_printf("BZERO\n");
-		ft_bzero(new, PATH_MAX);
-	}
-	else
-	{
-		ft_printf("CPY\n");
-		ft_strcpy(new, elem->value);
-	}
-	while (tab_path[x])
-	{
-		if (ft_strcmp(tab_path[x], "..") == 0)
-		{
-			i = ft_strlen(new) - 1;
-			while (i >= 0 && new[i] != '/')
-				i -= 1;
-			(i < 0) ? i = 0 : 0;
-			new[i] = '\0';
-		}
-		else if (ft_strcmp(tab_path[x], ".") != 0)
-			ft_strcat(ft_strcat(new, "/"), tab_path[x]);
-		free(tab_path[x]);
-		x += 1;
-	}
-	(tab_path != NULL) ? free(tab_path) : 0;
-	free(elem->value);
-	elem->value = ft_strdup(new);
-}
 
 static int	check_access(char *dir)
 {
@@ -114,49 +49,7 @@ static int	check_options(t_ast *elem, int *options)
 	return (i);
 }
 
-static void	modif_env(char *path, t_env *lst_env, int options)
-{
-	t_env	*tmp;
-	char	*buf;
-
-	ft_printf("MODIF ENV => PATH: |%s|\n", path);
-	buf = NULL;
-	if (!(tmp = find_elem_env(&lst_env, "PWD")))
-	{
-		ft_printf("PWD DOESN'T EXIST\n");
-		add_elem_env(&lst_env, "PWD", getcwd(buf, PATH_MAX));
-		free(buf);
-	}
-	if ((tmp = find_elem_env(&lst_env, "OLDPWD")))
-	{
-		ft_printf("OLDPWD EXIST\n");
-		free(tmp->value);
-		tmp->value = ft_strdup(find_elem_env(&lst_env, "PWD")->value);
-		ft_printf("TMP->VALUE: |%s|\n", tmp->value);
-	}
-	else
-	{
-		ft_printf("OLDPWD DOESN'T EXIST\n");
-		add_elem_env(&lst_env, "OLDPWD", find_elem_env(&lst_env, "PWD")->value);
-	}
-	if (options != 2)
-	{
-		ft_printf("BEFORE ENTER NEW PATH: |%s|\n", path);
-		new_path(find_elem_env(&lst_env, "PWD"), path, ft_strsplit(path, '/'));
-	// new_path(t_env *elem, char *path, char **tab_path)
-	}
-	else
-	{
-		ft_printf("OPTION == 2\n");
-		free(find_elem_env(&lst_env, "PWD")->value);
-		find_elem_env(&lst_env, "PWD")->value =
-		ft_strdup(getcwd(buf, PATH_MAX));
-		free(buf);
-	}
-	ft_printf("END PWD: |%s|\n", get_env_value(lst_env, "$PWD"));
-}
-
-int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
+int		cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int			options;
 	int			i;
@@ -170,16 +63,17 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	if ((i = check_options(elem, &options)) == -1)
 		return (1);
 	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
-		(ft_strcmp((dir = get_env_value(*lst_env, "$OLDPWD")), "") != 0) ? 0 :
+	{
+		(ft_strcmp((dir = ft_strdup(get_env_value(*lst_env, "$OLDPWD"))), "") != 0) ? 0 :
 		error_cd("OLDPWD", 2);
+	}
 	else if (!elem->input[i])
-		(ft_strcmp((dir = get_env_value(*lst_env, "$HOME")), "") != 0) ? 0 :
+	{
+		(ft_strcmp((dir = ft_strdup(get_env_value(*lst_env, "$HOME"))), "") != 0) ? 0 :
 		error_cd("HOME", 2);
+	}
 	else
-		dir = elem->input[i];
-	if (ft_strcmp(dir, "") != 0 && (check_access(dir) == -1 ||
-	chdir(dir) == -1))
-		return (1);
-	modif_env(dir, *lst_env, options);
-	return (0);
+	{
+		get_dir(get_env_value(*lst, "PWD"), ft_strsplit(elem->input[i], '/'), options);
+	}
 }

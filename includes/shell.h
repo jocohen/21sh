@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 15:59:19 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/18 15:44:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,11 @@ void					del_lst_env(t_env **lst);
 void					del_double_tab(char **tab1, char **tab2);
 void					del_lst_ast(t_ast **lst);
 void					del_alloc(t_alloc **alloc);
+
+/*
+*********************************** OTHER **************************************
+*/
+char					*get_dir(char **tab_pwd, char **tab_path);
 
 /*
 *********************************** OTHER **************************************
