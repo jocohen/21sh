@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_control.c                                   :+:      :+:    :+:   */
+/*   prompt_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/12 15:04:43 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/18 16:41:57 by nicolaslamerenx  ###   ########.fr       */
+/*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
+/*   Updated: 2018/12/18 13:36:41 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	sig_kill(int sig)
+void	change_quote_op(char *input)
 {
-	(void)sig;
-	if (g_in_exec)
-	{
-		g_in_exec = 0;
-		kill(g_pid, SIGINT);
-	}
-	else
-	{
-		if (!g_pid)
-			close(0);
-		g_pid = -1;
-	}
-}
+	int		x;
 
-void	sig_window(int t)
-{
-	(void)t;
-	g_resize = 1;
-	close(0);
+	x = 0;
+	while (input[x] && !ft_isquote(input[x]))
+		x += 1;
+	if (input[x])
+	{
+		while (input[x] && input[x] != '\n')
+			x += 1;
+		input[x] = 0;
+		return;
+	}
+	x = 0;
+	while (input[x])
+	{
+		if (input[x] == '\n')
+			ft_memmove(input + x, input + x + 1, ft_strlen(input + x + 1));
+		else
+			x += 1;
+	}
 }

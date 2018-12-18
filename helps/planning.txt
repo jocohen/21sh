@@ -6,7 +6,6 @@ To Do:
 	5 - Error return value
 	4 - HEREDOC
 	- \t
-	- \n in tha cmd line on delete les \n et on affiche ce quon verra
 	- Leaks
 	- Norme
 
@@ -19,7 +18,6 @@ BONUS: a voir en fonction du new sujet
 
 Bug:
 	- CD pwd -> Tibo
-	- Multi prompt history -> Jonas
 	-
 
 

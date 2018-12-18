@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 16:21:26 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/18 16:38:43 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 	convert_lst_tab(lst_env, &tab_env);
 	(!tab_path) ? tab_path = ft_strsplit(get_env_value(lst_env,
 	"$PATH"), ':') : 0;
-	// set_terminal(0, 1);
 	father = fork();
 	(father) ? g_pid = father : 0;
 	wait(&err);
@@ -45,9 +44,7 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 				tab_path[i++]), "/"), elem->input[0]), elem->input, tab_env);
 		(err == -1) ? (exit(exec_error(-1, elem->input[0], alloc))) : 0;
 	}
-	g_in_exec = 0;
-	g_pid = 0;
-	// set_terminal(lst_env, 0);
+	set_terminal(lst_env, 0);
 	del_double_tab(tab_path, tab_env);
 	return (err);
 }
