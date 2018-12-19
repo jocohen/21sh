@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 15:49:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/19 17:22:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	int		i;
 	t_ast	*sort;
 
-	(void)lst_env;
 	i = 0;
 	sort = NULL;
 	if (ft_error_parse_redir(input) == 1)
