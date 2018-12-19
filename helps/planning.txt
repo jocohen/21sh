@@ -17,7 +17,6 @@ BONUS: a voir en fonction du new sujet
 
 
 Bug:
-	- CD pwd -> Tibo
 	- Multi prompt history -> Jonas
 	-
 

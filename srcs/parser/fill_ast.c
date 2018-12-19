@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/19 17:22:25 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/19 18:11:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void		fill_ast(char **s, t_ast **lst)
 	int		x;
 	int		save;
 
-	(void)s;
 	i = -1;
 	save = 0;
 	new = create_new_elem(lst);
@@ -129,7 +128,8 @@ void		fill_ast(char **s, t_ast **lst)
 	{
 		x = -1;
 		while (s[i][++x])
-			if (ft_isoperator(s[i][0]) == 1)
+			if (ft_isoperator(s[i][0]) == 1 || (ft_isoperator(s[i][x]) == 1 &&
+			ft_isdigit(s[i][x - 1]) == 1))
 			{
 				(new->type != NO_TYPE) ? new = add_new_elem(lst) : 0;
 				fill_input(s, i, save, new);
