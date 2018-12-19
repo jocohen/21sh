@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 15:59:19 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/19 14:13:32 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef int				(*t_builtins)(t_ast *elem, t_env **lst_env,
 
 int						g_in_exec;
 int						g_pid;
+int						g_ret;
 int						g_resize;
 char					*g_clip;
 

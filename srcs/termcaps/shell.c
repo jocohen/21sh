@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 18:35:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:13:51 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	g_ret = 0;
 	g_in_exec = 0;
 	g_clip = 0;
 	g_pid = 0;
