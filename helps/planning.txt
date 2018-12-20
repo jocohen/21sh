@@ -24,3 +24,6 @@ Bug:
 BONUS DONE:
 	- || &&
 	- "" ''
+
+To do:
+	- Simple redirection '>'
