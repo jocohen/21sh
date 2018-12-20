@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/11 18:36:00 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/20 13:54:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	int		save;
 	int		x;
 
-	x = -1;
+	x = 0;
 	sub = NULL;
 	str = NULL;
 	quote = (*s)[(*i)++];
@@ -112,8 +112,8 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	if (quote == '"')
 	{
 		sub = ft_strsub(*s, save, *i - save);
-		while (sub[x++])
-			(sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 0;
+		while (sub[x])
+			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
 	}
 	else if (quote == '`')
 	{
