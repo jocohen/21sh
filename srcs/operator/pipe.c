@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/19 13:46:43 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2018/12/20 15:55:37 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	process_pipe_left(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int	ret;
 
 	close(elem->back->fd[0]);
-	dup2(elem->back->fd[1], 1);
+	dup2(elem->back->fd[1], STDOUT_FILENO);
 	close(elem->back->fd[1]);
 	ret = analyzer(elem, lst_env, alloc);
 	exit(ret);
@@ -28,7 +28,7 @@ static int	process_pipe_right(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int	ret;
 
 	close(elem->back->fd[1]);
-	dup2(elem->back->fd[0], 0);
+	dup2(elem->back->fd[0], STDIN_FILENO);
 	close(elem->back->fd[0]);
 	ret = analyzer(elem, lst_env, alloc);
 	exit(ret);
@@ -48,7 +48,6 @@ int			do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	else
 	{
 		g_pid = pid1;
-		waitpid(pid1, NULL, 0);
 		if (g_pid == -1)
 		{
 			close(elem->fd[0]);
