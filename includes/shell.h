@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/19 16:14:48 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/20 17:16:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,8 @@ int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 */
 int						do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int						job_control(t_ast *elem, t_env *lst_env);
+void					redirection(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
 
 /*
 *********************************** ERROR **************************************

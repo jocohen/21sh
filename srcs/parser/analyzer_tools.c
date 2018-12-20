@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/19 17:44:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/20 18:04:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path,
 int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
-	(void)lst_env;
 	(void)tab_path;
-	(void)alloc;
+
+	if (elem->type == 2)
+		redirection(elem, lst_env, alloc);
 	ft_printf("REDIR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
 	elem->input[0]);
 	return (1);
