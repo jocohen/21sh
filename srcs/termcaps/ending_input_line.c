@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 15:05:31 by jocohen          ###   ########.fr       */
+/*   Updated: 2018/12/20 13:50:38 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,12 @@ char	*enter_section(t_alloc *al, int read)
 		return (al->input->s);
 	if (!read)
 	{
+		set_terminal(0, 1);
 		lexer(ft_strdup(al->input->s), al->env, al);
+		set_terminal(*al->env, 0);
+		if (g_pid == -1)
+			write(1, "\n", 1);
+		g_pid = 0;
 		// test(al);
 		// input start fct
 		// input needed to be free and thats it

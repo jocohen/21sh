@@ -6,7 +6,6 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/20 13:54:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +26,8 @@ static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 		while (lexer[i][x] && ft_isspace(lexer[i][x]))
 			x += 1;
 		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
+		if (g_pid == -1)
+			break;
 		free(lexer[i]);
 		i += 1;
 	}
@@ -47,7 +48,7 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	lst = NULL;
 	check_opening_quote(&input, alloc);
 	check_cmd_pipe(&input, alloc);
-	historic_entry(input, alloc->history, *lst_env);
+	historic_entry(ft_strdup(input), alloc->history, *lst_env);
 	while (input[i] == ';')
 		i += 1;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)

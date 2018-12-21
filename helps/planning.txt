@@ -5,7 +5,7 @@ To Do:
 	6 - Check env if null what to do
 	5 - Error return value
 	4 - HEREDOC
-	- \n in tha cmd line
+	- \t
 	- Leaks
 	- Norme
 
@@ -17,7 +17,7 @@ BONUS: a voir en fonction du new sujet
 
 
 Bug:
-	- Multi prompt history -> Jonas
+	- CD pwd -> Tibo
 	-
 
 

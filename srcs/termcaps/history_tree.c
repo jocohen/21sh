@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 16:13:05 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/18 14:46:13 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,30 @@ int		init_hist(t_historic **history, t_env *lst)
 	return (0);
 }
 
+void	change_quote_op(char *input)
+{
+	int		x;
+
+	x = 0;
+	while (input[x] && !ft_isquote(input[x]))
+		x += 1;
+	if (input[x])
+	{
+		while (input[x] && input[x] != '\n')
+			x += 1;
+		input[x] = 0;
+		return;
+	}
+	x = 0;
+	while (input[x])
+	{
+		if (input[x] == '\n')
+			ft_memmove(input + x, input + x + 1, ft_strlen(input + x + 1));
+		else
+			x += 1;
+	}
+}
+
 void	historic_entry(char *input, t_historic **history, t_env *lst)
 {
 	int		fd;
@@ -67,6 +91,7 @@ void	historic_entry(char *input, t_historic **history, t_env *lst)
 	ft_memdel((void **)&((*history)->origin));
 	ft_memdel((void **)&((*history)->modif));
 	reset_hist((*history)->prev);
+	change_quote_op(input);
 	if (!input[0] || ((*history)->prev && !ft_strcmp(input,
 		((*history)->prev)->origin)))
 		return ;
@@ -79,4 +104,5 @@ void	historic_entry(char *input, t_historic **history, t_env *lst)
 		ft_exit(EXIT_FAILURE);
 	((*history)->next)->prev = (*history);
 	(*history) = (*history)->next;
+	ft_memdel((void **)&input);
 }

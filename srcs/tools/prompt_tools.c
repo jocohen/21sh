@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell.c                                            :+:      :+:    :+:   */
+/*   prompt_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/19 14:13:51 by nicolaslamerenx  ###   ########.fr       */
+/*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
+/*   Updated: 2018/12/18 13:36:41 by nicolaslamerenx  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		main(int ac, char **av, char **env)
+void	change_quote_op(char *input)
 {
-	t_env		*lst;
-	t_alloc		al;
+	int		x;
 
-	(void)ac;
-	(void)av;
-	g_ret = 0;
-	g_in_exec = 0;
-	g_clip = 0;
-	g_pid = 0;
-	g_resize = 0;
-	lst = 0;
-	if (!env_cp(env, &lst))
-		ft_exit(0);
-	al.env = &lst;
-	prompt(&al);
-	del_lst_env(al.env);
-	return (0);
+	x = 0;
+	while (input[x] && !ft_isquote(input[x]))
+		x += 1;
+	if (input[x])
+	{
+		while (input[x] && input[x] != '\n')
+			x += 1;
+		input[x] = 0;
+		return;
+	}
+	x = 0;
+	while (input[x])
+	{
+		if (input[x] == '\n')
+			ft_memmove(input + x, input + x + 1, ft_strlen(input + x + 1));
+		else
+			x += 1;
+	}
 }
