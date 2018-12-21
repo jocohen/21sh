@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/19 13:46:52 by tcollard         ###   ########.fr        #
+#    Updated: 2018/12/22 00:03:18 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)builtins_tools.c \
 		$(PATH_OPERATOR)pipe.c \
 		$(PATH_OPERATOR)job_control.c \
+		$(PATH_OPERATOR)redirection.c \
 		$(PATH_PROMPT)minishell.c \
 		$(PATH_PROMPT)quote_prompt.c \
 		$(PATH_ERROR)lexer_error.c \
@@ -70,6 +71,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)exec_error.c \
 		$(PATH_ERROR)error_setenv.c \
 		$(PATH_ERROR)error_unsetenv.c \
+		$(PATH_ERROR)error_redirection.c \
 		$(PATH_TERMCAPS)caller_display.c \
 		$(PATH_TERMCAPS)cursor_fit.c \
 		$(PATH_TERMCAPS)cursor_shift.c \

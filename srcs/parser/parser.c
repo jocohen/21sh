@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/21 13:23:33 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2018/12/22 00:10:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 // 		i += 1;
 // 	}
 // }
-
 
 static t_ast	*get_available_node(t_ast **sort)
 {
@@ -263,6 +262,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 
 	sort_ast(lst, &sort);
 	(*alloc)->ast = &lst;
+	// ft_printf("\n== READ LIST ==\n\n");
+	// read_lst(lst);
 	// ft_printf("\n=== READ SORT DESCENT ==\n\n");
 	// read_sort_descent(sort);
 

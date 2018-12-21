@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/21 13:23:41 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2018/12/22 00:10:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,18 @@ int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 */
 int						do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int						job_control(t_ast *elem, t_env *lst_env);
+void					redirection(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+
+/*
+******************************** REDIRECTION ***********************************
+*/
+void					redirection_1(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_2(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_3(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
 
 /*
 *********************************** ERROR **************************************
@@ -300,6 +312,7 @@ int						ft_error_redir_format(char *ope, int len);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
+void					error_redir(char *file);
 
 /*******************************************************************************
 *********************************** TOOLS **************************************
