@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/20 17:16:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/22 00:02:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,16 @@ void					redirection(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 
 /*
+******************************** REDIRECTION ***********************************
+*/
+void					redirection_1(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_2(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_3(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+
+/*
 *********************************** ERROR **************************************
 */
 int						exec_error(int err, char *files, t_alloc **alloc);
@@ -301,6 +311,7 @@ int						ft_error_redir_format(char *ope, int len);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
+void					error_redir(char *file);
 
 /*******************************************************************************
 *********************************** TOOLS **************************************

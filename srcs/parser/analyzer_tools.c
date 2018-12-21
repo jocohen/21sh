@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/20 18:04:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/22 00:04:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,22 @@ int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path,
 int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
-	(void)tab_path;
+	static char		*tab_redir[7] = {">", ">>", ">>&", "<", "<<<", "<>", "<<"};
+	int				i;
 
-	if (elem->type == 2)
-		redirection(elem, lst_env, alloc);
-	ft_printf("REDIR:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
-	elem->input[0]);
+	(void)tab_path;
+	i = 0;
+	while (ft_strcmp(elem->input[0], tab_redir[i]) != 0 &&
+		ft_strcmp(elem->input[1], tab_redir[i]) != 0)
+		i += 1;
+	if (i == 0)
+		redirection_1(elem, lst_env, alloc);
+	else if (i == 1 || i == 2)
+		redirection_2(elem, lst_env, alloc);
+	else if (i == 3 || i == 4 || i == 5)
+		redirection_3(elem, lst_env, alloc);
+	// else if (i == 6)
+	// 	heredoc(elem, lst_env, alloc);
 	return (1);
 }
 
