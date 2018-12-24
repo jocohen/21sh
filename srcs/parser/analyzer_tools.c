@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/24 12:39:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/24 17:05:10 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,7 @@ int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
 	static char	*tab_agreg[5] = {"&>", "&>>", ">&", "<&-", ">&-"};
-	(void)lst_env;
-	(void)tab_path;
-	(void)alloc;
-	int	i;
+	int			i;
 
 	i = 0;
 	while (ft_strcmp(elem->input[0], tab_agreg[i]) != 0 &&
