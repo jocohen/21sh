@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/22 00:10:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/24 12:39:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,25 @@ int	dispatch_operator(t_ast *elem, t_env **lst_env, char **tab_path,
 int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
+	static char	*tab_agreg[5] = {"&>", "&>>", ">&", "<&-", ">&-"};
 	(void)lst_env;
 	(void)tab_path;
 	(void)alloc;
-	ft_printf("AGREG:\n->tpye = %d\n->input: |%s|\n\n", elem->type,
-	elem->input[0]);
+	int	i;
+
+	i = 0;
+	while (ft_strcmp(elem->input[0], tab_agreg[i]) != 0 &&
+		ft_strcmp(elem->input[1], tab_agreg[i]) != 0)
+		i += 1;
+	if (i == 0)
+		agreg_1(elem, lst_env, tab_path, alloc);
+	else if (i == 1)
+		agreg_2(elem, lst_env, tab_path, alloc);
+	else if (i == 2)
+		agreg_3(elem, lst_env, tab_path, alloc);
+	else if (i == 3)
+		agreg_4(elem, lst_env, tab_path, alloc);
+	else if (i == 4)
+		agreg_5(elem, lst_env, tab_path, alloc);
 	return (1);
 }

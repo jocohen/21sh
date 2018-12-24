@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/22 00:10:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/24 12:27:22 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,19 @@ void					redirection_1(t_ast *elem, t_env **lst_env,
 void					redirection_2(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					redirection_3(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+/*
+******************************** REDIRECTION ***********************************
+*/
+void					agreg_1(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+void					agreg_2(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+void					agreg_3(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+void					agreg_4(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+void					agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
 
 /*
