@@ -6,16 +6,11 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/20 13:54:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/26 12:39:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-/*
- ** In back quote
- ** execute commande
-*/
 
 static void	short_cut(char **s, t_env *lst_env)
 {
@@ -93,7 +88,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, t_env *lst_env)
+void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 {
 	char	*sub;
 	char	*str;
@@ -101,6 +96,7 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	int		save;
 	int		x;
 
+	(void)alloc;
 	x = 0;
 	sub = NULL;
 	str = NULL;
@@ -118,11 +114,12 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	else if (quote == '`')
 	{
 		sub = ft_strsub(*s, save, *i - save);
+		// lexer(sub, &lst_env, *alloc);
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
-int			convert_quote(char **s, t_env **lst_env)
+int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
 
@@ -137,7 +134,7 @@ int			convert_quote(char **s, t_env **lst_env)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			remove_quote(s, &i, *lst_env);
+			remove_quote(s, &i, *lst_env, alloc);
 			i -= 2;
 		}
 		else

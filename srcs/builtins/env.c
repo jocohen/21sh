@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 16:51:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/26 12:54:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				env_cp(char **env, t_env **lst_env)
 			i += 1;
 		}
 	}
-	if (!*lst_env)
+	if (!(*lst_env))
 		return (0);
 	return (1);
 }

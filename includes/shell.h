@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/24 12:27:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2018/12/24 18:04:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,8 +255,8 @@ void					check_cmd_pipe(char **input, t_alloc *alloc);
 void					find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
-int						convert_quote(char **s, t_env **lst_env);
-void					remove_quote(char **s, int *i, t_env *lst_env);
+int						convert_quote(char **s, t_env **lst_env, t_alloc **alloc);
+void					remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc);
 
 /*
 ************************************ PARSER *************************************
