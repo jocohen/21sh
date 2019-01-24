@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/26 12:53:01 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/24 14:59:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int		main(int ac, char **av, char **env)
 	lst = 0;
 	if (!env_cp(env, &lst))
 		ft_exit(0);
-	add_shlvl(&lst);
 	al.env = &lst;
 	prompt(&al);
 	del_lst_env(al.env);
