@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/26 12:39:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:58:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,15 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	char	quote;
 	int		save;
 	int		x;
+	int		fd;
+	int		r;
+	char	*tmp;
 
 	(void)alloc;
 	x = 0;
+	r = 1;
 	sub = NULL;
+	tmp = NULL;
 	str = NULL;
 	quote = (*s)[(*i)++];
 	save = *i;
@@ -114,7 +119,33 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	else if (quote == '`')
 	{
 		sub = ft_strsub(*s, save, *i - save);
-		// lexer(sub, &lst_env, *alloc);
+		str = ft_strjoin(sub, " > /tmp/.back_quote.txt");
+		lexer(str, &lst_env, *alloc);
+		free(sub);
+		sub = NULL;
+		if ((fd = open("/tmp/.back_quote.txt", O_RDONLY)) == -1)
+			return ;
+		while (get_next_line(fd, &str) > 0)
+		{
+			if (!sub)
+				sub = ft_strdup(str);
+			else
+			{
+				tmp = ft_strjoin(sub, " ");
+				free(sub);
+				sub = ft_strjoin(tmp, str);
+				free(tmp);
+			}
+		}
+		close(fd);
+		x = 0;
+		while (sub[x])
+		{
+			if (sub[x] == ' ' && sub[x + 1] == ' ')
+				ft_custom_memmove(&sub[x], &sub[x + 1], ft_strlen(&sub[x + 1]));
+			else
+				x += 1;
+		}
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }

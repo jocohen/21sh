@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/24 18:04:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:47:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,6 +348,7 @@ t_ast					*get_last_elem(t_ast **lst);
 t_ast					*add_new_elem(t_ast **lst);
 void					check_quote(char *s);
 void					replace_quote(char *s, int *i);
+void					ft_custom_memmove(char *dst, char *src, size_t len);
 
 /*
 ********************************* ANALYZER *************************************
