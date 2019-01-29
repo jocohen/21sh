@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 14:49:52 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/01/29 17:56:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,14 @@ void		check_cmd_pipe(char **input, t_alloc *alloc)
 				return ;
 		}
 		if ((*input)[i] == '|' && (*input)[i + 1] != '|')
-			(check_next_empty(input, &i, 1) == 1) ? prompt_pipe(input, alloc) : 0;
+			(check_next_empty(input, &i, 1) == 1) ?
+			prompt_pipe(input, alloc) : 0;
 		else if ((*input)[i] == '|' && (*input)[i + 1] == '|')
-			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdor(input, alloc) : 0;
+			(check_next_empty(input, &i, 2) == 1) ?
+			prompt_cmdor(input, alloc) : 0;
 		else if ((*input)[i] == '&' && (*input)[i + 1] == '&')
-			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdand(input, alloc) : 0;
+			(check_next_empty(input, &i, 2) == 1) ?
+			prompt_cmdand(input, alloc) : 0;
 		i += 1;
 	}
 }

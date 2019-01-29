@@ -6,11 +6,29 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/29 14:18:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:53:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+// static void	ft_child(int *err, t_ast *elem, char **tab_path, char path[PATH_MAX], t_alloc **alloc, t_env *lst_env)
+// {
+// 	int i;
+//
+// 	i = 0;
+// 	char	**tab_env;
+//
+// 	tab_env = NULL;
+// 	convert_lst_tab(lst_env, &tab_env);
+// 	*err = execve(elem->input[0], elem->input, tab_env);
+// 	if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
+// 		while (tab_path[i] && *err == -1)
+// 			*err = execve(ft_strcat(ft_strcat(ft_strcpy(path,
+// 			tab_path[i++]), "/"), elem->input[0]), elem->input, tab_env);
+// 	del_double_tab(tab_path, tab_env);
+// 	(*err == -1) ? (exit(exec_error(-1, elem->input[0], alloc))) : 0;
+// }
 
 int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 {
@@ -29,6 +47,7 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 	father = fork();
 	if (!father)
 	{
+		// ft_child(&err, elem, tab_path, path, alloc, lst_env);
 		if (g_pid == -1)
 		{
 			//set return color prompt value

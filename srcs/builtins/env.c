@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/24 15:00:03 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:18:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,8 @@ int				env_cp(char **env, t_env **lst_env)
 	i = 0;
 	buf = NULL;
 	if (env[0] == NULL)
-	{
-		add_shlvl(lst_env);
 		add_elem_env(lst_env, "PWD", getcwd(buf, PATH_MAX));
-
-	}
 	else if (!(*lst_env) && env)
-	{
 		while (env[i])
 		{
 			x = 0;
@@ -88,10 +83,9 @@ int				env_cp(char **env, t_env **lst_env)
 			add_env(lst_env, env[i], x);
 			i += 1;
 		}
-		add_shlvl(lst_env);
-	}
-	if (!(*lst_env))
+	else if (!(*lst_env))
 		return (0);
+	add_shlvl(lst_env);
 	return (1);
 }
 

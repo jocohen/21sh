@@ -5,7 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/01 11:26:01 by tcollard          #+#    #+#             */
+/*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
+/*   Updated: 2019/01/29 17:55:42 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +19,23 @@ static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	int	x;
 
 	i = 0;
-	// ft_printf("READ LEXER\n");
 	while (lexer && lexer[i])
 	{
-		// ft_printf("LEXER[%d]: |%s|\n", i, lexer[i]);
 		x = 0;
 		while (lexer[i][x] && ft_isspace(lexer[i][x]))
 			x += 1;
 		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
 		if (g_pid == -1)
-			break;
+			break ;
 		free(lexer[i]);
 		i += 1;
 	}
 	(lexer != NULL) ? free(lexer) : 0;
 }
 
-// exit si ctrl c dans le recall du prompt
+/*
+** exit si ctrl c dans le recall du prompt
+*/
 
 void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 {

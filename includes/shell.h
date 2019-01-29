@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/01/29 16:47:25 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:17:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,9 +336,10 @@ void					error_redir(char *file);
 */
 int						ft_isquote(char c);
 int						ft_isoperator(char c);
+int						ft_str_is_empty(char *s);
 void					ft_insert(char **source, char *insert, int pos1, int pos2);
 void					ft_delete_inside(char **source, int start, int len);
-int						ft_str_is_empty(char *s);
+char					*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc);
 
 /*
 ********************************** PARSER **************************************

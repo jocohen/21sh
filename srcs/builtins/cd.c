@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/19 16:52:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 17:16:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	modif_env(char *dir, t_env **lst_env, int options)
 	return (0);
 }
 
-int		cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
+int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int			options;
 	int			i;
