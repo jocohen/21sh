@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 11:18:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:47:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static t_ast	*get_available_node(t_ast **sort)
 	t_ast	*tmp;
 
 	tmp = *sort;
-	if (tmp && (ft_strcmp(tmp->input[0], "||") == 0 ||
-	ft_strcmp(tmp->input[0], "&&") == 0))
+	if (tmp && (ft_strcmp(tmp->input[0], "||") == 0
+	|| ft_strcmp(tmp->input[0], "&&") == 0))
 	{
 		if (tmp->right)
 		{
@@ -59,8 +59,8 @@ static void		link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
 	t_ast	*or;
 
 	or = node;
-	while (or && ft_strcmp(or->input[0], "||") != 0 &&
-	ft_strcmp(or->input[0], "&&") != 0)
+	while (or && ft_strcmp(or->input[0], "||") != 0
+	&& ft_strcmp(or->input[0], "&&") != 0)
 		or = or->back;
 	if (!node->right && node->type != CMD)
 	{
@@ -92,8 +92,8 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 	while (tmp)
 	{
 		node = get_available_node(sort);
-		if (ft_strcmp(tmp->input[0], "||") == 0 ||
-		ft_strcmp(tmp->input[0], "&&") == 0)
+		if (ft_strcmp(tmp->input[0], "||") == 0
+		|| ft_strcmp(tmp->input[0], "&&") == 0)
 		{
 			tmp->left = *sort;
 			(*sort)->back = tmp;

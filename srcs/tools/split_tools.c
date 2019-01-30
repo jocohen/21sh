@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 12:31:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:50:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	nb_lettre_operator(char *s, int i, int *nb_lettre)
 		x += 1;
 	*nb_lettre += x;
 	i += x;
-	x = (s[i] == '-' && s[i - 1] == '&' && (ft_isspace(s[i + 1]) == 1 ||
-	!s[i + 1])) ? 1 : 0;
+	x = (s[i] == '-' && s[i - 1] == '&' && (ft_isspace(s[i + 1]) == 1
+	|| !s[i + 1])) ? 1 : 0;
 	while (s[i + add] && ft_isdigit(s[i + add]) == 1)
 		add += 1;
 	*nb_lettre += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
@@ -72,8 +72,8 @@ int		check_redir(char *s, int *i, unsigned int *nb_word)
 	x = 0;
 	while (ft_isoperator(s[*i + x]) == 1)
 		x += 1;
-	if (s[*i + x] == '-' && s[*i + x - 1] == '&' &&
-	(ft_isspace(s[*i + x + 1]) == 1 || !s[*i + x + 1]))
+	if (s[*i + x] == '-' && s[*i + x - 1] == '&'
+	&& (ft_isspace(s[*i + x + 1]) == 1 || !s[*i + x + 1]))
 		x += 1;
 	if (x > 3)
 		return (ft_error_redir_format(&s[*i], x));

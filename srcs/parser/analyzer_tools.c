@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 11:11:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:46:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 
 	(void)tab_path;
 	i = 0;
-	while (ft_strcmp(elem->input[0], tab_redir[i]) != 0 &&
-		ft_strcmp(elem->input[1], tab_redir[i]) != 0)
+	while (ft_strcmp(elem->input[0], tab_redir[i]) != 0
+	&& ft_strcmp(elem->input[1], tab_redir[i]) != 0)
 		i += 1;
 	if (i == 0)
 		redirection_1(elem, lst_env, alloc);
@@ -103,8 +103,8 @@ int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 	int			i;
 
 	i = 0;
-	while (ft_strcmp(elem->input[0], tab_agreg[i]) != 0 &&
-		ft_strcmp(elem->input[1], tab_agreg[i]) != 0)
+	while (ft_strcmp(elem->input[0], tab_agreg[i]) != 0
+	&& ft_strcmp(elem->input[1], tab_agreg[i]) != 0)
 		i += 1;
 	if (i == 0)
 		agreg_1(elem, lst_env, tab_path, alloc);

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/29 18:07:43 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:43:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static void	short_cut(char **s, t_env *lst_env)
 		ft_strcat(tmp, get_env_value(lst_env, "$HOME"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[1]) : 0;
 	}
-	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/' ||
-	(*s)[2] == '\0'))
+	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/'
+	|| (*s)[2] == '\0'))
 	{
 		ft_strcat(tmp, get_env_value(lst_env, "$OLDPWD"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
 	}
-	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/' ||
-	(*s)[2] == '\0'))
+	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/'
+	|| (*s)[2] == '\0'))
 	{
 		ft_strcat(tmp, get_env_value(lst_env, "$PWD"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;

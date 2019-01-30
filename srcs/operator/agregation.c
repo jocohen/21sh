@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 11:09:55 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:44:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd_file = 1;
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
-	if (elem->right && (fd_file = open(elem->right->input[0], O_WRONLY |
-		O_CREAT | O_TRUNC, 0644)) == -1)
+	if (elem->right && (fd_file = open(elem->right->input[0], O_WRONLY
+		| O_CREAT | O_TRUNC, 0644)) == -1)
 		return ;
 	else if (dig == 0 && elem->input[1] && (fd_file = open(elem->input[1],
 		O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
