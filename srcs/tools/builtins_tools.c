@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 14:02:51 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 10:59:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/01 11:20:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ char		*get_dir(char *pwd, char **tab_path, int options, char *buf_pwd)
 		i += 1;
 	}
 	(buf_pwd) ? free(buf_pwd) : 0;
+	delete_str_tab(tab_path);
 	return (ft_strdup(dir));
 }

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/01/29 18:17:07 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:37:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,7 @@ int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
 void					error_redir(char *file);
+void					error_access(char *file);
 
 /*******************************************************************************
 *********************************** TOOLS **************************************

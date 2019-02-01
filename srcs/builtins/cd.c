@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 14:27:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:22:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static int	check_access(char *dir, char *folder)
 	{
 		free(dir);
 		return (error_cd(folder, 1));
+	}
+	if (chdir(dir) == -1)
+	{
+		free(dir);
+		return (error_cd(folder, 3));
 	}
 	return (0);
 }
@@ -112,11 +117,8 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	else
 		dir = get_dir(get_env_value(*lst_env, "$PWD"),
 		ft_strsplit(elem->input[i], '/'), options, getcwd(buf_pwd, PATH_MAX));
-	if (ft_strcmp(dir, "") != 0 && (check_access(dir, elem->input[i]) == -1
-	|| chdir(dir) == -1))
-	{
-		free(dir);
+	if (ft_strcmp(dir, "") != 0 && check_access(dir, elem->input[i]) == -1)
 		return (1);
-	}
+	(ft_strcmp(elem->input[i], "-") == 0) ? ft_printf("%s\n", dir) : 0;
 	return (modif_env(dir, lst_env, options));
 }
