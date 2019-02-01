@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 14:49:52 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/01 16:10:59 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	prompt_pipe(char **input, t_alloc *alloc)
+static int	prompt_pipe(char **input, t_alloc *alloc)
 {
 	char	*s;
 	char	*tmp;
@@ -22,7 +22,8 @@ static void	prompt_pipe(char **input, t_alloc *alloc)
 	while (!s || ft_str_is_empty(s) == 1)
 	{
 		ft_memdel((void **)&s);
-		s = recall_prompt(alloc, 5);
+		if (!(s = recall_prompt(alloc, 5)))
+			return (0);
 	}
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
@@ -31,9 +32,10 @@ static void	prompt_pipe(char **input, t_alloc *alloc)
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);
 	check_cmd_pipe(input, alloc);
+	return (1);
 }
 
-static void	prompt_cmdor(char **input, t_alloc *alloc)
+static int	prompt_cmdor(char **input, t_alloc *alloc)
 {
 	char	*s;
 	char	*tmp;
@@ -43,7 +45,8 @@ static void	prompt_cmdor(char **input, t_alloc *alloc)
 	while (!s || ft_str_is_empty(s) == 1)
 	{
 		ft_memdel((void **)&s);
-		s = recall_prompt(alloc, 7);
+		if (!(s = recall_prompt(alloc, 7)))
+			return (0);
 	}
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
@@ -52,9 +55,10 @@ static void	prompt_cmdor(char **input, t_alloc *alloc)
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);
 	check_cmd_pipe(input, alloc);
+	return (1);
 }
 
-static void	prompt_cmdand(char **input, t_alloc *alloc)
+static int	prompt_cmdand(char **input, t_alloc *alloc)
 {
 	char	*s;
 	char	*tmp;
@@ -64,7 +68,8 @@ static void	prompt_cmdand(char **input, t_alloc *alloc)
 	while (!s || ft_str_is_empty(s) == 1)
 	{
 		ft_memdel((void **)&s);
-		s = recall_prompt(alloc, 6);
+		if (!(s = recall_prompt(alloc, 6)))
+			return (0);
 	}
 	tmp = ft_strjoin(*input, " ");
 	free(*input);
@@ -73,6 +78,7 @@ static void	prompt_cmdand(char **input, t_alloc *alloc)
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);
 	check_cmd_pipe(input, alloc);
+	return (1);
 }
 
 static int	check_next_empty(char **input, int *i, int add)
@@ -88,7 +94,7 @@ static int	check_next_empty(char **input, int *i, int add)
 	return (0);
 }
 
-void		check_cmd_pipe(char **input, t_alloc *alloc)
+int		check_cmd_pipe(char **input, t_alloc *alloc)
 {
 	int	i;
 	int	j;
@@ -102,14 +108,27 @@ void		check_cmd_pipe(char **input, t_alloc *alloc)
 			while (j < i && ft_isspace((*input)[j]) == 1)
 				j += 1;
 			if (i == j)
-				return ;
+				return (1);
 		}
 		if ((*input)[i] == '|' && (*input)[i + 1] != '|')
-			(check_next_empty(input, &i, 1) == 1) ? prompt_pipe(input, alloc) : 0;
+		{
+			if (check_next_empty(input, &i, 1) == 1)
+				if (!prompt_pipe(input, alloc))
+					return (0);
+		}
 		else if ((*input)[i] == '|' && (*input)[i + 1] == '|')
-			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdor(input, alloc) : 0;
+		{
+			if (check_next_empty(input, &i, 2) == 1)
+				if (!prompt_cmdor(input, alloc))
+					return (0);
+		}
 		else if ((*input)[i] == '&' && (*input)[i + 1] == '&')
-			(check_next_empty(input, &i, 2) == 1) ? prompt_cmdand(input, alloc) : 0;
+		{
+			if (check_next_empty(input, &i, 2) == 1)
+				if (!prompt_cmdand(input, alloc))
+					return (0);
+		}
 		i += 1;
 	}
+	return (1);
 }

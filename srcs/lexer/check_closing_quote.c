@@ -6,28 +6,30 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 18:40:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:09:50 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	check_opening_quote(char **str, t_alloc *alloc)
+int		check_opening_quote(char **str, t_alloc *alloc)
 {
 	int	i;
 
 	i = 0;
 	if (!(*str))
-		return ;
+		return (1);
 	while ((*str)[i])
 	{
 		if (ft_isquote((*str)[i]) == 1)
-			find_closing(str, &i, alloc);
+			if (!find_closing(str, &i, alloc))
+				return (0);
 		i += 1;
 	}
+	return (1);
 }
 
-void	find_closing(char **str, int *i, t_alloc *alloc)
+int		find_closing(char **str, int *i, t_alloc *alloc)
 {
 	char	c;
 	char	*tmp;
@@ -40,10 +42,11 @@ void	find_closing(char **str, int *i, t_alloc *alloc)
 	while ((*str)[*i] && (*str)[*i] != c)
 		*i += 1;
 	if ((*str)[*i] == c)
-		return ;
+		return (1);
 	else
 	{
-		tmp = missing_quote_prompt(c, alloc);
+		if (!(tmp = missing_quote_prompt(c, alloc)))
+			return (0);
 		save = ft_strdup(*str);
 		free(*str);
 		*str = ft_strjoin(save, tmp);
@@ -51,4 +54,5 @@ void	find_closing(char **str, int *i, t_alloc *alloc)
 		free(tmp);
 		*i = ft_strlen(*str);
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/21 13:23:41 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/01 16:10:46 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,8 +251,8 @@ void					clean_input(char *str, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
 void					check_closing_quote(char *c, char *s, char **input,
 											t_alloc *alloc);
-void					check_cmd_pipe(char **input, t_alloc *alloc);
-void					find_closing(char **str, int *i, t_alloc *alloc);
+int						check_cmd_pipe(char **input, t_alloc *alloc);
+int						find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
 int						convert_quote(char **s, t_env **lst_env);
@@ -377,7 +377,7 @@ char					*get_dir(char *pwd, char **tab_path, int options,
 /*
 *********************************** OTHER **************************************
 */
-void					check_opening_quote(char **str, t_alloc *alloc);
+int						check_opening_quote(char **str, t_alloc *alloc);
 void					init_ast(char **input, char *s);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
 int						main(int argc, char **argv, char **env);
