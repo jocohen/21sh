@@ -47,17 +47,23 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	i = 0;
 	lexer = NULL;
 	lst = NULL;
-	check_opening_quote(&input, alloc);
-	check_cmd_pipe(&input, alloc);
+	if (!check_opening_quote(&input, alloc) || !check_cmd_pipe(&input, alloc))
+	{
+		ft_memdel((void **)&input);
+		return ;
+	}
 	historic_entry(ft_strdup(input), alloc->history, *lst_env);
 	while (input[i] == ';')
 		i += 1;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
+		g_pid = 0;
 		ft_memdel((void **)&input);
 		return ;
 	}
+	set_terminal(0, 1);
 	read_lexer(lexer, lst_env, lst, &alloc);
+	set_terminal(*alloc->env, 0);
 	ft_memdel((void **)&input);
 }
 

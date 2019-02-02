@@ -1,5 +1,5 @@
 1) " + \n + ctrl c -> read infini
-DONE	2) env -i ./21sh -> set un TERM default 
+DONE	2) env -i ./21sh -> set un TERM default
 DONE	3) cat | cat | cat | ls -> mauvais comportement
 DONE	4) ls ;;;;; ls -> pas d'erreur de syntaxe detectee
 DONE	5) comportement de && et || a inverser
