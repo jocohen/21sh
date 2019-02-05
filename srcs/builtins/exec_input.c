@@ -6,20 +6,23 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 11:40:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/05 11:54:32 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	do_exec(int err, char **tab_path, t_ast *elem, t_alloc **alloc)
+static void	do_exec(char **tab_path, t_ast *elem, t_alloc **alloc,
+			t_env *lst_env)
 {
 	int		i;
+	int		err;
 	char	path[PATH_MAX];
 	char	**tab_env;
 
 	i = 0;
-	convert_lst_tab(*(*alloc)->env, &tab_env);
+	err = -1;
+	convert_lst_tab(lst_env, &tab_env);
 	err = execve(elem->input[0], elem->input, tab_env);
 	if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
 		while (tab_path[i] && err == -1)
@@ -48,7 +51,7 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 			exit(1);
 		}
 		g_in_exec = 1;
-		do_exec(err, tab_path, elem, alloc);
+		do_exec(tab_path, elem, alloc, lst_env);
 	}
 	g_pid = father;
 	waitpid(father, &err, 0);
