@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 14:22:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 15:07:27 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,10 @@ static int	check_options(t_ast *elem, int *options, t_alloc **alloc)
 	return (i);
 }
 
-static int	modif_env(char *dir, t_env **lst_env, int options)
+static int	modif_oldpwd(t_env **lst_env)
 {
 	t_env	*tmp;
-	char	*buf;
-	t_env	*elem;
 
-	elem = NULL;
-	buf = NULL;
 	tmp = NULL;
 	if ((tmp = find_elem_env(lst_env, "OLDPWD")))
 	{
@@ -76,11 +72,22 @@ static int	modif_env(char *dir, t_env **lst_env, int options)
 	}
 	else
 	{
-		elem = find_elem_env(lst_env, "PWD");
-		if (!elem)
+		if (!(tmp = find_elem_env(lst_env, "PWD")))
 			return (1);
-		add_elem_env(lst_env, "OLDPWD", elem->value);
+		add_elem_env(lst_env, "OLDPWD", tmp->value);
 	}
+	return (0);
+}
+
+static int	modif_env(char *dir, t_env **lst_env, int options)
+{
+	t_env	*tmp;
+	char	*buf;
+
+	buf = NULL;
+	tmp = NULL;
+	if (modif_oldpwd(lst_env) == 1)
+		return (1);
 	if (!(tmp = find_elem_env(lst_env, "PWD")))
 		(options == 2) ? add_elem_env(lst_env, "PWD", getcwd(buf, PATH_MAX)) :
 		add_elem_env(lst_env, "PWD", dir);

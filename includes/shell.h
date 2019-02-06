@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/06 10:35:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 14:55:01 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,15 +307,15 @@ void					redirection_3(t_ast *elem, t_env **lst_env,
 /*
 ******************************** REDIRECTION ***********************************
 */
-void					agreg_1(t_ast *elem, t_env **lst_env, char **tab_path,
+int						agreg_1(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
-void					agreg_2(t_ast *elem, t_env **lst_env, char **tab_path,
+int						agreg_2(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
-void					agreg_3(t_ast *elem, t_env **lst_env, char **tab_path,
+int						agreg_3(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
-void					agreg_4(t_ast *elem, t_env **lst_env, char **tab_path,
+int						agreg_4(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
-void					agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
+int						agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
 						t_alloc **alloc);
 
 /*
@@ -328,6 +328,7 @@ int						ft_error_redir_format(char *ope, int len);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
+int						ft_fd_exist(char *str_fd);
 void					error_redir(char *file);
 void					error_access(char *file);
 

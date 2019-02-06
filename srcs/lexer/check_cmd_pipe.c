@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/02 11:24:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 15:57:26 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ static int	check_next_empty(char **input, int *i, int add)
 	return (0);
 }
 
-int		check_cmd_pipe(char **input, t_alloc *alloc)
+int			check_cmd_pipe(char **input, t_alloc *alloc)
 {
 	int	i;
 	int	j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while ((*input)[i])
+	while ((*input)[++i])
 	{
 		if ((*input)[i] == '|' || (*input)[i] == '&')
 		{
@@ -110,25 +110,15 @@ int		check_cmd_pipe(char **input, t_alloc *alloc)
 			if (i == j)
 				return (1);
 		}
-		if ((*input)[i] == '|' && (*input)[i + 1] != '|')
-		{
-			if (check_next_empty(input, &i, 1) == 1)
-				if (!prompt_pipe(input, alloc))
-					return (0);
-		}
-		else if ((*input)[i] == '|' && (*input)[i + 1] == '|')
-		{
-			if (check_next_empty(input, &i, 2) == 1)
-				if (!prompt_cmdor(input, alloc))
-					return (0);
-		}
-		else if ((*input)[i] == '&' && (*input)[i + 1] == '&')
-		{
-			if (check_next_empty(input, &i, 2) == 1)
-				if (!prompt_cmdand(input, alloc))
-					return (0);
-		}
-		i += 1;
+		if ((*input)[i] == '|' && (*input)[i + 1] != '|'
+		&& check_next_empty(input, &i, 1) == 1 && !prompt_pipe(input, alloc))
+			return (0);
+		else if ((*input)[i] == '|' && (*input)[i + 1] == '|'
+		&& check_next_empty(input, &i, 2) == 1 && !prompt_cmdor(input, alloc))
+			return (0);
+		else if ((*input)[i] == '&' && (*input)[i + 1] == '&'
+		&& check_next_empty(input, &i, 2) == 1 && !prompt_cmdand(input, alloc))
+			return (0);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 10:33:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:00:42 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 		redirection_2(elem, lst_env, alloc);
 	else if (i == 3 || i == 4 || i == 5)
 		redirection_3(elem, lst_env, alloc);
-/*	else if (i == 6) */
-/*		heredoc(elem, lst_env, alloc);*/
+//	else if (i == 6) //
+//		heredoc(elem, lst_env, alloc);//
 	return (1);
 }
 
@@ -101,20 +101,22 @@ int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 {
 	static char	*tab_agreg[5] = {"&>", "&>>", ">&", "<&-", ">&-"};
 	int			i;
+	int			ret;
 
 	i = 0;
+	ret = 0;
 	while (ft_strcmp(elem->input[0], tab_agreg[i]) != 0
 	&& ft_strcmp(elem->input[1], tab_agreg[i]) != 0)
 		i += 1;
 	if (i == 0)
-		agreg_1(elem, lst_env, tab_path, alloc);
+		ret = agreg_1(elem, lst_env, tab_path, alloc);
 	else if (i == 1)
-		agreg_2(elem, lst_env, tab_path, alloc);
+		ret = agreg_2(elem, lst_env, tab_path, alloc);
 	else if (i == 2)
-		agreg_3(elem, lst_env, tab_path, alloc);
+		ret = agreg_3(elem, lst_env, tab_path, alloc);
 	else if (i == 3)
-		agreg_4(elem, lst_env, tab_path, alloc);
+		ret = agreg_4(elem, lst_env, tab_path, alloc);
 	else if (i == 4)
-		agreg_5(elem, lst_env, tab_path, alloc);
-	return (1);
+		ret = agreg_5(elem, lst_env, tab_path, alloc);
+	return (ret);
 }
