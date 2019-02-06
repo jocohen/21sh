@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:46:06 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 10:33:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 {
 	int					i;
 	int					ret;
-	static char			*lst_built[5] = {"cd", "echo", "setenv", "unsetenv",
-	"env"};
+	static char			*lst_built[6] = {"cd", "echo", "setenv", "unsetenv",
+	"env", "exit"};
 	static t_builtins	dispatch[] = { &cd_builtins, &echo_builtins,
-		&setenv_builtins, &unsetenv_builtins, &env_builtins };
+		&setenv_builtins, &unsetenv_builtins, &env_builtins, &exit_builtins };
 
 	i = 0;
 	ret = 0	;
-	while (i < 5)
+	while (i < 6)
 	{
 		if (ft_strcmp(elem->input[0], lst_built[i]) == 0)
 			break ;
 		i += 1;
 	}
-	if (i < 5)
+	if (i < 6)
 		ret = dispatch[i](elem, lst_env, alloc);
 	else
 		ret = exec_input(elem, *lst_env, tab_path, alloc);

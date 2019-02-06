@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/05 11:51:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 10:35:09 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,9 @@ char					*get_env_value(t_env *lst_env, char *str);
 void					convert_lst_tab(t_env *lst_env, char ***_str);
 int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 						t_alloc **alloc);
+int						exit_builtins(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+
 
 /*
 ********************************** OPERATOR ************************************
