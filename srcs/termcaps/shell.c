@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/19 14:13:51 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/05 18:48:57 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int		main(int ac, char **av, char **env)
 {
 	t_env		*lst;
 	t_alloc		al;
+	int			stdout;
 
 	(void)ac;
 	(void)av;
+	stdout = dup(0);
+	close(0);
+	dup2(stdout, 0);
 	g_ret = 0;
 	g_in_exec = 0;
 	g_clip = 0;
