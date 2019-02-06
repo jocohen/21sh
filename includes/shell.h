@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/06 14:55:01 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 17:03:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,8 @@ void					redirection_2(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					redirection_3(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+int						heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+
 /*
 ******************************** REDIRECTION ***********************************
 */

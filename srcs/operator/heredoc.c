@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   job_control.c                                      :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 10:20:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 17:13:13 by tcollard         ###   ########.fr       */
+/*   Created: 2019/02/06 16:08:44 by tcollard          #+#    #+#             */
+/*   Updated: 2019/02/06 17:03:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int	job_control(t_ast *elem, t_env *lst_env)
+int	heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	(void)elem;
+	char	*s;
+	char	*tmp;
+
 	(void)lst_env;
-	write(2, "21sh: error no job control\n", 27);
+	(void)alloc;
+	s = NULL;
+	tmp = NULL;
+
+	ft_printf("in[0]: |%s|\n", elem->input[0]);
+	if (elem->right)
+		ft_printf("r_in[0]: |%s|\n", elem->right->input[0]);
+
+		while (!s || ft_strcmp(s, elem->right->input[0]) != 0)
+		{
+			ft_memdel((void **)&s);
+			if (!(s = recall_prompt(*alloc, 1)))
+				return (0);
+				ft_printf("END: |%s|\n", s);
+		}
 	return (1);
 }

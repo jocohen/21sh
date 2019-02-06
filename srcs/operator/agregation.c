@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 15:59:49 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 17:22:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	analyzer(elem->left, lst_env, alloc);
 	dup2(fd_save, fd_redir);
 	close(fd_save);
-	close(fd_redir);
+	(fd_redir > 3) ? close(fd_redir) : 0;
 	return (0);
 }
 

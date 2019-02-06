@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:14:55 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 14:37:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/06 16:13:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ void	redirection_3(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int	fd_redir;
 
 	fd_redir = 0;
-	if (access(elem->right->input[0], F_OK) == -1)
-		return (error_access(elem->right->input[0]));
 	if ((fd_file = open(elem->right->input[0], O_RDONLY)) == -1)
-		return (error_redir(elem->right->input[0]));
+	{
+		if (access(elem->right->input[0], F_OK) == -1)
+			return (error_access(elem->right->input[0]));
+		else
+			return (error_redir(elem->right->input[0]));
+	}
 	fd_save = dup(fd_redir);
 	dup2(fd_file, fd_redir);
 	analyzer(elem->left, lst_env, alloc);
