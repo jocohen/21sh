@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/06 16:23:46 by tcollard         ###   ########.fr        #
+#    Updated: 2019/02/07 17:33:43 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_TOOLS)env_tools.c \
 		$(PATH_TOOLS)env_tools_2.c \
+		$(PATH_TOOLS)redirection_tools.c \
 		$(PATH_TOOLS)builtins_tools.c \
 		$(PATH_TOOLS)back_quote_tools.c \
 		$(PATH_OPERATOR)pipe.c \

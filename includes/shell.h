@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/06 17:03:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:46:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,13 +408,14 @@ void					del_alloc(t_alloc **alloc);
 */
 char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
-
-/*
-*********************************** OTHER **************************************
-*/
-int						check_opening_quote(char **str, t_alloc *alloc);
-void					init_ast(char **input, char *s);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
+void					init_ast(char **input, char *s);
+void 					reinit_fd(int fd[3], int fd_save1, int fd_save2);
 int						main(int argc, char **argv, char **env);
+int						check_opening_quote(char **str, t_alloc *alloc);
+int						ft_is_redir1(t_ast *elem, int fd[3], int fd_redir,
+						int fd_open);
+// int						ft_is_redir2(t_ast *elem, int fd[3], int fd_redir,
+// 						int fd_open);
 
 #endif
