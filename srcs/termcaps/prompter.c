@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 14:12:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/08 15:51:50 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	*read_input(t_alloc *al)
 	stdin_cpy = dup(0);
 	while (1)
 	{
-		if (!isatty(1))
-			write(2, "ok\n", 3);
 		if (!read_and_sig(al, &k, stdin_cpy))
 			return (0);
 		if (!kill_or_give(al, k))

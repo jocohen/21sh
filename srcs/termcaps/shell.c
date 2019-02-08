@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 14:41:01 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/08 15:55:48 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	reset_fd(void)
 
 	if (!isatty(1))
 	{
+		ft_exit(0);
 		stdout = dup(0);
 		close(0);
 		dup2(stdout, 0);
 	}
 	if (!isatty(0))
 	{
+		ft_exit(0);
 		stdout = dup(1);
 		close(1);
 		dup2(stdout, 1);
