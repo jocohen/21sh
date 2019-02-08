@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:47:28 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 18:05:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	int		i;
 	t_ast	*sort;
 
-	i = 0;
 	sort = NULL;
 	if (ft_error_parse_redir(input) == 1)
 	{
@@ -252,7 +251,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	sort = lst;
 	while (sort)
 	{
-		i = 0;
+		i = -1;
 		while (sort->input[++i])
 			if (convert_quote(&(sort->input[i]), lst_env, alloc) == -1)
 				return ;

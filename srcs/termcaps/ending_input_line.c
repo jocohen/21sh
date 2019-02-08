@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/01 16:21:01 by jonascohen       ###   ########.fr       */
+/*   Updated: 2019/02/08 18:03:38 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*recall_prompt(t_alloc *al, int type)
 char	*enter_section(t_alloc *al, int read)
 {
 	size_t		x;
+	char		*s;
 
 	x = (((display_sizing(0) + ft_strlen(al->input->s) - 1)
 		/ window_width_size()) - (al->input->pos.l - 1)) + 1;
@@ -55,7 +56,9 @@ char	*enter_section(t_alloc *al, int read)
 		return (al->input->s);
 	if (!read)
 	{
-		lexer(ft_strdup(al->input->s), al->env, al);
+		if (!(s = ft_strdup(al->input->s)))
+			ft_exit(0);
+		lexer(s, al->env, al);
 		if (g_pid == -1)
 			write(1, "\n", 1);
 		g_pid = 0;
