@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 14:53:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 14:56:26 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:42:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_fd_exist(char *str_fd)
 	int			fd;
 	int			ret;
 
+	if (!str_fd)
+		return (0);
 	fd = ft_atoi(str_fd);
 	ret = dup(fd);
 	if (ret == -1)

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/07 13:07:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:30:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,23 @@ int		analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 	t_ast				*tmp;
 	int					ret;
 
+	int i;
+	i = 0;
+
+
 	ret = 0;
 	tmp = sort;
 	tab_path = NULL;
 	if (tmp && tmp->print == 0)
 	{
+		// i = 0;
+		// while (tmp->input[i])
+		// {
+		// 	ft_printf("input[%d]: |%s|\n", i, tmp->input[i]);
+		// 	i += 1;
+		// }
 		// ft_printf("ELEM TO DISPATCH: |%s|\n", tmp->input[0]);
+		//
 		// ft_printf("ELEM TO DISPATCH: |%s|\n", tmp->input[1]);
 		tmp->print = 1;
 		return (dispatch[tmp->type](tmp, lst_env, tab_path, alloc));
