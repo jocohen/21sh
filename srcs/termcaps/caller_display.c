@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/21 13:24:07 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/08 18:50:07 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	fancy_display(char *pwd)
 {
 	ft_putstr_fd(ANSI_RESET, 1);
 	ft_putstr_fd(ANSI_BOLD, 1);
-	ft_putstr_fd(ANSI_GREEN, 1);
+	(!ret_status()) ? ft_putstr_fd(ANSI_GREEN, 1) : ft_putstr_fd(ANSI_RED, 1);
 	write(1, "δ  ", 4);
 	if (pwd)
 	{

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:07:27 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 14:27:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:21:27 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	echo_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	if (!elem->input[1])
 	{
 		write(1, "\n", 1);
+		g_ret = 0;
 		return (0);
 	}
 	option = (ft_strcmp(elem->input[1], "-n") == 0) ? 1 : 0;
@@ -38,5 +39,6 @@ int	echo_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			i += 1;
 	}
 	(option == 0) ? write(1, "\n", 1) : 0;
+	g_ret = 0;
 	return (0);
 }

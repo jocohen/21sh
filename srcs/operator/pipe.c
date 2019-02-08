@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/21 13:10:47 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/08 18:30:05 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int			do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			g_pid = pid2;
 			close(elem->fd[1]);
 			close(elem->fd[0]);
-			waitpid(pid1, NULL, 0);
-			waitpid(pid2, NULL, 0);
+			waitpid(pid1, &g_ret, 0);
+			waitpid(pid2, &g_ret, 0);
 		}
 	}
 	return (1);

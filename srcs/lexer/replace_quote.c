@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/20 13:54:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 19:13:28 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	{
 		write(2, "21sh: env: error too long arguments\n", 36);
 		return (-1);
+	}
+	else if ((*str)[x] == '?')
+	{
+		ft_delete_inside(str, i, x + 1);
+		value = ft_itoa(ret_status());
+		replace_str(str, value, i);
+		ft_memdel((void **)&value);
 	}
 	else
 	{

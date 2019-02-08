@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 14:11:38 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/08 19:07:11 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void					cut_selection(t_buf *input, t_buf *selec, t_env **lst);
 
 void					caller_display(t_env *fp, t_buf *input,
 										int change_pos);
+int						ret_status();										
 void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
 void					reactualize_output(t_buf *input, t_env **lst);
