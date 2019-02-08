@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/01 16:10:46 by jonascohen       ###   ########.fr       */
+/*   Updated: 2019/02/08 14:11:38 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void					selection_input(t_buf *input, char k, t_env **lst);
 ************************************ TERMIOS ***********************************
 */
 
-void					set_terminal(t_env *fp, int reset);
+void					set_terminal(int reset);
 
 /*
 *********************************** HISTORIC ***********************************

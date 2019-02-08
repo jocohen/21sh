@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/07 18:09:09 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/08 14:12:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ void	prompt(t_alloc *al)
 
 	init_hist(&history, *al->env);
 	al->history = &history;
-	set_terminal(*al->env, 0);
+	set_terminal(0);
 	signal(SIGINT, sig_kill);
 	signal(SIGWINCH, sig_window);
 	read_input(al);
 	ft_del_hist(&history);
-	set_terminal(0, 1);
+	set_terminal(1);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGWINCH, SIG_DFL);
 }
