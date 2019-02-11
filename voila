@@ -1,0 +1,31 @@
+fd1 = 2  fd2 = 1
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==73464==ERROR: AddressSanitizer: SEGV on unknown address 0x0005000002e0 (pc 0x000100ee9f8f bp 0x7ffeeed24570 sp 0x7ffeeed24540 T0)
+==73464==The signal is caused by a READ memory access.
+    #0 0x100ee9f8e in get_env_value env_tools_2.c:55
+    #1 0x100ee7f81 in exec_input exec_input.c:44
+    #2 0x100ee6771 in dispatch_cmd analyzer_tools.c:36
+    #3 0x100ee5f18 in analyzer analyzer.c:42
+    #4 0x100eeb4c3 in agreg_3 agregation.c:166
+    #5 0x100ee6baa in dispatch_agreg analyzer_tools.c:116
+    #6 0x100ee5f18 in analyzer analyzer.c:42
+    #7 0x100ee5a90 in parser parser.c:268
+    #8 0x100ee5980 in clean_input lexer.c:77
+    #9 0x100ee58c8 in read_lexer lexer.c:27
+    #10 0x100ee57a3 in lexer lexer.c:64
+    #11 0x100eed600 in enter_section ending_input_line.c:58
+    #12 0x100eefc16 in kill_or_give prompter.c:38
+    #13 0x100eefe5f in read_input prompter.c:83
+    #14 0x100eeff55 in prompt prompter.c:102
+    #15 0x100ef0877 in main shell.c:31
+    #16 0x7fff60cdbed8 in start (libdyld.dylib:x86_64+0x16ed8)
+
+==73464==Register values:
+rax = 0x00000005000002e0  rbx = 0x0000000000000000  rcx = 0x0000000000000005  rdx = 0x0000000000000000  
+rdi = 0x0000000100ef0bc3  rsi = 0x0000000500000200  rbp = 0x00007ffeeed24570  rsp = 0x00007ffeeed24540  
+ r8 = 0x0000200000000000   r9 = 0x0000000000000000  r10 = 0x0000000000000011  r11 = 0x0000000000000246  
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV env_tools_2.c:55 in get_env_value
+==73464==ABORTING

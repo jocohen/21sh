@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/11 17:09:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/12 00:22:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct			s_alloc
 	t_buf				*input;
 	t_ast				**ast;
 	t_env				**env;
+	int					fd[3];
 }						t_alloc;
 
 typedef int				(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
@@ -410,12 +411,13 @@ char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
 void					init_ast(char **input, char *s);
-void 					reinit_fd(int fd[3], int fd_save1, int fd_save2);
+void 					reinit_fd(int fd[3], t_alloc *alloc);
 int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
 int						ft_is_redir1(t_ast *elem, int fd[3], int fd_redir,
-						int fd_open);
-						int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file);
+						int fd_open, t_alloc *alloc);
+int						ft_is_agreg(t_ast *elem, int fd[3], int fd_file,
+						t_alloc *alloc);
 // int						ft_is_redir2(t_ast *elem, int fd[3], int fd_redir,
 // 						int fd_open);
 

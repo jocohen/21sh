@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:14:55 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 15:37:31 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/12 00:30:26 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,44 @@
 
 void	redirection_1(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	int	fd_save1;
-	int	fd_save2;
 	int	fd[3];
 
 	fd[0] = -1;
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_redir1(elem, fd, -1, -1) == 1)
+	while (ft_is_redir1(elem, fd, -1, -1, *alloc) == 1)
 		elem = elem->left;
 	elem = elem->back;
-	fd_save1 = dup(1);
-	fd_save2 = dup(2);
+	(*alloc)->fd[1] = dup(1);
+	(*alloc)->fd[2] = dup(2);
 	if (fd[1] != -1)
 		dup2(fd[1], 1);
 	if (fd[2] != -1)
 		dup2(fd[2], 2);
 	analyzer(elem->left, lst_env, alloc);
-	reinit_fd(fd, fd_save1, fd_save2);
+	reinit_fd(fd, *alloc);
 }
 
 void	redirection_2(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	int	fd_save1;
-	int	fd_save2;
 	int	fd[3];
 
 	fd[0] = -1;
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_redir1(elem, fd, -1, -1) == 1)
+	while (ft_is_redir1(elem, fd, -1, -1, *alloc) == 1)
 		elem = elem->left;
 	elem = elem->back;
-	fd_save1 = dup(1);
-	fd_save2 = dup(2);
+	(*alloc)->fd[1] = dup(1);
+	(*alloc)->fd[2] = dup(2);
 	if (fd[1] != -1)
 		dup2(fd[1], 1);
 	if (fd[2] != -1)
 		dup2(fd[2], 2);
 	analyzer(elem->left, lst_env, alloc);
-	reinit_fd(fd, fd_save1, fd_save2);
+	reinit_fd(fd, *alloc);
 }
 
 void	redirection_3(t_ast *elem, t_env **lst_env, t_alloc **alloc)
