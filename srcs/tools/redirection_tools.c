@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 14:12:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/11 17:09:01 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		ft_is_redir1(t_ast *elem, int fd[3], int fd_redir, int fd_open)
 				close(fd_open);
 			return (1);
 		}
+	if (fd_redir == -1 && ft_is_agreg(elem, fd, 1) == 1)
+		return (1);
 	return (0);
 }
 

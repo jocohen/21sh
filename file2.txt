@@ -1,7 +1,0 @@
-in[0]: 2
-in[1]: >&
-in[2]: 1
-redir: 2
-file: 1
-ls: illegal option -- z
-usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]
