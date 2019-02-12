@@ -1,0 +1,8 @@
+ls: nop: Permission denied
+total 8
+-rw-r--r--  1 tcollard  staff    0 Feb 12 14:39 coucou
+-rw-r--r--  1 tcollard  staff    0 Feb 12 13:48 ici
+d---------  2 tcollard  staff   64 Feb 11 15:35 nop
+-rw-r--r--  1 tcollard  staff  238 Feb 12 12:37 voila
+
+./nop:
