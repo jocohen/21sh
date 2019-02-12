@@ -1,0 +1,9 @@
+fd1 = 2  fd2 = 1
+fd[1]: 10	fd[2]: 4
+ls: nop: Permission denied
+total 16
+-rw-r--r--  1 tcollard  staff  145 Feb 12 11:59 ici
+d---------  2 tcollard  staff   64 Feb 11 15:35 nop
+-rw-r--r--  1 tcollard  staff   36 Feb 12 12:37 voila
+
+./nop:
