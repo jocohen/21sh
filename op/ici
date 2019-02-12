@@ -1,7 +1,0 @@
-ls: nop: Permission denied
-total 8
--rw-r--r--  1 tcollard  staff   0 Feb 11 23:10 ici
-d---------  2 tcollard  staff  64 Feb 11 15:35 nop
--rw-r--r--  1 tcollard  staff  27 Feb 11 23:10 voila
-
-./nop:

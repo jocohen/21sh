@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/12 00:42:47 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/12 11:48:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file, t_alloc *alloc)
 			return (1);
 		}
 	}
-	// if (fd_file == -1 && ft_is_redir1(elem, fd, 1, -1) == 1)
+	// if (fd_file == -1 && ft_is_redir(elem, fd, 1, -1) == 1)
 	// 	return (1);
 	return (0);
 }
@@ -156,7 +156,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 
 
 	while (ft_is_agreg(elem, fd, -1, *alloc) == 1
-	|| ft_is_redir1(elem, fd, -1, -1, *alloc) == 1)
+	|| ft_is_redir(elem, fd, -1, -1, *alloc) == 1)
 		elem = elem->left;
 	elem = elem->back;
 	// save_err = dup(2);
