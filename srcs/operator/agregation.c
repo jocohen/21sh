@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/12 16:51:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/12 18:01:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,13 @@ int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file, t_alloc *alloc)
 					fd[fd_redir] = fd_new;
 					alloc->fd[1] = dup(1);
 					alloc->fd[2] = dup(2);
+					ft_printf("%d vers %d\n", fd_redir, fd_new);
 					dup2(fd_redir, fd_new);
-					if (elem->left && elem->left->type != CMD)
-						close(fd_redir);
+					// if (elem->left && elem->left->type != CMD)
+					// {
+					// 	ft_printf("close fd %d\n", fd_redir);
+					// 	close(fd_redir);
+					// }
 				}
 			}
 			return (1);
@@ -127,6 +131,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	int	ret2;
 	int	dig;
 	int	fd[3];
+	int	i;
 
 	(void)tab_path;
 	fd[0] = -1;
@@ -136,6 +141,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd_redir = -1;
 	ret1 = 0;
 	ret2 = 0;
+	i = 1;
 
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
@@ -146,6 +152,16 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	elem = elem->back;
 	if (ret1 == -1 || ret2 == -1)
 		return (-1);
+
+	// i = 1;
+	// while (i < 3)
+	// {
+	// 	ft_printf("fd[%d] = %d\n", i, fd[i]);
+	// 	if (fd[i] != -1)
+	// 		close(i);
+	// 	i += 1;
+	// }
+
 	analyzer(elem->left, lst_env, alloc);
 	dup2((*alloc)->fd[1], 1);
 	dup2((*alloc)->fd[2], 2);
