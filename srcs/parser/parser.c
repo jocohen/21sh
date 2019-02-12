@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/11 14:28:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/12 16:03:31 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 // 			tmp = tmp->back;
 // 	}
 // }
-//
+
 // static void		reinit_print(t_ast *lst)
 // {
 // 	t_ast	*tmp;
