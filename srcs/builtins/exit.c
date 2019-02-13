@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_cd.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 18:48:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 15:16:50 by jocohen          ###   ########.fr       */
+/*   Created: 2019/02/06 10:28:36 by tcollard          #+#    #+#             */
+/*   Updated: 2019/02/06 10:37:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int	error_cd(char *err, int type)
+int	exit_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	if (type == 0)
-		write(2, "cd: no such file or directory: ", 31);
-	else if (type == 1)
-		write(2, "cd: permission denied: ", 23);
-	else if (type == 2)
-		write(2, "cd: ", 4);
-	else if (type == 3)
-		write(2, "cd: not a directory: ", 21);
-	write(2, err, ft_strlen(err));
-	(type == 2) ? write(2, " not set", 8) : 0;
-	write(2, "\n", 1);
-	g_ret[0] = 1;
-	return (-1);
+	(void)lst_env;
+	(void)alloc;
+	if (!elem->input[1])
+		exit(0);
+	exit(ft_atoi(elem->input[1]));
+	return (0);
 }

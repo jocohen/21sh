@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 15:51:50 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:17:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ char	*kill_or_give(t_alloc *al, char k)
 	{
 		if (recall_prompt(al, -1))
 			return (enter_section(al, -1));
-		if (ft_strncmp("exit", al->input->s, 4) == 0 && !recall_prompt(al, -1))
-		{
-			// del_alloc(&al);
-			ft_memdel((void *)&(al->input->s));
-			return (0);
-		}
+		// POUR EVITER D'EXIT TROP TOT
+		// UTILISATION DU BUILTINS
+		// PERMET AUSSI D"EXIT PROPREMENT QUAND IL Y A PLUSIEURS SHELL IMBIRQUER
+		// if (ft_strncmp("exit", al->input->s, 4) == 0 && !recall_prompt(al, -1))
+		// {
+		// 	// del_alloc(&al);
+		// 	ft_memdel((void *)&(al->input->s));
+		// 	return (0);
+		// }
 		enter_section(al, 0);
 	}
 	return (al->input->s);

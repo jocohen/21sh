@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 17:26:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/29 16:47:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ t_ast	*add_new_elem(t_ast **lst)
 	end = get_last_elem(lst);
 	end->next = new;
 	return (new);
+}
+
+void	ft_custom_memmove(char *dst, char *src, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	if (src == dst)
+		return ;
+	if (src < dst)
+	{
+		while ((int)len > 0)
+		{
+			dst[len] = '\0';
+			dst[len - 1] = src[len - 1];
+			len -= 1;
+		}
+	}
+	else
+	{
+		while (i < len)
+		{
+			dst[i] = src[i];
+			i += 1;
+		}
+		dst[i] = '\0';
+	}
 }

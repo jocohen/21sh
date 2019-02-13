@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 19:38:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/01/30 13:49:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	check_after_operator(char *s, int *i, unsigned int *nb_word,
 	x = 0;
 	while (s[*i + len + x] && ft_isdigit(s[*i + len + x]) == 1)
 		x += 1;
-	if ((s[*i + len + x] && ft_isspace(s[*i + len + x]) == 0) ||
-	(s[*i + len] == '-' && s[*i + len - 1] != '&'))
+	if ((s[*i + len + x] && ft_isspace(s[*i + len + x]) == 0)
+	|| (s[*i + len] == '-' && s[*i + len - 1] != '&'))
 		*nb_word += 1;
 }
 

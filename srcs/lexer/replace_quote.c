@@ -6,16 +6,11 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:13:28 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:16:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-/*
- ** In back quote
- ** execute commande
-*/
 
 static void	short_cut(char **s, t_env *lst_env)
 {
@@ -27,14 +22,14 @@ static void	short_cut(char **s, t_env *lst_env)
 		ft_strcat(tmp, get_env_value(lst_env, "$HOME"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[1]) : 0;
 	}
-	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/' ||
-	(*s)[2] == '\0'))
+	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/'
+	|| (*s)[2] == '\0'))
 	{
 		ft_strcat(tmp, get_env_value(lst_env, "$OLDPWD"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
 	}
-	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/' ||
-	(*s)[2] == '\0'))
+	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/'
+	|| (*s)[2] == '\0'))
 	{
 		ft_strcat(tmp, get_env_value(lst_env, "$PWD"));
 		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
@@ -100,17 +95,15 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, t_env *lst_env)
+void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 {
 	char	*sub;
-	char	*str;
 	char	quote;
 	int		save;
 	int		x;
 
 	x = 0;
 	sub = NULL;
-	str = NULL;
 	quote = (*s)[(*i)++];
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
@@ -125,11 +118,12 @@ void		remove_quote(char **s, int *i, t_env *lst_env)
 	else if (quote == '`')
 	{
 		sub = ft_strsub(*s, save, *i - save);
+		sub = ft_back_quote(sub, lst_env, alloc);
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
 
-int			convert_quote(char **s, t_env **lst_env)
+int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
 
@@ -144,7 +138,7 @@ int			convert_quote(char **s, t_env **lst_env)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			remove_quote(s, &i, *lst_env);
+			remove_quote(s, &i, *lst_env, alloc);
 			i -= 2;
 		}
 		else

@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dispatch_builtins.c                                :+:      :+:    :+:   */
+/*   error_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/16 19:32:45 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 16:18:27 by tcollard         ###   ########.fr       */
+/*   Created: 2019/02/06 14:53:50 by tcollard          #+#    #+#             */
+/*   Updated: 2019/02/06 14:56:26 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	builtins_dispatch(t_ast *elem, t_env **env)
+int	ft_fd_exist(char *str_fd)
 {
-	static char	*lst_built[5] = {"cd", "echo", "setenv", "unsetenv", "env"};
-	int			i;
+	int			fd;
+	int			ret;
 
-	(void)env;
-	i = 0;
-	while (i < 5)
+	fd = ft_atoi(str_fd);
+	ret = dup(fd);
+	if (ret == -1)
 	{
-		if (ft_strcmp(elem->value, lst_built[i]) == 0)
-			break ;
-		i += 1;
+		write(2, "21sh: ", 6);
+		write(2, str_fd, ft_strlen(str_fd));
+		write(2, ": bad file descriptor\n", 22);
+		return (-1);
 	}
+	close(ret);
+	return (fd);
 }

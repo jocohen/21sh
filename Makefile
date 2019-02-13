@@ -6,10 +6,9 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/08 18:45:19 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/13 15:14:59 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 .PHONY: all, clean, fclean, re, debug, norme
 
 NAME = 21sh
@@ -50,6 +49,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_BUILT)setenv.c \
 		$(PATH_BUILT)unsetenv.c \
 		$(PATH_BUILT)env.c \
+		$(PATH_BUILT)exit.c \
 		$(PATH_BUILT)exec_input.c \
 		$(PATH_TOOLS)lexer_tools.c \
 		$(PATH_TOOLS)clean_tools.c \
@@ -60,9 +60,11 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)env_tools.c \
 		$(PATH_TOOLS)env_tools_2.c \
 		$(PATH_TOOLS)builtins_tools.c \
+		$(PATH_TOOLS)back_quote_tools.c \
 		$(PATH_OPERATOR)pipe.c \
 		$(PATH_OPERATOR)job_control.c \
-		$(PATH_PROMPT)minishell.c \
+		$(PATH_OPERATOR)redirection.c \
+		$(PATH_OPERATOR)agregation.c \
 		$(PATH_PROMPT)quote_prompt.c \
 		$(PATH_ERROR)lexer_error.c \
 		$(PATH_ERROR)parser_error.c \
@@ -70,6 +72,8 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)exec_error.c \
 		$(PATH_ERROR)error_setenv.c \
 		$(PATH_ERROR)error_unsetenv.c \
+		$(PATH_ERROR)error_redirection.c \
+		$(PATH_ERROR)error_fd.c \
 		$(PATH_TERMCAPS)caller_display.c \
 		$(PATH_TERMCAPS)cursor_fit.c \
 		$(PATH_TERMCAPS)cursor_shift.c \

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:19:18 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/13 13:26:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/02 12:00:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,29 @@ void	add_elem_env(t_env **lst, char *key, char *value)
 void	add_shlvl(t_env **lst)
 {
 	t_env	*shlvl;
-	t_env	*tmp;
 	int		lvl;
 
-	tmp = *lst;
 	shlvl = NULL;
 	lvl = 0;
 	if ((shlvl = find_elem_env(lst, "SHLVL")) != NULL)
 	{
-		lvl = ft_atoi(shlvl->value) + 1;
-		free(shlvl->value);
-		shlvl->value = ft_itoa(lvl);
+		lvl = (shlvl->value[lvl] == '-') ? 1 : 0;
+		while (ft_isdigit(shlvl->value[lvl]) == 1)
+			lvl += 1;
+		if (shlvl->value[lvl])
+		{
+			free(shlvl->value);
+			shlvl->value = ft_strdup("1");
+		}
+		else
+		{
+			lvl = ft_atoi(shlvl->value);
+			free(shlvl->value);
+			shlvl->value = (lvl < 0) ? ft_strdup("0") : ft_itoa(lvl + 1);
+		}
 	}
 	else
-	{
-		if (!(shlvl = (t_env*)malloc(sizeof(t_env))))
-			return ;
-		shlvl->key = ft_strdup("SHLVL");
-		shlvl->value = ft_strdup("1");
-		shlvl->next = NULL;
-		if (!tmp)
-			*lst = shlvl;
-		else
-			get_last_elem_env(lst)->next = shlvl;
-	}
+		add_elem_env(lst, "SHLVL", "1");
 }
 
 void	display_env(t_env *lst)

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 14:45:10 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:15:21 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,8 +257,8 @@ int						check_cmd_pipe(char **input, t_alloc *alloc);
 int						find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
-int						convert_quote(char **s, t_env **lst_env);
-void					remove_quote(char **s, int *i, t_env *lst_env);
+int						convert_quote(char **s, t_env **lst_env, t_alloc **alloc);
+void					remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc);
 
 /*
 ************************************ PARSER *************************************
@@ -285,12 +285,40 @@ char					*get_env_value(t_env *lst_env, char *str);
 void					convert_lst_tab(t_env *lst_env, char ***_str);
 int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
 						t_alloc **alloc);
+int						exit_builtins(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+
 
 /*
 ********************************** OPERATOR ************************************
 */
 int						do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int						job_control(t_ast *elem, t_env *lst_env);
+void					redirection(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+
+/*
+******************************** REDIRECTION ***********************************
+*/
+void					redirection_1(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_2(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+void					redirection_3(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
+/*
+******************************** REDIRECTION ***********************************
+*/
+int						agreg_1(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+int						agreg_2(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+int						agreg_3(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+int						agreg_4(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
+int						agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
+						t_alloc **alloc);
 
 /*
 *********************************** ERROR **************************************
@@ -302,6 +330,9 @@ int						ft_error_redir_format(char *ope, int len);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
+int						ft_fd_exist(char *str_fd);
+void					error_redir(char *file);
+void					error_access(char *file);
 
 /*******************************************************************************
 *********************************** TOOLS **************************************
@@ -312,9 +343,10 @@ int						error_unsetenv(int i, char *s);
 */
 int						ft_isquote(char c);
 int						ft_isoperator(char c);
+int						ft_str_is_empty(char *s);
 void					ft_insert(char **source, char *insert, int pos1, int pos2);
 void					ft_delete_inside(char **source, int start, int len);
-int						ft_str_is_empty(char *s);
+char					*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc);
 
 /*
 ********************************** PARSER **************************************
@@ -324,6 +356,7 @@ t_ast					*get_last_elem(t_ast **lst);
 t_ast					*add_new_elem(t_ast **lst);
 void					check_quote(char *s);
 void					replace_quote(char *s, int *i);
+void					ft_custom_memmove(char *dst, char *src, size_t len);
 
 /*
 ********************************* ANALYZER *************************************
