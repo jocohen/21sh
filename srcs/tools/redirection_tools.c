@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/12 12:07:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 10:08:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ void	reinit_fd(int fd[3], t_alloc *alloc)
 	if (fd[1] != -1)
 	{
 		dup2(alloc->fd[1], 1);
+		if (fd[1] != 0 && fd[1] != 1 && fd[1] != 2)
 		close(fd[1]);
 	}
+
+	// ft_printf("fd[2] = %d\n", fd[2]);
+
 	if (fd[2] != -1)
 	{
 		dup2(alloc->fd[2], 2);
-		close(fd[2]);
+		if (fd[2] != 0 && fd[2] != 1 && fd[2] != 2)
+			close(fd[2]);
 	}
 }

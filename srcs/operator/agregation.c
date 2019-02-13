@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/12 18:01:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 10:10:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,19 @@ int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file, t_alloc *alloc)
 			else if (i == 2)
 			{
 				fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
-				if (dig == 0 && elem->input[1] && (fd_new =
-					ft_fd_exist(elem->input[1])) == -1)
+				if (dig == 0 && elem->input[1] && (fd_new = ft_fd_exist(elem->input[1])) == -1)
 					return (-1);
-				else if (dig == 1 && elem->input[2] && (fd_new =
-					ft_fd_exist(elem->input[2])) == -1)
+				else if (dig == 1 && elem->input[2] && (fd_new = ft_fd_exist(elem->input[2])) == -1)
 					return (-1);
 				if (fd[fd_redir] == -1)
 				{
 					fd[fd_redir] = fd_new;
-					alloc->fd[1] = dup(1);
-					alloc->fd[2] = dup(2);
+					if (fd_redir < 3 && fd_redir >= 0)
+						alloc->fd[fd_redir] = dup(fd_redir);
 					ft_printf("%d vers %d\n", fd_redir, fd_new);
 					dup2(fd_redir, fd_new);
-					// if (elem->left && elem->left->type != CMD)
-					// {
-					// 	ft_printf("close fd %d\n", fd_redir);
-					// 	close(fd_redir);
-					// }
+					// if (fd_redir < alloc->fd[2])
+						// close(fd_redir);
 				}
 			}
 			return (1);
@@ -143,6 +138,8 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	ret2 = 0;
 	i = 1;
 
+	ft_printf("Agreg type 3\n");
+
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
 	(elem->right) ? elem->right->print = 1 : 0;
@@ -163,8 +160,10 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	// }
 
 	analyzer(elem->left, lst_env, alloc);
-	dup2((*alloc)->fd[1], 1);
-	dup2((*alloc)->fd[2], 2);
+	reinit_fd(fd, *alloc);
+	// dup2((*alloc)->fd[fd_redir], fd_redir);
+	// close((*alloc)->fd[fd_redir]);
+	// dup2((*alloc)->fd[2], 2);
 	return(0);
 }
 
