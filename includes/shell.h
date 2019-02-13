@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 15:15:21 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 15:43:18 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ int						do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int						job_control(t_ast *elem, t_env *lst_env);
 void					redirection(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+void					heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 
 /*
 ******************************** REDIRECTION ***********************************

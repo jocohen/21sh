@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 16:00:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 15:18:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 		redirection_2(elem, lst_env, alloc);
 	else if (i == 3 || i == 4 || i == 5)
 		redirection_3(elem, lst_env, alloc);
-//	else if (i == 6) //
-//		heredoc(elem, lst_env, alloc);//
+	else if (i == 6)
+		heredoc(elem, lst_env, alloc);
 	return (1);
 }
 

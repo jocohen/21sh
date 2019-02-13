@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 15:58:17 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 16:29:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ void	set_terminal(int reset)
 		term.c_cc[VTIME] = 0;
 		if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &term)) == -1)
 			ft_exit(0);
+		signal(SIGINT, sig_kill);
+		signal(SIGWINCH, sig_window);
 	}
 	else
 	{
 		if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &old)) == -1)
 			ft_exit(0);
 		write(0, "\r", 1);
+		(reset == -1) ? signal(SIGINT, SIG_DFL) : 0;
+		signal(SIGWINCH, SIG_DFL);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 17:33:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 16:29:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 		ft_memdel((void **)&input);
 		return ;
 	}
-	signal(SIGWINCH, SIG_DFL);
-	set_terminal(1);
+	set_terminal(-1);
 	read_lexer(lexer, lst_env, lst, &alloc);
 	set_terminal(0);
-	signal(SIGWINCH, sig_window);
 	ft_memdel((void **)&input);
 }
 
