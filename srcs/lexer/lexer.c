@@ -60,9 +60,11 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 		ft_memdel((void **)&input);
 		return ;
 	}
+	signal(SIGWINCH, SIG_DFL);
 	set_terminal(1);
 	read_lexer(lexer, lst_env, lst, &alloc);
 	set_terminal(0);
+	signal(SIGWINCH, sig_window);
 	ft_memdel((void **)&input);
 }
 

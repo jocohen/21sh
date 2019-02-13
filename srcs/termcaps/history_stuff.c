@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 14:02:45 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 12:38:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 14:30:32 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ int			ft_del_hist(t_historic **fp)
 		(*fp) = tmp;
 	}
 	return (0);
+}
+
+void	end_hist(t_historic **tmp)
+{
+	while ((*tmp)->next)
+		(*tmp) = (*tmp)->next;
 }

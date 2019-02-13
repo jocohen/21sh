@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:07:03 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:51:55 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 	if (!father)
 	{
 		if (g_pid == -1)
-			exit(1);
+			exit(130);
 		g_in_exec = 1;
 		err = execve(elem->input[0], elem->input, tab_env);
 		if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
@@ -40,7 +40,8 @@ int	exec_input(t_ast *elem, t_env *lst_env, char **tab_path, t_alloc **alloc)
 		(err == -1) ? (exit(exec_error(-1, elem->input[0], alloc))) : 0;
 	}
 	g_pid = father;
-	waitpid(father, &g_ret, 0);
+	waitpid(father, &(g_ret[0]), 0);
+	g_ret[1] = 1;
 	del_double_tab(tab_path, tab_env);
 	return (ret_status());
 }

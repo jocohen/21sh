@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:48:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:10:27 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:48:09 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	error_cd(char *err, int type)
 	write(2, err, ft_strlen(err));
 	(type == 2) ? write(2, " not set", 8) : 0;
 	write(2, "\n", 1);
-	g_ret = 256;
+	g_ret[0] = 1;
 	return (-1);
 }

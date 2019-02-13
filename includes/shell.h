@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 19:07:11 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:45:10 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef int				(*t_builtins)(t_ast *elem, t_env **lst_env,
 
 int						g_in_exec;
 int						g_pid;
-int						g_ret;
+int						g_ret[2];
 int						g_resize;
 char					*g_clip;
 
@@ -186,6 +186,7 @@ void					historic_entry(char *input, t_historic **history,
 t_historic				*ft_new_cmd_hist(void);
 int						ft_del_hist(t_historic **fp);
 void					reset_hist(t_historic *tmp);
+void					end_hist(t_historic **tmp);
 
 /*
 ************************************ CURSOR ************************************
@@ -217,7 +218,7 @@ void					cut_selection(t_buf *input, t_buf *selec, t_env **lst);
 
 void					caller_display(t_env *fp, t_buf *input,
 										int change_pos);
-int						ret_status();										
+int						ret_status();
 void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
 void					reactualize_output(t_buf *input, t_env **lst);

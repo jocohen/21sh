@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:44:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 19:08:38 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:53:49 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ int		ret_status()
 	int		err;
 
 	err = 0;
-	if (WIFEXITED(g_ret))
-		err = WEXITSTATUS(g_ret);
-	else if (WIFSIGNALED(g_ret))
-		err = WTERMSIG(g_ret);
-	else if (WIFSTOPPED(g_ret))
-		err = WSTOPSIG(g_ret);
+	if (!g_ret[1])
+		return (g_ret[0]);
+	if (WIFEXITED(g_ret[0]))
+		err = WEXITSTATUS(g_ret[0]);
+	else if (WIFSIGNALED(g_ret[0]))
+		err = WTERMSIG(g_ret[0]) + 128;
+	else if (WIFSTOPPED(g_ret[0]))
+		err = WSTOPSIG(g_ret[0]) + 128;
+	g_ret[0] = err;
+	g_ret[1] = 0;
 	return (err);
 }

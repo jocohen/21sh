@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:08:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:27:32 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:47:23 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	setenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	}
 	else if (!tmp)
 		add_elem_env(lst_env, elem->input[1], elem->input[2]);
-	g_ret = 0;
+	g_ret[0] = 0;
 	return (0);
 }

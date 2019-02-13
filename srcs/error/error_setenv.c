@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 12:19:37 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:10:36 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:48:16 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	error_setenv(int i)
 		write(2, "21sh: setenv: too much arguments\n", 33);
 		write(2, "usage: setenv [key] [value] [int overwrite]\n", 44);
 	}
-	g_ret = 256;
+	g_ret[0] = 2;
 	return (-1);
 }

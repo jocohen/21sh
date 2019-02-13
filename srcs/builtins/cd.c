@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 19:26:58 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/13 14:45:54 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	modif_env(char *dir, t_env **lst_env, int options)
 		tmp->value = ft_strdup((options == 2) ? getcwd(buf, PATH_MAX) : dir);
 	}
 	(buf) ? free(buf) : 0;
-	g_ret = 0;
+	g_ret[0] = 0;
 	return (0);
 }
 
