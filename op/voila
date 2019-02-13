@@ -1,0 +1,7 @@
+ls: nop: Permission denied
+total 8
+-rw-r--r--  1 tcollard  2017_paris  27 Feb 13 16:32 ici
+d---------  2 tcollard  2017_paris  68 Feb 12 15:08 nop
+-rw-r--r--  1 tcollard  2017_paris   0 Feb 13 16:35 voila
+
+./nop:

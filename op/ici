@@ -1,6 +1,1 @@
-total 0
--rw-r--r--  1 tcollard  2017_paris   0 Feb 13 10:11 ici
-d---------  2 tcollard  2017_paris  68 Feb 12 15:08 nop
--rw-r--r--  1 tcollard  2017_paris   0 Feb 13 10:10 voila
-
-./nop:
+ls: nop: Permission denied

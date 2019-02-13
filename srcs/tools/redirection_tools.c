@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 10:08:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 15:22:17 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ int		ft_is_redir(t_ast *elem, int fd[3], int fd_redir, int fd_open,
 			if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)
 			{
 				fd[fd_redir] = fd_open;
+				// ft_printf("fd[%d] = %d\n", fd_redir, fd_open);
 				alloc->fd[fd_redir] = dup(fd_redir);
 				dup2(fd_open, fd_redir);
+				// check_fd_open(fd, fd_redir);
 			}
 			else
 				close(fd_open);
@@ -50,7 +52,7 @@ void	reinit_fd(int fd[3], t_alloc *alloc)
 	{
 		dup2(alloc->fd[1], 1);
 		if (fd[1] != 0 && fd[1] != 1 && fd[1] != 2)
-		close(fd[1]);
+			close(fd[1]);
 	}
 
 	// ft_printf("fd[2] = %d\n", fd[2]);
