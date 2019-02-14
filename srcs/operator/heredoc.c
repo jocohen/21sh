@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 20:00:48 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/14 12:29:18 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,21 @@ static void		join_inputs(char **input, char *s)
 		*input = ft_strjoin(tmp, s);
 		free(tmp);
 	}
+	free(s);
 }
 
 static int		pipe_exec(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	int	ret;
+	int		ret;
+	t_ast	*tmp;
 
+	tmp = elem;
+	while (!ft_strcmp("<<", tmp->input[0]))
+		tmp = tmp->left;
 	close(elem->back->fd[1]);
 	dup2(elem->back->fd[0], STDIN_FILENO);
 	close(elem->back->fd[0]);
-	ret = analyzer(elem, lst_env, alloc);
+	ret = analyzer(tmp, lst_env, alloc);
 	exit(ret);
 }
 
@@ -48,13 +53,10 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 		if (!(s = recall_prompt(alloc, 1)))
 		{
 			ft_memdel((void **)file);
-			return (0);
+			break;
 		}
 		if (ft_strcmp(elem->right->input[0], s))
-		{
 			join_inputs(file, s);
-			free(s);
-		}
 		else
 		{
 			free(s);
@@ -65,6 +67,8 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 		}
 	}
 	set_terminal(-1);
+	if (!*file)
+		return (0);
 	return (1);
 }
 
