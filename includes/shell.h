@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 10:18:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/14 14:50:16 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,8 +416,7 @@ int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
 int						ft_is_redir(t_ast *elem, int fd[3], int fd_redir,
 						int fd_open, t_alloc *alloc);
-int						ft_is_agreg(t_ast *elem, int fd[3], int fd_file,
-						t_alloc *alloc);
+int						ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc);
 // int						ft_is_redir2(t_ast *elem, int fd[3], int fd_redir,
 // 						int fd_open);
 
