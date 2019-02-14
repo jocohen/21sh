@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 16:41:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/14 13:06:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file, t_alloc *alloc)
 	int			fd_redir;
 
 	int			fd_test[3];
-
-	// fd_test[0] = fd[0];
-	// fd_test[1] = fd[1];
-	// fd_test[2] = fd[2];
 
 	fd_test[0] = -1;
 	fd_test[1] = -1;
@@ -74,17 +70,19 @@ int	ft_is_agreg(t_ast *elem, int fd[3], int fd_file, t_alloc *alloc)
 						alloc->fd[fd_redir] = dup(fd_redir);
 						ft_printf("%d vers %d\n", fd_redir, fd_new);
 						fd[fd_redir] = fd_new;
-						fd_test[fd_redir] = fd_new;
 						dup2(fd_redir, fd_new);
 					}
 
 					// IL FAUT CLOSE LE FD ICI SI BESOIN EST //
 					elem = elem->left;
-					while (ft_is_redir(elem, fd, -1, -1, alloc) == 1)
+					while (ft_is_redir(elem, fd_test, -1, -1, alloc) == 1)
 						elem = elem->left;
-					// elem = elem->back;
+					elem = elem->back;
 
-					if (fd[fd_new] != -1)
+					reinit_fd(fd_test, alloc);
+
+					// close(2);
+					if (fd_test[fd_new] != -1)
 					{
 						ft_printf("close %d\n", fd_redir);
 						close(fd_redir);
@@ -149,6 +147,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 {
 	int	fd_file;
 	int	fd_redir;
+	int	fd_new;
 	int	ret1;
 	int	ret2;
 	int	dig;
@@ -161,6 +160,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd[2] = -1;
 	fd_file = -1;
 	fd_redir = -1;
+	fd_new = -1;
 	ret1 = 0;
 	ret2 = 0;
 	i = 1;
@@ -169,6 +169,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
+	fd_new = ft_atoi((dig == 1) ? elem->input[2] : elem->input[1]);
 	(elem->right) ? elem->right->print = 1 : 0;
 	while ((ret1 = ft_is_agreg(elem, fd, fd_file, *alloc)) == 1
 || (ret2 = ft_is_redir(elem, fd, -1, -1, *alloc)) == 1)
@@ -179,7 +180,11 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 		// ft_printf("return\n");
 		return (-1);
 	}
-
+	// if (fd[fd_new] != -1)
+	// {
+	// 	ft_printf("close %d\n", fd_redir);
+	// 	close(fd_redir);
+	// }
 	analyzer(elem->left, lst_env, alloc);
 	reinit_fd(fd, *alloc);
 	// dup2((*alloc)->fd[fd_redir], fd_redir);
