@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 15:43:18 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 13:11:03 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,7 @@ int						env_cp(char **env, t_env **lst_env);
 int						env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 char					*get_env_value(t_env *lst_env, char *str);
 void					convert_lst_tab(t_env *lst_env, char ***_str);
-int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
-						t_alloc **alloc);
+int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
 int						exit_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 
@@ -324,7 +323,7 @@ int						agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
 /*
 *********************************** ERROR **************************************
 */
-int						exec_error(int err, char *files, t_alloc **alloc);
+int						exec_error(int err, char *files);
 int						ft_error_parse_redir(char **input);
 int						ft_error_splitshell(void);
 int						ft_error_redir_format(char *ope, int len);
@@ -334,6 +333,7 @@ int						error_unsetenv(int i, char *s);
 int						ft_fd_exist(char *str_fd);
 void					error_redir(char *file);
 void					error_access(char *file);
+int						exec_right_error(int err, char *files);
 
 /*******************************************************************************
 *********************************** TOOLS **************************************

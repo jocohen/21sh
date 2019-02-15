@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 14:51:47 by tcollard          #+#    #+#              #
-#    Updated: 2018/12/13 13:59:00 by tcollard         ###   ########.fr        #
+#    Updated: 2019/02/15 11:56:03 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,7 +136,7 @@ SRC = $(PATH_LST)ft_lstnew.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS = $(addprefix $(PATH_SRC),$(SRC))
 OBJS = $(addprefix $(PATH_OBJ), $(OBJ))

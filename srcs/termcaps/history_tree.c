@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/18 14:46:13 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/15 12:07:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	historic_entry(char *input, t_historic **history, t_env *lst)
 	change_quote_op(input);
 	if (!input[0] || ((*history)->prev && !ft_strcmp(input,
 		((*history)->prev)->origin)))
-		return ;
+		return (ft_memdel((void **)&input));
 	fd = historic_opening(lst, 1);
 	write(fd, input, ft_strlen(input));
 	write(fd, "\n", 1);

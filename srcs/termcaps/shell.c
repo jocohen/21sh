@@ -6,33 +6,25 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 15:17:25 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 11:20:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	reset_fd(void)
+int		reset_fd(void)
 {
 	int		stdout;
 
 	if (!isatty(1))
 	{
-		ft_exit(0);
 		stdout = dup(0);
 		close(0);
 		dup2(stdout, 0);
 	}
-	if (!isatty(0))
-	{
-		ft_exit(0);
-		stdout = dup(1);
-		close(1);
-		dup2(stdout, 1);
-	}
-	if (!isatty(1))
-		write(2, "21sh: bad files descriptor\n21sh: reset files descriptor\n",
-			56);
+	if (isatty(2) && !isatty(1))
+		write(2, "21sh: bad files descriptor\n21sh: reset stdout\n", 46);
+	return (1);
 }
 
 int		main(int ac, char **av, char **env)
@@ -49,7 +41,8 @@ int		main(int ac, char **av, char **env)
 	g_pid = 0;
 	g_resize = 0;
 	lst = 0;
-	reset_fd();
+	if (!reset_fd())
+		return (0);
 	env_cp(env, &lst);
 	al.env = &lst;
 	prompt(&al);

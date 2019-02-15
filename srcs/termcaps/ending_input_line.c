@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 15:17:08 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 15:45:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*enter_section(t_alloc *al, int read)
 	while (--x)
 		tputs(tgetstr("do", 0), 1, ft_writestdin);
 	tputs(tgetstr("cr", 0), 1, ft_writestdin);
-	// ft_printf("%9s|%s|\n", "", al->input->s);
+	(!isatty(0)) ? write(1, "\n", 1);
 	if (read == -1)
 		return (al->input->s);
 	if (!read)
@@ -63,11 +63,6 @@ char	*enter_section(t_alloc *al, int read)
 		if (g_pid == -1)
 			write(1, "\n", 1);
 		g_pid = 0;
-		// test(al);
-		// input start fct
-		// input needed to be free and thats it
-		// historic_entry(input, history, read, *lst);
-		// a effectuer quand input done
 	}
 	al->input->x = 0;
 	ft_bzero(al->input->s, al->input->buf_size);

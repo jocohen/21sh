@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 15:18:56 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 13:11:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 	if (i < 6)
 		ret = dispatch[i](elem, lst_env, alloc);
 	else
-		ret = exec_input(elem, *lst_env, tab_path, alloc);
+		ret = exec_input(elem, *lst_env, tab_path);
 	return (ret);
 }
 

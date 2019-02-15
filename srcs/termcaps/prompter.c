@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 16:28:25 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 14:56:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*kill_or_give(t_alloc *al, char k)
 	{
 		tputs(tgetstr("do", 0), 1, ft_writestdin);
 		tputs(tgetstr("cr", 0), 1, ft_writestdin);
+		(!isatty(0)) ? write(1, "\n", 1);
 		ft_memdel((void **)&(al->input->s));
 		return (0);
 	}
@@ -26,15 +27,6 @@ char	*kill_or_give(t_alloc *al, char k)
 	{
 		if (recall_prompt(al, -1))
 			return (enter_section(al, -1));
-		// POUR EVITER D'EXIT TROP TOT
-		// UTILISATION DU BUILTINS
-		// PERMET AUSSI D"EXIT PROPREMENT QUAND IL Y A PLUSIEURS SHELL IMBIRQUER
-		// if (ft_strncmp("exit", al->input->s, 4) == 0 && !recall_prompt(al, -1))
-		// {
-		// 	// del_alloc(&al);
-		// 	ft_memdel((void *)&(al->input->s));
-		// 	return (0);
-		// }
 		enter_section(al, 0);
 	}
 	return (al->input->s);
@@ -43,10 +35,10 @@ char	*kill_or_give(t_alloc *al, char k)
 char	*read_and_sig(t_alloc *al, char *k, int stdin_cpy)
 {
 	check_over_buffer(al->input, 0);
-	if (read(0, k, 1) == -1)
+	if (read(0, k, 1) <= 0)
 	{
 		if (!g_pid && !g_resize)
-			ft_exit(0);
+			return (0);
 		*k = -1;
 		dup2(stdin_cpy, 0);
 		if (g_pid == -1 && recall_prompt(al, -1))
@@ -87,6 +79,7 @@ char	*read_input(t_alloc *al)
 		if (k != 10)
 			analyse_input(al, k);
 	}
+	ft_memdel((void **)&(al->input->s));
 	return (0);
 }
 
