@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/14 12:29:18 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:08:18 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void		write_pipe(char *file, t_ast *elem)
 	close(elem->fd[0]);
 	dup2(elem->fd[1], STDOUT_FILENO);
 	close(elem->fd[1]);
-	write(STDOUT_FILENO, file, ft_strlen(file));
+	write_str(file, 0);
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:33:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/15 18:10:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	delete_line_pos(t_buf *input, t_env **lst)
 	}
 	tputs(tgetstr("cd", 0), 1, ft_writestdin);
 	caller_display(*lst, input, 0);
-	write(1, input->s, ft_strlen(input->s));
+	write_str(input->s, 0);
 	x = display_sizing(0) + ft_strlen(input->s);
 	input->pos.l = x / window_width_size();
 	input->pos.c = x % window_width_size();
@@ -47,7 +47,7 @@ void	display_spe_line(t_buf *selec, t_buf *input)
 	ft_memcpy(output, input->s, x);
 	ft_strcat(ft_strcat(ft_strcat(ft_strcat(output, ANSI_DARK_GRAY), selec->s),
 		ANSI_DEF_BG), input->s + x + selec->x);
-	write(1, output, ft_strlen(output));
+	write_str(output, 0);
 	ft_memdel((void **)&output);
 }
 

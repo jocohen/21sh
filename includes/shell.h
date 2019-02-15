@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 13:11:03 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 19:08:54 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
 void					reactualize_output(t_buf *input, t_env **lst);
 int						display_sizing(int size);
+void					write_str(char *s, int c);
 void					delete_line_pos(t_buf *input, t_env **lst);
 void					display_spe_line(t_buf *selec, t_buf *input);
 void					redisplay_line_selec(t_buf *selec, t_buf *input,
@@ -284,6 +285,7 @@ int						env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 char					*get_env_value(t_env *lst_env, char *str);
 void					convert_lst_tab(t_env *lst_env, char ***_str);
 int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
+int						exec_rights(t_ast *elem, char **tab_path);
 int						exit_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 

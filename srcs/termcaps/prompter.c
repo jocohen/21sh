@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 14:56:56 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:11:02 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*kill_or_give(t_alloc *al, char k)
 	{
 		tputs(tgetstr("do", 0), 1, ft_writestdin);
 		tputs(tgetstr("cr", 0), 1, ft_writestdin);
-		(!isatty(0)) ? write(1, "\n", 1);
+		(!isatty(0)) ? write_str("\n", 0) : 0;
 		ft_memdel((void **)&(al->input->s));
 		return (0);
 	}

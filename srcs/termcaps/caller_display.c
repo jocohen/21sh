@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/08 18:50:07 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:58:32 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fancy_display(char *pwd)
 	ft_putstr_fd(ANSI_RESET, 1);
 	ft_putstr_fd(ANSI_BOLD, 1);
 	(!ret_status()) ? ft_putstr_fd(ANSI_GREEN, 1) : ft_putstr_fd(ANSI_RED, 1);
-	write(1, "δ  ", 4);
+	write_str("δ  ", 0);
 	if (pwd)
 	{
 		ft_putstr_fd(ANSI_RESET, 1);
@@ -50,16 +50,16 @@ void	fancy_display(char *pwd)
 		ft_putstr_fd(ANSI_WHITE, 1);
 		pwd = get_end_pwd(pwd);
 		display_sizing(ft_strlen(pwd) + 6);
-		write(1, pwd, ft_strlen(pwd));
+		write_str(pwd, 0);
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
-	write(1, " > ", 3);
+	write_str(" > ", 0);
 }
 
 void	classic_display(char *prompt)
 {
-	write(1, prompt, ft_strlen(prompt));
-	write(1, "> ", 2);
+	write_str(prompt, 0);
+	write_str("> ", 0);
 	display_sizing(ft_strlen(prompt) + 2);
 }
 
@@ -75,6 +75,8 @@ void	caller_display(t_env *fp, t_buf *input, int change_pos)
 		mode = 0;
 	else if (!(pwd = get_env_value(fp, "$PWD")))
 		pwd = getcwd(path, PATH_MAX);
+	if (!isatty(0))
+		return ;
 	(mode) ? fancy_display(pwd) : 0;
 	(!mode) ? classic_display(pwd) : 0;
 	if (change_pos)

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 18:51:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:07:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 void	input_character(t_buf *input, char k)
 {
 	tputs(tgetstr("im", 0), 1, ft_writestdin);
-	write(1, &k, 1);
+	write_str(&k, 1);
 	if (input->pos.c + 1 == (size_t)window_width_size())
 	{
 		input->pos.l += 1;
-		write(1, "c", 1);
+		write_str("c", 0);
 		input->pos.c = 1;
 		cursor_movement(input, -2);
 		tputs(tgetstr("dc", 0), 1, ft_writestdin);

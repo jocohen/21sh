@@ -6,24 +6,17 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/15 14:51:26 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 19:06:48 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		exec_rights(t_ast *elem, char **tab_path, t_env *lst_env)
+int		exec_rights(t_ast *elem, char **tab_path)
 {
 	int		x;
 	char	path[PATH_MAX];
 
-	if (find_elem_env(&lst_env, "PWD"))
-		ft_strcat(ft_strcat(ft_strcpy(path, get_env_value(lst_env,
-					"$PWD")), "/"), elem->input[0]);
-	else
-		ft_strcat(ft_strcat(getcwd(path, PATH_MAX), "/"), elem->input[0]);
-	if (access(path, X_OK) == -1 && !access(path, F_OK))
-		return (exec_right_error(2, elem->input[0]));
 	x = 0;
 	while (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0
 			&& tab_path[x])
@@ -61,7 +54,7 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 		else
 			tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
 	}
-	if (exec_rights(elem, tab_path, lst_env))
+	if (exec_rights(elem, tab_path))
 		return (ret_status());
 	convert_lst_tab(lst_env, &tab_env);
 	if (!(father = fork()))

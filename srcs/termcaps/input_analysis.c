@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:44:55 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/15 18:35:55 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	input_visual_char(t_alloc *al, char k)
 	if (k > 31 && k < 127)
 	{
 		prev_line = al->input->pos.l;
-		input_character(al->input, k);
+		(isatty(0)) ? input_character(al->input, k) : 0;
 		ft_memmove(al->input->s + al->input->x + 1, al->input->s + al->input->x,
 			ft_strlen(al->input->s + al->input->x) + 1);
 		al->input->s[al->input->x++] = k;
