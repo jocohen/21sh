@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:20:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/14 14:55:44 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/15 12:56:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,23 @@ static int	check_fd(t_ast *elem)
 	int dig;
 	int	fd_redir;
 	int	fd_file;
+	int	i;
 
+	i = 0;
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
+	if (elem->right)
+	{
+		fd_file = ft_atoi(elem->right->input[0]);
+		if (fd_file == fd_redir)
+			return (1);
+		while(ft_isdigit(elem->right->input[0][i]) == 1)
+			i += 1;
+		if (ft_fd_exist(elem->right->input[0]) == -1
+			&& elem->right->input[0][i] == '-')
+			return (-1);
+		return(2);
+	}
 	fd_file = ft_atoi((dig == 1) ? elem->input[2] : elem->input[1]);
 	if (fd_redir == fd_file)
 		return (1);
@@ -96,11 +110,21 @@ int	ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc)
 			((i == 0 || i == 1)) ? agreg_type_1_2(fd, elem, alloc, i) : 0;
 			if (i == 2)
 			{
-				if ((ret = check_fd(elem)) != 0)
+				ret = check_fd(elem);
+				if (ret == -1 || ret == 1)
 					return (ret);
-				fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
-				ft_atoi(elem->input[0]) : 1;
-				(fd[fd_redir] == -1) ? agreg_type_3(fd, elem, alloc) : 0;
+				else if (ret == 2)
+				{
+					fd_redir = (ft_atoi(elem->right->input[0]));
+					fd[fd_redir] = dup(fd_redir);
+					close(fd_redir);
+				}
+				else
+				{
+					fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
+					ft_atoi(elem->input[0]) : 1;
+					(fd[fd_redir] == -1) ? agreg_type_3(fd, elem, alloc) : 0;
+				}
 			}
 			return (1);
 		}
