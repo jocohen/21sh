@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 10:37:39 by tcollard          #+#    #+#             */
-/*   Updated: 2018/04/18 14:29:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/16 18:35:23 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ char	*ft_strcat(char *dest, const char *src)
 	int	dest_len;
 	int	i;
 
+	if (!dest)
+		return ((char *)src);
+	if (!src)
+		return (dest);
 	dest_len = ft_strlen(dest);
 	i = 0;
 	while (src[i] != '\0')
