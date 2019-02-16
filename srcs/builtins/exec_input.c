@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/15 19:06:48 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 11:50:01 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	pid_t	father;
 	char	**tab_env;
 
+	write_str(ft_strjoin(elem->input[0], "\n"), 0);
 	if (!tab_path)
 	{
 		if (!find_elem_env(&lst_env, "PATH"))
