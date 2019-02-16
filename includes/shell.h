@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 19:08:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 11:17:46 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct			s_alloc
 	t_buf				*input;
 	t_ast				**ast;
 	t_env				**env;
+	int					fd[3];
 }						t_alloc;
 
 typedef int				(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
@@ -308,6 +309,8 @@ void					redirection_2(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					redirection_3(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+int						heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+
 /*
 ******************************** REDIRECTION ***********************************
 */
@@ -411,13 +414,15 @@ void					del_alloc(t_alloc **alloc);
 */
 char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
-
-/*
-*********************************** OTHER **************************************
-*/
-int						check_opening_quote(char **str, t_alloc *alloc);
-void					init_ast(char **input, char *s);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
+void					init_ast(char **input, char *s);
+void 					reinit_fd(int fd[3], t_alloc *alloc);
 int						main(int argc, char **argv, char **env);
+int						check_opening_quote(char **str, t_alloc *alloc);
+int						ft_is_redir(t_ast *elem, int fd[3], int fd_redir,
+						int fd_open, t_alloc *alloc);
+int						ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc);
+// int						ft_is_redir2(t_ast *elem, int fd[3], int fd_redir,
+// 						int fd_open);
 
 #endif

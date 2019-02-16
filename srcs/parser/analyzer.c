@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 14:00:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/14 14:42:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int		analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 	char				**tab_path;
 	t_ast				*tmp;
 	int					ret;
+
+	int i;
+	i = 0;
+
 
 	ret = 0;
 	tmp = sort;

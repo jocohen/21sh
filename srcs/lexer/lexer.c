@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 16:29:56 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 11:18:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void		clean_input(char *str, t_ast *lst, t_env **lst_env,
 	t_alloc **alloc)
 {
 	char	**split;
-	int		i;
 
-	i = 0;
 	split = NULL;
 	if ((split = ft_splitwhitespace_shell(str)) == NULL)
 		return ;

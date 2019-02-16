@@ -2,3 +2,4 @@ obj/
 *.o
 *.dSYM
 21sh
+*/*.a

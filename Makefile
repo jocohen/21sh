@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/15 11:55:34 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/16 11:17:30 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -59,6 +59,8 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)parser_tools.c \
 		$(PATH_TOOLS)env_tools.c \
 		$(PATH_TOOLS)env_tools_2.c \
+		$(PATH_TOOLS)redirection_tools.c \
+		$(PATH_TOOLS)agreg_tools.c \
 		$(PATH_TOOLS)builtins_tools.c \
 		$(PATH_TOOLS)back_quote_tools.c \
 		$(PATH_OPERATOR)pipe.c \
@@ -111,7 +113,7 @@ $(NAME): $(OBJS)
 	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@ $(OBJS)
 	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
-$(PATH_OBJ)%.o : $(PATH_SRC)%.c
+$(PATH_OBJ)%.o : $(PATH_SRC)%.c $(INCLUDE)/shell.h Makefile
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_LEXER) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_TOOLS) 2> /dev/null || true

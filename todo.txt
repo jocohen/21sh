@@ -21,3 +21,12 @@ DONE	20) touch test ; chmod 000 test ; cat < test bug
 ??? 21) stdout > fd invalide : pas de message d'erreur
 DONE	22) expansion ~ pas gere
 23) ./21sh | ./21sh casse le terminal (pas de reset a la sortie)
+
+
+
+Verif redirection:
+'>': multi_redirection ne fonctionne pas.
+
+>>
+
+<

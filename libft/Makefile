@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 14:51:47 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/15 11:56:03 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/16 11:17:59 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -147,7 +147,7 @@ $(NAME) : $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-$(PATH_OBJ)%.o : $(PATH_SRC)%.c
+$(PATH_OBJ)%.o : $(PATH_SRC)%.c $(INCS_LIB) $(INCS_PRINT) Makefile
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_LST) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_MATH) 2> /dev/null || true
