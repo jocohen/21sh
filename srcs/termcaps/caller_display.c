@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 15:53:10 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:58:32 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 12:21:01 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ char	*get_end_pwd(char *pwd)
 
 void	fancy_display(char *pwd)
 {
-	ft_putstr_fd(ANSI_RESET, 1);
-	ft_putstr_fd(ANSI_BOLD, 1);
-	(!ret_status()) ? ft_putstr_fd(ANSI_GREEN, 1) : ft_putstr_fd(ANSI_RED, 1);
+	write_str(ANSI_RESET, 0);
+	write_str(ANSI_BOLD, 0);
+	(!ret_status()) ? write_str(ANSI_GREEN, 0) : write_str(ANSI_RED, 0);
 	write_str("δ  ", 0);
 	if (pwd)
 	{
-		ft_putstr_fd(ANSI_RESET, 1);
-		ft_putstr_fd(ANSI_BOLD, 1);
-		ft_putstr_fd(ANSI_WHITE, 1);
+		write_str(ANSI_RESET, 0);
+		write_str(ANSI_BOLD, 0);
+		write_str(ANSI_WHITE, 0);
 		pwd = get_end_pwd(pwd);
 		display_sizing(ft_strlen(pwd) + 6);
 		write_str(pwd, 0);
 	}
-	ft_putstr_fd(ANSI_RESET, 1);
+	write_str(ANSI_RESET, 0);
 	write_str(" > ", 0);
 }
 

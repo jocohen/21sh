@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/15 11:55:34 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/16 14:18:24 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -38,6 +38,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_LEXER)ft_splitwhitespace_shell.c \
 		$(PATH_LEXER)ft_strsplit_shell.c \
 		$(PATH_LEXER)replace_quote.c \
+		$(PATH_LEXER)replace_val_ret.c \
 		$(PATH_LEXER)check_cmd_pipe.c \
 		$(PATH_LEXER)lexer.c \
 		$(PATH_PARSER)parser.c \

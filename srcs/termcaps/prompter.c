@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 11:41:52 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:52:33 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*kill_or_give(t_alloc *al, char k)
 	(k != 27 && k != -1) ? selec_buffer(0, al->input, al->env) : 0;
 	if (k == 4 && !al->input->s[0] && !recall_prompt(al, -1))
 	{
-		tputs(tgetstr("do", 0), 1, ft_writestdin);
-		tputs(tgetstr("cr", 0), 1, ft_writestdin);
+		put_term_rout("do");
+		put_term_rout("cr");
 		(!isatty(0)) ? write_str("\n", 0) : 0;
 		ft_memdel((void **)&(al->input->s));
 		return (0);
@@ -92,5 +92,5 @@ void	prompt(t_alloc *al)
 	set_terminal(0);
 	read_input(al);
 	ft_del_hist(&history);
-	set_terminal(1);
+	set_terminal(-1);
 }

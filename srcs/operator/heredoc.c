@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:08:18 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 14:11:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 		if (!(s = recall_prompt(alloc, 1)))
 		{
 			ft_memdel((void **)file);
-			break;
+			break ;
 		}
 		if (ft_strcmp(elem->right->input[0], s))
 			join_inputs(file, s);
@@ -66,7 +66,7 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 			break ;
 		}
 	}
-	set_terminal(-1);
+	set_terminal(1);
 	if (!*file)
 		return (0);
 	return (1);

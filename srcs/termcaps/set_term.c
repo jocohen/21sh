@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:49:02 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:40:00 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void			set_terminal(int reset)
 			termtype = "xterm-256color";
 		if ((term_valid = tgetent(0, termtype)) == -1 || !term_valid)
 			ft_exit(0);
-		if ((tcgetattr(STDIN_FILENO, &old)) == -1
-				|| (tcgetattr(STDIN_FILENO, &term)) == -1)
+		if ((tcgetattr(0, &old)) == -1 || (tcgetattr(0, &term)) == -1)
 			ft_exit(0);
 		term.c_lflag &= ~(ICANON | ECHO);
 		term.c_cc[VMIN] = 1;

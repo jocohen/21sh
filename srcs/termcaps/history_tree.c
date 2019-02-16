@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 12:07:56 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:37:26 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	change_quote_op(char *input)
 		while (input[x] && input[x] != '\n')
 			x += 1;
 		input[x] = 0;
-		return;
+		return ;
 	}
 	x = 0;
 	while (input[x])
