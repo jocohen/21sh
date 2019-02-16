@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 11:15:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/16 14:00:01 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		reset_old(int reset, struct termios *old)
 {
 	(reset == -1) ? signal(SIGINT, SIG_DFL) : 0;
 	signal(SIGWINCH, SIG_DFL);
-	// if (!isatty(0))
+	if (!isatty(0))
 		return ;
 	if ((tcsetattr(STDIN_FILENO, TCSADRAIN, old)) == -1)
 		ft_exit(0);
@@ -34,10 +34,13 @@ void			set_terminal(int reset)
 	{
 		signal(SIGINT, sig_kill);
 		signal(SIGWINCH, sig_window);
-		// if (!isatty(0))
+		if (!isatty(0))
 			return ;
-		if (!(termtype = ttyname(ttyslot())))
+		// if (!(termtype = ttyname(ttyslot())))
 			termtype = "xterm-256color";
+			// termtype = ttyname(ttyslot());
+			// ft_printf("termtpe: |%s|\n", termtype);
+
 		if ((term_valid = tgetent(0, termtype)) == -1 || !term_valid)
 			ft_exit(0);
 		if ((tcgetattr(STDIN_FILENO, &old)) == -1

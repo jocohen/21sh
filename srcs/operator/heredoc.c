@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 11:18:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/16 13:54:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 			break ;
 		}
 	}
-	set_terminal(-1);
+	set_terminal(1);
 	if (!*file)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:11:02 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:54:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	prompt(t_alloc *al)
 	set_terminal(0);
 	read_input(al);
 	ft_del_hist(&history);
-	set_terminal(1);
+	set_terminal(-1);
 }

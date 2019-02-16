@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/16 11:18:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/16 14:46:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	t_alloc **alloc)
 {
 	int	i;
@@ -60,7 +60,7 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 		ft_memdel((void **)&input);
 		return ;
 	}
-	set_terminal(-1);
+	set_terminal(1);
 	read_lexer(lexer, lst_env, lst, &alloc);
 	set_terminal(0);
 	ft_memdel((void **)&input);
