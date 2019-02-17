@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/16 14:18:24 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/17 13:02:49 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -16,7 +16,7 @@ NAME = 21sh
 END = \x1b[0m
 GREEN = \x1b[32m
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g3
 LDFLAGS = -Llibft
 LDLIBS = -lft -ltermcap
 
