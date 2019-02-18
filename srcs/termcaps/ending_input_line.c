@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 13:34:33 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/18 15:01:04 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ char	*recall_prompt(t_alloc *al, int type)
 	alloc.env = al->env;
 	out = read_input(&alloc);
 	input = 0;
+	ft_putstr(ANSI_GREEN);
+	ft_printf("recall = |%s|\n", out);
+	ft_putstr(ANSI_RESET);
 	return (out);
 }
 

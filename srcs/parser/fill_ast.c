@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/17 20:44:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/18 15:45:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void		fill_ast(char **s, t_ast **lst)
 			{
 				c = s[i][x];
 				x += 1;
-				while (s[i][x] != c)
+				while (s[i][x] && s[i][x] != c)
 					x += 1;
 				x += 1;
 				break ;

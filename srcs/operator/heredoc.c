@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/18 12:01:01 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:24:26 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 			ft_memdel((void **)file);
 			break ;
 		}
-		if (ft_strcmp(elem->right->input[0], s))
+		if (ft_strcmp((elem->right) ? elem->right->input[0] : elem->input[1], s))
 			join_inputs(file, s);
 		else
 		{

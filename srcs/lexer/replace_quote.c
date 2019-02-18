@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 12:00:49 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/18 17:47:48 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 
 	i = 0;
 	short_cut(s, *lst_env);
-	while ((*s)[i])
+	while (s && (*s)[i])
 	{
 		if ((*s)[i] == '$')
 		{
