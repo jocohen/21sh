@@ -6,13 +6,13 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:44:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/13 14:53:49 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:37:51 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		ret_status()
+int		ret_status(void)
 {
 	int		err;
 

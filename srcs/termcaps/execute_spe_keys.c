@@ -43,7 +43,7 @@ void	del_char(t_buf *input, int type, t_env **lst)
 		if (!input->x)
 			return ;
 		cursor_movement(input, -1);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		put_term_rout("dc");
 		ft_memmove(input->s + input->x, input->s + input->x + 1,
 			ft_strlen(input->s + input->x + 1) + 1);
 		reactualize_output(input, lst);
@@ -52,7 +52,7 @@ void	del_char(t_buf *input, int type, t_env **lst)
 	{
 		ft_memmove(input->s + input->x, input->s + input->x + 1,
 			ft_strlen(input->s + input->x + 1) + 1);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		put_term_rout("dc");
 		reactualize_output(input, lst);
 	}
 }

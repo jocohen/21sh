@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/16 18:53:47 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/18 12:00:41 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	char	**lexer;
 	t_ast	*lst;
 
-	(void)lst_env;
 	i = 0;
 	ft_putstr(ANSI_RED);
 	ft_printf("input = |%s|\n", input);

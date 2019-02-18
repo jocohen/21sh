@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/16 11:17:30 by tcollard         ###   ########.fr        #
+#    Updated: 2019/02/18 11:59:25 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -16,7 +16,7 @@ NAME = 21sh
 END = \x1b[0m
 GREEN = \x1b[32m
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 LDFLAGS = -Llibft
 LDLIBS = -lft -ltermcap
 
@@ -38,6 +38,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_LEXER)ft_splitwhitespace_shell.c \
 		$(PATH_LEXER)ft_strsplit_shell.c \
 		$(PATH_LEXER)replace_quote.c \
+		$(PATH_LEXER)replace_val_ret.c \
 		$(PATH_LEXER)check_cmd_pipe.c \
 		$(PATH_LEXER)lexer.c \
 		$(PATH_PARSER)parser.c \

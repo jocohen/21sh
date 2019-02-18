@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:09:22 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 12:08:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	check_last_char_column(t_buf *input)
 {
 	if (input->pos.l && !input->pos.c && isatty(0))
 	{
-		tputs(tgetstr("im", 0), 1, ft_writestdin);
+		put_term_rout("im");
 		write_str("c", 0);
 		input->pos.c += 1;
 		cursor_movement(input, -2);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
-		tputs(tgetstr("ei", 0), 1, ft_writestdin);
+		put_term_rout("dc");
+		put_term_rout("ei");
 	}
 }
 
@@ -76,6 +76,6 @@ void	check_resize_curs_pos(t_buf *input)
 		write_str("c", 0);
 		input->pos.c += 1;
 		cursor_movement(input, -2);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		put_term_rout("dc");
 	}
 }

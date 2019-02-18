@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/15 19:06:48 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/18 11:34:12 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		exec_rights(t_ast *elem, char **tab_path)
 	while (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0
 			&& tab_path[x])
 	{
-		ft_strcat(ft_strcat(ft_strcpy(path, tab_path[x++]), "/"), elem->input[0]);
+		ft_strcat(ft_strcat(ft_strcpy(path, tab_path[x++]), "/")
+				, elem->input[0]);
 		if (access(path, X_OK) == -1 && !access(path, F_OK))
 			return (exec_right_error(2, path));
 	}
@@ -34,7 +35,8 @@ void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path)
 	char	path[PATH_MAX];
 
 	x = 0;
-	execve(elem->input[0], elem->input, tab_env);
+	if (ft_strchr(elem->input[0], '/'))
+		execve(elem->input[0], elem->input, tab_env);
 	if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
 		while (tab_path[x])
 			execve(ft_strcat(ft_strcat(ft_strcpy(path,
@@ -42,7 +44,7 @@ void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path)
 	exit(exec_error(-1, elem->input[0]));
 }
 
-int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
+int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	pid_t	father;
 	char	**tab_env;

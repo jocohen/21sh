@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/16 14:42:48 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/18 12:00:49 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	short_cut(char **s, t_env *lst_env)
 	}
 }
 
-static void	replace_str(char **str, char *insert, int pos)
+void		replace_str(char **str, char *insert, int pos)
 {
 	char *begin;
 	char *end;
@@ -78,12 +78,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 		return (-1);
 	}
 	else if ((*str)[x] == '?')
-	{
-		ft_delete_inside(str, i, x + 1);
-		value = ft_itoa(ret_status());
-		replace_str(str, value, i);
-		ft_memdel((void **)&value);
-	}
+		replace_val_ret(str, i, x + 1);
 	else
 	{
 		key = ft_strsub(*str, i, x);

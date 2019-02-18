@@ -33,7 +33,7 @@ void	analyse_input(t_alloc *al, char k)
 {
 	if (k == 12)
 	{
-		tputs(tgetstr("cl", 0), 1, ft_writestdin);
+		put_term_rout("cl");
 		caller_display(*al->env, al->input, 0);
 		reactualize_output(al->input, al->env);
 	}

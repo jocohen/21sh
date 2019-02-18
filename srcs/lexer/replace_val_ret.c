@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   job_control.c                                      :+:      :+:    :+:   */
+/*   replace_val_ret.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/07 10:20:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 12:01:14 by jocohen          ###   ########.fr       */
+/*   Created: 2019/02/16 14:15:17 by jocohen           #+#    #+#             */
+/*   Updated: 2019/02/16 14:17:16 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int	job_control(t_ast *elem, t_env *lst_env)
+int		replace_val_ret(char **str, int i, int x)
 {
-	(void)elem;
-	(void)lst_env;
-	write(2, "21sh: no job control\n", 21);
-	return (1);
+	char	*value;
+
+	ft_delete_inside(str, i, x + 1);
+	value = ft_itoa(ret_status());
+	replace_str(str, value, i);
+	ft_memdel((void **)&value);
+	return (0);
 }

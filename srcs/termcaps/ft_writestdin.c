@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:33:57 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 18:06:06 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/16 13:36:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,14 @@ void	write_str(char *s, int c)
 		write(1, s, size);
 	else if (isatty(2))
 		write(2, s, size);
+}
+
+void	put_term_rout(char *s)
+{
+	char	*esc;
+
+	esc = 0;
+	esc = tgetstr(s, 0);
+	if (esc)
+		tputs(esc, 1, ft_writestdin);
 }

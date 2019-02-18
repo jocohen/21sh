@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 14:47:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/18 12:00:22 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void					vertical_cursor(t_buf *input, int direction);
 void					cursor_one_down(t_buf *input);
 void					up_into_final_pos(t_buf *input);
 void					replace_cursor(t_buf *input, size_t c, size_t l);
+void					put_term_rout(char *s);
 
 /*
 *********************************** SELECTION **********************************
@@ -219,7 +220,7 @@ void					cut_selection(t_buf *input, t_buf *selec, t_env **lst);
 
 void					caller_display(t_env *fp, t_buf *input,
 										int change_pos);
-int						ret_status();
+int						ret_status(void);
 void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
 void					reactualize_output(t_buf *input, t_env **lst);
@@ -246,7 +247,6 @@ void					ft_exit(int status);
 void					*ft_realloc(void *ptr, size_t size, size_t len);
 int						ft_writestdin(int c);
 
-
 /*
 ************************************ LEXER *************************************
 */
@@ -259,14 +259,13 @@ int						check_cmd_pipe(char **input, t_alloc *alloc);
 int						find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
-int						convert_quote(char **s, t_env **lst_env, t_alloc **alloc);
-void					remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc);
-void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+int						convert_quote(char **s, t_env **lst_env,
+						t_alloc **alloc);
+void					remove_quote(char **s, int *i, t_env *lst_env,
 						t_alloc **alloc);
 
-
 /*
-************************************ PARSER *************************************
+************************************ PARSER ************************************
 */
 void					parser(char **input, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
@@ -279,20 +278,22 @@ int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 */
 int						echo_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-int						cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+int						cd_builtins(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
 int						setenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 int						unsetenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 int						env_cp(char **env, t_env **lst_env);
-int						env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+int						env_builtins(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
 char					*get_env_value(t_env *lst_env, char *str);
-void					convert_lst_tab(t_env *lst_env, char ***_str);
-int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path);
+void					convert_lst_tab(t_env *lst_env, char ***tab_str);
+int						exec_input(t_ast *elem, t_env *lst_env,
+						char **tab_path);
 int						exec_rights(t_ast *elem, char **tab_path);
 int						exit_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-
 
 /*
 ********************************** OPERATOR ************************************
@@ -343,19 +344,26 @@ void					error_redir(char *file);
 void					error_access(char *file);
 int						exec_right_error(int err, char *files);
 
-/*******************************************************************************
+/*
+********************************************************************************
 *********************************** TOOLS **************************************
 ********************************************************************************
 */
+
 /*
 *********************************** LEXER **************************************
 */
 int						ft_isquote(char c);
 int						ft_isoperator(char c);
 int						ft_str_is_empty(char *s);
-void					ft_insert(char **source, char *insert, int pos1, int pos2);
+void					ft_insert(char **source, char *insert,
+						int pos1, int pos2);
 void					ft_delete_inside(char **source, int start, int len);
-char					*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc);
+char					*ft_back_quote(char *sub, t_env *lst_env,
+						t_alloc **alloc);
+int						replace_val_ret(char **str, int i, int x);
+void					replace_str(char **str, char *insert, int pos);
+
 
 /*
 ********************************** PARSER **************************************
