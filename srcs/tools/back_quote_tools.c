@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/16 14:49:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/18 11:51:31 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 	lexer_back_quote(str, &lst_env, *alloc);
 	free(sub);
 	sub = get_back_quote_exec();
-	while (sub[i])
+	while (sub && sub[i])
 		if (sub[i] == ' ' && sub[i + 1] == ' ')
 			ft_custom_memmove(&sub[i], &sub[i + 1], ft_strlen(&sub[i + 1]));
 		else
