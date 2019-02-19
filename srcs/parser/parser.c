@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 20:03:15 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:43:33 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
-
+	complete_heredoc(lst, alloc);
 	ft_printf("\nAST:\n");
 	read_sort_descent(sort, 0);
 	reinit_print(lst);

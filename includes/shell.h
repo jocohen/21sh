@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 20:17:44 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:43:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ int						job_control(t_ast *elem, t_env *lst_env);
 void					redirection(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+void					complete_heredoc(t_ast *lst, t_alloc **alloc);
 
 /*
 ******************************** REDIRECTION ***********************************
@@ -317,7 +318,6 @@ void					redirection_2(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					redirection_3(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-// int						heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 
 /*
 ******************************** REDIRECTION ***********************************

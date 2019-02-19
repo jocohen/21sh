@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 20:00:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:45:06 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,57 +43,60 @@ static int		pipe_exec(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	exit(ret);
 }
 
-static int		heredoc_content(t_alloc *alloc, t_ast *elem,
-								char **file, char *s)
+static int		heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
 {
-	*file = 0;
 	set_terminal(0);
 	while (1)
 	{
 		if (!(s = recall_prompt(alloc, 1)))
 		{
-			ft_memdel((void **)file);
+			ft_memdel((void **)elem->heredoc);
 			break ;
 		}
 		if (ft_strcmp((elem->right) ? elem->right->input[0] :
 		elem->input[1], s))
-			join_inputs(file, s);
+			join_inputs(&elem->heredoc, s);
 		else
 		{
 			free(s);
-			s = ft_strjoin(*file, "\n");
-			free(*file);
-			*file = s;
+			s = ft_strjoin(elem->heredoc, "\n");
+			free(elem->heredoc);
+			elem->heredoc = s;
 			break ;
 		}
 	}
 	set_terminal(1);
-	if (!*file)
-		return (0);
 	return (1);
 }
 
-static void		write_pipe(char *file, t_ast *elem)
+static void		write_pipe(t_ast *elem)
 {
 	close(elem->fd[0]);
 	dup2(elem->fd[1], STDOUT_FILENO);
 	close(elem->fd[1]);
-	// write_str(file, 0);
-	write(STDOUT_FILENO, file, ft_strlen(file));
+	write(STDOUT_FILENO, elem->heredoc, ft_strlen(elem->heredoc));
 	exit(0);
+}
+
+void			complete_heredoc(t_ast *lst, t_alloc **alloc)
+{
+	while (lst)
+	{
+		if (lst->type == HEREDOC)
+			heredoc_content(*alloc, lst, 0);
+		lst = lst->next;
+	}
 }
 
 void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	char	*file;
 	int		pid1;
 	int		pid2;
 
-	if (!elem->right || !elem->left || !heredoc_content(*alloc, elem, &file, 0)
-			|| pipe(elem->fd) == -1)
+	if (!elem->right || !elem->left || !elem->heredoc || pipe(elem->fd) == -1)
 		return ;
 	if (!(pid1 = fork()))
-		write_pipe(file, elem);
+		write_pipe(elem);
 	else
 	{
 		g_pid = pid1;
@@ -108,5 +111,5 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			waitpid(pid2, NULL, 0);
 		}
 	}
-	ft_memdel((void **)&file);
+	ft_memdel((void **)&elem->heredoc);
 }

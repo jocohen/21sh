@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:16:32 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/17 13:01:18 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 20:47:08 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	del_lst_ast(t_ast **lst)
 	while (tmp)
 	{
 		*lst = tmp->next;
+		ft_memdel((void **)&(tmp->heredoc));
 		delete_str_tab(tmp->input);
 		free(tmp);
 		tmp = *lst;
