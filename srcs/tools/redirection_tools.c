@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 15:14:59 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 15:06:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int		ft_is_redir(t_ast *elem, int fd[3], int fd_redir, int fd_open,
 		{
 			fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
 			ft_atoi(elem->input[0]) : 1;
-			fd_open = open((elem->right) ? elem->right->input[0] : elem->input[1] , O_WRONLY | O_CREAT
-				| ((i == 0) ? O_TRUNC : O_APPEND), 0644);
+			fd_open = open((elem->right) ? elem->right->input[0] :
+			elem->input[1] , O_WRONLY | O_CREAT | ((i == 0) ? O_TRUNC :
+			O_APPEND), 0644);
 			if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)
 			{
 				fd[fd_redir] = fd_open;
