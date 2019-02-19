@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 17:04:03 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 13:51:00 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		exec_rights(t_ast *elem, char **tab_path)
 	char	path[PATH_MAX];
 
 	x = 0;
+	if (ft_strchr(elem->input[0], '/') && access(elem->input[0], X_OK) == -1 && !access(elem->input[0], F_OK))
+		return (exec_right_error(2, elem->input[0]));
 	while (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0
 			&& tab_path[x])
 	{
