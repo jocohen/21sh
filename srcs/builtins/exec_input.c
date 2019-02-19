@@ -6,43 +6,71 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 13:51:00 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:50:11 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		exec_rights(t_ast *elem, char **tab_path)
+static char	**get_path_all(t_ast *elem, char **tab_path)
 {
-	int		x;
-	char	path[PATH_MAX];
+	size_t	len;
+	size_t	i;
+	char	*tmp;
+	char	**path_all;
+
+	len = 0;
+	i = 0;
+	tmp = NULL;
+	while (tab_path[len])
+		len += 1;
+	if (!(path_all = (char**)malloc(sizeof(char *) * (len + 1))))
+		return (NULL);
+	while (i < len)
+	{
+		tmp = ft_strjoin(tab_path[i], "/");
+		path_all[i] = ft_strjoin(tmp, elem->input[0]);
+		free(tmp);
+		i += 1;
+	}
+	path_all[i] = NULL;
+	return (path_all);
+}
+
+int		exec_rights(t_ast *elem, char **tab_path, char ***path_all)
+{
+	int	x;
 
 	x = 0;
-	if (ft_strchr(elem->input[0], '/') && access(elem->input[0], X_OK) == -1 && !access(elem->input[0], F_OK))
-		return (exec_right_error(2, elem->input[0]));
+	if (ft_strchr(elem->input[0], '/') && access(elem->input[0], X_OK) == -1
+		&& !access(elem->input[0], F_OK))
+		return (exec_right_error(2, elem->input[0], path_all));
+	if (!(*path_all = get_path_all(elem, tab_path)))
+		return (1);
 	while (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0
-			&& tab_path[x])
+			&& (*path_all)[x])
 	{
-		ft_strcat(ft_strcat(ft_strcpy(path, tab_path[x++]), "/")
-				, elem->input[0]);
-		if (access(path, X_OK) == -1 && !access(path, F_OK))
-			return (exec_right_error(2, path));
+		if (access((*path_all)[x], X_OK) == -1 && !access((*path_all)[x], F_OK))
+			return (exec_right_error(2, (*path_all)[x], path_all));
+		x += 1;
 	}
 	return (0);
 }
 
-void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path)
+static void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path,
+		char **path_all)
 {
 	int		x;
-	char	path[PATH_MAX];
 
 	x = 0;
 	if (ft_strchr(elem->input[0], '/'))
 		execve(elem->input[0], elem->input, tab_env);
 	if (tab_path && tab_path[0] != NULL && ft_strcmp(tab_path[0], "") != 0)
-		while (tab_path[x])
-			execve(ft_strcat(ft_strcat(ft_strcpy(path,
-			tab_path[x++]), "/"), elem->input[0]), elem->input, tab_env);
+		while (path_all[x] != NULL)
+		{
+			execve(path_all[x], elem->input, tab_env);
+			x += 1;
+		}
 	exit(exec_error(-1, elem->input[0]));
 }
 
@@ -50,7 +78,9 @@ int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	pid_t	father;
 	char	**tab_env;
+	char	**path_all;
 
+	path_all = NULL;
 	if (!tab_path)
 	{
 		if (!find_elem_env(&lst_env, "PATH"))
@@ -58,7 +88,7 @@ int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 		else
 			tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
 	}
-	if (exec_rights(elem, tab_path))
+	if (exec_rights(elem, tab_path, &path_all))
 		return (ret_status());
 	convert_lst_tab(lst_env, &tab_env);
 	if (!(father = fork()))
@@ -66,7 +96,7 @@ int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 		if (g_pid == -1)
 			exit(130);
 		g_in_exec = 1;
-		execute_cmd(elem, tab_env, tab_path);
+		execute_cmd(elem, tab_env, tab_path, path_all);
 	}
 	g_pid = father;
 	waitpid(father, &(g_ret[0]), 0);

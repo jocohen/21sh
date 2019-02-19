@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/18 12:02:46 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:14:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,12 @@ void			set_terminal(int reset)
 
 	if (!reset)
 	{
-		// signal(SIGINT, sig_kill);
+		signal(SIGINT, sig_kill);
 		signal(SIGWINCH, sig_window);
 		if (!isatty(0))
 			return ;
-		// if (!(termtype = ttyname(ttyslot())))
+		if (!(termtype = ttyname(ttyslot())))
 			termtype = "xterm-256color";
-			// termtype = ttyname(ttyslot());
-			// ft_printf("termtpe: |%s|\n", termtype);
 
 		if ((term_valid = tgetent(0, termtype)) == -1 || !term_valid)
 			ft_exit(0);

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 13:50:38 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:49:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,8 @@ char					*get_env_value(t_env *lst_env, char *str);
 void					convert_lst_tab(t_env *lst_env, char ***tab_str);
 int						exec_input(t_ast *elem, t_env *lst_env,
 						char **tab_path);
-int						exec_rights(t_ast *elem, char **tab_path);
+int						exec_rights(t_ast *elem, char **tab_path,
+						char ***path_all);
 int						exit_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 
@@ -344,7 +345,8 @@ int						error_unsetenv(int i, char *s);
 int						ft_fd_exist(char *str_fd);
 void					error_redir(char *file);
 void					error_access(char *file);
-int						exec_right_error(int err, char *files);
+int						exec_right_error(int err, char *files,
+						char ***path_all);
 
 /*
 ********************************************************************************

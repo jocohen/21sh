@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/15 13:05:45 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:48:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_error(int err, char *files)
 	return (127);
 }
 
-int	exec_right_error(int err, char *files)
+int	exec_right_error(int err, char *files, char ***path_all)
 {
 	if (err == 1)
 	{
@@ -37,5 +37,7 @@ int	exec_right_error(int err, char *files)
 		write(2, ": permission denied\n", 20);
 		g_ret[0] = 126;
 	}
+	if (*path_all != NULL)
+		delete_str_tab(*path_all);
 	return (1);
 }
