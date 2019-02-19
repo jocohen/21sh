@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/18 11:34:19 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:13:00 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int						window_width_size(void);
 void					check_resize_curs_pos(t_buf *input);
 void					vertical_cursor(t_buf *input, int direction);
 void					cursor_one_down(t_buf *input);
-void					up_into_final_pos(t_buf *input);
+void					up_into_final_pos(t_buf *input, int dir);
 void					replace_cursor(t_buf *input, size_t c, size_t l);
 void					put_term_rout(char *s);
 
