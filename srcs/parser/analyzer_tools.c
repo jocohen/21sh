@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 12:01:20 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:23:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,21 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
-	int	ret;
-
-	ret = 1;
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "&&") == 0)
 	{
-		ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
-			ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
+		analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
+			analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
 			return (0);
 	}
 	else if (ft_strcmp(elem->input[0], "||") == 0)
 	{
-		ret = analyzer(elem, lst_env, alloc);
-		if (ret != 0)
-			ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
+		analyzer(elem, lst_env, alloc);
+		if (ret_status() != 0)
+			analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
 			return (0);
 	}
 	return (-1);
