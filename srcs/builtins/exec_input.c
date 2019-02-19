@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 15:28:00 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 16:26:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	**get_path_all(t_ast *elem, char **tab_path)
 	return (path_all);
 }
 
-int		exec_rights(t_ast *elem, char **tab_path, char ***path_all)
+int			exec_rights(t_ast *elem, char **tab_path, char ***path_all)
 {
 	int	x;
 
@@ -74,7 +74,7 @@ static void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path,
 	exit(exec_error(-1, elem->input[0]));
 }
 
-int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
+int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	pid_t	father;
 	char	**tab_env;
@@ -82,12 +82,9 @@ int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 
 	path_all = NULL;
 	if (!tab_path)
-	{
-		if (!find_elem_env(&lst_env, "PATH"))
-			tab_path = ft_strsplit("/usr/bin:/bin:/usr/sbin:/sbin", ':');
-		else
-			tab_path = ft_strsplit(get_env_value(lst_env, "$PATH"), ':');
-	}
+		tab_path = (find_elem_env(&lst_env, "PATH")) ?
+		ft_strsplit(get_env_value(lst_env, "$PATH"), ':') :
+		ft_strsplit("/usr/bin:/bin:/usr/sbin:/sbin", ':');
 	if (exec_rights(elem, tab_path, &path_all))
 		return (ret_status());
 	convert_lst_tab(lst_env, &tab_env);
