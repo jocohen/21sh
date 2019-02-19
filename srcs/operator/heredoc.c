@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 14:11:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:03:43 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			waitpid(pid2, NULL, 0);
 		}
 	}
+	ft_memdel((void **)&file);
 }

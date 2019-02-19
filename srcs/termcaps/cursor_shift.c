@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 18:46:12 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:03:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,43 @@ void	vertical_cursor(t_buf *input, int direction)
 		cursor_one_down(input);
 }
 
-void	up_into_final_pos(t_buf *input)
+size_t	last_nl_pos(t_buf *input)
+{
+	size_t	x;
+	size_t	col;
+
+	col = 0;
+	x = input->x - 1;
+	while (x >= 0 && input->s[x] != '\n')
+	{
+		x -= 1;
+		col += 1;
+	}
+	return (col);
+}
+
+int		pos_nl(t_buf *input)
+{
+	size_t	x;
+
+	x = 0;
+	
+}
+
+void	up_into_final_pos(t_buf *input, int dir)
 {
 	int		x;
 
-	input->pos.c = window_width_size() - 1;
+	if (input->s[input->x] == '\n')
+	{
+		input->pos.c = last_nl_pos(input);
+		input->x += 1;
+	}
+	else
+		input->pos.c = window_width_size() - 1;
 	input->pos.l -= 1;
 	put_term_rout("up");
-	x = window_width_size() - 1;
+	x = input->pos.c;
 	while (x)
 	{
 		put_term_rout("nd");
@@ -79,7 +108,7 @@ void	cursor_movement(t_buf *input, int dir)
 	{
 		(dir != -2) ? input->x -= 1 : 0;
 		if (input->pos.l && !input->pos.c)
-			return (up_into_final_pos(input));
+			return (up_into_final_pos(input, dir));
 		input->pos.c -= 1;
 		put_term_rout("le");
 	}
