@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/18 18:24:26 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:02:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,12 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	if (!heredoc_content(*alloc, elem, &file, 0))
 		return ;
 	pipe(elem->fd);
-	pid1 = fork();
-	if (!pid1)
+	if (!(pid1 = fork()))
 		write_pipe(file, elem);
 	else
 	{
 		g_pid = pid1;
-		pid2 = fork();
-		if (!pid2)
+		if (!(pid2 = fork()))
 			pipe_exec(elem->left, lst_env, alloc);
 		else
 		{
@@ -108,4 +106,5 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			waitpid(pid2, NULL, 0);
 		}
 	}
+	ft_memdel((void **)&file);
 }

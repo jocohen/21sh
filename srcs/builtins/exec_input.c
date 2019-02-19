@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 14:50:11 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 15:28:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int		exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	waitpid(father, &(g_ret[0]), 0);
 	g_ret[1] = 1;
 	del_double_tab(tab_path, tab_env);
+	delete_str_tab(path_all);
 	return (ret_status());
 }
