@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 14:49:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:17:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@
 ************************************ DEFINE ************************************
 */
 
-# define NO_TYPE 	-1
-# define CMD		0
-# define LOGIC		1
+# define LOGIC		5
+# define OPERATOR	4
+# define AGREG		3
 # define REDIR		2
-# define OPERATOR	3
-# define AGREG		4
+# define HEREDOC	1
+# define CMD		0
+# define NO_TYPE 	-1
 
 /*
 ********************************** STRUCTURES **********************************
@@ -73,8 +74,8 @@ typedef struct			s_ast
 	int					print;
 	int					fd[2];
 	int					type;
+	char				*heredoc;
 	char				**input;
-	struct s_ast		*back_quote;
 	struct s_ast		*next;
 	struct s_ast		*back;
 	struct s_ast		*left;

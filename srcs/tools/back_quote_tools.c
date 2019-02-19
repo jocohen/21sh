@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 12:12:31 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:45:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*get_back_quote_exec(void)
 	return (sub);
 }
 
-static void		lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
+static void	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 {
 	int		i;
 	char	**lexer;
@@ -69,7 +69,6 @@ static void		lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 	set_terminal(0);
 	ft_memdel((void **)&input);
 }
-
 
 char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 {

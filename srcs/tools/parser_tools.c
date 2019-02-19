@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/29 16:47:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:18:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_ast	*create_new_elem(t_ast **lst)
 	new->fd[1] = -1;
 	new->type = NO_TYPE;
 	new->input = NULL;
-	new->back_quote = NULL;
+	new->heredoc = NULL;
 	new->next = NULL;
 	new->back = NULL;
 	new->left = NULL;

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 16:02:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:00:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem,
 			ft_memdel((void **)file);
 			break ;
 		}
-		if (ft_strcmp((elem->right) ? elem->right->input[0] : elem->input[1], s))
+		if (ft_strcmp((elem->right) ? elem->right->input[0] :
+		elem->input[1], s))
 			join_inputs(file, s);
 		else
 		{
@@ -77,7 +78,8 @@ static void		write_pipe(char *file, t_ast *elem)
 	close(elem->fd[0]);
 	dup2(elem->fd[1], STDOUT_FILENO);
 	close(elem->fd[1]);
-	write_str(file, 0);
+	// write_str(file, 0);
+	write(STDOUT_FILENO, file, ft_strlen(file));
 	exit(0);
 }
 
@@ -87,9 +89,9 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int		pid1;
 	int		pid2;
 
-	if (!heredoc_content(*alloc, elem, &file, 0))
+	if (!elem->right || !elem->left || !heredoc_content(*alloc, elem, &file, 0)
+			|| pipe(elem->fd) == -1)
 		return ;
-	pipe(elem->fd);
 	if (!(pid1 = fork()))
 		write_pipe(file, elem);
 	else

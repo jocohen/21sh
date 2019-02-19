@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 13:51:26 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:27:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+void		read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	t_alloc **alloc)
 {
 	int	i;
@@ -32,10 +32,6 @@ void	read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 	}
 	(lexer != NULL) ? free(lexer) : 0;
 }
-
-/*
-** exit si ctrl c dans le recall du prompt
-*/
 
 void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 {

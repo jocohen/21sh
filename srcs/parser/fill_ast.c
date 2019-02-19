@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/18 15:45:34 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 17:49:09 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static void	fill_input_redir(char *s, t_ast *elem)
 				}
 				i += 1;
 			}
-			elem->input[wd] = (c == '\0') ? ft_strsub(s, save, i - save) :ft_strsub(s, save,  i - save + 3);
+			elem->input[wd] = (c == '\0') ? ft_strsub(s, save, i - save) :
+			ft_strsub(s, save,  i - save + 3);
 			wd += 1;
 			save = i;
 		}
@@ -137,8 +138,10 @@ static void	fill_operator(char **s, int i, int x, t_ast *elem)
 		if (ft_strlen(operator[z]) == len && ft_strncmp(&s[i][x], operator[z],
 			len) == 0)
 			break ;
-	if (z < 7)
+	if (z < 6)
 		elem->type = REDIR;
+	else if (z == 6)
+		elem->type = HEREDOC;
 	else if (z < 12)
 		elem->type = AGREG;
 	else if (z < 14)
@@ -148,13 +151,23 @@ static void	fill_operator(char **s, int i, int x, t_ast *elem)
 	split_redir(s[i], elem);
 }
 
+static void	go_end_quote(char **s, int i, int *x)
+{
+	char	c;
+
+	c = s[i][*x];
+	*x += 1;
+	while (s[i][*x] && s[i][*x] != c)
+		*x += 1;
+	*x += 1;
+}
+
 void		fill_ast(char **s, t_ast **lst)
 {
 	t_ast	*new;
 	int		i;
 	int		x;
 	int		save;
-	char	c;
 
 	i = -1;
 	save = 0;
@@ -163,7 +176,6 @@ void		fill_ast(char **s, t_ast **lst)
 	{
 		x = -1;
 		while (s[i][++x])
-		{
 			if (ft_isoperator(s[i][0]) == 1 || (ft_isoperator(s[i][x]) == 1
 			&& ft_isdigit(s[i][x - 1]) == 1))
 			{
@@ -176,14 +188,9 @@ void		fill_ast(char **s, t_ast **lst)
 			}
 			else if (ft_isquote(s[i][x]) == 1)
 			{
-				c = s[i][x];
-				x += 1;
-				while (s[i][x] && s[i][x] != c)
-					x += 1;
-				x += 1;
+				go_end_quote(s, i, &x);
 				break ;
 			}
-		}
 	}
 	(new->type != NO_TYPE && i != save) ? new = add_new_elem(lst) : 0;
 	(i != save) ? fill_input(s, i, save, new) : 0;

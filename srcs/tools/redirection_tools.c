@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 15:06:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 20:07:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_is_redir(t_ast *elem, int fd[3], int fd_redir, int fd_open,
 		t_alloc *alloc)
 {
-	static char		*tab_redir[7] = {">", ">>", ">>&", "<", "<<<", "<>", "<<"};
+	static char		*tab_redir[6] = {">", ">>", ">>&", "<", "<<<", "<>"};
 	int				i;
 
 	i = -1;

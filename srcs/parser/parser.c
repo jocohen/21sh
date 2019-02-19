@@ -6,175 +6,85 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 13:51:38 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/19 20:03:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static t_ast	*get_available_node(t_ast **sort)
+
+
+static void			read_sort_descent(t_ast *sort, int w)
 {
 	t_ast	*tmp;
-
-	tmp = *sort;
-	if (tmp && (ft_strcmp(tmp->input[0], "||") == 0
-	|| ft_strcmp(tmp->input[0], "&&") == 0))
+	int		i;
+	tmp = sort;
+	if (w)
+		return ;
+	ft_printf("A GAUCHE  \n");
+	while (tmp->left)
 	{
-		if (tmp->right)
+		ft_printf("type= %d\n", tmp->type);
+		i = 0;
+		while (tmp->input[i])
 		{
-			while (tmp->right && tmp->right->type != CMD)
-				tmp = tmp->right;
-			return (tmp);
+			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+			i += 1;
 		}
+		tmp->print = 1;
+		tmp = tmp->left;
 	}
-	return (tmp);
-}
-
-static void		link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
-{
-	t_ast	*or;
-
-	or = node;
-	while (or && ft_strcmp(or->input[0], "||") != 0
-	&& ft_strcmp(or->input[0], "&&") != 0)
-		or = or->back;
-	if (!node->right && node->type != CMD)
+	ft_printf("\ntype= %d\n", tmp->type);
+	i = 0;
+	while (tmp->input[i])
 	{
-		node->right = tmp;
-		tmp->back = node;
+		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+		i += 1;
 	}
-	else if (node->type == CMD || or == NULL)
-	{
-		tmp->left = *sort;
-		(*sort)->back = tmp;
-		*sort = tmp;
-	}
-	else if (node->right->type == CMD && or)
-	{
-		tmp->left = node->right;
-		node->right->back = tmp;
-		tmp->back = node;
-		node->right = tmp;
-	}
-}
-
-static void		sort_ast(t_ast *lst, t_ast **sort)
-{
-	t_ast	*tmp;
-	t_ast	*node;
-
-	*sort = lst;
-	tmp = lst->next;
+	tmp->print = 1;
 	while (tmp)
 	{
-		node = get_available_node(sort);
-		if (ft_strcmp(tmp->input[0], "||") == 0
-		|| ft_strcmp(tmp->input[0], "&&") == 0)
+		if (tmp->left && tmp->left->print == 0)
 		{
-			tmp->left = *sort;
-			(*sort)->back = tmp;
-			*sort = tmp;
+			tmp = tmp->left;
+			ft_printf("A GAUCHE DE %s  type= %d\n", tmp->back->input[0], tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
 		}
-		else if (tmp->type != CMD)
-			link_new_node(sort, tmp, node);
-		else if (tmp->type == CMD)
+		else if (tmp->right && tmp->right->print == 0)
 		{
-			(!node->left) ? node->left = tmp : 0;
-			(!node->right) ? node->right = tmp : 0;
-			tmp->back = node;
+			tmp = tmp->right;
+			ft_printf("A DROITE DE %s type= %d\n", tmp->back->input[0], tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
 		}
+		else
+			tmp = tmp->back;
+	}
+}
+
+
+
+static void		reinit_print(t_ast *lst)
+{
+	t_ast	*tmp;
+	tmp = lst;
+	while (tmp)
+	{
+		tmp->print = 0;
 		tmp = tmp->next;
 	}
 }
-
-// static void	read_lst(t_ast *lst)
-// {
-// 	t_ast	*tmp;
-// 	int		x;
-// 	int		i;
-// 	i = 0;
-// 	tmp = lst;
-// 	while (tmp)
-// 	{
-// 		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
-// 		x = 0;
-// 		while (tmp->input[x])
-// 		{
-// 			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
-// 			x += 1;
-// 		}
-// 		ft_printf("\n\n");
-// 		tmp = tmp->next;
-// 		i += 1;
-// 	}
-// }
-
-// static void			read_sort_descent(t_ast *sort)
-// {
-// 	t_ast	*tmp;
-// 	int		i;
-// 	tmp = sort;
-// 	while (tmp->left)
-// 	{
-// 		ft_printf("\ntype= %d\n", tmp->type);
-// 		i = 0;
-// 		while (tmp->input[i])
-// 		{
-// 			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 			i += 1;
-// 		}
-// 		tmp->print = 1;
-// 		tmp = tmp->left;
-// 	}
-// 	ft_printf("\ntype= %d\n", tmp->type);
-// 	i = 0;
-// 	while (tmp->input[i])
-// 	{
-// 		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 		i += 1;
-// 	}
-// 	tmp->print = 1;
-// 	while (tmp)
-// 	{
-// 		if (tmp->left && tmp->left->print == 0)
-// 		{
-// 			tmp = tmp->left;
-// 			ft_printf("\ntype= %d\n", tmp->type);
-// 			i = 0;
-// 			while (tmp->input[i])
-// 			{
-// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 				i += 1;
-// 			}
-// 			tmp->print = 1;
-// 		}
-// 		else if (tmp->right && tmp->right->print == 0)
-// 		{
-// 			tmp = tmp->right;
-// 			ft_printf("\ntype= %d\n", tmp->type);
-// 			i = 0;
-// 			while (tmp->input[i])
-// 			{
-// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 				i += 1;
-// 			}
-// 			tmp->print = 1;
-// 		}
-// 		else
-// 			tmp = tmp->back;
-// 	}
-// }
-
-// static void		reinit_print(t_ast *lst)
-// {
-// 	t_ast	*tmp;
-// 	tmp = lst;
-// 	while (tmp)
-// 	{
-// 		tmp->print = 0;
-// 		tmp = tmp->next;
-// 	}
-// }
 
 // static void		read_sort(t_ast *sort)
 // {
@@ -229,6 +139,97 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 // 	}
 // }
 
+
+
+
+
+
+
+
+
+
+
+static t_ast	*get_available_node(t_ast **sort)
+{
+	t_ast	*tmp;
+
+	tmp = *sort;
+	// if (tmp && (ft_strcmp(tmp->input[0], "||") == 0
+	// || ft_strcmp(tmp->input[0], "&&") == 0))
+	if (tmp && (tmp->type == OPERATOR || tmp->type == LOGIC))
+	{
+		if (tmp->right)
+		{
+			while (tmp->right && tmp->right->type != CMD)
+				tmp = tmp->right;
+			return (tmp);
+		}
+	}
+	return (tmp);
+}
+
+static void		link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
+{
+	t_ast	*or;
+
+	or = node;
+	while (or && tmp->type >= or->type)
+		or = or->back;
+	if (!node->right && node->type != CMD)
+	{
+		node->right = tmp;
+		tmp->back = node;
+	}
+	else if (node->type == CMD || or == NULL)
+	{
+		tmp->left = *sort;
+		(*sort)->back = tmp;
+		*sort = tmp;
+	}
+	else if (node->type < tmp->type)
+	{
+		tmp->left = node;
+		tmp->back = node->back;
+		node->back->right = tmp;
+		node->back = tmp;
+	}
+	else if (node->right->type == CMD && or)
+	{
+		tmp->left = node->right;
+		node->right->back = tmp;
+		tmp->back = node;
+		node->right = tmp;
+	}
+}
+
+static void		sort_ast(t_ast *lst, t_ast **sort)
+{
+	t_ast	*tmp;
+	t_ast	*node;
+
+	*sort = lst;
+	tmp = lst->next;
+	while (tmp)
+	{
+		node = get_available_node(sort);
+		if (tmp->type == LOGIC)
+		{
+			tmp->left = *sort;
+			(*sort)->back = tmp;
+			*sort = tmp;
+		}
+		else if (tmp->type != CMD)
+			link_new_node(sort, tmp, node);
+		else if (tmp->type == CMD)
+		{
+			(!node->left) ? node->left = tmp : 0;
+			(!node->right) ? node->right = tmp : 0;
+			tmp->back = node;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void			parser(char **input, t_ast *lst, t_env **lst_env,
 				t_alloc **alloc)
 {
@@ -253,29 +254,14 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
-	i = 0;
-	// read_sort_descent(sort);
-	// ft_printf("\n== READ LIST ==\n\n");
-	// read_lst(lst);
-	// ft_printf("\n=== READ SORT ==\n\n");
-	// read_sort(sort);
-	// reinit_print(lst);
-	// ft_printf("\n=== READ SORT DESCENT ==\n\n");
-	// read_sort_descent(sort);
-	// reinit_print(sort);
 
+	ft_printf("\nAST:\n");
+	read_sort_descent(sort, 0);
+	reinit_print(lst);
+	ft_printf("END READ\n\n");
 
 	(*alloc)->ast = &lst;
 	analyzer(sort, lst_env, alloc);
 	(input) ? delete_str_tab(input) : 0;
 	del_lst_ast(&lst);
 }
-
-
-// ft_printf("\n== READ LIST ==\n\n");
-// read_lst(lst);
-// ft_printf("\n=== READ SORT ==\n\n");
-// read_sort(sort);
-// reinit_print(lst);
-// ft_printf("\n=== READ SORT DESCENT ==\n\n");
-// read_sort_descent(sort);
