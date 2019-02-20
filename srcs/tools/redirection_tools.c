@@ -6,14 +6,35 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 20:07:30 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:04:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int		ft_is_redir(t_ast *elem, int fd[3], int fd_redir, int fd_open,
-		t_alloc *alloc)
+static void	redir_to_file(t_ast *elem, t_alloc *alloc, int fd[3], int i)
+{
+	int				fd_redir;
+	int				fd_open;
+
+	fd_redir = -1;
+	fd_open = -1;
+	fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
+	ft_atoi(elem->input[0]) : 1;
+	fd_open = open((elem->right) ? elem->right->input[0] :
+	elem->input[1], O_WRONLY | O_CREAT | ((i == 0) ? O_TRUNC :
+	O_APPEND), 0644);
+	if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)
+	{
+		fd[fd_redir] = fd_open;
+		alloc->fd[fd_redir] = dup(fd_redir);
+		dup2(fd_open, fd_redir);
+	}
+	else
+		close(fd_open);
+}
+
+int			ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc)
 {
 	static char		*tab_redir[6] = {">", ">>", ">>&", "<", "<<<", "<>"};
 	int				i;
@@ -25,25 +46,13 @@ int		ft_is_redir(t_ast *elem, int fd[3], int fd_redir, int fd_open,
 		if (ft_strcmp(elem->input[0], tab_redir[i]) == 0
 			|| ft_strcmp(elem->input[1], tab_redir[i]) == 0)
 		{
-			fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
-			ft_atoi(elem->input[0]) : 1;
-			fd_open = open((elem->right) ? elem->right->input[0] :
-			elem->input[1] , O_WRONLY | O_CREAT | ((i == 0) ? O_TRUNC :
-			O_APPEND), 0644);
-			if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)
-			{
-				fd[fd_redir] = fd_open;
-				alloc->fd[fd_redir] = dup(fd_redir);
-				dup2(fd_open, fd_redir);
-			}
-			else
-				close(fd_open);
+			redir_to_file(elem, alloc, fd, i);
 			return (1);
 		}
 	return (0);
 }
 
-void	reinit_fd(int fd[3], t_alloc *alloc)
+void		reinit_fd(int fd[3], t_alloc *alloc)
 {
 	if (fd[1] != -1)
 	{

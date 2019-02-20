@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 20:04:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:36:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,8 @@ int	analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 	ret = 0;
 	tmp = sort;
 	tab_path = NULL;
-
 	if (tmp && tmp->print == 0)
 	{
-		if (!isatty(0))
-		{
-			ft_putstr_fd("ELEM2: ", 2);
-			ft_putendl_fd(tmp->input[0], 2);
-			ft_putstr_fd("ELEMBACK2: ", 2);
-			ft_putendl_fd((tmp->back) ? tmp->back->input[0] : "no", 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else if (!isatty(1))
-		{
-			ft_putstr_fd("ELEM1: ", 2);
-			ft_putendl_fd(tmp->input[0], 2);
-			ft_putstr_fd("ELEMBACK1: ", 2);
-			ft_putendl_fd((tmp->back) ? tmp->back->input[0] : "no", 2);
-			ft_putchar_fd('\n', 2);
-		}
-		else
-		{
-		ft_putstr_fd("ELEM: ", 2);
-	   ft_putendl_fd(tmp->input[0], 2);
-	   ft_putstr_fd("ELEMBACK: ", 2);
-	   ft_putendl_fd((tmp->back) ? tmp->back->input[0] : "no", 2);
-	   ft_putchar_fd('\n', 2);
-		}
 		tmp->print = 1;
 		return (dispatch[tmp->type](tmp, lst_env, tab_path, alloc));
 	}

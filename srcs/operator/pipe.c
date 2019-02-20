@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 19:50:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:19:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	process_pipe_left(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int	ret;
 
-	ft_printf("\nPIPE LEFT %s\n\n", elem->input[0]);
 	close(elem->back->fd[0]);
 	dup2(elem->back->fd[1], STDOUT_FILENO);
 	close(elem->back->fd[1]);
@@ -28,7 +27,6 @@ static int	process_pipe_right(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
 	int	ret;
 
-	ft_printf("\nPIPE RIGHT %s\n\n", elem->input[0]);
 	close(elem->back->fd[1]);
 	dup2(elem->back->fd[0], STDIN_FILENO);
 	close(elem->back->fd[0]);
