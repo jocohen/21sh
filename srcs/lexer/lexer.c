@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 12:14:48 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 12:19:10 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	i = (input[i] == ';' && input[i + 1] != ';') ? 1 : 0;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
-		g_pid = 0;
 		ft_memdel((void **)&input);
 		return ;
 	}

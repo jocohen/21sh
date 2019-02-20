@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 13:51:57 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 12:21:29 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ char	*recall_prompt(t_alloc *al, int type)
 		input = "pipe";
 	else if (type == 6)
 		input = "cmdand";
-	else if (type == 7)
-		input = "cmdor";
+	(type == 7) ? input = "cmdor" : 0;
 	alloc.history = al->history;
 	alloc.env = al->env;
 	out = read_input(&alloc);
 	input = 0;
+	(!out) ? g_pid = 0 : 0;
 	return (out);
 }
 
