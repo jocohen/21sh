@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:21:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:40:05 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	home_end_move(t_buf *input, char k)
 			cursor_movement(input, 1);
 }
 
-void	arrow_move(t_buf *input, char k, t_historic **history, t_env **lst)
+void	arrow_move(t_buf *input, char k,
+					t_historic **history, t_env **lst)
 {
 	if (k == 68 && input->x)
 		cursor_movement(input, -1);
@@ -79,7 +80,8 @@ void	arrow_move(t_buf *input, char k, t_historic **history, t_env **lst)
 		historic_move(input, history, 1, lst);
 }
 
-void	page_move(t_buf *input, char k, t_historic **history, t_env **lst)
+void	page_move(t_buf *input, char k,
+					t_historic **history, t_env **lst)
 {
 	if (k == 53)
 		historic_move(input, history, -1, lst);

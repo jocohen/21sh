@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 16:36:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 13:09:45 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char	*read_and_sig(t_alloc *al, char *k, int stdin_cpy)
 
 char	*read_input(t_alloc *al)
 {
-	char		k;
-	t_buf		input;
-	int			stdin_cpy;
+	char			k;
+	t_buf			input;
+	int				stdin_cpy;
 
 	al->input = &input;
 	al->input->buf_size = 128;
