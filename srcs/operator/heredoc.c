@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/19 20:45:06 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 12:14:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
 	{
 		if (!(s = recall_prompt(alloc, 1)))
 		{
-			ft_memdel((void **)elem->heredoc);
+			ft_memdel((void **)&(elem->heredoc));
 			break ;
 		}
 		if (ft_strcmp((elem->right) ? elem->right->input[0] :
@@ -66,7 +66,9 @@ static int		heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
 		}
 	}
 	set_terminal(1);
-	return (1);
+	if (elem->heredoc)
+		return (1);
+	return (0);
 }
 
 static void		write_pipe(t_ast *elem)
@@ -78,14 +80,18 @@ static void		write_pipe(t_ast *elem)
 	exit(0);
 }
 
-void			complete_heredoc(t_ast *lst, t_alloc **alloc)
+int				complete_heredoc(t_ast *lst, t_alloc **alloc)
 {
 	while (lst)
 	{
 		if (lst->type == HEREDOC)
-			heredoc_content(*alloc, lst, 0);
+		{
+			if (!heredoc_content(*alloc, lst, 0))
+				return (0);
+		}
 		lst = lst->next;
 	}
+	return (1);
 }
 
 void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
