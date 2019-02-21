@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 12:12:53 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 12:20:34 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,7 @@ void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 */
 void					parser(char **input, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
-void					fill_ast(char **s, t_ast **lst);
+void					fill_ast(char **s, t_ast **lst, int save);
 void					replace_quote(char *s, int *i);
 int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 
@@ -375,7 +375,6 @@ char					*ft_back_quote(char *sub, t_env *lst_env,
 int						replace_val_ret(char **str, int i, int x);
 void					replace_str(char **str, char *insert, int pos);
 
-
 /*
 ********************************** PARSER **************************************
 */
@@ -438,13 +437,19 @@ char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
 void					init_ast(char **input, char *s);
-void 					reinit_fd(int fd[3], t_alloc *alloc);
+void					reinit_fd(int fd[3], t_alloc *alloc);
+void					link_new_node(t_ast **sort, t_ast *tmp, t_ast *node);
+void					fill_input(char **s, int end, int start, t_ast *elem);
+void					get_last_index_split(int *i, char *s, int *wd);
 int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
-int						ft_is_redir(t_ast *elem, int fd[3], int fd_redir,
-						int fd_open, t_alloc *alloc);
+int						ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc);
 int						ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc);
-// int						ft_is_redir2(t_ast *elem, int fd[3], int fd_redir,
-// 						int fd_open);
-
+int						heredoc_content(t_alloc *alloc, t_ast *elem, char *s);
+int						get_last_index(int *i, char *s, int *save,
+						char **input);
+int						get_last_operator(int *i, char *s, int *save,
+						char **input);
+int						get_last_digit(int *i, char *s, int *save,
+						char **input);
 #endif

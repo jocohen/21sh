@@ -6,27 +6,11 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/20 16:29:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 12:21:00 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
-static void		join_inputs(char **input, char *s)
-{
-	char	*tmp;
-
-	if (*input == NULL)
-		*input = ft_strdup(s);
-	else
-	{
-		tmp = ft_strjoin(*input, "\n");
-		free(*input);
-		*input = ft_strjoin(tmp, s);
-		free(tmp);
-	}
-	free(s);
-}
 
 static int		pipe_exec(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
@@ -41,34 +25,6 @@ static int		pipe_exec(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	close(elem->back->fd[0]);
 	ret = analyzer(tmp, lst_env, alloc);
 	exit(ret);
-}
-
-static int		heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
-{
-	set_terminal(0);
-	while (1)
-	{
-		if (!(s = recall_prompt(alloc, 1)))
-		{
-			ft_memdel((void **)&(elem->heredoc));
-			break ;
-		}
-		if (ft_strcmp((elem->right) ? elem->right->input[0] :
-		elem->input[1], s))
-			join_inputs(&elem->heredoc, s);
-		else
-		{
-			free(s);
-			s = ft_strjoin(elem->heredoc, "\n");
-			free(elem->heredoc);
-			elem->heredoc = s;
-			break ;
-		}
-	}
-	set_terminal(1);
-	if (elem->heredoc)
-		return (1);
-	return (0);
 }
 
 static void		write_pipe(t_ast *elem)
@@ -114,7 +70,8 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 			close(elem->fd[1]);
 			close(elem->fd[0]);
 			waitpid(pid1, NULL, 0);
-			waitpid(pid2, NULL, 0);
+			waitpid(pid2, &g_ret[0], 0);
+			g_ret[1] = 1;
 		}
 	}
 	ft_memdel((void **)&elem->heredoc);

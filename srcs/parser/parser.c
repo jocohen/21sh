@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 12:04:08 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 15:28:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,6 @@ static t_ast	*get_available_node(t_ast **sort)
 		}
 	}
 	return (tmp);
-}
-
-static void		link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
-{
-	t_ast	*or;
-
-	or = node;
-	while (or && tmp->type >= or->type)
-		or = or->back;
-	if (!node->right && node->type != CMD)
-	{
-		node->right = tmp;
-		tmp->back = node;
-	}
-	else if (node->type == CMD || or == NULL)
-	{
-		tmp->left = *sort;
-		(*sort)->back = tmp;
-		*sort = tmp;
-	}
-	else if (node->type < tmp->type)
-	{
-		tmp->left = node;
-		tmp->back = node->back;
-		node->back->right = tmp;
-		node->back = tmp;
-	}
-	else if (node->right->type == CMD && or)
-	{
-		tmp->left = node->right;
-		node->right->back = tmp;
-		tmp->back = node;
-		node->right = tmp;
-	}
 }
 
 static void		sort_ast(t_ast *lst, t_ast **sort)
@@ -104,7 +70,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		g_ret[0] = 1;
 		return ;
 	}
-	fill_ast(input, &lst);
+	fill_ast(input, &lst, 0);
 	sort = lst;
 	while (sort)
 	{
@@ -116,8 +82,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	}
 	sort_ast(lst, &sort);
 	(*alloc)->ast = &lst;
-	if (complete_heredoc(lst, alloc))
-		analyzer(sort, lst_env, alloc);
+	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	(input) ? delete_str_tab(input) : 0;
 	del_lst_ast(&lst);
 }

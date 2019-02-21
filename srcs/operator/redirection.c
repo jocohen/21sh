@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:14:55 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 16:26:53 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 12:20:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	redirection_1(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_redir(elem, fd, -1, -1, *alloc) == 1)
+	while (ft_is_redir(elem, fd, *alloc) == 1)
 		elem = elem->left;
 	elem = elem->back;
 	analyzer(elem->left, lst_env, alloc);
@@ -35,7 +35,7 @@ void	redirection_2(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_redir(elem, fd, -1, -1, *alloc) == 1)
+	while (ft_is_redir(elem, fd, *alloc) == 1)
 		elem = elem->left;
 	elem = elem->back;
 	analyzer(elem->left, lst_env, alloc);

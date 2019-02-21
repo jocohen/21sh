@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 16:39:38 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 18:02:06 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:42:21 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int			conv_c(va_list *ap, char **var, t_flag *tab_p)
 	char	z;
 
 	z = ' ';
-	*var = ft_memalloc(2);
+	if (!(*var = ft_memalloc(2)))
+		return (0);
 	**var = (int)va_arg(*ap, int);
 	if (**var == 0)
 	{

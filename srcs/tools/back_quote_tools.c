@@ -6,15 +6,14 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 16:45:07 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:36:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static char	*get_back_quote_exec(void)
+static char	*get_back_quote_exec(int fd)
 {
-	int		fd;
 	char	*str;
 	char	*tmp;
 	char	*sub;
@@ -80,7 +79,7 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 	str = ft_strjoin(sub, " > /tmp/.back_quote.txt 2>&1");
 	lexer_back_quote(str, &lst_env, *alloc);
 	free(sub);
-	sub = get_back_quote_exec();
+	sub = get_back_quote_exec(0);
 	while (sub && sub[i])
 		if (sub[i] == ' ' && sub[i + 1] == ' ')
 			ft_custom_memmove(&sub[i], &sub[i + 1], ft_strlen(&sub[i + 1]));

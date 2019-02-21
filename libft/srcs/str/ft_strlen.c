@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 10:45:09 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/27 18:58:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 09:56:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ size_t	ft_strlen(const char *str)
 
 	i = 0;
 	while (str && str[i] != '\0')
-	{
-		i++;
-	}
+		i += 1;
 	return (i);
 }

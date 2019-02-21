@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:58:53 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/07 13:25:27 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 17:32:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 void	ft_exit(int status)
 {
-	if (!status)
-	{
-		exit(EXIT_FAILURE);
-	}
+	exit(status);
 }

@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/21 11:51:03 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/21 12:20:26 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -65,6 +65,9 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)agreg_tools.c \
 		$(PATH_TOOLS)builtins_tools.c \
 		$(PATH_TOOLS)back_quote_tools.c \
+		$(PATH_TOOLS)heredoc_tools.c \
+		$(PATH_TOOLS)ast_tools.c \
+		$(PATH_TOOLS)fill_ast_tools.c \
 		$(PATH_OPERATOR)pipe.c \
 		$(PATH_OPERATOR)job_control.c \
 		$(PATH_OPERATOR)redirection.c \
