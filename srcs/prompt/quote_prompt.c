@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 15:00:27 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:06:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 21:01:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	*missing_quote_prompt(char c, t_alloc *al)
 		else if (c == '`')
 			s = recall_prompt(al, 4);
 		if (!s)
+		{
+			ft_memdel((void **)&input);
 			return (0);
+		}
 		check_closing_quote(&c, s, &input, al);
 		ft_memdel((void **)&s);
 	}

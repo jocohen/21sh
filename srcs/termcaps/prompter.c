@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 16:03:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 20:44:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ char	*read_input(t_alloc *al)
 	while (1)
 	{
 		if (!read_and_sig(al, &k, stdin_cpy))
+		{
+			ft_memdel((void **)&(al->input->s));
 			return (0);
+		}
 		if (!kill_or_give(al, k))
 			break ;
 		else if (k == 10 && recall_prompt(al, -1))
