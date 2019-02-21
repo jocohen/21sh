@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 17:56:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:30:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void			set_terminal(int reset)
 			return ;
 		if (!(termtype = ttyname(ttyslot())))
 			termtype = "xterm-256color";
-			// (!(termtype = ft_strdup("xterm-256color"))) ? ft_exit_malloc() : 0;
 		if ((term_valid = tgetent(0, termtype)) == -1 || !term_valid)
 			ft_exit(0);
 		if ((tcgetattr(0, &old)) == -1 || (tcgetattr(0, &term)) == -1)
@@ -48,7 +47,6 @@ void			set_terminal(int reset)
 		term.c_cc[VTIME] = 0;
 		if ((tcsetattr(STDIN_FILENO, TCSADRAIN, &term)) == -1)
 			ft_exit(0);
-		// ft_memdel((void **)&termtype);
 	}
 	else
 		reset_old(reset, &old);

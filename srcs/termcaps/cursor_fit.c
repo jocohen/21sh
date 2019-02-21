@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 11:55:41 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 19:25:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int		window_width_size(void)
 	struct winsize	wind;
 
 	if (ioctl(0, TIOCGWINSZ, &wind) == -1)
+		return (1);
+	if (!wind.ws_col)
 		return (1);
 	return ((int)wind.ws_col);
 }

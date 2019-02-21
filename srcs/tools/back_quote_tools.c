@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:03:09 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:35:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static char	*get_back_quote_exec(int fd)
 		else
 		{
 			(!(tmp = ft_strjoin(sub, " "))) ? ft_exit_malloc() : 0;
-			free(sub);
+			ft_memdel((void **)&sub);
 			(!(sub = ft_strjoin(tmp, str))) ? ft_exit_malloc() : 0;
-			free(tmp);
+			ft_memdel((void **)&tmp);
 		}
-		free(str);
+		ft_memdel((void **)&str);
 	}
 	close(fd);
 	return (sub);
@@ -79,7 +79,7 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 	if (!(str = ft_strjoin(sub, " > /tmp/.back_quote.txt 2>&1")))
 		ft_exit_malloc();
 	lexer_back_quote(str, &lst_env, *alloc);
-	free(sub);
+	ft_memdel((void **)&sub);
 	sub = get_back_quote_exec(0);
 	while (sub && sub[i])
 		if (sub[i] == ' ' && sub[i + 1] == ' ')

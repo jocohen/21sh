@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:19:18 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:21:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 20:12:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ void	add_shlvl(t_env **lst)
 	t_env	*shlvl;
 	int		lvl;
 
-	shlvl = NULL;
-	lvl = 0;
 	if ((shlvl = find_elem_env(lst, "SHLVL")) != NULL)
 	{
-		lvl = (shlvl->value[lvl] == '-') ? 1 : 0;
+		lvl = (shlvl->value[0] == '-') ? 1 : 0;
 		while (ft_isdigit(shlvl->value[lvl]) == 1)
 			lvl += 1;
 		if (shlvl->value[lvl])
@@ -76,7 +74,6 @@ void	add_shlvl(t_env **lst)
 				(!(shlvl->value = ft_strdup("0"))) ? ft_exit_malloc() : 0;
 			else
 				shlvl->value = ft_itoa(lvl + 1);
-			// shlvl->value = (lvl < 0) ? ft_strdup("0") : ft_itoa(lvl + 1);
 		}
 	}
 	else
