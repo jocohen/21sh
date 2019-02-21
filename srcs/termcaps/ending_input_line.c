@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/20 12:21:29 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 16:35:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*enter_section(t_alloc *al, int read)
 	char		*s;
 
 	end_hist(al->history);
-	x = (((display_sizing(0) + ft_strlen(al->input->s) - 1)
+	x = (((display_sizing(0) + ft_strlen_u8(al->input->s) - 1)
 		/ window_width_size()) - (al->input->pos.l - 1)) + 1;
 	while (isatty(0) && --x)
 		put_term_rout("do");
