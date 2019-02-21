@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 10:40:56 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/15 10:46:44 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 09:49:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strcpy(char *dest, const char *src)
 	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
-		i++;
+		i += 1;
 	}
 	dest[i] = '\0';
 	return (dest);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 18:33:19 by tcollard          #+#    #+#             */
-/*   Updated: 2018/04/18 14:25:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 11:26:25 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		while ((int)len > 0)
 		{
 			d[len - 1] = s[len - 1];
-			len--;
+			len -= 1;
 		}
 	else
 		while (i < len)
 		{
 			d[i] = s[i];
-			i++;
+			i += 1;
 		}
 	return (d);
 }

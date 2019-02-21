@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/20 16:57:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 11:37:14 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,7 +369,6 @@ char					*ft_back_quote(char *sub, t_env *lst_env,
 int						replace_val_ret(char **str, int i, int x);
 void					replace_str(char **str, char *insert, int pos);
 
-
 /*
 ********************************** PARSER **************************************
 */
@@ -432,7 +431,7 @@ char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
 void					init_ast(char **input, char *s);
-void 					reinit_fd(int fd[3], t_alloc *alloc);
+void					reinit_fd(int fd[3], t_alloc *alloc);
 void					link_new_node(t_ast **sort, t_ast *tmp, t_ast *node);
 void					fill_input(char **s, int end, int start, t_ast *elem);
 void					get_last_index_split(int *i, char *s, int *wd);
@@ -447,5 +446,4 @@ int						get_last_operator(int *i, char *s, int *save,
 						char **input);
 int						get_last_digit(int *i, char *s, int *save,
 						char **input);
-
 #endif
