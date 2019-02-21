@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:21:54 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:17:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	selection_cmd(t_buf *input, char k, t_env **lst)
 	{
 		ft_memdel((void **)&g_clip);
 		if (!(g_clip = ft_strdup(selec_buffer(1, 0, 0)->s)))
-			ft_exit(0);
+			ft_exit_malloc();
 		if (!g_clip[0])
 			ft_memdel((void **)&g_clip);
 	}

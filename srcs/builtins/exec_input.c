@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 15:52:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:56:22 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static char	**get_path_all(t_ast *elem, char **tab_path)
 		ft_exit_malloc();
 	while (i < len)
 	{
-		tmp = ft_strjoin(tab_path[i], "/");
-		path_all[i] = ft_strjoin(tmp, elem->input[0]);
+		if (!(tmp = ft_strjoin(tab_path[i], "/")))
+			ft_exit_malloc();
+		if (!(path_all[i] = ft_strjoin(tmp, elem->input[0])))
+			ft_exit_malloc();
 		free(tmp);
 		i += 1;
 	}

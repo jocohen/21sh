@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 15:51:48 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:09:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_env	*lst_env_dup(t_env **orig, t_env **add)
 		if ((swap = find_elem_env(&dup, tmp->key)))
 		{
 			free(swap->value);
-			swap->value = ft_strdup(tmp->value);
+			(!(swap->value = ft_strdup(tmp->value))) ? ft_exit_malloc() : 0;
 		}
 		else
 			add_elem_env(&dup, tmp->key, tmp->value);

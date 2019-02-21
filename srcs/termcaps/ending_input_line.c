@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/20 16:35:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:16:57 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*enter_section(t_alloc *al, int read)
 	if (!read)
 	{
 		if (!(s = ft_strdup(al->input->s)))
-			ft_exit(0);
+			ft_exit_malloc();
 		lexer(s, al->env, al);
 		if (g_pid == -1)
 			write_str("\n", 0);

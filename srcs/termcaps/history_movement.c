@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:28:03 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 11:36:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:17:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	cmd_spe_search(t_historic **history, t_buf *input, int direction,
 	{
 		c = input->s[input->x];
 		input->s[input->x] = 0;
-		(!(search_s = ft_strdup(input->s))) ? ft_exit(EXIT_FAILURE) : 0;
+		(!(search_s = ft_strdup(input->s))) ? ft_exit_malloc() : 0;
 		input->s[input->x] = c;
 	}
 	tmp = *history;
@@ -94,7 +94,7 @@ void	historic_move(t_buf *input, t_historic **history, int direction,
 	{
 		ft_memdel((void **)&((*history)->modif));
 		if (!((*history)->modif = ft_strdup(input->s)))
-			ft_exit(EXIT_FAILURE);
+			ft_exit_malloc();
 	}
 	if (input->x && !in_zero)
 	{

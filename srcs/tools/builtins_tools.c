@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 14:02:51 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 11:20:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:18:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char		*get_dir(char *pwd, char **tab_path, int options, char *buf_pwd)
 {
 	char	dir[PATH_MAX];
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	ft_bzero(dir, PATH_MAX);
@@ -61,5 +62,6 @@ char		*get_dir(char *pwd, char **tab_path, int options, char *buf_pwd)
 	}
 	(buf_pwd) ? free(buf_pwd) : 0;
 	delete_str_tab(tab_path);
-	return (ft_strdup(dir));
+	(!(tmp = ft_strdup(dir))) ? ft_exit_malloc() : 0;
+	return (tmp);
 }

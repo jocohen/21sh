@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 16:36:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:03:09 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static char	*get_back_quote_exec(int fd)
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (!sub)
-			sub = ft_strdup(str);
+			(!(sub = ft_strdup(str))) ? ft_exit_malloc() : 0;
 		else
 		{
-			tmp = ft_strjoin(sub, " ");
+			(!(tmp = ft_strjoin(sub, " "))) ? ft_exit_malloc() : 0;
 			free(sub);
-			sub = ft_strjoin(tmp, str);
+			(!(sub = ft_strjoin(tmp, str))) ? ft_exit_malloc() : 0;
 			free(tmp);
 		}
 		free(str);
@@ -76,7 +76,8 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 
 	i = 0;
 	str = NULL;
-	str = ft_strjoin(sub, " > /tmp/.back_quote.txt 2>&1");
+	if (!(str = ft_strjoin(sub, " > /tmp/.back_quote.txt 2>&1")))
+		ft_exit_malloc();
 	lexer_back_quote(str, &lst_env, *alloc);
 	free(sub);
 	sub = get_back_quote_exec(0);

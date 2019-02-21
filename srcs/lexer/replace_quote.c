@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 12:34:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:15:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	short_cut(char **s, t_env *lst_env)
 	if (tmp[0] != '\0')
 	{
 		free(*s);
-		*s = ft_strdup(tmp);
+		(!(*s = ft_strdup(tmp))) ? ft_exit_malloc() : 0;
 	}
 }
 
@@ -48,14 +48,16 @@ void		replace_str(char **str, char *insert, int pos)
 	char *tmp;
 
 	if (!*str)
-		*str = ft_strdup(insert);
+		(!(*str = ft_strdup(insert))) ? ft_exit_malloc() : 0;
 	else
 	{
 		begin = ft_strsub(*str, 0, pos);
 		end = ft_strsub(*str, pos, ft_strlen(*str));
 		free(*str);
-		tmp = ft_strjoin(begin, insert);
-		*str = ft_strjoin(tmp, end);
+		if (!(tmp = ft_strjoin(begin, insert)))
+			ft_exit_malloc();
+		if (!(*str = ft_strjoin(tmp, end)))
+			ft_exit_malloc();
 		free(tmp);
 		free(begin);
 		free(end);
@@ -113,7 +115,11 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	else if (quote == '`')
 	{
 		sub = ft_strsub(*s, save, *i - save);
-		sub = (!sub[0]) ? ft_strdup("") : ft_back_quote(sub, lst_env, alloc);
+		if (!sub[0])
+			(!(sub = ft_strdup(""))) ? ft_exit_malloc() : 0;
+		else
+			ft_back_quote(sub, lst_env, alloc);
+		// sub = (!sub[0]) ? ft_strdup("") : ft_back_quote(sub, lst_env, alloc);
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 }
