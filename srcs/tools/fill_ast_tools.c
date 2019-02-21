@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 16:37:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:06:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	i = 0;
 	tmp = NULL;
 	if (!(elem->input = (char**)malloc(sizeof(char*) * (end - start + 1))))
-		return ;
+		ft_exit_malloc();
 	while (start < end)
 	{
 		elem->input[i] = ft_strdup(s[start]);

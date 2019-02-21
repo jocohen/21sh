@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 11:53:07 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 16:03:22 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*read_input(t_alloc *al)
 	al->input = &input;
 	al->input->buf_size = 128;
 	if (!(al->input->s = ft_memalloc(al->input->buf_size)))
-		ft_exit(0);
+		ft_exit_malloc();
 	al->input->x = 0;
 	caller_display(*al->env, al->input, 1);
 	stdin_cpy = dup(0);

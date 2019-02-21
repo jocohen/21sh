@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/21 12:20:26 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/21 15:50:55 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all, clean, fclean, re, debug, norme
@@ -82,6 +82,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)error_unsetenv.c \
 		$(PATH_ERROR)error_redirection.c \
 		$(PATH_ERROR)error_fd.c \
+		$(PATH_ERROR)error_malloc.c \
 		$(PATH_TERMCAPS)caller_display.c \
 		$(PATH_TERMCAPS)cursor_fit.c \
 		$(PATH_TERMCAPS)cursor_shift.c \

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 15:15:49 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 15:51:48 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		add_env(t_env **lst_env, char *env, int x)
 
 	tmp = *lst_env;
 	if (!(new = (t_env*)malloc(sizeof(t_env))))
-		return ;
+		ft_exit_malloc();
 	len = ft_strlen(env);
 	new->key = ft_strsub(env, 0, x);
 	new->value = ft_strsub(env, x + 1, len - x - 1);

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/05 14:02:45 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 13:36:53 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 16:02:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_historic	*ft_new_cmd_hist(void)
 	t_historic	*lst;
 
 	if (!(lst = (t_historic*)malloc(sizeof(t_historic))))
-		return (0);
+		ft_exit_malloc();
 	lst->origin = 0;
 	lst->modif = 0;
 	lst->next = 0;

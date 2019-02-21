@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   error_malloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 11:41:58 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 16:00:02 by tcollard         ###   ########.fr       */
+/*   Created: 2019/02/21 15:47:08 by tcollard          #+#    #+#             */
+/*   Updated: 2019/02/21 15:48:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-void	*ft_realloc(void *ptr, size_t size, size_t len)
+void	ft_exit_malloc(void)
 {
-	void	*tmp;
-
-	if (!(tmp = ft_memalloc(size)))
-		ft_exit_malloc();
-	ft_memcpy(tmp, ptr, len);
-	ft_memdel((void **)&ptr);
-	return ((void *)tmp);
+	write(2, "21sh: malloc failed\n", 20);
+	exit(EXIT_FAILURE);
 }

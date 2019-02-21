@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:19:18 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/02 12:00:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:08:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	add_elem_env(t_env **lst, char *key, char *value)
 	t_env	*last;
 
 	if (!(new = (t_env*)malloc(sizeof(t_env))))
-		return ;
+		ft_exit_malloc();
 	last = get_last_elem_env(lst);
 	new->key = ft_strdup(key);
 	new->value = ft_strdup(value);
