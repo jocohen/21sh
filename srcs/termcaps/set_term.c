@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:48:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 12:19:06 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 15:39:09 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			set_terminal(int reset)
 
 	if (!reset)
 	{
-		signal(SIGINT, sig_kill);
+		// signal(SIGINT, sig_kill);
 		signal(SIGWINCH, sig_window);
 		if (!isatty(0))
 			return ;
