@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 12:21:00 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 11:47:35 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int		pipe_exec(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	tmp = elem;
 	while (!ft_strcmp("<<", tmp->input[0]))
 		tmp = tmp->left;
+	if (tmp)
+		exit(1);
 	close(elem->back->fd[1]);
 	dup2(elem->back->fd[0], STDIN_FILENO);
 	close(elem->back->fd[0]);
