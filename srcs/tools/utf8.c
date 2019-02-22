@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 11:48:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 13:28:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 17:31:16 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,15 @@ void	add_u8_buff(t_alloc *al, size_t nb_byte, unsigned char *uc,
 						size_t prev_line)
 {
 	size_t	x;
+	char	*s;
 
 	x = 0;
+	(!(s = ft_strjoin(al->input->s, (char *)uc))) ? ft_exit_malloc() : 0;
+	check_over_buffer(al->input, s);
+	ft_memdel((void **)&s);
 	ft_memmove(al->input->s + al->input->x + nb_byte,
 				al->input->s + al->input->x,
 				ft_strlen(al->input->s + al->input->x) + nb_byte);
-	check_over_buffer(al->input, (char *)uc);
 	while (x < nb_byte)
 		al->input->s[al->input->x++] = (char)uc[x++];
 	if (((display_sizing(0) + ft_strlen_u8(al->input->s))
@@ -86,10 +89,11 @@ void	add_u8_buff(t_alloc *al, size_t nb_byte, unsigned char *uc,
 
 void	input_u8(t_alloc *al, unsigned char k, size_t nb_byte)
 {
-	unsigned char	uc[4];
+	unsigned char	uc[5];
 	size_t			prev_line;
 
 	uc[0] = k;
+	uc[4] = 0;
 	if (read(0, uc + 1, nb_byte - 1) == -1)
 		return ;
 	prev_line = al->input->pos.l;

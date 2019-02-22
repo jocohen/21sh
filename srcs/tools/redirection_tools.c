@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:04:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 19:03:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc)
 	int				i;
 
 	i = -1;
-	if (!elem)
+	if (!elem || !elem->input)
 		return (0);
 	while (i++ < 6)
 		if (ft_strcmp(elem->input[0], tab_redir[i]) == 0
