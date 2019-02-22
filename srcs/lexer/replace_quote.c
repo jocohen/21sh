@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 13:55:00 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 20:17:22 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ static void	short_cut(char **s, t_env *lst_env)
 	if ((*s)[0] == '~' && ((*s)[1] == '/' || (*s)[1] == '\0'))
 	{
 		dir = ft_strjoin(get_env_value(lst_env, "$HOME"),
-			((*s)[1] == '/') ? "/" : 0);
+			((*s)[1] == '/') ? (*s) + 1 : 0);
 	}
 	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
 		dir = ft_strjoin(get_env_value(lst_env, "$OLDPWD"),
-			((*s)[1] == '/') ? "/" : 0);
+			((*s)[2] == '/') ? (*s) + 2 : 0);
 	}
 	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
 		dir = ft_strjoin(get_env_value(lst_env, "$PWD"),
-			((*s)[1] == '/') ? "/" : 0);
+			((*s)[2] == '/') ? (*s) + 2 : 0);
 	}
 	if (dir)
 	{
+
 		ft_memdel((void **)&(*s));
 		(*s) = dir;
 	}

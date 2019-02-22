@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 13:26:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 18:52:19 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	}
 	sort_ast(lst, &sort);
 	(*alloc)->ast = &lst;
-	i = 0;
-	ft_putstr(ANSI_BLUE);
-	ft_printf("cmd = |");
-	while (lst->input[i])
-	{
-		ft_printf("%s ", lst->input[i++]);
-	}
-	ft_printf("|\n");
-	ft_putstr(ANSI_RESET);
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	delete_str_tab(input);
 	del_lst_ast(&lst);

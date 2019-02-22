@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 12:18:50 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 18:54:29 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ char	*recall_prompt(t_alloc *al, int type)
 	out = read_input(&alloc);
 	input = 0;
 	(!out) ? g_pid = 0 : 0;
-	ft_putstr(ANSI_GREEN);
-	ft_printf("recall = |%s|\n", out);
-	ft_putstr(ANSI_RESET);
 	return (out);
 }
 
@@ -59,9 +56,6 @@ char	*enter_section(t_alloc *al, int read)
 		return (al->input->s);
 	if (!read)
 	{
-		ft_putstr(ANSI_RED);
-		ft_printf("input = |%s|\n", al->input->s);
-		ft_putstr(ANSI_RESET);
 		if (!(s = ft_strdup(al->input->s)))
 			ft_exit_malloc();
 		lexer(s, al->env, al);

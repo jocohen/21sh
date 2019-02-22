@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 12:36:31 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 19:53:46 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,6 +436,12 @@ void					del_alloc(t_alloc **alloc);
 */
 char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
+char					*cd_predef(char *elem, t_env *lst_env,
+						int options, char *buf);
+void					add_new_folder(char **dir, char *folder);
+char					*delete_last_folder(char *dir);
+void					clean_slash_path(char *s);
+char					*cd_slash(char *dir, int options, char *buf_pwd);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
 void					init_ast(char **input, char *s);
 void					reinit_fd(int fd[3], t_alloc *alloc);
