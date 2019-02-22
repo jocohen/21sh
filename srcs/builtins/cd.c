@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 15:27:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:36:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 		add_elem_env(lst_env, "PWD", buf_pwd);
 	if ((i = check_options(elem, &options, alloc)) == -1)
 		return (1);
-		ft_printf("INPUT[%d]: |%s|\n", i, elem->input[i]);
 	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
 		(ft_strcmp((dir = ft_strdup(get_env_value(*lst_env, "$OLDPWD"))),
 		"") != 0) ? 0 : error_cd("OLDPWD", 2);

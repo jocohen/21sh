@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 13:45:38 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 16:36:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 	i = 0;
 	str = ft_strjoin(sub, " > /tmp/.back_quote.txt");
 	ft_memdel((void **)&sub);
-	ft_printf("ok %s\n", sub);
 	if (!lexer_back_quote(str, &lst_env, *alloc))
 		return (0);
 	sub = get_back_quote_exec(0);
