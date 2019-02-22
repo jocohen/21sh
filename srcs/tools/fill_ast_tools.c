@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:22:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/23 00:36:42 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,63 @@ int		get_last_digit(int *i, char *s, int *save, char **input)
 	return (1);
 }
 
+static void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
+{
+	t_ast	*new;
+	char	***tmp;
+	int		len;
+	int		i;
+
+	new = elem;
+	len = 0;
+	i = 0;
+	//RECHERCHE DU PREMIER ELEM DE TYPE CMD EN PARTANT DE LA FIN
+	while (elem->back && elem->back->type != CMD)
+		elem = elem->back;
+	//SAVE DU TAB INPUT ORIGINAL AFIN DE FAIRE UN TAB JOIN DANS L'IDEE
+	tmp = &(elem->input);
+	while (elem->input[len])
+	{
+		ft_printf("IN[%d]: %s\n", len, elem->input[len]);
+		len += 1;
+	}
+	ft_printf("OK1\n");
+	len += end - start;
+	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
+		ft_exit_malloc();
+	start += 1;
+	ft_printf("OK2\nlen = %d\n", len);
+	while ((*tmp)[i])
+	{
+		elem->input[i] = ft_strdup((*tmp)[i]);
+		i += 1;
+	}
+	ft_printf("OK3\n");
+	while (start < len)
+	{
+		elem->input[i] = ft_strdup(s[i]);
+		start += 1;
+		i += 1;
+	}
+	ft_printf("OK4\n");
+	delete_str_tab(*tmp);
+}
+
 void	fill_input(char **s, int end, int start, t_ast *elem)
 {
 	int		i;
 	t_ast	*tmp;
+	int		len;
 
 	i = 0;
 	tmp = NULL;
-	if (!(elem->input = (char**)malloc(sizeof(char*) * (end - start + 1))))
+	if (elem->back && elem->back->type <= AGREG)
+		len = 2;
+	else
+		len = end - start + 1;
+	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
 		ft_exit_malloc();
-	while (start < end)
+	while (start < end && i < len)
 	{
 		if (!(elem->input[i] = ft_strdup(s[start])))
 			ft_exit_malloc();
@@ -89,4 +136,8 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	}
 	elem->input[i] = NULL;
 	elem->type = CMD;
+	//SI AVANT TYPE AGREG OU PLUS BAS
+	//RECHERCHE DE L'INPUT DE CMD LE PLUS PROCHE POUR LE MODIF
+	if (len == 2 && end - start != 2)
+		add_input_prev_cmd(s, end, start, elem);
 }

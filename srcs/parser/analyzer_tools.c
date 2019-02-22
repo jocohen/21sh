@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 19:46:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 23:05:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 		i += 1;
 	}
 	if (i < 6)
+	{
 		ret = dispatch[i](elem, lst_env, alloc);
+		delete_str_tab(tab_path);
+	}
 	else
 		ret = exec_input(elem, *lst_env, tab_path);
 	return (ret);
