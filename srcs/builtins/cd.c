@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 12:16:22 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 14:19:50 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ static int	check_options(t_ast *elem, int *options, t_alloc **alloc)
 	return (i);
 }
 
-static int	modif_oldpwd(t_env **lst_env)
+static int	modif_oldpwd(t_env **lst_env, char *buf)
 {
 	t_env	*tmp;
 
 	tmp = NULL;
-	if ((tmp = find_elem_env(lst_env, "OLDPWD")))
+	if ((tmp = find_elem_env(lst_env, "OLDPWD"))
+		&& (tmp = find_elem_env(lst_env, "PWD")))
 	{
 		free(tmp->value);
 		if (!(tmp->value = ft_strdup(find_elem_env(lst_env, "PWD")->value)))
@@ -74,8 +75,9 @@ static int	modif_oldpwd(t_env **lst_env)
 	else
 	{
 		if (!(tmp = find_elem_env(lst_env, "PWD")))
-			return (1);
-		add_elem_env(lst_env, "OLDPWD", tmp->value);
+			add_elem_env(lst_env, "OLDPWD", buf);
+		else
+			add_elem_env(lst_env, "OLDPWD", tmp->value);
 	}
 	return (0);
 }
@@ -85,8 +87,7 @@ static int	modif_env(char *dir, t_env **lst_env, int options, char *buf)
 	t_env	*tmp;
 
 	tmp = NULL;
-	if (modif_oldpwd(lst_env) == 1)
-		return (1);
+	modif_oldpwd(lst_env, buf);
 	if (!(tmp = find_elem_env(lst_env, "PWD")))
 		(options == 2) ? add_elem_env(lst_env, "PWD", buf) :
 		add_elem_env(lst_env, "PWD", dir);
@@ -111,6 +112,8 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	options = 0;
 	buf_pwd = getcwd(0, PATH_MAX);
 	dir = NULL;
+	if (!find_elem_env(lst_env, "PWD"))
+		add_elem_env(lst_env, "PWD", buf_pwd);
 	if ((i = check_options(elem, &options, alloc)) == -1)
 		return (1);
 	if (elem->input[i] && ft_strcmp(elem->input[i], "-") == 0)
@@ -125,7 +128,10 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 		dir = get_dir(get_env_value(*lst_env, "$PWD"),
 		ft_strsplit(elem->input[i], '/'), options, buf_pwd);
 	if (ft_strcmp(dir, "") != 0 && check_access(dir, elem->input[i]) == -1)
+	{
+		ft_memdel((void **)&buf_pwd);
 		return (1);
-	(ft_strcmp(elem->input[i], "-") == 0) ? ft_printf("%s\n", dir) : 0;
+	}
+	(ft_strcmp(elem->input[i], "-") == 0 && ft_strcmp(dir, "") != 0) ? ft_printf("%s\n", dir) : 0;
 	return (modif_env(dir, lst_env, options, buf_pwd));
 }

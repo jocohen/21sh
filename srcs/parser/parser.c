@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 12:18:43 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 13:26:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,11 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		i = -1;
 		while (sort->input[++i])
 			if (convert_quote(&(sort->input[i]), lst_env, alloc) == -1)
+			{
+				delete_str_tab(input);
+				del_lst_ast(&lst);
 				return ;
+			}
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
@@ -92,6 +96,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	ft_printf("|\n");
 	ft_putstr(ANSI_RESET);
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
-	(input) ? delete_str_tab(input) : 0;
+	delete_str_tab(input);
 	del_lst_ast(&lst);
 }

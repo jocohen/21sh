@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 12:19:14 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 13:45:38 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 	char	**lexer;
 	t_ast	*lst;
 
-	(void)lst_env;
 	i = 0;
 	lexer = NULL;
 	lst = NULL;
@@ -59,7 +58,6 @@ static int	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 	i = (input[i] == ';' && input[i + 1] != ';') ? 1 : 0;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
-		g_pid = 0;
 		ft_memdel((void **)&input);
 		return (0);
 	}
@@ -76,11 +74,11 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 	int		i;
 
 	i = 0;
-	str = NULL;
 	str = ft_strjoin(sub, " > /tmp/.back_quote.txt");
+	ft_memdel((void **)&sub);
+	ft_printf("ok %s\n", sub);
 	if (!lexer_back_quote(str, &lst_env, *alloc))
 		return (0);
-	ft_memdel((void **)&sub);
 	sub = get_back_quote_exec(0);
 	while (sub && sub[i])
 		if (sub[i] == ' ' && sub[i + 1] == ' ')
