@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 14:47:08 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:40:57 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:07:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ int			ft_error_parse_redir(char **input)
 		{
 			if (ft_isoperator(input[x][y]) == 1
 			&& check_operator_error(input, x, y) == 1)
+			{
+				delete_str_tab(input);
 				return (1);
+			}
 			y += 1;
 		}
 		x += 1;

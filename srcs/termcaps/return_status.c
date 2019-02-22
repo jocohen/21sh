@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:44:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/16 13:37:51 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 14:53:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ret_status(void)
 
 	err = 0;
 	if (!g_ret[1])
-		return (g_ret[0]);
+		return ((unsigned char)g_ret[0]);
 	if (WIFEXITED(g_ret[0]))
 		err = WEXITSTATUS(g_ret[0]);
 	else if (WIFSIGNALED(g_ret[0]))

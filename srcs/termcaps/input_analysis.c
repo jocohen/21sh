@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 13:36:49 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 16:13:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	input_visual_char(t_alloc *al, char k)
 			/ window_width_size()) != prev_line)
 			reactualize_output(al->input, al->env);
 	}
-	// else if ((unsigned char)k >= 0xC0 && (unsigned char)k <= 0xF4)
-		// input_u8(al, (unsigned char)k, lenbyte(k));
+	else if ((unsigned char)k >= 0xC0 && (unsigned char)k <= 0xF4)
+		input_u8(al, (unsigned char)k, lenbyte(k));
 }
 
 void	analyse_input(t_alloc *al, char k)
