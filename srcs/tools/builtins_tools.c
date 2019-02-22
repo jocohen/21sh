@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 14:02:51 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 12:19:42 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:40:13 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char		*get_dir(char *pwd, char **tab_path, int options, char *buf_pwd)
 {
 	char	*dir;
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	dir = ft_strdup(pwd);
