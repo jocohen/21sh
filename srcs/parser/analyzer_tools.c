@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 16:00:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 19:11:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,28 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 	if (i < 6)
 		ret = dispatch[i](elem, lst_env, alloc);
 	else
-		ret = exec_input(elem, *lst_env, tab_path, alloc);
+		ret = exec_input(elem, *lst_env, tab_path);
 	return (ret);
 }
 
 int	dispatch_logic(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
-	int	ret;
-
-	ret = 1;
 	(void)tab_path;
 	if (ft_strcmp(elem->input[0], "&&") == 0)
 	{
-		ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
-			ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
+		analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
+			analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
 			return (0);
 	}
 	else if (ft_strcmp(elem->input[0], "||") == 0)
 	{
-		ret = analyzer(elem, lst_env, alloc);
-		if (ret != 0)
-			ret = analyzer(elem, lst_env, alloc);
-		if (ret == 0)
+		analyzer(elem, lst_env, alloc);
+		if (ret_status() != 0)
+			analyzer(elem, lst_env, alloc);
+		if (ret_status() == 0)
 			return (0);
 	}
 	return (-1);
@@ -80,8 +77,8 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 		redirection_2(elem, lst_env, alloc);
 	else if (i == 3 || i == 4 || i == 5)
 		redirection_3(elem, lst_env, alloc);
-//	else if (i == 6) //
-//		heredoc(elem, lst_env, alloc);//
+	else if (i == 6)
+		heredoc(elem, lst_env, alloc);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 18:02:44 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:39:44 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,50 @@
 
 static void	short_cut(char **s, t_env *lst_env)
 {
-	static char	tmp[PATH_MAX];
+	char	*dir;
 
-	ft_bzero(tmp, PATH_MAX);
+	dir = 0;
 	if ((*s)[0] == '~' && ((*s)[1] == '/' || (*s)[1] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$HOME"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[1]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$HOME"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
 	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$OLDPWD"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$OLDPWD"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
 	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$PWD"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$PWD"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
-	if (tmp[0] != '\0')
+	if (dir)
 	{
-		free(*s);
-		*s = ft_strdup(tmp);
+		ft_memdel((void **)&(*s));
+		(*s) = dir;
 	}
 }
 
-static void	replace_str(char **str, char *insert, int pos)
+void		replace_str(char **str, char *insert, int pos)
 {
 	char *begin;
 	char *end;
 	char *tmp;
 
 	if (!*str)
-		*str = ft_strdup(insert);
+		(!(*str = ft_strdup(insert))) ? ft_exit_malloc() : 0;
 	else
 	{
 		begin = ft_strsub(*str, 0, pos);
 		end = ft_strsub(*str, pos, ft_strlen(*str));
 		free(*str);
-		tmp = ft_strjoin(begin, insert);
-		*str = ft_strjoin(tmp, end);
+		if (!(tmp = ft_strjoin(begin, insert)))
+			ft_exit_malloc();
+		if (!(*str = ft_strjoin(tmp, end)))
+			ft_exit_malloc();
 		free(tmp);
 		free(begin);
 		free(end);
@@ -77,6 +79,8 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 		write(2, "21sh: env: error too long arguments\n", 36);
 		return (-1);
 	}
+	else if ((*str)[x] == '?')
+		replace_val_ret(str, i, x + 1);
 	else
 	{
 		key = ft_strsub(*str, i, x);
@@ -88,7 +92,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
+int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 {
 	char	*sub;
 	char	quote;
@@ -96,24 +100,32 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	int		x;
 
 	x = 0;
-	sub = NULL;
 	quote = (*s)[(*i)++];
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
 		*i += 1;
-	sub = (quote == '\'') ? ft_strsub(*s, save, *i - save) : 0;
-	if (quote == '"')
-	{
+	if (quote == '\'' || quote == '"' || quote == '`')
 		sub = ft_strsub(*s, save, *i - save);
+	else
+		sub = NULL;
+	if (quote == '"')
 		while (sub[x])
 			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
-	}
-	else if (quote == '`')
+	else if (quote == '`' && (sub = ft_strsub(*s, save, *i - save)))
 	{
-		sub = ft_strsub(*s, save, *i - save);
-		sub = ft_back_quote(sub, lst_env, alloc);
+		if (!sub[0])
+		{
+			if (!(sub = ft_strdup("")))
+				ft_exit_malloc();
+		}
+		else
+		{
+			if (!(sub = ft_back_quote(sub, lst_env, alloc)))
+				return (0);
+		}
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
+	return (1);
 }
 
 int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
@@ -122,7 +134,7 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 
 	i = 0;
 	short_cut(s, *lst_env);
-	while ((*s)[i])
+	while (s && (*s)[i])
 	{
 		if ((*s)[i] == '$')
 		{
@@ -131,7 +143,8 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			remove_quote(s, &i, *lst_env, alloc);
+			if (!remove_quote(s, &i, *lst_env, alloc))
+				return (-1);
 			i -= 2;
 		}
 		else

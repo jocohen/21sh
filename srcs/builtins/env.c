@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/17 12:43:30 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:37:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:16:42 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		add_env(t_env **lst_env, char *env, int x)
 
 	tmp = *lst_env;
 	if (!(new = (t_env*)malloc(sizeof(t_env))))
-		return ;
+		ft_exit_malloc();
 	len = ft_strlen(env);
 	new->key = ft_strsub(env, 0, x);
 	new->value = ft_strsub(env, x + 1, len - x - 1);
@@ -54,7 +54,7 @@ static t_env	*lst_env_dup(t_env **orig, t_env **add)
 		if ((swap = find_elem_env(&dup, tmp->key)))
 		{
 			free(swap->value);
-			swap->value = ft_strdup(tmp->value);
+			(!(swap->value = ft_strdup(tmp->value))) ? ft_exit_malloc() : 0;
 		}
 		else
 			add_elem_env(&dup, tmp->key, tmp->value);
@@ -71,9 +71,12 @@ int				env_cp(char **env, t_env **lst_env)
 	char	*buf;
 
 	i = 0;
-	buf = NULL;
 	if (env[0] == NULL)
-		add_elem_env(lst_env, "PWD", getcwd(buf, PATH_MAX));
+	{
+		buf = getcwd(0, 0);
+		add_elem_env(lst_env, "PWD", buf);
+		ft_memdel((void **)&buf);
+	}
 	else if (!(*lst_env) && env)
 		while (env[i])
 		{
@@ -108,6 +111,7 @@ int				env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	elem->input = &(elem->input[i]);
 	if (option == 0)
 		tmp = lst_env_dup(lst_env, &tmp);
+	(!elem->input[0]) ? g_ret[0] = 0 : 0;
 	(elem->input[0]) ? dispatch_cmd(elem, &tmp,
 	ft_strsplit(get_env_value(*lst_env, "$PATH"), ':'), alloc) :
 	display_env(tmp);

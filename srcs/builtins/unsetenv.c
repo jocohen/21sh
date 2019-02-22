@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:10:12 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/12 14:28:27 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 14:48:02 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int			unsetenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	}
 	else if (unset_exist_env(elem, *lst_env) == -1)
 		return (-1);
+	g_ret[0] = 0;
 	return (0);
 }

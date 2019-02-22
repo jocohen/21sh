@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2018/11/02 14:47:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/13 14:48:52 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_error_splitshell(void)
 {
 	write(2, "21sh: parse error near `;;'\n", 28);
+	g_ret[0] = 1;
 	return (-1);
 }
 
@@ -42,5 +43,6 @@ int	ft_error_redir_format(char *ope, int len)
 	write(2, "21sh: parse error near `", 24);
 	write(2, &ope[size - 1], (len - size == 0) ? 1 : 2);
 	write(2, "'\n", 2);
+	g_ret[0] = 1;
 	return (-1);
 }

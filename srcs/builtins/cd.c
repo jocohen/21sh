@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/18 16:44:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 15:07:27 by tcollard         ###   ########.fr       */
+/*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
+/*   Updated: 2019/02/22 12:16:22 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static int	modif_oldpwd(t_env **lst_env)
 	if ((tmp = find_elem_env(lst_env, "OLDPWD")))
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(find_elem_env(lst_env, "PWD")->value);
+		if (!(tmp->value = ft_strdup(find_elem_env(lst_env, "PWD")->value)))
+			ft_exit_malloc();
 	}
 	else
 	{
@@ -79,37 +80,36 @@ static int	modif_oldpwd(t_env **lst_env)
 	return (0);
 }
 
-static int	modif_env(char *dir, t_env **lst_env, int options)
+static int	modif_env(char *dir, t_env **lst_env, int options, char *buf)
 {
 	t_env	*tmp;
-	char	*buf;
 
-	buf = NULL;
 	tmp = NULL;
 	if (modif_oldpwd(lst_env) == 1)
 		return (1);
 	if (!(tmp = find_elem_env(lst_env, "PWD")))
-		(options == 2) ? add_elem_env(lst_env, "PWD", getcwd(buf, PATH_MAX)) :
+		(options == 2) ? add_elem_env(lst_env, "PWD", buf) :
 		add_elem_env(lst_env, "PWD", dir);
 	else
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup((options == 2) ? getcwd(buf, PATH_MAX) : dir);
+		tmp->value = ft_strdup((options == 2) ? buf : dir);
 	}
-	free(dir);
-	(buf) ? free(buf) : 0;
+	ft_memdel((void **)&dir);
+	ft_memdel((void **)&buf);
+	g_ret[0] = 0;
 	return (0);
 }
 
 int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 {
-	int			options;
 	int			i;
+	int			options;
 	char		*buf_pwd;
 	char		*dir;
 
-	buf_pwd = NULL;
 	options = 0;
+	buf_pwd = getcwd(0, PATH_MAX);
 	dir = NULL;
 	if ((i = check_options(elem, &options, alloc)) == -1)
 		return (1);
@@ -120,12 +120,12 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 		(ft_strcmp((dir = ft_strdup(get_env_value(*lst_env, "$HOME"))),
 		"") != 0) ? 0 : error_cd("HOME", 2);
 	else if (elem->input[i][0] == '/')
-		dir = ft_strdup(elem->input[i]);
+		(!(dir = ft_strdup(elem->input[i]))) ? ft_exit_malloc() : 0;
 	else
 		dir = get_dir(get_env_value(*lst_env, "$PWD"),
-		ft_strsplit(elem->input[i], '/'), options, getcwd(buf_pwd, PATH_MAX));
+		ft_strsplit(elem->input[i], '/'), options, buf_pwd);
 	if (ft_strcmp(dir, "") != 0 && check_access(dir, elem->input[i]) == -1)
 		return (1);
 	(ft_strcmp(elem->input[i], "-") == 0) ? ft_printf("%s\n", dir) : 0;
-	return (modif_env(dir, lst_env, options));
+	return (modif_env(dir, lst_env, options, buf_pwd));
 }

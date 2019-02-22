@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:44:55 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:36:49 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 void	input_visual_char(t_alloc *al, char k)
 {
-	size_t	prev_line;
+	size_t			prev_line;
 
 	if (k > 31 && k < 127)
 	{
 		prev_line = al->input->pos.l;
-		input_character(al->input, k);
+		(isatty(0)) ? input_character(al->input, k) : 0;
 		ft_memmove(al->input->s + al->input->x + 1, al->input->s + al->input->x,
 			ft_strlen(al->input->s + al->input->x) + 1);
 		al->input->s[al->input->x++] = k;
-		if (((display_sizing(0) + ft_strlen(al->input->s))
+		if (((display_sizing(0) + ft_strlen_u8(al->input->s))
 			/ window_width_size()) != prev_line)
 			reactualize_output(al->input, al->env);
 	}
+	// else if ((unsigned char)k >= 0xC0 && (unsigned char)k <= 0xF4)
+		// input_u8(al, (unsigned char)k, lenbyte(k));
 }
 
 void	analyse_input(t_alloc *al, char k)
 {
 	if (k == 12)
 	{
-		tputs(tgetstr("cl", 0), 1, ft_writestdin);
+		put_term_rout("cl");
 		caller_display(*al->env, al->input, 0);
 		reactualize_output(al->input, al->env);
 	}

@@ -6,18 +6,38 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 19:19:21 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:48:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-int	exec_error(int err, char *files, t_alloc **alloc)
+int	exec_error(int err, char *files)
 {
-	(void)alloc;
 	(err == -1) ? write(2, "21sh: commande not found: ", 26) : 0;
 	if (err == -1)
 		write(2, files, ft_strlen(files));
 	write(2, "\n", 1);
-	return (err);
+	return (127);
+}
+
+int	exec_right_error(int err, char *files, char ***path_all)
+{
+	if (err == 1)
+	{
+		write(2, "21sh: ", 6);
+		write(2, files, ft_strlen(files));
+		write(2, ": no such file or directory\n", 28);
+		g_ret[0] = 127;
+	}
+	else if (err == 2)
+	{
+		write(2, "21sh: ", 6);
+		write(2, files, ft_strlen(files));
+		write(2, ": permission denied\n", 20);
+		g_ret[0] = 126;
+	}
+	if (*path_all != NULL)
+		delete_str_tab(*path_all);
+	return (1);
 }

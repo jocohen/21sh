@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:19:17 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/21 13:10:47 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/20 12:19:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,23 @@ int			do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int	pid1;
 	int	pid2;
 
-	if (g_pid == -1)
+	if (g_pid == -1 || pipe(elem->fd) == -1 || !elem->right || !elem->left)
 		return (0);
-	pipe(elem->fd);
-	pid1 = fork();
-	if (!pid1)
+	if (!(pid1 = fork()))
 		process_pipe_left(elem->left, lst_env, alloc);
 	else
 	{
 		g_pid = pid1;
-		pid2 = fork();
-		if (!pid2)
+		if (!(pid2 = fork()))
 			process_pipe_right(elem->right, lst_env, alloc);
 		else
 		{
 			g_pid = pid2;
 			close(elem->fd[1]);
 			close(elem->fd[0]);
-			waitpid(pid1, NULL, 0);
-			waitpid(pid2, NULL, 0);
+			waitpid(pid1, &(g_ret[0]), 0);
+			waitpid(pid2, &(g_ret[0]), 0);
+			g_ret[1] = 1;
 		}
 	}
 	return (1);

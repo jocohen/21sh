@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 14:02:51 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 11:20:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:40:13 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static char	*delete_last_folder(char dir[PATH_MAX])
+static char	*delete_last_folder(char *dir)
 {
 	int	i;
 
@@ -29,37 +29,41 @@ static char	*delete_last_folder(char dir[PATH_MAX])
 	return (dir);
 }
 
-static char	*add_new_folder(char dir[PATH_MAX], char *folder)
+static void	add_new_folder(char *dir, char *folder)
 {
 	char	*new_dir;
 
-	new_dir = ft_strcat(dir, "/");
-	new_dir = ft_strcat(new_dir, folder);
-	return (new_dir);
+	new_dir = ft_strjoin(dir, "/");
+	ft_memdel((void **)&dir);
+	dir = ft_strjoin(new_dir, folder);
+	ft_memdel((void **)&new_dir);
 }
 
 char		*get_dir(char *pwd, char **tab_path, int options, char *buf_pwd)
 {
-	char	dir[PATH_MAX];
+	char	*dir;
 	int		i;
 
 	i = 0;
-	ft_bzero(dir, PATH_MAX);
-	ft_strcpy(dir, pwd);
+	dir = ft_strdup(pwd);
 	while (tab_path[i])
 	{
-		if (ft_strcmp(tab_path[i], "..") == 0)
+		if (ft_strcmp(tab_path[i], "..") == 0
+			&& ft_strcmp(tab_path[i], ".") == 0 && options == 2)
+			ft_memdel((void **)&dir);
+		else if (ft_strcmp(tab_path[i], "..") == 0)
 		{
-			(options == 2) ? ft_strcpy(dir, buf_pwd) : 0;
-			ft_strcpy(dir, delete_last_folder(dir));
+			(options == 2) ? dir = ft_strdup(buf_pwd) : 0;
+			delete_last_folder(dir);
 		}
 		else if (ft_strcmp(tab_path[i], ".") == 0)
-			(options == 2) ? ft_strcpy(dir, buf_pwd) : 0;
+			(options == 2) ? dir = ft_strdup(buf_pwd) : 0;
 		else
-			ft_strcpy(dir, add_new_folder(dir, tab_path[i]));
+			add_new_folder(dir, tab_path[i]);
+		if (!dir)
+			ft_exit(1);
 		i += 1;
 	}
-	(buf_pwd) ? free(buf_pwd) : 0;
 	delete_str_tab(tab_path);
-	return (ft_strdup(dir));
+	return (dir);
 }

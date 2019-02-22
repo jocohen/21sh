@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/06 10:41:42 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:18:55 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ char	*kill_or_give(t_alloc *al, char k)
 	(k != 27 && k != -1) ? selec_buffer(0, al->input, al->env) : 0;
 	if (k == 4 && !al->input->s[0] && !recall_prompt(al, -1))
 	{
-		tputs(tgetstr("do", 0), 1, ft_writestdin);
-		tputs(tgetstr("cr", 0), 1, ft_writestdin);
+		put_term_rout("do");
+		put_term_rout("cr");
+		(!isatty(0)) ? write_str("\n", 0) : 0;
+		ft_putstr(ANSI_MAGENTA);
+		ft_printf("\nEXIT EOF\n");
+		ft_putstr(ANSI_RESET);
 		ft_memdel((void **)&(al->input->s));
 		return (0);
 	}
@@ -26,15 +30,6 @@ char	*kill_or_give(t_alloc *al, char k)
 	{
 		if (recall_prompt(al, -1))
 			return (enter_section(al, -1));
-		// POUR EVITER D'EXIT TROP TOT
-		// UTILISATION DU BUILTINS
-		// PERMET AUSSI D"EXIT PROPREMENT QUAND IL Y A PLUSIEURS SHELL IMBIRQUER
-		// if (ft_strncmp("exit", al->input->s, 4) == 0 && !recall_prompt(al, -1))
-		// {
-		// 	// del_alloc(&al);
-		// 	ft_memdel((void *)&(al->input->s));
-		// 	return (0);
-		// }
 		enter_section(al, 0);
 	}
 	return (al->input->s);
@@ -43,10 +38,10 @@ char	*kill_or_give(t_alloc *al, char k)
 char	*read_and_sig(t_alloc *al, char *k, int stdin_cpy)
 {
 	check_over_buffer(al->input, 0);
-	if (read(0, k, 1) == -1)
+	if (read(0, k, 1) <= 0)
 	{
 		if (!g_pid && !g_resize)
-			ft_exit(0);
+			return (0);
 		*k = -1;
 		dup2(stdin_cpy, 0);
 		if (g_pid == -1 && recall_prompt(al, -1))
@@ -72,14 +67,17 @@ char	*read_input(t_alloc *al)
 	al->input = &input;
 	al->input->buf_size = 128;
 	if (!(al->input->s = ft_memalloc(al->input->buf_size)))
-		ft_exit(0);
+		ft_exit_malloc();
 	al->input->x = 0;
 	caller_display(*al->env, al->input, 1);
 	stdin_cpy = dup(0);
 	while (1)
 	{
 		if (!read_and_sig(al, &k, stdin_cpy))
+		{
+			ft_memdel((void **)&(al->input->s));
 			return (0);
+		}
 		if (!kill_or_give(al, k))
 			break ;
 		else if (k == 10 && recall_prompt(al, -1))
@@ -87,6 +85,7 @@ char	*read_input(t_alloc *al)
 		if (k != 10)
 			analyse_input(al, k);
 	}
+	ft_memdel((void **)&(al->input->s));
 	return (0);
 }
 
@@ -96,12 +95,8 @@ void	prompt(t_alloc *al)
 
 	init_hist(&history, *al->env);
 	al->history = &history;
-	set_terminal(*al->env, 0);
-	signal(SIGINT, sig_kill);
-	signal(SIGWINCH, sig_window);
+	set_terminal(0);
 	read_input(al);
 	ft_del_hist(&history);
-	set_terminal(0, 1);
-	signal(SIGINT, SIG_DFL);
-	signal(SIGWINCH, SIG_DFL);
+	set_terminal(-1);
 }

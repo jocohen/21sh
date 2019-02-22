@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:49:57 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/14 12:01:03 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:32:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ void	ft_insert(char **source, char *insert, int pos1, int pos2)
 
 	begin = ft_strsub(*source, 0, pos1);
 	end = ft_strsub(*source, pos2 + 1, (ft_strlen(&((*source)[pos2]) - 1)));
-	free(*source);
-	tmp = ft_strjoin(begin, insert);
-	*source = ft_strjoin(tmp, end);
-	free(begin);
-	free(tmp);
-	free(end);
-	free(insert);
+	ft_memdel((void **)source);
+	if (!(tmp = ft_strjoin(begin, insert)))
+		ft_exit_malloc();
+	if (!(*source = ft_strjoin(tmp, end)))
+		ft_exit_malloc();
+	ft_memdel((void **)&begin);
+	ft_memdel((void **)&tmp);
+	ft_memdel((void **)&end);
+	ft_memdel((void **)&insert);
 }
 
 void	ft_delete_inside(char **source, int start, int len)
@@ -51,7 +53,8 @@ void	ft_delete_inside(char **source, int start, int len)
 	begin = ft_strsub(*source, 0, start);
 	end = ft_strsub(*source, start + len, ft_strlen(&(*source)[len + start]));
 	free(*source);
-	*source = ft_strjoin(begin, end);
+	if (!(*source = ft_strjoin(begin, end)))
+		ft_exit_malloc();
 	free(begin);
 	free(end);
 }

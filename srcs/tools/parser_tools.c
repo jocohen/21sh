@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/29 16:47:36 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:09:12 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_ast	*create_new_elem(t_ast **lst)
 	t_ast	*new;
 
 	if (!(new = (t_ast *)malloc(sizeof(t_ast))))
-		return (NULL);
+		ft_exit_malloc();
 	new->print = 0;
 	new->fd[0] = -1;
 	new->fd[1] = -1;
 	new->type = NO_TYPE;
 	new->input = NULL;
-	new->back_quote = NULL;
+	new->heredoc = NULL;
 	new->next = NULL;
 	new->back = NULL;
 	new->left = NULL;

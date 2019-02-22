@@ -1,5 +1,5 @@
 Comportement des redirections et agregation:
- 
+
  Todo for 21sh / 42sh:
 
 	REDIRECTION:
@@ -92,3 +92,14 @@ Comportement des redirections et agregation:
 		 	parse error near `2 char left after the last correct one'
 
 (cf: https://abs.traduc.org/abs-5.3-fr/ch19.html)
+
+
+
+
+
+HELP fd>&fd:
+
+1>file 1>&2 => ecrir 1 & 2 sur term (open 1)
+2>file 1>&2 => ecrir 1 & 2 dans file (close 1)
+1>&2 => ecrir 1 & 2 sur term (open 2)
+2>&1 => ecrir 1 & 2 sur term (open 1)

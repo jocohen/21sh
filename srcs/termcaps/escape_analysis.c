@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/12 18:39:10 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 16:01:18 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	escape_analysis(t_alloc *al)
 	while (y < 5)
 	{
 		if ((read(0, &c, 1)) == -1)
-			ft_exit(0);
+			return ;
 		key[y++] = c;
 		if ((key[1] && key[1] != 49 && key[1] != 50 && key[1] != 51)
 			|| (key[3] && key[3] != 50))

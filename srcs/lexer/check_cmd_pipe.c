@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 17:51:28 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/06 15:57:26 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:55:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ static int	prompt_pipe(char **input, t_alloc *alloc)
 		if (!(s = recall_prompt(alloc, 5)))
 			return (0);
 	}
-	tmp = ft_strjoin(*input, " ");
+	if (!(tmp = ft_strjoin(*input, " ")))
+		ft_exit_malloc();
 	free(*input);
-	*input = ft_strjoin(tmp, s);
+	if (!(*input = ft_strjoin(tmp, s)))
+		ft_exit_malloc();
 	free(tmp);
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);
@@ -48,9 +50,11 @@ static int	prompt_cmdor(char **input, t_alloc *alloc)
 		if (!(s = recall_prompt(alloc, 7)))
 			return (0);
 	}
-	tmp = ft_strjoin(*input, " ");
+	if (!(tmp = ft_strjoin(*input, " ")))
+		ft_exit_malloc();
 	free(*input);
-	*input = ft_strjoin(tmp, s);
+	if (!(*input = ft_strjoin(tmp, s)))
+		ft_exit_malloc();
 	free(tmp);
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);
@@ -71,9 +75,11 @@ static int	prompt_cmdand(char **input, t_alloc *alloc)
 		if (!(s = recall_prompt(alloc, 6)))
 			return (0);
 	}
-	tmp = ft_strjoin(*input, " ");
+	if (!(tmp = ft_strjoin(*input, " ")))
+		ft_exit_malloc();
 	free(*input);
-	*input = ft_strjoin(tmp, s);
+	if (!(*input = ft_strjoin(tmp, s)))
+		ft_exit_malloc();
 	free(tmp);
 	ft_memdel((void **)&s);
 	check_opening_quote(input, alloc);

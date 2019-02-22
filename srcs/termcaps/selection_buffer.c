@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:34:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:05:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_buf	*alloc_selec_buff(int dir)
 	{
 		selec->buf_size = 64;
 		if (!(selec->s = ft_memalloc(selec->buf_size)))
-			ft_exit(0);
+			ft_exit_malloc();
 		selec->x = 0;
 		selec->pos.l = 0;
 	}
@@ -80,7 +80,7 @@ void	selection_init(t_buf *input, int dir, t_env **lst)
 		redisplay_line_selec(selec, input, lst);
 		return ;
 	}
-	if (!input->s[input->x] || selec->pos.l == 1)
+	if (input->x == ft_strlen(input->s) || selec->pos.l == 1)
 	{
 		(input->x && dir == -1) ? cursor_movement(input, -1) : 0;
 		return ;

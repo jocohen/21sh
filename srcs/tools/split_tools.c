@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:50:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/08 14:05:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int		position_redir(char const *s, int *i, int wn, int *iw)
 	}
 	else
 	{
+		if (ft_strncmp(&s[*i], "&>", 2) == 0 && ft_isdigit(s[*i - 1]))
+			*iw += 1;
 		while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 			x += 1;
 		if ((*iw += (*i - x < 0 || ft_isspace(s[*i - x]) == 1) ? 0 : 1) == wn)

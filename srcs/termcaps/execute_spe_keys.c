@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:25:49 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/13 16:21:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:00:08 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ void	del_char(t_buf *input, int type, t_env **lst)
 		if (!input->x)
 			return ;
 		cursor_movement(input, -1);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
-		ft_memmove(input->s + input->x, input->s + input->x + 1,
-			ft_strlen(input->s + input->x + 1) + 1);
+		put_term_rout("dc");
+		ft_memmove(input->s + input->x, input->s + input->x
+			+ lenbyte(input->s[input->x]), ft_strlen(input->s + input->x + 1)
+				+ lenbyte(input->s[input->x]));
 		reactualize_output(input, lst);
 	}
 	else if (input->s[input->x])
 	{
-		ft_memmove(input->s + input->x, input->s + input->x + 1,
-			ft_strlen(input->s + input->x + 1) + 1);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		ft_memmove(input->s + input->x, input->s + input->x
+			+ lenbyte(input->s[input->x]), ft_strlen(input->s + input->x + 1)
+				+ lenbyte(input->s[input->x]));
+		put_term_rout("dc");
 		reactualize_output(input, lst);
 	}
 }

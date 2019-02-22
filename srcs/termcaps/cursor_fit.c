@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/19 13:59:05 by nicolaslamerenx  ###   ########.fr       */
+/*   Updated: 2019/02/21 19:25:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	check_last_char_column(t_buf *input)
 {
-	if (input->pos.l && !input->pos.c)
+	if (input->pos.l && !input->pos.c && isatty(0))
 	{
-		tputs(tgetstr("im", 0), 1, ft_writestdin);
-		write(1, "c", 1);
+		put_term_rout("im");
+		write_str("c", 0);
 		input->pos.c += 1;
 		cursor_movement(input, -2);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
-		tputs(tgetstr("ei", 0), 1, ft_writestdin);
+		put_term_rout("dc");
+		put_term_rout("ei");
 	}
 }
 
@@ -29,6 +29,8 @@ void	reactualize_output(t_buf *input, t_env **lst)
 {
 	t_cursor	prev;
 
+	if (!isatty(0))
+		return ;
 	prev.c = input->pos.c;
 	prev.l = input->pos.l;
 	check_last_char_column(input);
@@ -41,6 +43,8 @@ int		window_width_size(void)
 	struct winsize	wind;
 
 	if (ioctl(0, TIOCGWINSZ, &wind) == -1)
+		return (1);
+	if (!wind.ws_col)
 		return (1);
 	return ((int)wind.ws_col);
 }
@@ -71,9 +75,9 @@ void	check_resize_curs_pos(t_buf *input)
 	if ((l == (size_t)window_width_size() ||
 		(input->pos.l && l == 1)) && !input->pos.c && !input->s[input->x])
 	{
-		write(1, "c", 1);
+		write_str("c", 0);
 		input->pos.c += 1;
 		cursor_movement(input, -2);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		put_term_rout("dc");
 	}
 }

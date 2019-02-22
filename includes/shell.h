@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/06 14:55:01 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:36:31 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@
 ************************************ DEFINE ************************************
 */
 
-# define NO_TYPE 	-1
-# define CMD		0
-# define LOGIC		1
+# define LOGIC		5
+# define OPERATOR	4
+# define AGREG		3
 # define REDIR		2
-# define OPERATOR	3
-# define AGREG		4
+# define HEREDOC	1
+# define CMD		0
+# define NO_TYPE 	-1
 
 /*
 ********************************** STRUCTURES **********************************
@@ -73,8 +74,8 @@ typedef struct			s_ast
 	int					print;
 	int					fd[2];
 	int					type;
+	char				*heredoc;
 	char				**input;
-	struct s_ast		*back_quote;
 	struct s_ast		*next;
 	struct s_ast		*back;
 	struct s_ast		*left;
@@ -94,6 +95,7 @@ typedef struct			s_alloc
 	t_buf				*input;
 	t_ast				**ast;
 	t_env				**env;
+	int					fd[3];
 }						t_alloc;
 
 typedef int				(*t_dispatch)(t_ast*, t_env **lst_env, char **tab_path,
@@ -107,7 +109,7 @@ typedef int				(*t_builtins)(t_ast *elem, t_env **lst_env,
 
 int						g_in_exec;
 int						g_pid;
-int						g_ret;
+int						g_ret[2];
 int						g_resize;
 char					*g_clip;
 
@@ -164,7 +166,7 @@ void					selection_input(t_buf *input, char k, t_env **lst);
 ************************************ TERMIOS ***********************************
 */
 
-void					set_terminal(t_env *fp, int reset);
+void					set_terminal(int reset);
 
 /*
 *********************************** HISTORIC ***********************************
@@ -186,6 +188,7 @@ void					historic_entry(char *input, t_historic **history,
 t_historic				*ft_new_cmd_hist(void);
 int						ft_del_hist(t_historic **fp);
 void					reset_hist(t_historic *tmp);
+void					end_hist(t_historic **tmp);
 
 /*
 ************************************ CURSOR ************************************
@@ -198,6 +201,7 @@ void					vertical_cursor(t_buf *input, int direction);
 void					cursor_one_down(t_buf *input);
 void					up_into_final_pos(t_buf *input);
 void					replace_cursor(t_buf *input, size_t c, size_t l);
+void					put_term_rout(char *s);
 
 /*
 *********************************** SELECTION **********************************
@@ -217,14 +221,22 @@ void					cut_selection(t_buf *input, t_buf *selec, t_env **lst);
 
 void					caller_display(t_env *fp, t_buf *input,
 										int change_pos);
+int						ret_status(void);
 void					fancy_display(char *pwd);
 void					classic_display(char *prompt);
 void					reactualize_output(t_buf *input, t_env **lst);
 int						display_sizing(int size);
+void					write_str(char *s, int c);
 void					delete_line_pos(t_buf *input, t_env **lst);
 void					display_spe_line(t_buf *selec, t_buf *input);
 void					redisplay_line_selec(t_buf *selec, t_buf *input,
 											t_env **lst);
+void					input_u8(t_alloc *al, unsigned char k, size_t nb_byte);
+void					add_u8_buff(t_alloc *al, size_t nb_byte,
+									unsigned char *uc, size_t prev_line);
+size_t					ft_strlen_u8(const char *s);
+size_t					lenbyte(char k);
+size_t					check_prev_char(t_buf *input);
 
 /*
 *********************************** SIGNALS ************************************
@@ -242,7 +254,6 @@ void					ft_exit(int status);
 void					*ft_realloc(void *ptr, size_t size, size_t len);
 int						ft_writestdin(int c);
 
-
 /*
 ************************************ LEXER *************************************
 */
@@ -255,15 +266,19 @@ int						check_cmd_pipe(char **input, t_alloc *alloc);
 int						find_closing(char **str, int *i, t_alloc *alloc);
 char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
-int						convert_quote(char **s, t_env **lst_env, t_alloc **alloc);
-void					remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc);
+int						convert_quote(char **s, t_env **lst_env,
+						t_alloc **alloc);
+int						remove_quote(char **s, int *i, t_env *lst_env,
+						t_alloc **alloc);
+void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
+						t_alloc **alloc);
 
 /*
-************************************ PARSER *************************************
+************************************ PARSER ************************************
 */
 void					parser(char **input, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
-void					fill_ast(char **s, t_ast **lst);
+void					fill_ast(char **s, t_ast **lst, int save);
 void					replace_quote(char *s, int *i);
 int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 
@@ -272,20 +287,23 @@ int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 */
 int						echo_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-int						cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+int						cd_builtins(t_ast *elem, t_env **lst_env,
+						t_alloc **alloc);
 int						setenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 int						unsetenv_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 int						env_cp(char **env, t_env **lst_env);
-int						env_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc);
-char					*get_env_value(t_env *lst_env, char *str);
-void					convert_lst_tab(t_env *lst_env, char ***_str);
-int						exec_input(t_ast *elem, t_env *lst_env, char **tab_path,
+int						env_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+char					*get_env_value(t_env *lst_env, char *str);
+void					convert_lst_tab(t_env *lst_env, char ***tab_str);
+int						exec_input(t_ast *elem, t_env *lst_env,
+						char **tab_path);
+int						exec_rights(t_ast *elem, char **tab_path,
+						char ***path_all);
 int						exit_builtins(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
-
 
 /*
 ********************************** OPERATOR ************************************
@@ -294,6 +312,8 @@ int						do_pipe(t_ast *elem, t_env **lst_env, t_alloc **alloc);
 int						job_control(t_ast *elem, t_env *lst_env);
 void					redirection(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+void					heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc);
+int						complete_heredoc(t_ast *lst, t_alloc **alloc);
 
 /*
 ******************************** REDIRECTION ***********************************
@@ -304,6 +324,7 @@ void					redirection_2(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
 void					redirection_3(t_ast *elem, t_env **lst_env,
 						t_alloc **alloc);
+
 /*
 ******************************** REDIRECTION ***********************************
 */
@@ -321,7 +342,7 @@ int						agreg_5(t_ast *elem, t_env **lst_env, char **tab_path,
 /*
 *********************************** ERROR **************************************
 */
-int						exec_error(int err, char *files, t_alloc **alloc);
+int						exec_error(int err, char *files);
 int						ft_error_parse_redir(char **input);
 int						ft_error_splitshell(void);
 int						ft_error_redir_format(char *ope, int len);
@@ -331,20 +352,29 @@ int						error_unsetenv(int i, char *s);
 int						ft_fd_exist(char *str_fd);
 void					error_redir(char *file);
 void					error_access(char *file);
+int						exec_right_error(int err, char *files,
+						char ***path_all);
+void					ft_exit_malloc(void);
 
-/*******************************************************************************
+/*
+********************************************************************************
 *********************************** TOOLS **************************************
 ********************************************************************************
 */
+
 /*
 *********************************** LEXER **************************************
 */
 int						ft_isquote(char c);
 int						ft_isoperator(char c);
 int						ft_str_is_empty(char *s);
-void					ft_insert(char **source, char *insert, int pos1, int pos2);
+void					ft_insert(char **source, char *insert,
+						int pos1, int pos2);
 void					ft_delete_inside(char **source, int start, int len);
-char					*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc);
+char					*ft_back_quote(char *sub, t_env *lst_env,
+						t_alloc **alloc);
+int						replace_val_ret(char **str, int i, int x);
+void					replace_str(char **str, char *insert, int pos);
 
 /*
 ********************************** PARSER **************************************
@@ -406,13 +436,21 @@ void					del_alloc(t_alloc **alloc);
 */
 char					*get_dir(char *pwd, char **tab_path, int options,
 						char *buf_pwd);
-
-/*
-*********************************** OTHER **************************************
-*/
-int						check_opening_quote(char **str, t_alloc *alloc);
-void					init_ast(char **input, char *s);
 char					*missing_quote_prompt(char c, t_alloc *alloc);
+void					init_ast(char **input, char *s);
+void					reinit_fd(int fd[3], t_alloc *alloc);
+void					link_new_node(t_ast **sort, t_ast *tmp, t_ast *node);
+void					fill_input(char **s, int end, int start, t_ast *elem);
+void					get_last_index_split(int *i, char *s, int *wd);
 int						main(int argc, char **argv, char **env);
-
+int						check_opening_quote(char **str, t_alloc *alloc);
+int						ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc);
+int						ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc);
+int						heredoc_content(t_alloc *alloc, t_ast *elem, char *s);
+int						get_last_index(int *i, char *s, int *save,
+						char **input);
+int						get_last_operator(int *i, char *s, int *save,
+						char **input);
+int						get_last_digit(int *i, char *s, int *save,
+						char **input);
 #endif

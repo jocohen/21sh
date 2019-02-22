@@ -6,10 +6,9 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/26 16:54:18 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/06 14:55:28 by tcollard         ###   ########.fr        #
+#    Updated: 2019/02/22 12:16:29 by jocohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 .PHONY: all, clean, fclean, re, debug, norme
 
 NAME = 21sh
@@ -39,6 +38,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_LEXER)ft_splitwhitespace_shell.c \
 		$(PATH_LEXER)ft_strsplit_shell.c \
 		$(PATH_LEXER)replace_quote.c \
+		$(PATH_LEXER)replace_val_ret.c \
 		$(PATH_LEXER)check_cmd_pipe.c \
 		$(PATH_LEXER)lexer.c \
 		$(PATH_PARSER)parser.c \
@@ -58,14 +58,21 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TOOLS)split_tools_2.c \
 		$(PATH_TOOLS)quote_tools.c \
 		$(PATH_TOOLS)parser_tools.c \
+		$(PATH_TOOLS)utf8.c \
 		$(PATH_TOOLS)env_tools.c \
 		$(PATH_TOOLS)env_tools_2.c \
+		$(PATH_TOOLS)redirection_tools.c \
+		$(PATH_TOOLS)agreg_tools.c \
 		$(PATH_TOOLS)builtins_tools.c \
 		$(PATH_TOOLS)back_quote_tools.c \
+		$(PATH_TOOLS)heredoc_tools.c \
+		$(PATH_TOOLS)ast_tools.c \
+		$(PATH_TOOLS)fill_ast_tools.c \
 		$(PATH_OPERATOR)pipe.c \
 		$(PATH_OPERATOR)job_control.c \
 		$(PATH_OPERATOR)redirection.c \
 		$(PATH_OPERATOR)agregation.c \
+		$(PATH_OPERATOR)heredoc.c \
 		$(PATH_PROMPT)quote_prompt.c \
 		$(PATH_ERROR)lexer_error.c \
 		$(PATH_ERROR)parser_error.c \
@@ -75,6 +82,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_ERROR)error_unsetenv.c \
 		$(PATH_ERROR)error_redirection.c \
 		$(PATH_ERROR)error_fd.c \
+		$(PATH_ERROR)error_malloc.c \
 		$(PATH_TERMCAPS)caller_display.c \
 		$(PATH_TERMCAPS)cursor_fit.c \
 		$(PATH_TERMCAPS)cursor_shift.c \
@@ -97,7 +105,7 @@ SRC =	$(PATH_LEXER)check_closing_quote.c \
 		$(PATH_TERMCAPS)set_term.c \
 		$(PATH_TERMCAPS)shell.c \
 		$(PATH_TERMCAPS)signal_control.c \
-		$(PATH_TERMCAPS)var_env_management.c
+		$(PATH_TERMCAPS)return_status.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -111,7 +119,7 @@ $(NAME): $(OBJS)
 	@gcc $(CFLAGS) $(LDFLAGS) $(LDLIBS) -o $@ $(OBJS)
 	@echo "\n$(NAME):\t\t\t$(GREEN)[READY]\n\t\t¯\_(ツ)_/¯$(END)"
 
-$(PATH_OBJ)%.o : $(PATH_SRC)%.c
+$(PATH_OBJ)%.o : $(PATH_SRC)%.c $(INCLUDE)/shell.h Makefile
 	@mkdir $(PATH_OBJ) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_LEXER) 2> /dev/null || true
 	@mkdir $(PATH_OBJ)$(PATH_TOOLS) 2> /dev/null || true

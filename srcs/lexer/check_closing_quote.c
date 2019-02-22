@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 16:09:50 by jonascohen       ###   ########.fr       */
+/*   Updated: 2019/02/21 20:58:14 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ int		find_closing(char **str, int *i, t_alloc *alloc)
 	{
 		if (!(tmp = missing_quote_prompt(c, alloc)))
 			return (0);
-		save = ft_strdup(*str);
+		(!(save = ft_strdup(*str))) ? ft_exit_malloc() : 0;
 		free(*str);
-		*str = ft_strjoin(save, tmp);
+		if (!(*str = ft_strjoin(save, tmp)))
+			ft_exit_malloc();
 		free(save);
 		free(tmp);
 		*i = ft_strlen(*str);

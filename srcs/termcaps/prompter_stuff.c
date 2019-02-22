@@ -6,45 +6,27 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2018/12/14 18:51:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/20 14:33:04 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-// void	write_log(t_buf input)
-// {
-// 	int fd;
-//
-// 	fd = open("/Users/jocohen/Documents/42_saves/42sh/log", O_WRONLY);
-// 	ft_putstr_fd(": colum :", fd);
-// 	ft_putstr_fd(ft_itoa(input.pos.c), fd);
-// 	ft_putstr_fd(": line :", fd);
-// 	ft_putstr_fd(ft_itoa(input.pos.l), fd);
-// 	ft_putstr_fd(": colum window size :", fd);
-// 	ft_putstr_fd(ft_itoa(window_width_size()), fd);
-// 	ft_putstr_fd(": index :", fd);
-// 	ft_putstr_fd(ft_itoa(input.x), fd);
-// 	ft_putstr_fd(":       ", fd);
-// 	ft_putstr_fd(, fd);
-// 	close(fd);
-// }
-
 void	input_character(t_buf *input, char k)
 {
-	tputs(tgetstr("im", 0), 1, ft_writestdin);
-	write(1, &k, 1);
+	put_term_rout("im");
+	write_str(&k, 1);
 	if (input->pos.c + 1 == (size_t)window_width_size())
 	{
 		input->pos.l += 1;
-		write(1, "c", 1);
+		write_str("c", 0);
 		input->pos.c = 1;
 		cursor_movement(input, -2);
-		tputs(tgetstr("dc", 0), 1, ft_writestdin);
+		put_term_rout("dc");
 	}
 	else
 		input->pos.c += 1;
-	tputs(tgetstr("ei", 0), 1, ft_writestdin);
+	put_term_rout("ei");
 }
 
 void	check_over_buffer(t_buf *input, char *into_buff)
