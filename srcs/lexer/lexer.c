@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 12:17:07 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 13:27:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 		while (lexer[i][x] && ft_isspace(lexer[i][x]))
 			x += 1;
 		(lexer[i][x]) ? clean_input(lexer[i], lst, lst_env, alloc) : 0;
-		free(lexer[i]);
+		ft_memdel((void **)&(lexer[i]));
 		i += 1;
 	}
 	(lexer != NULL) ? free(lexer) : 0;

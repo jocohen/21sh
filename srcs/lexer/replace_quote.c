@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 12:39:44 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 13:55:00 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	x = 0;
 	quote = (*s)[(*i)++];
 	save = *i;
+	sub = 0;
 	while ((*s)[*i] && (*s)[*i] != quote)
 		*i += 1;
 	if (quote == '\'' || quote == '"' || quote == '`')
@@ -111,10 +112,13 @@ int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	if (quote == '"')
 		while (sub[x])
 			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
-	else if (quote == '`' && (sub = ft_strsub(*s, save, *i - save)))
+	else if (quote == '`')
 	{
+		ft_memdel((void **)&sub);
+		sub = ft_strsub(*s, save, *i - save);
 		if (!sub[0])
 		{
+			ft_memdel((void **)&sub);
 			if (!(sub = ft_strdup("")))
 				ft_exit_malloc();
 		}
