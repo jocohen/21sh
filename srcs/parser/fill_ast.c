@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 15:30:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:58:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	split_redir(char *s, t_ast *elem)
 		else
 			get_last_index_split(&i, s, &wd);
 	if (!(elem->input = (char**)malloc(sizeof(char*) * (wd + 1))))
-		return ;
+		ft_exit_malloc();
 	elem->input[wd] = NULL;
 	fill_input_redir(s, elem);
 }

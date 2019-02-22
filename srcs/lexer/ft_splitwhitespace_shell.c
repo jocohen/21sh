@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/12 15:44:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:54:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,13 @@ char		**ft_splitwhitespace_shell(char *s)
 	if (ft_word_counter(s, &nb_word) == -1)
 		return (NULL);
 	if (!(split = (char**)malloc(sizeof(char*) * (nb_word + 1))))
-		return (NULL);
+		ft_exit_malloc();
 	while (i < nb_word)
 	{
 		nb_lettre = 0;
 		ft_counter_lettre((char*)s, i, &nb_lettre);
 		if (!(split[i] = (char*)malloc(sizeof(char) * (nb_lettre + 1))))
-			return (NULL);
+			ft_exit_malloc();
 		ft_fill((char *)s, i, split, nb_lettre);
 		i += 1;
 	}

@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   error_malloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/08 10:46:17 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 16:30:35 by tcollard         ###   ########.fr       */
+/*   Created: 2019/02/21 15:47:08 by tcollard          #+#    #+#             */
+/*   Updated: 2019/02/21 15:48:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/shell.h"
 
-char	*ft_strnew(size_t size)
+void	ft_exit_malloc(void)
 {
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	while (i < size)
-	{
-		str[i] = '\0';
-		i += 1;
-	}
-	str[i] = '\0';
-	return (str);
+	write(2, "21sh: malloc failed\n", 20);
+	exit(EXIT_FAILURE);
 }

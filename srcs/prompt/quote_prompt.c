@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 15:00:27 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/01 15:54:18 by jonascohen       ###   ########.fr       */
+/*   Updated: 2019/02/21 21:01:13 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	*missing_quote_prompt(char c, t_alloc *al)
 		else if (c == '`')
 			s = recall_prompt(al, 4);
 		if (!s)
+		{
+			ft_memdel((void **)&input);
 			return (0);
+		}
 		check_closing_quote(&c, s, &input, al);
 		ft_memdel((void **)&s);
 	}
@@ -40,12 +43,17 @@ void	init_ast(char **input, char *s)
 	char	*tmp;
 
 	if (*input == NULL)
-		*input = ft_strjoin("\n", s);
+	{
+		if (!(*input = ft_strjoin("\n", s)))
+			ft_exit_malloc();
+	}
 	else
 	{
-		tmp = ft_strjoin(*input, "\n");
+		if (!(tmp = ft_strjoin(*input, "\n")))
+			ft_exit_malloc();
 		free(*input);
-		*input = ft_strjoin(tmp, s);
+		if (!(*input = ft_strjoin(tmp, s)))
+			ft_exit_malloc();
 		free(tmp);
 	}
 }

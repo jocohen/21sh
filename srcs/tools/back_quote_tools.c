@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 14:41:15 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:19:14 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ static char	*get_back_quote_exec(int fd)
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (!sub)
-			sub = ft_strdup(str);
+			(!(sub = ft_strdup(str))) ? ft_exit_malloc() : 0;
 		else
 		{
-			tmp = ft_strjoin(sub, " ");
-			free(sub);
-			sub = ft_strjoin(tmp, str);
-			free(tmp);
+			(!(tmp = ft_strjoin(sub, " "))) ? ft_exit_malloc() : 0;
+			ft_memdel((void **)&sub);
+			(!(sub = ft_strjoin(tmp, str))) ? ft_exit_malloc() : 0;
+			ft_memdel((void **)&tmp);
 		}
-		free(str);
+		ft_memdel((void **)&str);
 	}
 	close(fd);
 	return (sub);

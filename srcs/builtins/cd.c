@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 11:44:04 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:16:22 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static int	modif_oldpwd(t_env **lst_env)
 	if ((tmp = find_elem_env(lst_env, "OLDPWD")))
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(find_elem_env(lst_env, "PWD")->value);
+		if (!(tmp->value = ft_strdup(find_elem_env(lst_env, "PWD")->value)))
+			ft_exit_malloc();
 	}
 	else
 	{
@@ -119,7 +120,7 @@ int			cd_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 		(ft_strcmp((dir = ft_strdup(get_env_value(*lst_env, "$HOME"))),
 		"") != 0) ? 0 : error_cd("HOME", 2);
 	else if (elem->input[i][0] == '/')
-		dir = ft_strdup(elem->input[i]);
+		(!(dir = ft_strdup(elem->input[i]))) ? ft_exit_malloc() : 0;
 	else
 		dir = get_dir(get_env_value(*lst_env, "$PWD"),
 		ft_strsplit(elem->input[i], '/'), options, buf_pwd);

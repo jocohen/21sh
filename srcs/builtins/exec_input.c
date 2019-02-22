@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 16:26:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 19:23:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ static char	**get_path_all(t_ast *elem, char **tab_path)
 	while (tab_path[len])
 		len += 1;
 	if (!(path_all = (char**)malloc(sizeof(char *) * (len + 1))))
-		return (NULL);
+		ft_exit_malloc();
 	while (i < len)
 	{
-		tmp = ft_strjoin(tab_path[i], "/");
-		path_all[i] = ft_strjoin(tmp, elem->input[0]);
+		if (!(tmp = ft_strjoin(tab_path[i], "/")))
+			ft_exit_malloc();
+		if (!(path_all[i] = ft_strjoin(tmp, elem->input[0])))
+			ft_exit_malloc();
 		free(tmp);
 		i += 1;
 	}
@@ -76,7 +78,7 @@ static void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path,
 
 int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
-	pid_t	father;
+	pid_t	child;
 	char	**tab_env;
 	char	**path_all;
 
@@ -88,15 +90,15 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	if (exec_rights(elem, tab_path, &path_all))
 		return (ret_status());
 	convert_lst_tab(lst_env, &tab_env);
-	if (!(father = fork()))
+	if (!(child = fork()))
 	{
 		if (g_pid == -1)
 			exit(130);
 		g_in_exec = 1;
 		execute_cmd(elem, tab_env, tab_path, path_all);
 	}
-	g_pid = father;
-	waitpid(father, &(g_ret[0]), 0);
+	g_pid = child;
+	waitpid(child, &(g_ret[0]), 0);
 	g_ret[1] = 1;
 	del_double_tab(tab_path, tab_env);
 	delete_str_tab(path_all);

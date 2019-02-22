@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 12:36:13 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:18:50 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*enter_section(t_alloc *al, int read)
 		ft_printf("input = |%s|\n", al->input->s);
 		ft_putstr(ANSI_RESET);
 		if (!(s = ft_strdup(al->input->s)))
-			ft_exit(0);
+			ft_exit_malloc();
 		lexer(s, al->env, al);
 		if (g_pid == -1)
 			write_str("\n", 0);

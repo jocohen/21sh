@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/05 12:59:49 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:57:33 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void			ft_fill(char *str, char c, int word_n, char **split)
 	j = 0;
 	nb_letter = ft_counter_letter(str, c, word_n);
 	if (!(split[word_n] = (char*)malloc(sizeof(char) * (nb_letter + 1))))
-		return ;
+		ft_exit_malloc();
 	i = ft_position_word(str, c, word_n);
 	while (str[i] && j < nb_letter)
 		split[word_n][j++] = str[i++];
@@ -120,7 +120,7 @@ char				**ft_strsplit_shell(char *str, char c)
 	if ((nb_word = ft_word_counter(str, c)) == -1)
 		return (NULL);
 	if (!(split = (char**)malloc(sizeof(char*) * (nb_word + 1))))
-		return (NULL);
+		ft_exit_malloc();
 	while (i < nb_word)
 	{
 		ft_fill(str, c, i, split);

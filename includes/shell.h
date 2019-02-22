@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 16:12:48 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:16:37 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,7 @@ void					error_redir(char *file);
 void					error_access(char *file);
 int						exec_right_error(int err, char *files,
 						char ***path_all);
+void					ft_exit_malloc(void);
 
 /*
 ********************************************************************************

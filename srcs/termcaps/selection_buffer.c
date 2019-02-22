@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 11:36:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 16:05:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_buf	*alloc_selec_buff(int dir)
 	{
 		selec->buf_size = 64;
 		if (!(selec->s = ft_memalloc(selec->buf_size)))
-			ft_exit(0);
+			ft_exit_malloc();
 		selec->x = 0;
 		selec->pos.l = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 12:08:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 14:47:23 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:10:11 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	setenv_builtins(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	if (tmp && elem->input[3] && ft_atoi(elem->input[3]) != 0)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(elem->input[2]);
+		(!(tmp->value = ft_strdup(elem->input[2]))) ? ft_exit_malloc() : 0;
 	}
 	else if (!tmp)
 		add_elem_env(lst_env, elem->input[1], elem->input[2]);

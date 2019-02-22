@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:02:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 13:40:08 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:19:46 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ static void		join_inputs(char **input, char *s)
 	char	*tmp;
 
 	if (*input == NULL)
-		*input = ft_strdup(s);
+	{
+		if (!(*input = ft_strdup(s)))
+			ft_exit_malloc();
+	}
 	else
 	{
-		tmp = ft_strjoin(*input, "\n");
+		if (!(tmp = ft_strjoin(*input, "\n")))
+			ft_exit_malloc();
 		free(*input);
-		*input = ft_strjoin(tmp, s);
+		if (!(*input = ft_strjoin(tmp, s)))
+			ft_exit_malloc();
 		free(tmp);
 	}
 	free(s);
@@ -48,7 +53,8 @@ int				heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
 		else
 		{
 			free(s);
-			s = ft_strjoin(elem->heredoc, "\n");
+			if (!(s = ft_strjoin(elem->heredoc, "\n")))
+				ft_exit_malloc();
 			free(elem->heredoc);
 			elem->heredoc = s;
 			break ;

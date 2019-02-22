@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 14:34:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/18 12:02:31 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:17:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		historic_opening(t_env *lst, int open_type)
 	else
 		s = ft_strjoin(home, ".21sh_history");
 	if (!s)
-		ft_exit(EXIT_FAILURE);
+		ft_exit_malloc();
 	if (!open_type)
 		fd = open(s, O_RDONLY);
 	else
@@ -86,6 +86,8 @@ void	historic_entry(char *input, t_historic **history, t_env *lst)
 {
 	int		fd;
 
+	if (!input)
+		ft_exit_malloc();
 	while ((*history)->next)
 		(*history) = (*history)->next;
 	ft_memdel((void **)&((*history)->origin));
@@ -101,7 +103,7 @@ void	historic_entry(char *input, t_historic **history, t_env *lst)
 	close(fd);
 	if (!((*history)->origin = ft_strdup(input))
 		|| !(((*history)->next) = ft_new_cmd_hist()))
-		ft_exit(EXIT_FAILURE);
+		ft_exit_malloc();
 	((*history)->next)->prev = (*history);
 	(*history) = (*history)->next;
 	ft_memdel((void **)&input);

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 11:27:40 by tcollard          #+#    #+#             */
-/*   Updated: 2018/12/13 16:13:17 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:05:54 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void		convert_lst_tab(t_env *lst_env, char ***tab_str)
 		tmp = tmp->next;
 	}
 	if (!(*tab_str = (char**)malloc(sizeof(char*) * (i + 1))))
-		return ;
+		ft_exit_malloc();
 	tmp = lst_env;
 	i = 0;
 	while (tmp)
 	{
 		if (!((*tab_str)[i] = (char*)malloc(sizeof(char) *
 		(ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2))))
-			return ;
+			ft_exit_malloc();
 		ft_strcat(ft_strcat(ft_strcpy((*tab_str)[i], tmp->key), "="),
 		tmp->value);
 		i += 1;

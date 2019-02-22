@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 16:04:46 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:18:39 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ void		replace_str(char **str, char *insert, int pos)
 	char *tmp;
 
 	if (!*str)
-		*str = ft_strdup(insert);
+		(!(*str = ft_strdup(insert))) ? ft_exit_malloc() : 0;
 	else
 	{
 		begin = ft_strsub(*str, 0, pos);
 		end = ft_strsub(*str, pos, ft_strlen(*str));
 		free(*str);
-		tmp = ft_strjoin(begin, insert);
-		*str = ft_strjoin(tmp, end);
+		if (!(tmp = ft_strjoin(begin, insert)))
+			ft_exit_malloc();
+		if (!(*str = ft_strjoin(tmp, end)))
+			ft_exit_malloc();
 		free(tmp);
 		free(begin);
 		free(end);
@@ -102,10 +104,11 @@ int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
 		*i += 1;
-	sub = (quote == '\'') ? ft_strsub(*s, save, *i - save) : 0;
-	if (quote == '"')
-	{
+	if (quote == '\'' || quote == '"' || quote == '`')
 		sub = ft_strsub(*s, save, *i - save);
+	else
+		sub = NULL;
+	if (quote == '"')
 		while (sub[x])
 			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
 	}

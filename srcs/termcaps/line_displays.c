@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/20 16:59:45 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 16:03:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	display_spe_line(t_buf *selec, t_buf *input)
 	x = 0;
 	if (!(output = ft_memalloc(ft_strlen(input->s) + ft_strlen(ANSI_DARK_GRAY)
 		+ ft_strlen(ANSI_DEF_BG) + 1)))
-		ft_exit(0);
+		ft_exit_malloc();
 	if (!selec->pos.l && (int)selec->pos.c == -1)
 		x = input->x + 1;
 	else if (selec->pos.c == 1)
