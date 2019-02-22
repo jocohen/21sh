@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:10:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 19:23:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:55:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ static void	execute_cmd(t_ast *elem, char **tab_env, char **tab_path,
 	exit(exec_error(-1, elem->input[0]));
 }
 
+static int	clean_tab(char **tab_path, char **path_all, char **tab_env)
+{
+	del_double_tab(tab_path, tab_env);
+	delete_str_tab(path_all);
+	return (ret_status());
+}
+
 int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 {
 	pid_t	child;
@@ -83,12 +90,13 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	char	**path_all;
 
 	path_all = NULL;
+	tab_env = NULL;
 	if (!tab_path)
 		tab_path = (find_elem_env(&lst_env, "PATH")) ?
 		ft_strsplit(get_env_value(lst_env, "$PATH"), ':') :
 		ft_strsplit("/usr/bin:/bin:/usr/sbin:/sbin", ':');
 	if (exec_rights(elem, tab_path, &path_all))
-		return (ret_status());
+		return (clean_tab(tab_path, path_all, tab_env));
 	convert_lst_tab(lst_env, &tab_env);
 	if (!(child = fork()))
 	{
@@ -100,7 +108,5 @@ int			exec_input(t_ast *elem, t_env *lst_env, char **tab_path)
 	g_pid = child;
 	waitpid(child, &(g_ret[0]), 0);
 	g_ret[1] = 1;
-	del_double_tab(tab_path, tab_env);
-	delete_str_tab(path_all);
-	return (ret_status());
+	return (clean_tab(tab_path, path_all, tab_env));
 }
