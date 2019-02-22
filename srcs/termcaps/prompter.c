@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 11:53:07 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:41:49 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ char	*kill_or_give(t_alloc *al, char k)
 		put_term_rout("do");
 		put_term_rout("cr");
 		(!isatty(0)) ? write_str("\n", 0) : 0;
+		ft_putstr(ANSI_MAGENTA);
+		ft_printf("\nEXIT EOF\n");
+		ft_putstr(ANSI_RESET);
 		ft_memdel((void **)&(al->input->s));
 		return (0);
 	}

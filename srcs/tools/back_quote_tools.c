@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:59:13 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 16:36:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:41:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_back_quote_exec(int fd)
 	return (sub);
 }
 
-static void	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
+static int	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 {
 	int		i;
 	char	**lexer;
@@ -54,19 +54,20 @@ static void	lexer_back_quote(char *input, t_env **lst_env, t_alloc *alloc)
 	if (!check_opening_quote(&input, alloc) || !check_cmd_pipe(&input, alloc))
 	{
 		ft_memdel((void **)&input);
-		return ;
+		return (0);
 	}
 	i = (input[i] == ';' && input[i + 1] != ';') ? 1 : 0;
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
 		g_pid = 0;
 		ft_memdel((void **)&input);
-		return ;
+		return (0);
 	}
 	set_terminal(1);
 	read_lexer(lexer, lst_env, lst, &alloc);
 	set_terminal(0);
 	ft_memdel((void **)&input);
+	return (1);
 }
 
 char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
@@ -76,9 +77,10 @@ char		*ft_back_quote(char *sub, t_env *lst_env, t_alloc **alloc)
 
 	i = 0;
 	str = NULL;
-	str = ft_strjoin(sub, " > /tmp/.back_quote.txt 2>&1");
-	lexer_back_quote(str, &lst_env, *alloc);
-	free(sub);
+	str = ft_strjoin(sub, " > /tmp/.back_quote.txt");
+	if (!lexer_back_quote(str, &lst_env, *alloc))
+		return (0);
+	ft_memdel((void **)&sub);
 	sub = get_back_quote_exec(0);
 	while (sub && sub[i])
 		if (sub[i] == ' ' && sub[i + 1] == ' ')

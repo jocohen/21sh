@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 12:20:34 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 16:12:48 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ char					**ft_splitwhitespace_shell(char *s);
 char					**ft_strsplit_shell(char *str, char c);
 int						convert_quote(char **s, t_env **lst_env,
 						t_alloc **alloc);
-void					remove_quote(char **s, int *i, t_env *lst_env,
+int						remove_quote(char **s, int *i, t_env *lst_env,
 						t_alloc **alloc);
 void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 						t_alloc **alloc);

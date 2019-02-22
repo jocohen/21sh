@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 12:34:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:04:46 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 static void	short_cut(char **s, t_env *lst_env)
 {
-	static char	tmp[PATH_MAX];
+	char	*dir;
 
-	ft_bzero(tmp, PATH_MAX);
+	dir = 0;
 	if ((*s)[0] == '~' && ((*s)[1] == '/' || (*s)[1] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$HOME"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[1]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$HOME"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
 	else if (ft_strncmp(*s, "~-", 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$OLDPWD"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$OLDPWD"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
 	else if (ft_strncmp("~+", *s, 2) == 0 && ((*s)[2] == '/'
 	|| (*s)[2] == '\0'))
 	{
-		ft_strcat(tmp, get_env_value(lst_env, "$PWD"));
-		((*s)[1] == '/') ? ft_strcat(tmp, &(*s)[2]) : 0;
+		dir = ft_strjoin(get_env_value(lst_env, "$PWD"),
+			((*s)[1] == '/') ? "/" : 0);
 	}
-	if (tmp[0] != '\0')
+	if (dir)
 	{
-		free(*s);
-		*s = ft_strdup(tmp);
+		ft_memdel((void **)&(*s));
+		(*s) = dir;
 	}
 }
 
@@ -90,7 +90,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	return (0);
 }
 
-void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
+int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 {
 	char	*sub;
 	char	quote;
@@ -98,7 +98,6 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	int		x;
 
 	x = 0;
-	sub = NULL;
 	quote = (*s)[(*i)++];
 	save = *i;
 	while ((*s)[*i] && (*s)[*i] != quote)
@@ -110,12 +109,14 @@ void		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 		while (sub[x])
 			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
 	}
-	else if (quote == '`')
+	else if (quote == '`' && (sub = ft_strsub(*s, save, *i - save)))
 	{
-		sub = ft_strsub(*s, save, *i - save);
 		sub = (!sub[0]) ? ft_strdup("") : ft_back_quote(sub, lst_env, alloc);
+		if (!sub)
+			return (0);
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
+	return (1);
 }
 
 int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
@@ -133,7 +134,8 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			remove_quote(s, &i, *lst_env, alloc);
+			if (!remove_quote(s, &i, *lst_env, alloc))
+				return (-1);
 			i -= 2;
 		}
 		else

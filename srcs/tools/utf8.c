@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 11:48:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/21 12:10:54 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:28:54 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	add_u8_buff(t_alloc *al, size_t nb_byte, unsigned char *uc,
 	ft_memmove(al->input->s + al->input->x + nb_byte,
 				al->input->s + al->input->x,
 				ft_strlen(al->input->s + al->input->x) + nb_byte);
+	check_over_buffer(al->input, (char *)uc);
 	while (x < nb_byte)
 		al->input->s[al->input->x++] = (char)uc[x++];
 	if (((display_sizing(0) + ft_strlen_u8(al->input->s))
