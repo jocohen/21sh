@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 18:52:19 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 21:49:28 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	}
 	fill_ast(input, &lst, 0);
 	sort = lst;
+	i = 0;
+	ft_putstr(ANSI_RED);
+	ft_printf("input =");
+	while (input[i])
+		ft_printf(" %s", input[i++]);
+	ft_printf("\n");
+	ft_putstr(ANSI_RESET);
 	while (sort)
 	{
 		i = -1;
