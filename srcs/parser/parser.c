@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 21:49:28 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 22:10:28 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,20 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 	}
 }
 
+static void		clean_tab_and_ast(char **input, t_ast *lst)
+{
+	delete_str_tab(input);
+	del_lst_ast(&lst);
+}
+
 void			parser(char **input, t_ast *lst, t_env **lst_env,
 				t_alloc **alloc)
 {
 	int		i;
 	t_ast	*sort;
 
-	sort = NULL;
 	if (ft_error_parse_redir(input) == 1)
 	{
-		delete_str_tab(input);
 		g_ret[0] = 1;
 		return ;
 	}
@@ -85,8 +89,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		while (sort->input[++i])
 			if (convert_quote(&(sort->input[i]), lst_env, alloc) == -1)
 			{
-				delete_str_tab(input);
-				del_lst_ast(&lst);
+				clean_tab_and_ast(input, lst);
 				return ;
 			}
 		sort = sort->next;
@@ -94,6 +97,5 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	sort_ast(lst, &sort);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
-	delete_str_tab(input);
-	del_lst_ast(&lst);
+	clean_tab_and_ast(input, lst);
 }

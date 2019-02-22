@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:02:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 16:20:46 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 20:22:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int				heredoc_content(t_alloc *alloc, t_ast *elem, char *s)
 		else
 		{
 			free(s);
-			if (!(s = ft_strjoin(elem->heredoc, "\n")))
-				ft_exit_malloc();
+			(!(s = ft_strjoin(elem->heredoc, "\n"))) ? ft_exit_malloc() : 0;
 			free(elem->heredoc);
 			elem->heredoc = s;
 			break ;

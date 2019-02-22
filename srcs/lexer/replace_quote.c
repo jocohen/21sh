@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 20:17:22 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/22 20:21:05 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int	replace_env_var(char **str, int i, t_env *lst_env)
 	return (0);
 }
 
-int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
+int			remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 {
 	char	*sub;
 	char	quote;
@@ -103,31 +103,20 @@ int		remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 	x = 0;
 	quote = (*s)[(*i)++];
 	save = *i;
-	sub = 0;
 	while ((*s)[*i] && (*s)[*i] != quote)
 		*i += 1;
-	if (quote == '\'' || quote == '"' || quote == '`')
-		sub = ft_strsub(*s, save, *i - save);
-	else
-		sub = NULL;
-	if (quote == '"')
-		while (sub[x])
-			x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
-	else if (quote == '`')
+	sub = (ft_isquote(quote) == 1) ? ft_strsub(*s, save, *i - save) : NULL;
+	while (sub[x] && quote == '"')
+		x += (sub[x] == '$') ? replace_env_var(&sub, x, lst_env) : 1;
+	if (quote == '`')
 	{
-		ft_memdel((void **)&sub);
-		sub = ft_strsub(*s, save, *i - save);
 		if (!sub[0])
 		{
 			ft_memdel((void **)&sub);
-			if (!(sub = ft_strdup("")))
-				ft_exit_malloc();
+			(!(sub = ft_strdup(""))) ? ft_exit_malloc() : 0;
 		}
-		else
-		{
-			if (!(sub = ft_back_quote(sub, lst_env, alloc)))
-				return (0);
-		}
+		else if (!(sub = ft_back_quote(sub, lst_env, alloc)))
+			return (0);
 	}
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
 	return (1);
