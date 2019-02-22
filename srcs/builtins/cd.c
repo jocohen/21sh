@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 20:20:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 21:47:45 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 static int	check_access(char *dir, char *folder)
 {
+	int		err;
+
+	err = -1;
 	if (access(dir, F_OK) == -1)
-	{
-		ft_memdel((void **)&dir);
-		return (error_cd(folder, 0));
-	}
-	if (access(dir, X_OK) == -1)
-	{
-		ft_memdel((void **)&dir);
-		return (error_cd(folder, 1));
-	}
-	if (chdir(dir) == -1)
-	{
-		ft_memdel((void **)&dir);
-		return (error_cd(folder, 3));
-	}
-	return (0);
+		err = 0;
+	else if (access(dir, X_OK) == -1)
+		err = 1;
+	else if (chdir(dir) == -1)
+		err = 3;
+	else
+		return (0);
+	if (folder && folder[0] != '-')
+		error_cd(folder, err);
+	else
+		error_cd(dir, err);
+	ft_memdel((void **)&dir);
+	return (-1);
 }
 
 static int	check_options(t_ast *elem, int *options, t_alloc **alloc)
