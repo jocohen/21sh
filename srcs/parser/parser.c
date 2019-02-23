@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 00:26:46 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/23 13:37:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 
 static void		clean_tab_and_ast(char **input, t_ast *lst)
 {
+	// (void)input;
 	delete_str_tab(input);
 	del_lst_ast(&lst);
 }
@@ -213,6 +214,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	int		i;
 	t_ast	*sort;
 
+
+//CHECK PARSE ERROR IF IT STILL AVAILABLE FOR NEW LEXER
 	if (ft_error_parse_redir(input) == 1)
 	{
 		g_ret[0] = 1;

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/08 14:05:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/23 11:19:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	lettre_in_quote(char const *s, int *i, int *nb_lettre)
 void	nb_lettre_operator(char *s, int i, int *nb_lettre)
 {
 	int	x;
-	int	add;
+	// int	add;
 
 	x = 0;
-	add = 0;
+	// add = 0;
 	if (type_operator(s, &i) == 1)
 	{
 		if (*nb_lettre == 0)
@@ -56,13 +56,13 @@ void	nb_lettre_operator(char *s, int i, int *nb_lettre)
 	while (s[i + x] && ft_isoperator(s[i + x]) == 1)
 		x += 1;
 	*nb_lettre += x;
-	i += x;
-	x = (s[i] == '-' && s[i - 1] == '&' && (ft_isspace(s[i + 1]) == 1
-	|| !s[i + 1])) ? 1 : 0;
-	while (s[i + add] && ft_isdigit(s[i + add]) == 1)
-		add += 1;
-	*nb_lettre += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
-	*nb_lettre += x;
+	// i += x;
+	// x = (s[i] == '-' && s[i - 1] == '&' && (ft_isspace(s[i + 1]) == 1
+	// || !s[i + 1])) ? 1 : 0;
+	// while (s[i + add] && ft_isdigit(s[i + add]) == 1)
+	// 	add += 1;
+	// *nb_lettre += (!s[i + add] || ft_isspace(s[i + add]) == 1) ? add : 0;
+	// *nb_lettre += x;
 }
 
 int		check_redir(char *s, int *i, unsigned int *nb_word)
@@ -72,9 +72,9 @@ int		check_redir(char *s, int *i, unsigned int *nb_word)
 	x = 0;
 	while (ft_isoperator(s[*i + x]) == 1)
 		x += 1;
-	if (s[*i + x] == '-' && s[*i + x - 1] == '&'
-	&& (ft_isspace(s[*i + x + 1]) == 1 || !s[*i + x + 1]))
-		x += 1;
+	// if (s[*i + x] == '-' && s[*i + x - 1] == '&'
+	// && (ft_isspace(s[*i + x + 1]) == 1 || !s[*i + x + 1]))
+	// 	x += 1;
 	if (x > 3)
 		return (ft_error_redir_format(&s[*i], x));
 	else if (check_operator(s, i, nb_word, x) == 1)
@@ -90,6 +90,7 @@ int		position_redir(char const *s, int *i, int wn, int *iw)
 	int	x;
 
 	x = 1;
+	// ft_printf("START |%s|\n", &s[*i]);
 	if (type_operator(s, i) == 1)
 	{
 		if (*i > 0 && ft_isspace(s[*i - 1]) == 0 && (*iw += 1) == wn)
@@ -101,15 +102,18 @@ int		position_redir(char const *s, int *i, int wn, int *iw)
 	}
 	else
 	{
-		if (ft_strncmp(&s[*i], "&>", 2) == 0 && ft_isdigit(s[*i - 1]))
-			*iw += 1;
+		// if (ft_strncmp(&s[*i], "&>", 2) == 0 && ft_isdigit(s[*i - 1]))
+		// 	*iw += 1;
 		while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 			x += 1;
 		if ((*iw += (*i - x < 0 || ft_isspace(s[*i - x]) == 1) ? 0 : 1) == wn)
+		{
+			// ft_printf("COUCOU\n");
 			return (*i);
+		}
 		while (s[*i] && ft_isoperator(s[*i]) == 1)
 			*i += 1;
-		get_position(s, i, wn, iw);
+		// get_position(s, i, wn, iw);
 	}
 	return (*i);
 }
