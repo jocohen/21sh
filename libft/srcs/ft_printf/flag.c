@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:50:35 by tcollard          #+#    #+#             */
-/*   Updated: 2018/10/18 18:03:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/23 16:23:59 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ char	*dispatch_flag(t_flag *tab_p, char *v, char c)
 		(len == 0 && tab_p->flag[1] == 1) ? z = '0' : 0;
 		if (!(add = ft_memalloc(tab_p->width - len + 1)))
 			return (NULL);
-		free(v);
+		ft_memdel((void **)&v);
 		v = ft_strjoin(ft_memset(add, z, tab_p->width - len), modif);
-		free(add);
+		ft_memdel((void **)&add);
 	}
-	free(modif);
+	ft_memdel((void **)&modif);
 	return (v);
 }

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 11:48:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 17:31:16 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/23 16:59:06 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,9 @@ void	add_u8_buff(t_alloc *al, size_t nb_byte, unsigned char *uc,
 						size_t prev_line)
 {
 	size_t	x;
-	char	*s;
 
 	x = 0;
-	(!(s = ft_strjoin(al->input->s, (char *)uc))) ? ft_exit_malloc() : 0;
-	check_over_buffer(al->input, s);
-	ft_memdel((void **)&s);
+	u8_buff(al->input, nb_byte);
 	ft_memmove(al->input->s + al->input->x + nb_byte,
 				al->input->s + al->input->x,
 				ft_strlen(al->input->s + al->input->x) + nb_byte);
@@ -93,8 +90,7 @@ void	input_u8(t_alloc *al, unsigned char k, size_t nb_byte)
 	size_t			prev_line;
 
 	uc[0] = k;
-	uc[4] = 0;
-	if (read(0, uc + 1, nb_byte - 1) == -1)
+	if (read(0, uc + 1, nb_byte - 1) == -1 || ft_strlen((char *)uc) != nb_byte)
 		return ;
 	prev_line = al->input->pos.l;
 	put_term_rout("im");

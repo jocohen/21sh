@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:54:50 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 13:27:39 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/23 16:33:53 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,25 @@ void		lexer(char *input, t_env **lst_env, t_alloc *alloc)
 	i = 0;
 	lexer = NULL;
 	lst = NULL;
+	ft_putstr(ANSI_RED);
+	ft_printf("input = %s\n", input);
+	ft_putstr(ANSI_RESET);
 	if (!check_opening_quote(&input, alloc) || !check_cmd_pipe(&input, alloc))
 	{
 		ft_memdel((void **)&input);
 		return ;
 	}
+	ft_printf("\n MEHERE LEXER BEF HIST\n");
 	historic_entry(ft_strdup(input), alloc->history, *lst_env);
 	i = (input[i] == ';' && input[i + 1] != ';') ? 1 : 0;
+	ft_printf("\n MEHERE LEXER BEF SPLIT shell\n");
 	if ((lexer = ft_strsplit_shell(&input[i], ';')) == NULL)
 	{
 		ft_memdel((void **)&input);
 		return ;
 	}
 	set_terminal(1);
+	ft_printf("\n MEHERE LEXER BEF PARSER\n");
 	read_lexer(lexer, lst_env, lst, &alloc);
 	set_terminal(0);
 	ft_memdel((void **)&input);
