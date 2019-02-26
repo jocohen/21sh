@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 08:04:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 08:45:11 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,25 @@ static void	fill_input_redir(char **s, t_ast *elem, int *pos, int nb_wd)
 		if (ft_isdigit(s[*pos][i]) == 1)
 			wd += get_last_digit(&i, s[*pos], &save, &(elem->input[wd]));
 		else if (ft_isoperator(s[*pos][i]) == 1)
+		{
+			// ft_printf("GET LAST OP\ns[%d] = |%s|\nwd = %d\n", *pos, s[*pos], wd);
 			wd += get_last_operator(&i, s[*pos], &save, &(elem->input[wd]));
+			// ft_printf("input[0]: |%s|\n", elem->input[0]);
+		}
 		else
 			wd += get_last_index(&i, s[*pos], &save, &(elem->input[wd]));
 	}
+	// ft_printf("wd = %d\n", wd);
 	if (wd < nb_wd)
 	{
 		*pos += 1;
 		elem->input[wd] = ft_strdup(s[*pos]);
+		elem->input[wd + 1] = NULL;
 	}
-	elem->input[wd + 1] = NULL;
+	else
+	{
+		elem->input[wd] = NULL;
+	}
 }
 
 static void	split_redir(char **s, t_ast *elem, int *pos)
@@ -65,8 +74,9 @@ static void	split_redir(char **s, t_ast *elem, int *pos)
 		}
 		else
 			get_last_index_split(&i, s[*pos], &wd);
-	if (elem->type < AGREG)
+	if (elem->type <= AGREG)
 		wd += 1;
+	// ft_printf("split redir wd = %d\n", wd);
 	if (!(elem->input = (char**)malloc(sizeof(char*) * (wd + 1))))
 		ft_exit_malloc();
 	elem->input[wd] = NULL;
@@ -133,12 +143,14 @@ void		fill_ast(char **s, t_ast **lst, int save)
 				(ft_isoperator(s[save][0]) == 0) ?
 				fill_input(s, i, save, new) : 0;
 				(ft_isoperator(s[save][0]) == 0) ? new = add_new_elem(lst) : 0;
-				save = i + fill_operator(s, x, new, &i) + 1;
+				save = i + fill_operator(s, x, new, &i) + ((new->type > AGREG) ? 0 : 1);
 				break ;
 			}
 			else if (ft_isquote(s[i][x]) == 1 && go_end_quote(s, i, &x) == 1)
 				break ;
 	}
+	if (new->type > AGREG)
+		new = add_new_elem(lst);
 	if (new->type == NO_TYPE)
  		fill_input(s, i, save, new);
 	else if (i != save)

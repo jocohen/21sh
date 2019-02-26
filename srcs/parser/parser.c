@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 08:05:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 09:00:16 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,61 +37,64 @@ static void	read_lst(t_ast *lst, int active)
 	}
 }
 
-// static void			read_sort_descent(t_ast *sort)
-// {
-// 	t_ast	*tmp;
-// 	int		i;
-// 	tmp = sort;
-// 	while (tmp->left)
-// 	{
-// 		ft_printf("\ntype= %d\n", tmp->type);
-// 		i = 0;
-// 		while (tmp->input[i])
-// 		{
-// 			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 			i += 1;
-// 		}
-// 		tmp->print = 1;
-// 		tmp = tmp->left;
-// 	}
-// 	ft_printf("\ntype= %d\n", tmp->type);
-// 	i = 0;
-// 	while (tmp->input[i])
-// 	{
-// 		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 		i += 1;
-// 	}
-// 	tmp->print = 1;
-// 	while (tmp)
-// 	{
-// 		if (tmp->left && tmp->left->print == 0)
-// 		{
-// 			tmp = tmp->left;
-// 			ft_printf("\ntype= %d\n", tmp->type);
-// 			i = 0;
-// 			while (tmp->input[i])
-// 			{
-// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 				i += 1;
-// 			}
-// 			tmp->print = 1;
-// 		}
-// 		else if (tmp->right && tmp->right->print == 0)
-// 		{
-// 			tmp = tmp->right;
-// 			ft_printf("\ntype= %d\n", tmp->type);
-// 			i = 0;
-// 			while (tmp->input[i])
-// 			{
-// 				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
-// 				i += 1;
-// 			}
-// 			tmp->print = 1;
-// 		}
-// 		else
-// 			tmp = tmp->back;
-// 	}
-// }
+static void			read_sort_descent(t_ast *sort, int active)
+{
+	t_ast	*tmp;
+	int		i;
+
+	tmp = sort;
+	if (active == 0)
+		return ;
+	while (tmp->left)
+	{
+		ft_printf("\ntype= %d\n", tmp->type);
+		i = 0;
+		while (tmp->input[i])
+		{
+			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+			i += 1;
+		}
+		tmp->print = 1;
+		tmp = tmp->left;
+	}
+	ft_printf("\ntype= %d\n", tmp->type);
+	i = 0;
+	while (tmp->input[i])
+	{
+		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+		i += 1;
+	}
+	tmp->print = 1;
+	while (tmp)
+	{
+		if (tmp->left && tmp->left->print == 0)
+		{
+			tmp = tmp->left;
+			ft_printf("\ntype= %d\n", tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
+		}
+		else if (tmp->right && tmp->right->print == 0)
+		{
+			tmp = tmp->right;
+			ft_printf("\ntype= %d\n", tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
+		}
+		else
+			tmp = tmp->back;
+	}
+}
 
 static void		reinit_print(t_ast *lst, int active)
 {
@@ -255,6 +258,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
+	read_sort_descent(sort, 0);
 
 	// ft_printf("READ AST:\n\n");
 	// read_sort_descent(sort);

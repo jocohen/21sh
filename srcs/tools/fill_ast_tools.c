@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 08:06:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 08:41:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ int		get_last_index(int *i, char *s, int *save, char **input)
 
 int		get_last_operator(int *i, char *s, int *save, char **input)
 {
+	// ft_printf("s[%d] = %s\n", *i, s[*i]);
 	while (ft_isoperator(s[*i]) == 1)
 		*i += 1;
 	*i += (s[*i] == '-') ? 1 : 0;
 	*input = ft_strsub(s, *save, *i - *save);
+	// ft_printf("input: |%s|\n", *input);
 	*save = *i;
 	return (1);
 }
@@ -115,6 +117,7 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	t_ast	*tmp;
 	int		len;
 
+	// ft_printf("end = %d  start = %d\n", end, start);
 	i = 0;
 	tmp = NULL;
 	if (elem->back && elem->back->type <= AGREG)
