@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 17:06:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:32:37 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 	else if (x >= 9)
 	{
 		*nb_word += (*i > 0 && ft_isspace(s[*i - 1]) == 0) ? 1 : 0;
+		// *i += len;
 		// *nb_word += (s[*i + len] && ft_isspace(s[*i + len]) == 0 && x != 9 && x != 10) ? 1 : 0;
 	}
 	else

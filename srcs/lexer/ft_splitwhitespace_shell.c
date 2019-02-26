@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 16:58:02 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:39:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,15 @@ static void	ft_position_word(char *s, int wn, int *pos)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
 			{
-				// ft_printf("\n===> GO TO position_redir\n");
-				*pos = position_redir(s, &i, wn, &wd_search);
-				// ft_printf("===> AFTER POS REDIR: |%s|\n\n", &s[i]);
+				if (i - 1 >= 0 && ft_isspace(s[i - 1]) == 0)
+				{
+					*pos = position_redir(s, &i, wn, &wd_search);
+				}
+				else
+				{
+					while (ft_isoperator(s[i]) == 1)
+						i += 1;
+				}
 				if (wn == wd_search)
 					return ;
 				if (s[i] && ft_isspace(s[i]) == 0)
