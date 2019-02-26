@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 19:33:29 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 21:23:36 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	// while (1) {}
 
 	// ft_printf("READ LIST\n");
-	read_lst(lst, 1);
+	read_lst(lst, 0);
 	// ft_printf("\n\nEND\n");
 
 	sort = lst;
@@ -263,7 +263,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	// ft_printf("READ AST:\n\n");
 	// read_sort_descent(sort);
 	// ft_printf("END MOTHA FUCKA\n\n");
-	reinit_print(lst, 1);
+	reinit_print(lst, 0);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	clean_tab_and_ast(input, lst);
