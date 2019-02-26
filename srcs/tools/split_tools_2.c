@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 11:19:05 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:06:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,23 @@ static void	check_before_operator(char *s, int *i, unsigned int *nb_word)
 int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 {
 	int			x;
-	static char	*operator[14] = {">>", ">>&", ">&", ">", "<<<", "<<",
-	"<>", "<", "&>>", "&>", "&&", "&", "||", "|"};
+	static char	*operator[15] = {">>", ">>&", ">&", ">", "<<<", "<<",
+	"<>", "<", "<&", "&>>", "&>", "&&", "&", "||", "|"};
 
 	x = 0;
-	while (x < 14)
+	while (x < 15)
 	{
 		if (ft_strlen(operator[x]) == len && ft_strncmp(&s[*i], operator[x],
 			len) == 0)
 			break ;
 		x += 1;
 	}
-	if (x == 14)
+	if (x == 15)
 		return (ft_error_redir_format(&s[*i], len));
-	else if (x >= 10)
+	else if (x >= 9)
 	{
 		*nb_word += (*i > 0 && ft_isspace(s[*i - 1]) == 0) ? 1 : 0;
-		*nb_word += (s[*i + len] && ft_isspace(s[*i + len]) == 0) ? 1 : 0;
+		// *nb_word += (s[*i + len] && ft_isspace(s[*i + len]) == 0 && x != 9 && x != 10) ? 1 : 0;
 	}
 	else
 	{
@@ -69,8 +69,8 @@ int			type_operator(char const *s, int *i)
 {
 	int			x;
 	size_t		len;
-	static char	*operator[14] = {">>", ">>&", ">&", ">", "<<<", "<<",
-	"<>", "<", "&>>", "&>", "&&", "&", "||", "|"};
+	static char	*operator[15] = {">>", ">>&", ">&", ">", "<<<", "<<",
+	"<>", "<", "<&", "&>>", "&>", "&&", "&", "||", "|"};
 
 	x = 0;
 	len = 0;
@@ -79,14 +79,14 @@ int			type_operator(char const *s, int *i)
 	// if (s[*i + len] == '-' && s[*i + len - 1] == '&' &&
 	// (ft_isspace(s[*i + len + 1]) == 1 || !s[*i + len + 1]))
 	// 	len += 1;
-	while (x < 14)
+	while (x < 15)
 	{
 		if (ft_strlen(operator[x]) == len && ft_strncmp(&s[*i], operator[x],
 			len) == 0)
 			break ;
 		x += 1;
 	}
-	if (x >= 10)
+	if (x >= 9)
 		return (1);
 	return (0);
 }

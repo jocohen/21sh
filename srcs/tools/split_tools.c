@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 11:19:56 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:08:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,15 @@ int		position_redir(char const *s, int *i, int wn, int *iw)
 	// ft_printf("START |%s|\n", &s[*i]);
 	if (type_operator(s, i) == 1)
 	{
-		if (*i > 0 && ft_isspace(s[*i - 1]) == 0 && (*iw += 1) == wn)
+		// ft_printf("TYPE OPERATOR\n");
+		if ((*iw += 1) == wn)
 			return (*i);
+		// if (*i > 0 && ft_isspace(s[*i - 1]) == 0 && (*iw += 1) == wn)
+		// 	return (*i);
 		while (s[*i] && ft_isoperator(s[*i]) == 1)
 			*i += 1;
-		if (ft_isspace(s[*i]) == 0 && (*iw += 1) == wn)
-			return (*i);
+		// if (ft_isspace(s[*i]) == 0 && (*iw += 1) == wn)
+		// 	return (*i);
 	}
 	else
 	{
