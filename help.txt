@@ -1,0 +1,2 @@
+add parse error for "ls -l <&"
+if no '-' at the end that means it's a parse error;

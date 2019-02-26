@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 19:03:34 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:48:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static void	redir_to_file(t_ast *elem, t_alloc *alloc, int fd[3], int i)
 {
-	int				fd_redir;
-	int				fd_open;
+	int		fd_redir;
+	int		fd_open;
+	int		dig;
 
 	fd_redir = -1;
 	fd_open = -1;
-	fd_redir = (ft_isdigit(elem->input[0][0]) == 1) ?
-	ft_atoi(elem->input[0]) : 1;
-	fd_open = open((elem->right) ? elem->right->input[0] :
+	dig = (ft_isdigit(elem->input[0][0]) == 1) ? 1 : 0;
+	fd_redir = (dig == 1) ?	ft_atoi(elem->input[0]) : 1;
+	fd_open = open((dig == 1) ? elem->input[2] :
 	elem->input[1], O_WRONLY | O_CREAT | ((i == 0) ? O_TRUNC :
 	O_APPEND), 0644);
 	if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)

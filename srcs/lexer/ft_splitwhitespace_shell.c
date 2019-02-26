@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 17:39:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:42:43 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nb_lettre)
 
 	i = 0;
 	ft_position_word(s, word_n, &i);
-	ft_printf("POS wd %d: %s\n", word_n, &s[i]);
 	while (s[i + *nb_lettre] && ft_isdigit(s[i + *nb_lettre]) == 1)
 		*nb_lettre += 1;
 	i += *nb_lettre;
@@ -145,7 +144,6 @@ char		**ft_splitwhitespace_shell(char *s)
 		return (NULL);
 	if (ft_word_counter(s, &nb_word) == -1)
 		return (NULL);
-	ft_printf("NB WORD = %d\n", nb_word);
 	if (!(split = (char**)malloc(sizeof(char*) * (nb_word + 1))))
 		ft_exit_malloc();
 	while (i < nb_word)

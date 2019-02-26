@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/23 12:44:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:49:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define LOGIC		5
 # define OPERATOR	4
-# define AGREG		3
+# define AGREG		2
 # define REDIR		2
 # define HEREDOC	1
 # define CMD		0
