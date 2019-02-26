@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:01:31 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 08:06:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,39 +81,30 @@ void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 	len = 0;
 	i = 0;
 	tmp = NULL;
-	// ft_printf("start = %d\n", start);
-	//RECHERCHE DU PREMIER ELEM DE TYPE CMD EN PARTANT DE LA FIN
 	while (elem->back && elem->type != CMD)
 		elem = elem->back;
-	// //SAVE DU TAB INPUT ORIGINAL AFIN DE FAIRE UN TAB JOIN DANS L'IDEE
-	// tmp = &(elem->input);
 	while (elem->input[len])
 	{
 		// ft_printf("IN[%d]: %s\n", len, elem->input[len]);
 		len += 1;
 	}
-	// ft_printf("OK1\n");
 	init_len = len;
 	len += end - start;
-	if (!(tmp = (char**)malloc(sizeof(char*) * len)))
+	// ft_printf("LEN TOTAL = %d\n", len);
+	if (!(tmp = (char**)malloc(sizeof(char*) * (len + 1))))
 		ft_exit_malloc();
-	// start += 1;
-	// ft_printf("OK2\nlen = %d\n", len);
-	// ft_printf("tmp[%d]: |%s|\n", i, *tmp[i]);
 	while (elem->input[i])
 	{
-		// ft_printf("tmp[%d]: |%s|\n", i, (*tmp)[i]);
 		tmp[i] = ft_strdup(elem->input[i]);
 		i += 1;
 	}
-	// ft_printf("OK3    i = %d\n", i);
 	while (i < len)
 	{
 		tmp[i] = ft_strdup(s[start]);
 		start += 1;
 		i += 1;
 	}
-	// ft_printf("OK4\n");
+	tmp[i] = NULL;
 	delete_str_tab(elem->input);
 	elem->input = tmp;
 }
@@ -144,6 +135,6 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	elem->type = CMD;
 	//SI AVANT TYPE AGREG OU PLUS BAS
 	//RECHERCHE DE L'INPUT DE CMD LE PLUS PROCHE POUR LE MODIF
-	if (elem->back && len == 2 && end - start != 2)
-		add_input_prev_cmd(s, end, start, elem);
+	// if (elem->back && len == 2 && end - start != 2)
+	// 	add_input_prev_cmd(s, end, start, elem);
 }

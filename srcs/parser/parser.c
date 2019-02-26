@@ -6,19 +6,22 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:37:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 08:05:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	read_lst(t_ast *lst)
+static void	read_lst(t_ast *lst, int active)
 {
 	t_ast	*tmp;
 	int		x;
 	int		i;
+
 	i = 0;
 	tmp = lst;
+	if (active == 0)
+		return ;
 	while (tmp)
 	{
 		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
@@ -90,10 +93,13 @@ static void	read_lst(t_ast *lst)
 // 	}
 // }
 
-static void		reinit_print(t_ast *lst)
+static void		reinit_print(t_ast *lst, int active)
 {
 	t_ast	*tmp;
+
 	tmp = lst;
+	if (active == 0)
+		return ;
 	while (tmp)
 	{
 		tmp->print = 0;
@@ -206,6 +212,7 @@ static void		clean_tab_and_ast(char **input, t_ast *lst)
 	// (void)input;
 	delete_str_tab(input);
 	del_lst_ast(&lst);
+
 }
 
 void			parser(char **input, t_ast *lst, t_env **lst_env,
@@ -222,19 +229,20 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0);
+	// while (1) {}
 
-	ft_printf("READ LIST\n");
-	read_lst(lst);
-	ft_printf("\n\nEND\n");
+	// ft_printf("READ LIST\n");
+	read_lst(lst, 0);
+	// ft_printf("\n\nEND\n");
 
 	sort = lst;
 	i = 0;
-	ft_putstr(ANSI_RED);
-	ft_printf("input =");
-	while (input[i])
-		ft_printf(" %s", input[i++]);
-	ft_printf("\n");
-	ft_putstr(ANSI_RESET);
+	// ft_putstr(ANSI_RED);
+	// ft_printf("input =");
+	// while (input[i])
+	// 	ft_printf(" %s", input[i++]);
+	// ft_printf("\n");
+	// ft_putstr(ANSI_RESET);
 	while (sort)
 	{
 		i = -1;
@@ -251,7 +259,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	// ft_printf("READ AST:\n\n");
 	// read_sort_descent(sort);
 	// ft_printf("END MOTHA FUCKA\n\n");
-	reinit_print(lst);
+	reinit_print(lst, 0);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	clean_tab_and_ast(input, lst);
