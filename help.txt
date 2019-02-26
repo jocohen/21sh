@@ -1,2 +1,12 @@
 add parse error for "ls -l <&"
 if no '-' at the end that means it's a parse error;
+
+
+Test fonctionalite de base:
+1- cmd
+2- multi cmd avec ';'
+3- cmd redirection / multi redirection
+4- cmd redirection + agregation
+5- cmd pipe / multi pipe
+6- multi tous
+7- test error parse ...
