@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/26 17:49:08 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:56:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,6 +412,8 @@ int						check_operator(char *s, int *i, unsigned int *nb_word,
 						size_t len);
 int						position_redir(char const *s, int *i, int wn, int *iw);
 int						type_operator(char const *s, int *i);
+int						check_pos_operator(char *s, int *i, int wn,
+						int *wd_search);
 void					get_position(char const *s, int *i, int wn, int *iw);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 23:24:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:13:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	exec_error(int err, char *files)
 	if (err == -1)
 	{
 		len = ft_strlen(files);
-		// if
 		write(2, files, len);
 	}
 	write(2, "\n", 1);

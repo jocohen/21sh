@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 11:16:32 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:35:10 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:25:11 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	delete_str_tab(char **tab_str)
 		return ;
 	while (tab_str[i])
 	{
-		// ft_printf("str[%d]: |%s|\n", i, tab_str[i]);
 		ft_memdel((void **)&(tab_str[i]));
-		// ft_printf("OK %d\n", i);
 		i += 1;
 	}
 	free(tab_str);

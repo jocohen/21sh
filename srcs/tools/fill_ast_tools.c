@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 08:41:08 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:30:19 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ int		get_last_index(int *i, char *s, int *save, char **input)
 
 int		get_last_operator(int *i, char *s, int *save, char **input)
 {
-	// ft_printf("s[%d] = %s\n", *i, s[*i]);
 	while (ft_isoperator(s[*i]) == 1)
 		*i += 1;
 	*i += (s[*i] == '-') ? 1 : 0;
 	*input = ft_strsub(s, *save, *i - *save);
-	// ft_printf("input: |%s|\n", *input);
 	*save = *i;
 	return (1);
 }
@@ -78,23 +76,15 @@ void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 	char	**tmp;
 	int		len;
 	int		i;
-	int		init_len;
 
 	len = 0;
 	i = 0;
-	tmp = NULL;
 	while (elem->back && elem->type != CMD)
 		elem = elem->back;
 	while (elem->input[len])
-	{
-		// ft_printf("IN[%d]: %s\n", len, elem->input[len]);
 		len += 1;
-	}
-	init_len = len;
 	len += end - start;
-	// ft_printf("LEN TOTAL = %d\n", len);
-	if (!(tmp = (char**)malloc(sizeof(char*) * (len + 1))))
-		ft_exit_malloc();
+	(!(tmp = (char**)malloc(sizeof(char*) * (len + 1)))) ? ft_exit_malloc() : 0;
 	while (elem->input[i])
 	{
 		tmp[i] = ft_strdup(elem->input[i]);
@@ -102,8 +92,7 @@ void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 	}
 	while (i < len)
 	{
-		tmp[i] = ft_strdup(s[start]);
-		start += 1;
+		tmp[i] = ft_strdup(s[start++]);
 		i += 1;
 	}
 	tmp[i] = NULL;
@@ -117,14 +106,12 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	t_ast	*tmp;
 	int		len;
 
-	// ft_printf("end = %d  start = %d\n", end, start);
 	i = 0;
 	tmp = NULL;
 	if (elem->back && elem->back->type <= AGREG)
 		len = 2;
 	else
 		len = end - start + 1;
-	// ft_printf("len = %d\n", len);
 	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
 		ft_exit_malloc();
 	while (start < end && i < len - 1)
@@ -136,8 +123,4 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	}
 	elem->input[i] = NULL;
 	elem->type = CMD;
-	//SI AVANT TYPE AGREG OU PLUS BAS
-	//RECHERCHE DE L'INPUT DE CMD LE PLUS PROCHE POUR LE MODIF
-	// if (elem->back && len == 2 && end - start != 2)
-	// 	add_input_prev_cmd(s, end, start, elem);
 }

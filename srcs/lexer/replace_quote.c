@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/25 12:27:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:59:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	short_cut(char **s, t_env *lst_env)
 	}
 	if (dir)
 	{
-
 		ft_memdel((void **)&(*s));
 		(*s) = dir;
 	}

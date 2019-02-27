@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:18:44 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/26 19:35:03 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:00:26 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void			heredoc(t_ast *elem, t_env **lst_env, t_alloc **alloc)
 	int		pid1;
 	int		pid2;
 
-	// if (!elem->right || !elem->left || !elem->heredoc || pipe(elem->fd) == -1)
 	if (!elem->heredoc || pipe(elem->fd) == -1)
 		return ;
 	if (!(pid1 = fork()))

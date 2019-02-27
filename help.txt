@@ -1,6 +1,12 @@
 add parse error for "ls -l <&"
 if no '-' at the end that means it's a parse error;
 
+Crash:
+- echo coucou && &&
+
+Error:
+- echo coucou > ici la suite && ls > laba -la
+
 
 Test fonctionalite de base:
 1- cmd
