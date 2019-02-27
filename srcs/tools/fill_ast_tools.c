@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 14:16:01 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:59:10 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,35 +71,6 @@ int		get_last_digit(int *i, char *s, int *save, char **input)
 	return (1);
 }
 
-void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
-{
-	char	**tmp;
-	int		len;
-	int		i;
-
-	len = 0;
-	i = 0;
-	while (elem->back && elem->type != CMD)
-		elem = elem->back;
-	while (elem->input[len])
-		len += 1;
-	len += end - start;
-	(!(tmp = (char**)malloc(sizeof(char*) * (len + 1)))) ? ft_exit_malloc() : 0;
-	while (elem->input[i])
-	{
-		tmp[i] = ft_strdup(elem->input[i]);
-		i += 1;
-	}
-	while (i < len)
-	{
-		tmp[i] = ft_strdup(s[start++]);
-		i += 1;
-	}
-	tmp[i] = NULL;
-	delete_str_tab(elem->input);
-	elem->input = tmp;
-}
-
 void	fill_input(char **s, int end, int start, t_ast *elem)
 {
 	int		i;
@@ -123,8 +94,4 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	}
 	elem->input[i] = NULL;
 	elem->type = CMD;
-	//SI AVANT TYPE AGREG OU PLUS BAS
-	//RECHERCHE DE L'INPUT DE CMD LE PLUS PROCHE POUR LE MODIF
-	// if (elem->back && len == 2 && end - start != 2)
-	// 	add_input_prev_cmd(s, end, start, elem);
 }
