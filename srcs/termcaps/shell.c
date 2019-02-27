@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 10:31:12 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/23 16:52:59 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/27 15:50:08 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int ac, char **av, char **env)
 	t_alloc		al;
 
 	g_u8 = 0;
-	sleep(5);
+	// sleep(5);
 	if (ac == 2 && !ft_strcmp(av[1], "-u"))
 		g_u8 = 1;
 	g_ret[0] = 0;

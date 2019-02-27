@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 15:00:27 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 21:01:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:22:39 by jonascohen       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	init_ast(char **input, char *s)
 	{
 		if (!(tmp = ft_strjoin(*input, "\n")))
 			ft_exit_malloc();
-		free(*input);
+		ft_memdel((void **)input);
 		if (!(*input = ft_strjoin(tmp, s)))
 			ft_exit_malloc();
-		free(tmp);
+		ft_memdel((void **)&tmp);
 	}
 }
 
