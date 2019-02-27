@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 12:30:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:16:01 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,8 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 	}
 	elem->input[i] = NULL;
 	elem->type = CMD;
+	//SI AVANT TYPE AGREG OU PLUS BAS
+	//RECHERCHE DE L'INPUT DE CMD LE PLUS PROCHE POUR LE MODIF
+	// if (elem->back && len == 2 && end - start != 2)
+	// 	add_input_prev_cmd(s, end, start, elem);
 }

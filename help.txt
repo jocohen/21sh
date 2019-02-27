@@ -1,6 +1,8 @@
 add parse error for "ls -l <&"
 if no '-' at the end that means it's a parse error;
 
+ls -l >&- ==> close fd 1;
+
 Crash:
 - echo coucou && &&
 
@@ -16,3 +18,11 @@ Test fonctionalite de base:
 5- cmd pipe / multi pipe
 6- multi tous
 7- test error parse ...
+
+
+
+
+HELP FILL AST:
+1 - New cmd after Logic or Operator pipe
+	else
+		get last cmd and add it;
