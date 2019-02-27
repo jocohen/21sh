@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 13:52:32 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:44:58 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0);
-	read_lst(lst, 1);
+	read_lst(lst, 0);
 	sort = lst;
 	i = 0;
 	while (sort)
@@ -244,7 +244,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	}
 	sort_ast(lst, &sort);
 	read_sort_descent(sort, 0);
-	// (*alloc)->ast = &lst;
-	// (complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
-	// clean_tab_and_ast(input, lst);
+	(*alloc)->ast = &lst;
+	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
+	clean_tab_and_ast(input, lst);
 }
