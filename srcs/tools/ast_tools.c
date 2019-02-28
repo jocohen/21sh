@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:49:35 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 17:25:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:01:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	fill_last_elem(char **s, int i, int save, t_ast *new)
 {
+	// ft_printf("i = %d save %d\n", i ,save);
+	// ft_printf("type = %d\n", new->type);
+	// ft_printf("s[i]: |%s|\n", s[i]);
 	if (new->type == NO_TYPE)
 		fill_input(s, i, save, new);
 	else if (i != save)

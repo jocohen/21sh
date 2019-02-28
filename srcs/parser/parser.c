@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 18:31:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:01:41 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 	if (check_error_lst(lst) == 1)
 		return (clean_tab_and_ast(input, lst));
 	sort = lst;
-	i = 0;
 	while (sort)
 	{
 		i = -1;
