@@ -6,35 +6,35 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 12:05:30 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:00:02 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void	read_lst(t_ast *lst, int active)
-{
-	t_ast	*tmp;
-	int		x;
-	int		i;
-	i = 0;
-	tmp = lst;
-	if (active == 0)
-		return ;
-	while (tmp)
-	{
-		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
-		x = 0;
-		while (tmp->input[x])
-		{
-			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
-			x += 1;
-		}
-		ft_printf("\n\n");
-		tmp = tmp->next;
-		i += 1;
-	}
-}
+// static void	read_lst(t_ast *lst, int active)
+// {
+// 	t_ast	*tmp;
+// 	int		x;
+// 	int		i;
+// 	i = 0;
+// 	tmp = lst;
+// 	if (active == 0)
+// 		return ;
+// 	while (tmp)
+// 	{
+// 		ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
+// 		x = 0;
+// 		while (tmp->input[x])
+// 		{
+// 			ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
+// 			x += 1;
+// 		}
+// 		ft_printf("\n\n");
+// 		tmp = tmp->next;
+// 		i += 1;
+// 	}
+// }
 
 static t_ast	*get_available_node(t_ast **sort)
 {
@@ -99,7 +99,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0);
-	read_lst(lst, 1);
+	if (check_error_lst(lst) == 1)
+		return ;
 	sort = lst;
 	i = 0;
 	while (sort)

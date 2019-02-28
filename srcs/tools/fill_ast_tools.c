@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 16:59:10 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:22:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 
 	i = 0;
 	tmp = NULL;
+	if (end == start)
+		return ;
 	if (elem->back && elem->back->type <= AGREG)
 		len = 2;
 	else

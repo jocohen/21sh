@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:48:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 12:33:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 13:15:39 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	error_cd(char *err, int type)
 	if (type == 4)
 	{
 		write(2, "21sh: cd: too many arguments\n", 29);
-		g_ret[0] = 1;
+		g_ret[0] = 2;
 		return (-1);
 	}
 	if (type == 0)

@@ -6,11 +6,32 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/13 14:48:52 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 16:59:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+int	check_error_lst(t_ast *lst)
+{
+	t_ast *tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		if (tmp->type >= OPERATOR && tmp->next->type >= OPERATOR)
+		{
+			write(2, "21sh: syntax error near `", 25);
+			write(2, tmp->next->input[0], ft_strlen(tmp->next->input[0]));
+			write(2, "'\n", 2);
+			g_ret[0] = 1;
+			return (1);
+		}
+		else
+			tmp = tmp->next;
+	}
+	return (0);
+}
 
 int	ft_error_splitshell(void)
 {
