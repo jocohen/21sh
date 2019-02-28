@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/01/30 13:49:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:56:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,48 @@ static void	check_before_operator(char *s, int *i, unsigned int *nb_word)
 		*nb_word += 1;
 }
 
-static void	check_after_operator(char *s, int *i, unsigned int *nb_word,
-	size_t len)
+int			check_pos_operator(char *s, int *i, int wn, int *wd_search)
 {
-	int	x;
+	int	pos;
 
-	x = 0;
-	while (s[*i + len + x] && ft_isdigit(s[*i + len + x]) == 1)
-		x += 1;
-	if ((s[*i + len + x] && ft_isspace(s[*i + len + x]) == 0)
-	|| (s[*i + len] == '-' && s[*i + len - 1] != '&'))
-		*nb_word += 1;
+	pos = 0;
+	if (*i - 1 >= 0 && ft_isspace(s[*i - 1]) == 0)
+		pos = position_redir(s, i, wn, wd_search);
+	else
+		while (ft_isoperator(s[*i]) == 1)
+			*i += 1;
+	if (wn == *wd_search)
+		return (pos);
+	if (s[*i] && ft_isspace(s[*i]) == 0)
+	{
+		*wd_search += 1;
+		pos = *i;
+		if (wn == *wd_search)
+			return (pos);
+	}
+	return (0);
 }
 
 int			check_operator(char *s, int *i, unsigned int *nb_word, size_t len)
 {
 	int			x;
-	static char	*operator[16] = {">>", ">>&", ">&-", ">&", ">", "<<<", "<<",
-	"<>", "<&-", "<", "&>>", "&>", "&&", "&", "||", "|"};
+	static char	*operator[15] = {">>", ">>&", ">&", ">", "<<<", "<<",
+	"<>", "<", "<&", "&>>", "&>", "&&", "&", "||", "|"};
 
 	x = 0;
-	while (x < 16)
+	while (x < 15)
 	{
 		if (ft_strlen(operator[x]) == len && ft_strncmp(&s[*i], operator[x],
 			len) == 0)
 			break ;
 		x += 1;
 	}
-	if (x == 16)
+	if (x == 15)
 		return (ft_error_redir_format(&s[*i], len));
-	else if (x >= 12)
-	{
+	else if (x >= 9)
 		*nb_word += (*i > 0 && ft_isspace(s[*i - 1]) == 0) ? 1 : 0;
-		*nb_word += (s[*i + len] && ft_isspace(s[*i + len]) == 0) ? 1 : 0;
-	}
 	else
-	{
 		check_before_operator(s, i, nb_word);
-		check_after_operator(s, i, nb_word, len);
-	}
 	return (1);
 }
 
@@ -69,24 +72,21 @@ int			type_operator(char const *s, int *i)
 {
 	int			x;
 	size_t		len;
-	static char	*operator[16] = {">>", ">>&", ">&-", ">&", ">", "<<<", "<<",
-	"<>", "<&-", "<", "&>>", "&>", "&&", "&", "||", "|"};
+	static char	*operator[15] = {">>", ">>&", ">&", ">", "<<<", "<<",
+	"<>", "<", "<&", "&>>", "&>", "&&", "&", "||", "|"};
 
 	x = 0;
 	len = 0;
 	while (s[*i + len] && ft_isoperator(s[*i + len]) == 1)
 		len += 1;
-	if (s[*i + len] == '-' && s[*i + len - 1] == '&' &&
-	(ft_isspace(s[*i + len + 1]) == 1 || !s[*i + len + 1]))
-		len += 1;
-	while (x < 16)
+	while (x < 15)
 	{
 		if (ft_strlen(operator[x]) == len && ft_strncmp(&s[*i], operator[x],
 			len) == 0)
 			break ;
 		x += 1;
 	}
-	if (x >= 12)
+	if (x >= 9)
 		return (1);
 	return (0);
 }
@@ -96,13 +96,7 @@ void		get_position(char const *s, int *i, int wn, int *iw)
 	int	x;
 
 	x = 0;
-	if (s[*i] == '-' && s[*i - 1] == '&' && ft_isspace(s[*i + 1]) == 1)
-	{
-		*i += 2;
-		if ((*iw += 1) == wn)
-			return ;
-	}
-	else if (s[*i] == '-')
+	if (s[*i] == '-')
 	{
 		if ((*iw += 1) == wn)
 			return ;

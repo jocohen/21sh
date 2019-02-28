@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:56:54 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:22:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:22:04 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_last_index(int *i, char *s, int *save, char **input)
 		{
 			c = s[*i];
 			*i += 1;
-			while (s[*i] != c)
+			while (s[*i] && s[*i] != c)
 				*i += 1;
 		}
 		*i += 1;
@@ -75,12 +75,19 @@ void	fill_input(char **s, int end, int start, t_ast *elem)
 {
 	int		i;
 	t_ast	*tmp;
+	int		len;
 
 	i = 0;
 	tmp = NULL;
-	if (!(elem->input = (char**)malloc(sizeof(char*) * (end - start + 1))))
+	if (end == start)
+		return ;
+	if (elem->back && elem->back->type <= AGREG)
+		len = 2;
+	else
+		len = end - start + 1;
+	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
 		ft_exit_malloc();
-	while (start < end)
+	while (start < end && i < len - 1)
 	{
 		if (!(elem->input[i] = ft_strdup(s[start])))
 			ft_exit_malloc();

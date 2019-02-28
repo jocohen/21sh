@@ -1,0 +1,44 @@
+Crash:
+add parse error for "ls -l <&"
+if no '-' at the end that means it's a parse error;
+
+ls -l >&- ==> close fd 1;
+
+Diff bash:
+- echo coucou && &&
+
+Test fonctionalite de base:
+
+1- cmd
+OK;
+
+2- multi cmd avec ';'
+	OK;
+
+3- cmd redirection / multi redirection
+	- >
+		error: ">a" no error and creation du file
+	- >>
+		error: ">>a" no error and creation du file
+	- <
+		error: "<a" no error and creation du file
+	- <<
+		error: "<a" no error and creation du file
+	- &>
+		OK
+	- &>>
+
+	- &>
+
+	- <&
+
+4- cmd redirection + agregation
+
+
+5- cmd pipe / multi pipe
+	OK
+
+6- multi tous
+
+
+7- test error parse ...

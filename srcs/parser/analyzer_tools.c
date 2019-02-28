@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 19:46:24 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:12:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	dispatch_cmd(t_ast *elem, t_env **lst_env, char **tab_path,
 		i += 1;
 	}
 	if (i < 6)
+	{
 		ret = dispatch[i](elem, lst_env, alloc);
+		delete_str_tab(tab_path);
+	}
 	else
 		ret = exec_input(elem, *lst_env, tab_path);
 	return (ret);
@@ -66,7 +69,6 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 	static char		*tab_redir[7] = {">", ">>", ">>&", "<", "<<<", "<>", "<<"};
 	int				i;
 
-	(void)tab_path;
 	i = 0;
 	while (ft_strcmp(elem->input[0], tab_redir[i]) != 0
 	&& ft_strcmp(elem->input[1], tab_redir[i]) != 0)
@@ -79,6 +81,8 @@ int	dispatch_redir(t_ast *elem, t_env **lst_env, char **tab_path,
 		redirection_3(elem, lst_env, alloc);
 	else if (i == 6)
 		heredoc(elem, lst_env, alloc);
+	else
+		dispatch_agreg(elem, lst_env, tab_path, alloc);
 	return (1);
 }
 
@@ -96,7 +100,7 @@ int	dispatch_operator(t_ast *elem, t_env **lst_env, char **tab_path,
 int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 	t_alloc **alloc)
 {
-	static char	*tab_agreg[5] = {"&>", "&>>", ">&", "<&-", ">&-"};
+	static char	*tab_agreg[4] = {"&>", "&>>", ">&", "<&"};
 	int			i;
 	int			ret;
 
@@ -109,11 +113,12 @@ int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 		ret = agreg_1(elem, lst_env, tab_path, alloc);
 	else if (i == 1)
 		ret = agreg_2(elem, lst_env, tab_path, alloc);
-	else if (i == 2)
+	else if (i == 2 && elem->input[1][0] != '-' && (!elem->input[2]
+		|| elem->input[2][0] != '-'))
 		ret = agreg_3(elem, lst_env, tab_path, alloc);
-	else if (i == 3)
+	else if (i == 2)
 		ret = agreg_4(elem, lst_env, tab_path, alloc);
-	else if (i == 4)
+	else if (i == 3)
 		ret = agreg_5(elem, lst_env, tab_path, alloc);
 	return (ret);
 }

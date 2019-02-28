@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/23 16:32:29 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:56:27 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_ast	*get_available_node(t_ast **sort)
 	t_ast	*tmp;
 
 	tmp = *sort;
-	if (tmp && (tmp->type == OPERATOR || tmp->type == LOGIC))
+	if (tmp && tmp->type == LOGIC)
 	{
 		if (tmp->right)
 		{
@@ -74,7 +74,9 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		g_ret[0] = 1;
 		return ;
 	}
-	fill_ast(input, &lst, 0);
+	fill_ast(input, &lst, 0, -1);
+	if (check_error_lst(lst) == 1)
+		return ;
 	sort = lst;
 	i = 0;
 	ft_putstr(ANSI_BLUE);
@@ -88,10 +90,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		i = -1;
 		while (sort->input[++i])
 			if (convert_quote(&(sort->input[i]), lst_env, alloc) == -1)
-			{
-				clean_tab_and_ast(input, lst);
-				return ;
-			}
+				return (clean_tab_and_ast(input, lst));
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);

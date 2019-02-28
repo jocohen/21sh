@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/28 17:19:26 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:56:14 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define LOGIC		5
 # define OPERATOR	4
-# define AGREG		3
+# define AGREG		2
 # define REDIR		2
 # define HEREDOC	1
 # define CMD		0
@@ -280,7 +280,7 @@ void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 */
 void					parser(char **input, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
-void					fill_ast(char **s, t_ast **lst, int save);
+void					fill_ast(char **s, t_ast **lst, int save, int i);
 void					replace_quote(char *s, int *i);
 int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 
@@ -348,6 +348,7 @@ int						exec_error(int err, char *files);
 int						ft_error_parse_redir(char **input);
 int						ft_error_splitshell(void);
 int						ft_error_redir_format(char *ope, int len);
+int						check_arg_cd(t_ast *elem, int i);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
@@ -357,6 +358,7 @@ void					error_access(char *file);
 int						exec_right_error(int err, char *files,
 						char ***path_all);
 void					ft_exit_malloc(void);
+int						check_error_lst(t_ast *lst);
 
 /*
 ********************************************************************************
@@ -413,6 +415,8 @@ int						check_operator(char *s, int *i, unsigned int *nb_word,
 						size_t len);
 int						position_redir(char const *s, int *i, int wn, int *iw);
 int						type_operator(char const *s, int *i);
+int						check_pos_operator(char *s, int *i, int wn,
+						int *wd_search);
 void					get_position(char const *s, int *i, int wn, int *iw);
 
 /*
@@ -449,6 +453,8 @@ void					init_ast(char **input, char *s);
 void					reinit_fd(int fd[3], t_alloc *alloc);
 void					link_new_node(t_ast **sort, t_ast *tmp, t_ast *node);
 void					fill_input(char **s, int end, int start, t_ast *elem);
+void					add_input_prev_cmd(char **s, int end, int start,
+						t_ast *elem);
 void					get_last_index_split(int *i, char *s, int *wd);
 int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
@@ -461,4 +467,5 @@ int						get_last_operator(int *i, char *s, int *save,
 						char **input);
 int						get_last_digit(int *i, char *s, int *save,
 						char **input);
+void					fill_last_elem(char **s, int i, int save, t_ast *new);
 #endif

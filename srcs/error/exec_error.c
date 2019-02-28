@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 12:10:58 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/19 14:48:43 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:13:34 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	exec_error(int err, char *files)
 {
+	size_t	len;
+
 	(err == -1) ? write(2, "21sh: commande not found: ", 26) : 0;
 	if (err == -1)
-		write(2, files, ft_strlen(files));
+	{
+		len = ft_strlen(files);
+		write(2, files, len);
+	}
 	write(2, "\n", 1);
 	return (127);
 }

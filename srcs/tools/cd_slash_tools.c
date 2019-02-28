@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:24:10 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 20:12:17 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/27 12:24:49 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ char		*cd_slash(char *dir, int options, char *buf_pwd)
 	size_t	x;
 
 	x = -1;
-	tmp = 0;
-	if (!(path = ft_strdup("/")) || !(tmp = ft_strsplit(dir + 1, '/')))
-		ft_exit_malloc();
+	tmp = ft_strsplit(dir + 1, '/');
+	(!(path = ft_strdup("/")) || !tmp) ? ft_exit_malloc() : 0;
 	while (tmp[++x])
 	{
 		if (ft_strcmp(tmp[x], "..") == 0

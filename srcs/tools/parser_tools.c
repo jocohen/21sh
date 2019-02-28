@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 11:06:56 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 16:09:12 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/22 23:49:08 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_ast	*add_new_elem(t_ast **lst)
 	new = create_new_elem(lst);
 	end = get_last_elem(lst);
 	end->next = new;
+	new->back = end;
 	return (new);
 }
 

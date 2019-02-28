@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 14:10:02 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 21:47:45 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 12:33:56 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	check_options(t_ast *elem, int *options, t_alloc **alloc)
 			return (error_cd(elem->input[i], 0));
 		i += 1;
 	}
-	return (i);
+	return (check_arg_cd(elem, i));
 }
 
 static int	modif_oldpwd(t_env **lst_env, char *buf)

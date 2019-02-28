@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:20:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:00:34 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:52:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static void	agreg_type_1_2(int fd[3], t_ast *elem, t_alloc *alloc, int i)
 	int	fd_new;
 
 	fd_new = -1;
-	fd_new = open(((elem->right) ? elem->right->input[0] :
-		elem->input[1]), O_WRONLY | O_CREAT | ((i == 0)
+	fd_new = open((elem->input[1]), O_WRONLY | O_CREAT | ((i == 0)
 		? O_TRUNC : O_APPEND), 0644);
 	if (fd[1] != -1 && fd[2] != -1)
 		close(fd_new);
@@ -110,7 +109,7 @@ static int	get_fd(int *fd, int fd_redir, t_ast *elem, t_alloc *alloc)
 
 int			ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc)
 {
-	static char	*tab_agreg[5] = {"&>", "&>>", ">&", "<&-", ">&-"};
+	static char	*tab_agreg[4] = {"&>", "&>>", ">&", "<&"};
 	int			i;
 	int			ret;
 	int			fd_redir;
@@ -119,7 +118,7 @@ int			ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc)
 	fd_redir = -1;
 	if (!elem)
 		return (0);
-	while (i++ < 4)
+	while (i++ < 3)
 		if (ft_strcmp(elem->input[0], tab_agreg[i]) == 0
 			|| ft_strcmp(elem->input[1], tab_agreg[i]) == 0)
 		{

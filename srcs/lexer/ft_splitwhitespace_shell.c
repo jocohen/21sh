@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/21 15:54:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:59:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static int	ft_word_counter(char *s, unsigned int *nb_word)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
 			{
-				if (ft_strncmp(&s[i], "&>", 2) == 0 && ft_isdigit(s[i - 1]))
-					*nb_word += 1;
 				if (check_redir(s, &i, nb_word) == -1)
 					return (-1);
+				*nb_word += (s[i] && ft_isspace(s[i]) == 0) ? 1 : 0;
+				i += (s[i] && ft_isspace(s[i]) == 0) ? 1 : 0;
 			}
 			else
 				i += 1;
@@ -52,18 +52,16 @@ static void	ft_position_word(char *s, int wn, int *pos)
 		if (wn == wd_search)
 			return ;
 		while (s[i] && ft_isspace(s[i]) == 0)
-		{
 			if (ft_isquote(s[i]) == 1)
 				in_quote(s, &i);
 			else if (ft_isoperator(s[i]) == 1)
 			{
-				*pos = position_redir(s, &i, wn, &wd_search);
+				*pos = check_pos_operator(s, &i, wn, &wd_search);
 				if (wn == wd_search)
 					return ;
 			}
 			else
 				i += 1;
-		}
 		(s[i]) ? i += 1 : 0;
 	}
 }
@@ -77,9 +75,6 @@ static void	ft_counter_lettre(char *s, unsigned int word_n, int *nb_lettre)
 	while (s[i + *nb_lettre] && ft_isdigit(s[i + *nb_lettre]) == 1)
 		*nb_lettre += 1;
 	i += *nb_lettre;
-	if (ft_strncmp(&s[i], "&>", 2) == 0 && ft_isdigit(s[i - 1])
-		&& *nb_lettre != 0)
-		return ;
 	if (ft_isoperator(s[i]) == 1)
 		nb_lettre_operator(s, i, nb_lettre);
 	else
