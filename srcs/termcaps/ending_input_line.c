@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 17:47:38 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/22 22:15:29 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:39:27 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ char	*recall_prompt(t_alloc *al, int type)
 	ft_putstr(ANSI_RESET);
 	input = 0;
 	(!out) ? g_pid = 0 : 0;
+	if (g_u8 == 300)
+	{
+		g_u8 = 0;
+		return (0);
+	}
+	g_u8 += 1;
 	return (out);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:24:09 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/15 10:52:44 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:19:10 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ void	paste_intra_clip(t_buf *input, t_env **lst)
 		return ;
 	while (input->buf_size - 1 < ft_strlen(input->s) + ft_strlen(g_clip))
 	{
-		if (!(input->s = ft_realloc(input->s, input->buf_size + 128,
-			input->buf_size)))
-			ft_exit(0);
+		ft_realloc(&(input->s), input->buf_size + 128,
+			input->buf_size);
 		input->buf_size += 128;
 	}
 	ft_memmove(input->s + input->x + ft_strlen(g_clip), input->s + input->x,

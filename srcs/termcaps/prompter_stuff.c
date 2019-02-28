@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 11:18:48 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/23 16:49:28 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:28:15 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,33 @@ void	input_character(t_buf *input, char k)
 
 void	check_over_buffer(t_buf *input, char *into_buff)
 {
+	size_t x;
+
+	x = ft_strlen(input->s);
 	if (!into_buff)
 	{
 		if (ft_strlen(input->s) == input->buf_size - 1)
 		{
-			if (!(input->s = ft_realloc(input->s, input->buf_size + 128,
-				input->buf_size)))
-				ft_exit(0);
+			ft_realloc(&(input->s), input->buf_size + 128, input->buf_size);
 			input->buf_size += 128;
 		}
 		return ;
 	}
 	while (input->buf_size - 1 < ft_strlen(into_buff))
 	{
-		if (!(input->s = ft_realloc(input->s, input->buf_size + 128,
-			input->buf_size)))
-			ft_exit(0);
+		ft_realloc(&(input->s), input->buf_size + 128, input->buf_size);
 		input->buf_size += 128;
 	}
 }
 
 void	u8_buff(t_buf *input, size_t len)
 {
+	size_t x;
+
+	x = ft_strlen(input->s);
 	while (input->buf_size - 1 < ft_strlen(input->s) + len)
 	{
-		if (!(input->s = ft_realloc(input->s, input->buf_size + 128,
-			input->buf_size)))
-			ft_exit(0);
+		ft_realloc(&(input->s), input->buf_size + 128, input->buf_size);
 		input->buf_size += 128;
 	}
 }

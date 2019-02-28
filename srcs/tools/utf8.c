@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 11:48:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/23 16:59:06 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 16:48:20 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	input_u8(t_alloc *al, unsigned char k, size_t nb_byte)
 	size_t			prev_line;
 
 	uc[0] = k;
-	if (read(0, uc + 1, nb_byte - 1) == -1 || ft_strlen((char *)uc) != nb_byte)
+	if (read(0, uc + 1, nb_byte - 1) == -1 || ft_strlen((char *)uc) - 1 != nb_byte)
 		return ;
 	prev_line = al->input->pos.l;
 	put_term_rout("im");

@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/23 16:50:29 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 17:19:26 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int						quit_signal(char **av);
 */
 
 void					ft_exit(int status);
-void					*ft_realloc(void *ptr, size_t size, size_t len);
+void					ft_realloc(char **ptr, size_t size, size_t len);
 int						ft_writestdin(int c);
 
 /*
