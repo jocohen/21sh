@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 16:59:04 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:22:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_error_lst(t_ast *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp->type >= OPERATOR && tmp->next->type >= OPERATOR)
+		if (tmp->type >= OPERATOR && tmp->next && tmp->next->type >= OPERATOR)
 		{
 			write(2, "21sh: syntax error near `", 25);
 			write(2, tmp->next->input[0], ft_strlen(tmp->next->input[0]));
