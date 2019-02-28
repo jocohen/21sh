@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 14:02:51 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/22 20:16:24 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/02/28 12:01:30 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_new_folder(char **dir, char *folder)
 {
 	char	*new_dir;
 
-	new_dir = ft_strjoin(*dir, (*dir[ft_strlen(*dir)] == '/') ? 0 : "/");
+	new_dir = ft_strjoin(*dir, ((*dir)[ft_strlen(*dir) - 1] == '/') ? 0 : "/");
 	ft_memdel((void **)dir);
 	*dir = ft_strjoin(new_dir, folder);
 	if (!*dir || !new_dir)

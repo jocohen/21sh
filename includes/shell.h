@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/27 11:56:39 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 12:34:28 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,7 @@ int						exec_error(int err, char *files);
 int						ft_error_parse_redir(char **input);
 int						ft_error_splitshell(void);
 int						ft_error_redir_format(char *ope, int len);
+int						check_arg_cd(t_ast *elem, int i);
 int						error_cd(char *err, int type);
 int						error_setenv(int i);
 int						error_unsetenv(int i, char *s);
