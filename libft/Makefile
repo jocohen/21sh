@@ -6,7 +6,7 @@
 #    By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 14:51:47 by tcollard          #+#    #+#              #
-#    Updated: 2019/02/18 12:00:33 by jocohen          ###   ########.fr        #
+#    Updated: 2019/02/28 17:33:06 by tcollard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,6 +170,7 @@ clean :
 	@rmdir $(PATH_OBJ)$(PATH_STR) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_STR) 2> /dev/null || true
 	@rmdir $(PATH_OBJ)$(PATH_OTHER) 2> /dev/null || true
+	@rmdir $(PATH_OBJ)$(PATH_PRINTF) 2> /dev/null || true
 	@rmdir $(PATH_OBJ) 2> /dev/null || true
 
 fclean : clean
