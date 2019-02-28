@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/28 16:59:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:28:51 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ void					read_lexer(char **lexer, t_env **lst_env, t_ast *lst,
 */
 void					parser(char **input, t_ast *lst, t_env **lst_env,
 						t_alloc **alloc);
-void					fill_ast(char **s, t_ast **lst, int save);
+void					fill_ast(char **s, t_ast **lst, int save, int i);
 void					replace_quote(char *s, int *i);
 int						analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc);
 
@@ -452,7 +452,8 @@ void					init_ast(char **input, char *s);
 void					reinit_fd(int fd[3], t_alloc *alloc);
 void					link_new_node(t_ast **sort, t_ast *tmp, t_ast *node);
 void					fill_input(char **s, int end, int start, t_ast *elem);
-void					add_input_prev_cmd(char **s, int end, int start, t_ast *elem);
+void					add_input_prev_cmd(char **s, int end, int start,
+						t_ast *elem);
 void					get_last_index_split(int *i, char *s, int *wd);
 int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
@@ -465,4 +466,5 @@ int						get_last_operator(int *i, char *s, int *save,
 						char **input);
 int						get_last_digit(int *i, char *s, int *save,
 						char **input);
+void					fill_last_elem(char **s, int i, int save, t_ast *new);
 #endif

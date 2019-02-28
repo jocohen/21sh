@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 19:17:43 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/26 18:02:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:12:59 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	dispatch_agreg(t_ast *elem, t_env **lst_env, char **tab_path,
 		ret = agreg_1(elem, lst_env, tab_path, alloc);
 	else if (i == 1)
 		ret = agreg_2(elem, lst_env, tab_path, alloc);
-	else if (i == 2 && elem->input[1][0] != '-' && elem->input[2][0] != '-')
+	else if (i == 2 && elem->input[1][0] != '-' && (!elem->input[2]
+		|| elem->input[2][0] != '-'))
 		ret = agreg_3(elem, lst_env, tab_path, alloc);
 	else if (i == 2)
 		ret = agreg_4(elem, lst_env, tab_path, alloc);

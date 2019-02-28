@@ -6,11 +6,19 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:49:35 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 17:01:53 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:25:18 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+void	fill_last_elem(char **s, int i, int save, t_ast *new)
+{
+	if (new->type == NO_TYPE)
+		fill_input(s, i, save, new);
+	else if (i != save)
+		add_input_prev_cmd(s, i, save, new);
+}
 
 void	link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
 {

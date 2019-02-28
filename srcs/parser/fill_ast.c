@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 15:54:00 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:25:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,11 @@ static int	go_end_quote(char **s, int i, int *x)
 	return (1);
 }
 
-void		fill_ast(char **s, t_ast **lst, int save)
+void		fill_ast(char **s, t_ast **lst, int save, int i)
 {
 	t_ast	*new;
-	int		i;
 	int		x;
 
-	i = -1;
 	new = create_new_elem(lst);
 	while (s[++i])
 	{
@@ -135,8 +133,5 @@ void		fill_ast(char **s, t_ast **lst, int save)
 				break ;
 	}
 	(new->type > AGREG) ? new = add_new_elem(lst) : 0;
-	if (new->type == NO_TYPE)
-		fill_input(s, i, save, new);
-	else if (i != save)
-		add_input_prev_cmd(s, i, save, new);
+	fill_last_elem(s, i, save, new);
 }

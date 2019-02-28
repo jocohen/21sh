@@ -1,13 +1,11 @@
+Crash:
 add parse error for "ls -l <&"
 if no '-' at the end that means it's a parse error;
 
 ls -l >&- ==> close fd 1;
 
-Crash:
+Diff bash:
 - echo coucou && &&
-
-Error:
-
 
 Test fonctionalite de base:
 
@@ -31,7 +29,7 @@ OK;
 	- &>>
 
 	- &>
-	
+
 	- <&
 
 4- cmd redirection + agregation

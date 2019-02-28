@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:00:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:08:38 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	agreg_4(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 
 	(void)tab_path;
 	fd_close = (ft_isdigit(elem->input[0][0]) == 1) ?
-		ft_atoi(elem->input[0]) : 0;
+		ft_atoi(elem->input[0]) : 1;
 	fd_save = dup(fd_close);
 	close(fd_close);
 	analyzer(elem->left, lst_env, alloc);
