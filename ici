@@ -1,0 +1,17 @@
+total 352
+drwxr-xr-x  16 tcollard  2017_paris     544 Mar  1 21:09 .
+drwxr-xr-x  12 tcollard  2017_paris     408 Feb 22 21:28 ..
+drwxr-xr-x  16 tcollard  2017_paris     544 Mar  1 21:09 .git
+-rw-r--r--   1 tcollard  2017_paris      32 Feb 22 14:22 .gitignore
+-rwxr-xr-x   1 tcollard  2017_paris  153912 Mar  1 21:09 21sh
+-rw-r--r--   1 tcollard  2017_paris    5559 Feb 22 22:11 Makefile
+-rw-r--r--   1 tcollard  2017_paris       0 Mar  1 21:09 a
+-rw-r--r--   1 tcollard  2017_paris      17 Feb 22 14:15 auteur
+-rw-r--r--   1 tcollard  2017_paris       0 Mar  1 21:09 b
+-rw-r--r--   1 tcollard  2017_paris     594 Feb 28 17:05 help.txt
+-rw-r--r--   1 tcollard  2017_paris       0 Mar  1 21:09 ici
+drwxr-xr-x   3 tcollard  2017_paris     102 Feb 27 11:11 includes
+drwxr-xr-x   9 tcollard  2017_paris     306 Mar  1 19:26 libft
+drwxr-xr-x  10 tcollard  2017_paris     340 Mar  1 19:25 obj
+-rwxr-xr-x   1 tcollard  2017_paris     718 Feb 22 14:15 progress_bar.sh
+drwxr-xr-x  10 tcollard  2017_paris     340 Feb 22 14:15 srcs

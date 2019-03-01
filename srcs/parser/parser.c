@@ -6,12 +6,11 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 20:15:52 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 21:12:44 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
-
 
 void			read_lst(t_ast *sort)
 {
@@ -118,8 +117,10 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 			link_new_node(sort, tmp, node);
 		else if (tmp->type == CMD)
 		{
-			(!node->left) ? node->left = tmp : 0;
-			(!node->right) ? node->right = tmp : 0;
+			if (!node->left)
+				node->left = tmp;
+			else if (!node->right)
+				node->right = tmp;
 			tmp->back = node;
 		}
 		tmp = tmp->next;
@@ -144,7 +145,6 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0, -1);
-	// read_lst(lst);
 	if (check_error_lst(lst) == 1)
 		return (clean_tab_and_ast(input, lst));
 	sort = lst;
@@ -157,8 +157,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
-	// read_lst(sort);
-	// reinit_print(lst);
+	read_lst(sort);
+	reinit_print(lst);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	clean_tab_and_ast(input, lst);
