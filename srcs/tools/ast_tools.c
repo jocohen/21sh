@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:49:35 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 21:26:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 21:36:07 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static void	fill_last_input(char **s, int end, int start, t_ast *elem)
 
 	i = 0;
 	tmp = NULL;
-	len = end - start + 1;
+	// if (elem->back && elem->back->type <= AGREG)
+	// 	len = 2;
+	// else
+		len = end - start + 1;
 	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
 		ft_exit_malloc();
 	while (start < end && i < len - 1)
@@ -81,7 +84,7 @@ void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 	i = 0;
 	if (end == start)
 		return ;
-	while (elem->back && elem->type != CMD)
+	while (elem->back && elem->type != CMD && elem->type < OPERATOR)
 		elem = elem->back;
 	if (elem->type != CMD)
 	{
