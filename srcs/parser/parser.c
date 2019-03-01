@@ -6,11 +6,34 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 22:48:27 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/01 22:59:20 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+void	lst_r(t_ast *lst)
+{
+	t_ast    *tmp;
+    int        x;
+    int        i;
+
+    i = 0;
+    tmp = lst;
+    while (tmp)
+    {
+        ft_printf("Elem %d ___ type: %d\n", i, tmp->type);
+        x = 0;
+        while (tmp->input[x])
+        {
+            ft_printf("tmp->input[%d]: %s\n", x, tmp->input[x]);
+            x += 1;
+        }
+        ft_printf("\n\n");
+        tmp = tmp->next;
+        i += 1;
+    }
+}
 
 void			read_lst(t_ast *sort)
 {
@@ -145,7 +168,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0, -1);
-	read_lst(lst);
+	lst_r(lst);
 	if (check_error_lst(lst) == 1)
 		return (clean_tab_and_ast(input, lst));
 	sort = lst;
@@ -165,8 +188,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
-	read_lst(sort);
-	reinit_print(lst);
+	// read_lst(sort);
+	// reinit_print(lst);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	clean_tab_and_ast(input, lst);

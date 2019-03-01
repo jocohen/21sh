@@ -6,16 +6,14 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 14:47:08 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 18:47:13 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 23:10:56 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-// static int	error_redir_type_1(char **ope, int x, int y, int len)
 static int	error_redir_type_1(char **ope, int x)
 {
-	// ft_printf("%s\nx = %d y = %d len = %d\n\n", ope[x], x, y, len);
 	if (!ope[x + 1])
 	{
 		write(2, "21sh: parse error near `\\n'\n", 28);
@@ -51,7 +49,7 @@ static int	check_operator_error(char **ope, int x, int y)
 	int			i;
 	size_t		len;
 	static char	*operator[16] = {">>", ">>&", ">&", ">", "<<<", "<<", "<>", "<",
-	"&>>", "&>", "&&", "&", "||", "|", ">&-", "<&-"};
+	"&>>", "&>", "&&", "&", "||", "|", ">&-", "<&"};
 
 	i = 0;
 	len = 0;
@@ -66,8 +64,7 @@ static int	check_operator_error(char **ope, int x, int y)
 			break ;
 		i += 1;
 	}
-	if (i < 10)
-		// return (error_redir_type_1(ope, x, y, len));
+	if (i < 10 || i == 15)
 		return (error_redir_type_1(ope, x));
 	else if (i < 14)
 		return (error_redir_type_2(ope, x, y, len));
@@ -79,25 +76,18 @@ static int	check_operator_error(char **ope, int x, int y)
 int			ft_error_parse_redir(char **input)
 {
 	int			x;
-	// int			y;
 	int			i;
 
 	x = 0;
 	i = 0;
 	while (input[x])
 	{
-		// y = 0;
-		// while (input[x][y])
-		// {
-		// ft_printf("INPUT[%d]: %s\n", x, input[x]);
-			if (ft_isoperator(input[x][0]) == 1
-			&& check_operator_error(input, x, 0) == 1)
-			{
-				delete_str_tab(input);
-				return (1);
-			}
-			// y += 1;
-		// }
+		if (ft_isoperator(input[x][0]) == 1
+		&& check_operator_error(input, x, 0) == 1)
+		{
+			delete_str_tab(input);
+			return (1);
+		}
 		x += 1;
 	}
 	return (0);
