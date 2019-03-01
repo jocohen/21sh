@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:25:49 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 11:59:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:40:08 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static int	ft_word_counter(char *s, unsigned int *nb_word)
+static int	ft_word_counter_1(char *s, unsigned int *nb_word)
 {
 	int	i;
 
@@ -116,7 +116,7 @@ char		**ft_splitwhitespace_shell(char *s)
 	nb_word = 0;
 	if (!s)
 		return (NULL);
-	if (ft_word_counter(s, &nb_word) == -1)
+	if (ft_word_counter_1(s, &nb_word) == -1)
 		return (NULL);
 	if (!(split = (char**)malloc(sizeof(char*) * (nb_word + 1))))
 		ft_exit_malloc();

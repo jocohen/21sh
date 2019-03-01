@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 18:31:22 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:56:38 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ void		fill_ast(char **s, t_ast **lst, int save, int i)
 	t_ast	*new;
 	int		x;
 
+	x = 0;
+	ft_printf("lex =");
+	while (s[x])
+		ft_printf(" %s", s[x++]);
+	ft_printf("\n");
 	new = create_new_elem(lst);
 	while (s[++i])
 	{
@@ -132,7 +137,7 @@ void		fill_ast(char **s, t_ast **lst, int save, int i)
 			else if (ft_isquote(s[i][x]) == 1 && go_end_quote(s, i, &x) == 1)
 				break ;
 	}
-	(new->type >= OPERATOR && ft_strcmp(new->input[0], "&") != 0) ?
+	(new->type >= OPERATOR && ft_strcmp(new->input[0], "&")) ?
 	new = add_new_elem(lst) : 0;
 	fill_last_elem(s, i, save, new);
 }

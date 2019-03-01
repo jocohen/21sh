@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:50:12 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 12:26:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:38:27 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		check_redir(char *s, int *i, unsigned int *nb_word)
 		return (ft_error_redir_format(&s[*i], x));
 	else if (check_operator(s, i, nb_word, x) == 1)
 	{
-		*i += x;
+		(x > 1 || ft_isspace(s[*i + 1])) ? *i += x : 0;
 		return (0);
 	}
 	return (-1);

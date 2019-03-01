@@ -6,13 +6,13 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 18:38:06 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/01 16:51:05 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
 
-static void    read_lst(t_ast *lst)
+ void    read_lst(t_ast *lst)
 {
     t_ast    *tmp;
     int        x;
