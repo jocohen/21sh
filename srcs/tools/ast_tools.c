@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:49:35 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 20:55:23 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 21:26:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	fill_last_elem(char **s, int i, int save, t_ast *new)
 {
-	ft_printf("i = %d save = %d\n", i ,save);
 	if (new->type == NO_TYPE)
 		fill_input(s, i, save, new);
 	else if (i != save)
@@ -58,10 +57,7 @@ static void	fill_last_input(char **s, int end, int start, t_ast *elem)
 
 	i = 0;
 	tmp = NULL;
-	if (elem->back && elem->back->type <= AGREG)
-		len = 2;
-	else
-		len = end - start + 1;
+	len = end - start + 1;
 	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
 		ft_exit_malloc();
 	while (start < end && i < len - 1)
