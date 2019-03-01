@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 14:47:08 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 23:58:19 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/02 00:01:42 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static int	check_operator_error(char **ope, int x, int y)
 	static char	*operator[16] = {">>", ">>&", ">&", ">", "<<<", "<<", "<>", "<",
 	"&>>", "&>", "&&", "&", "||", "|", ">&-", "<&"};
 
-	ft_printf("OK\n");
 	i = 0;
 	len = 0;
 	while (ft_isoperator(ope[x][y + len]) == 1)
