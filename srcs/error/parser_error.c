@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 14:47:08 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 23:10:56 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/01 23:40:45 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ static int	error_redir_type_2(char **ope, int x, int y, int len)
 		write(2, "21sh: parse error near `", 24);
 		write(2, &ope[x][y], len);
 		write(2, "'\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	error_redir_type_2bis(char **ope, int x)
+{
+	if (!ope[x + 1])
+	{
+		write(2, "21sh: parse error near `;'\n", 27);
 		return (1);
 	}
 	return (0);
@@ -66,6 +76,8 @@ static int	check_operator_error(char **ope, int x, int y)
 	}
 	if (i < 10 || i == 15)
 		return (error_redir_type_1(ope, x));
+	if (i == 10 || i == 12 || i == 13)
+		return (error_redir_type_2bis(ope, x));
 	else if (i < 14)
 		return (error_redir_type_2(ope, x, y, len));
 	else
