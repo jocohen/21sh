@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:49:35 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 19:01:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 20:55:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	fill_last_elem(char **s, int i, int save, t_ast *new)
 {
-	// ft_printf("i = %d save %d\n", i ,save);
-	// ft_printf("type = %d\n", new->type);
-	// ft_printf("s[i]: |%s|\n", s[i]);
+	ft_printf("i = %d save = %d\n", i ,save);
 	if (new->type == NO_TYPE)
 		fill_input(s, i, save, new);
 	else if (i != save)
@@ -52,6 +50,31 @@ void	link_new_node(t_ast **sort, t_ast *tmp, t_ast *node)
 	}
 }
 
+static void	fill_last_input(char **s, int end, int start, t_ast *elem)
+{
+	int		i;
+	t_ast	*tmp;
+	int		len;
+
+	i = 0;
+	tmp = NULL;
+	if (elem->back && elem->back->type <= AGREG)
+		len = 2;
+	else
+		len = end - start + 1;
+	if (!(elem->input = (char**)malloc(sizeof(char*) * len)))
+		ft_exit_malloc();
+	while (start < end && i < len - 1)
+	{
+		if (!(elem->input[i] = ft_strdup(s[start])))
+			ft_exit_malloc();
+		start += 1;
+		i += 1;
+	}
+	elem->input[i] = NULL;
+	elem->type = CMD;
+}
+
 void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 {
 	char	**tmp;
@@ -60,8 +83,17 @@ void	add_input_prev_cmd(char **s, int end, int start, t_ast *elem)
 
 	len = 0;
 	i = 0;
+	if (end == start)
+		return ;
 	while (elem->back && elem->type != CMD)
 		elem = elem->back;
+	if (elem->type != CMD)
+	{
+		while (elem->next)
+			elem = elem->next;
+		elem = add_new_elem(&elem);
+		return (fill_last_input(s, end, start, elem));
+	}
 	while (elem->input[len])
 		len += 1;
 	len += end - start;

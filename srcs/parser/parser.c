@@ -6,11 +6,80 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 19:01:41 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 20:15:52 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/shell.h"
+
+
+void			read_lst(t_ast *sort)
+{
+	t_ast	*tmp;
+	int		i;
+	tmp = sort;
+	while (tmp->left)
+	{
+		ft_printf("\ntype= %d\n", tmp->type);
+		i = 0;
+		while (tmp->input[i])
+		{
+			ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+			i += 1;
+		}
+		tmp->print = 1;
+		tmp = tmp->left;
+	}
+	ft_printf("\ntype= %d\n", tmp->type);
+	i = 0;
+	while (tmp->input[i])
+	{
+		ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+		i += 1;
+	}
+	tmp->print = 1;
+	while (tmp)
+	{
+		if (tmp->left && tmp->left->print == 0)
+		{
+			tmp = tmp->left;
+			ft_printf("\ntype= %d\n", tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
+		}
+		else if (tmp->right && tmp->right->print == 0)
+		{
+			tmp = tmp->right;
+			ft_printf("\ntype= %d\n", tmp->type);
+			i = 0;
+			while (tmp->input[i])
+			{
+				ft_printf("input[%d]: %s\n", i, tmp->input[i]);
+				i += 1;
+			}
+			tmp->print = 1;
+		}
+		else
+			tmp = tmp->back;
+	}
+}
+
+void		reinit_print(t_ast *lst)
+{
+	t_ast	*tmp;
+	tmp = lst;
+	while (tmp)
+	{
+		tmp->print = 0;
+		tmp = tmp->next;
+	}
+}
+
 
 static t_ast	*get_available_node(t_ast **sort)
 {
@@ -75,6 +144,7 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		return ;
 	}
 	fill_ast(input, &lst, 0, -1);
+	// read_lst(lst);
 	if (check_error_lst(lst) == 1)
 		return (clean_tab_and_ast(input, lst));
 	sort = lst;
@@ -87,6 +157,8 @@ void			parser(char **input, t_ast *lst, t_env **lst_env,
 		sort = sort->next;
 	}
 	sort_ast(lst, &sort);
+	// read_lst(sort);
+	// reinit_print(lst);
 	(*alloc)->ast = &lst;
 	(complete_heredoc(lst, alloc)) ? analyzer(sort, lst_env, alloc) : 0;
 	clean_tab_and_ast(input, lst);

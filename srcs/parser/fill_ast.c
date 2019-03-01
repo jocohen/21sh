@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 19:15:26 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 18:59:35 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 20:49:03 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ static int	go_end_quote(char **s, int i, int *x)
 
 void		fill_ast(char **s, t_ast **lst, int save, int i)
 {
-	t_ast	*new;
+	t_ast	*tmp;
 	int		x;
 
-	new = create_new_elem(lst);
+	tmp = create_new_elem(lst);
 	while (s[++i])
 	{
 		x = -1;
@@ -121,18 +121,18 @@ void		fill_ast(char **s, t_ast **lst, int save, int i)
 			if (ft_isoperator(s[i][0]) == 1 || (ft_isoperator(s[i][x]) == 1
 			&& x - 1 >= 0 && ft_isdigit(s[i][x - 1]) == 1))
 			{
-				(new->type >= OPERATOR) ? new = add_new_elem(lst) : 0;
-				(new->type > CMD) ? add_input_prev_cmd(s, i, save, new) :
-				fill_input(s, i, save, new);
-				(new->type != NO_TYPE) ? new = add_new_elem(lst) : 0;
-				save = i + fill_operator(s, x, new, &i) + ((new->type > AGREG)
+				(tmp->type >= OPERATOR) ? tmp = add_new_elem(lst) : 0;
+				(tmp->type > CMD) ? add_input_prev_cmd(s, i, save, tmp) :
+				fill_input(s, i, save, tmp);
+				(tmp->type != NO_TYPE) ? tmp = add_new_elem(lst) : 0;
+				save = i + fill_operator(s, x, tmp, &i) + ((tmp->type > AGREG)
 				? 0 : 1);
 				break ;
 			}
 			else if (ft_isquote(s[i][x]) == 1 && go_end_quote(s, i, &x) == 1)
 				break ;
 	}
-	(new->type >= OPERATOR && ft_strcmp(new->input[0], "&") != 0) ?
-	new = add_new_elem(lst) : 0;
-	fill_last_elem(s, i, save, new);
+	(tmp->type >= OPERATOR && ft_strcmp(tmp->input[0], "&") != 0) ?
+	tmp = add_new_elem(lst) : 0;
+	fill_last_elem(s, i, save, tmp);
 }

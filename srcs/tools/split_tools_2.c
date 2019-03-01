@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/30 18:43:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/27 11:56:08 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:22:06 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	check_before_operator(char *s, int *i, unsigned int *nb_word)
 	x = 1;
 	while (*i - x >= 0 && ft_isdigit(s[*i - x]) == 1)
 		x += 1;
-	if (*i > 0 && *i - x > 0 && ft_isspace(s[*i - x]) == 0)
+	if (*i > 0 && *i - x >= 0 && ft_isspace(s[*i - x]) == 0)
 		*nb_word += 1;
 }
 
