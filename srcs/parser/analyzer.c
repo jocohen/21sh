@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:41 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 17:39:12 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/01 22:47:24 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	analyzer(t_ast *sort, t_env **lst_env, t_alloc **alloc)
 		return (analyzer(tmp->left, lst_env, alloc));
 	else if (tmp && tmp->right && tmp->right->print == 0)
 		return (analyzer(tmp->right, lst_env, alloc));
-	else if (tmp->back)
+	else if (tmp && tmp->back)
 		return (analyzer(tmp->back, lst_env, alloc));
 	return (ret);
 }

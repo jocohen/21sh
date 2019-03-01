@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/02 11:52:14 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 18:45:33 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/01 22:46:57 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_error_lst(t_ast *lst)
 		}
 		else
 		{
-			tmp->back = 0;
+			tmp->back = NULL;
 			tmp = tmp->next;
 		}
 	}

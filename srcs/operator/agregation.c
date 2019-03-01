@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/02/28 17:08:38 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:23:40 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	agreg_1(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_agreg(elem, fd, *alloc) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1)
+	while ((ft_is_agreg(elem, fd, *alloc) == 1
+		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
 		elem = elem->left;
-	elem = elem->back;
+	(elem->type != AGREG) ? elem = elem->back : 0;
 	dup2(fd[1], 1);
 	dup2(fd[2], 2);
-	analyzer(elem->left, lst_env, alloc);
+	(elem) ? analyzer(elem->left, lst_env, alloc) : 0;
 	reinit_fd(fd, *alloc);
 	return (0);
 }
@@ -41,13 +41,13 @@ int	agreg_2(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd[1] = -1;
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while (ft_is_agreg(elem, fd, *alloc) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1)
+	while ((ft_is_agreg(elem, fd, *alloc) == 1
+		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
 		elem = elem->left;
-	elem = elem->back;
+	(elem->type != AGREG) ? elem = elem->back : 0;
 	dup2(fd[1], 1);
 	dup2(fd[2], 2);
-	analyzer(elem->left, lst_env, alloc);
+	(elem) ? analyzer(elem->left, lst_env, alloc) : 0;
 	reinit_fd(fd, *alloc);
 	return (0);
 }
@@ -68,13 +68,13 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	dig = ft_isdigit(elem->input[0][0]);
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
 	(elem->right) ? elem->right->print = 1 : 0;
-	while ((ret1 = ft_is_agreg(elem, fd, *alloc)) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1)
+	while (((ret1 = ft_is_agreg(elem, fd, *alloc)) == 1
+		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
 		elem = elem->left;
-	elem = elem->back;
+	(elem->type != AGREG) ? elem = elem->back : 0;
 	if (ret1 == -1)
 		return (-1);
-	analyzer(elem->left, lst_env, alloc);
+	(elem) ? analyzer(elem->left, lst_env, alloc) : 0;
 	reinit_fd(fd, *alloc);
 	return (0);
 }
