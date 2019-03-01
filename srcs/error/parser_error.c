@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 14:47:08 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 23:40:45 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/02 00:01:35 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,16 @@ static int	error_redir_type_1(char **ope, int x)
 
 static int	error_redir_type_2(char **ope, int x, int y, int len)
 {
+	if (!ope[x + 1])
+	{
+		write(2, "21sh: parse error near `;'\n", 27);
+		return (1);
+	}
 	if (x == 0)
 	{
 		write(2, "21sh: parse error near `", 24);
 		write(2, &ope[x][y], len);
 		write(2, "'\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
-static int	error_redir_type_2bis(char **ope, int x)
-{
-	if (!ope[x + 1])
-	{
-		write(2, "21sh: parse error near `;'\n", 27);
 		return (1);
 	}
 	return (0);
@@ -76,9 +71,7 @@ static int	check_operator_error(char **ope, int x, int y)
 	}
 	if (i < 10 || i == 15)
 		return (error_redir_type_1(ope, x));
-	if (i == 10 || i == 12 || i == 13)
-		return (error_redir_type_2bis(ope, x));
-	else if (i < 14)
+	if (i < 14)
 		return (error_redir_type_2(ope, x, y, len));
 	else
 		return (error_redir_type_3(ope, x, y));
@@ -88,17 +81,23 @@ static int	check_operator_error(char **ope, int x, int y)
 int			ft_error_parse_redir(char **input)
 {
 	int			x;
+	int			y;
 	int			i;
 
 	x = 0;
 	i = 0;
 	while (input[x])
 	{
-		if (ft_isoperator(input[x][0]) == 1
-		&& check_operator_error(input, x, 0) == 1)
+		y = 0;
+		while (input[x][y])
 		{
-			delete_str_tab(input);
-			return (1);
+			if (ft_isoperator(input[x][y]) == 1
+			&& check_operator_error(input, x, y) == 1)
+			{
+				delete_str_tab(input);
+				return (1);
+			}
+			y += 1;
 		}
 		x += 1;
 	}
