@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 17:32:04 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 19:04:14 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/02 19:17:23 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	redir_to_file(t_ast *elem, t_alloc *alloc, int fd[3], int i)
 	fd_open = open((dig == 1) ? elem->input[2] :
 	elem->input[1], O_WRONLY | O_CREAT | ((i == 0) ? O_TRUNC :
 	O_APPEND), 0644);
-	if (fd_redir < 3 && fd_redir >= 0 && fd[fd_redir] == -1)
+	if (fd_redir >= 0 && fd[fd_redir] == -1
+		&& alloc->fd[fd_redir] == 0)
 	{
 		fd[fd_redir] = fd_open;
 		alloc->fd[fd_redir] = dup(fd_redir);
@@ -58,12 +59,14 @@ void		reinit_fd(int fd[3], t_alloc *alloc)
 	if (fd[1] != -1)
 	{
 		dup2(alloc->fd[1], 1);
+		alloc->fd[1] = 0;
 		if (fd[1] != 0 && fd[1] != 1 && fd[1] != 2)
 			close(fd[1]);
 	}
 	if (fd[2] != -1)
 	{
 		dup2(alloc->fd[2], 2);
+		alloc->fd[2] = 0;
 		if (fd[2] != 0 && fd[2] != 1 && fd[2] != 2)
 			close(fd[2]);
 	}

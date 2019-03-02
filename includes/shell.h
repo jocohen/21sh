@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/02/28 17:28:51 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/02 15:35:46 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int						g_pid;
 int						g_ret[2];
 int						g_resize;
 char					*g_clip;
-int						g_u8;
 
 /*
 ********************************************************************************
@@ -232,11 +231,6 @@ void					delete_line_pos(t_buf *input, t_env **lst);
 void					display_spe_line(t_buf *selec, t_buf *input);
 void					redisplay_line_selec(t_buf *selec, t_buf *input,
 											t_env **lst);
-void					input_u8(t_alloc *al, unsigned char k, size_t nb_byte);
-void					add_u8_buff(t_alloc *al, size_t nb_byte,
-									unsigned char *uc, size_t prev_line);
-size_t					ft_strlen_u8(const char *s);
-size_t					lenbyte(char k);
 size_t					check_prev_char(t_buf *input);
 
 /*
