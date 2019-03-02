@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:48:48 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/01 22:59:20 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/02 20:24:30 by jocohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,15 @@ static t_ast	*get_available_node(t_ast **sort)
 	return (tmp);
 }
 
+static void		cmd_ast(t_ast *node, t_ast *tmp)
+{
+	if (!node->left)
+		node->left = tmp;
+	else if (!node->right)
+		node->right = tmp;
+	tmp->back = node;
+}
+
 static void		sort_ast(t_ast *lst, t_ast **sort)
 {
 	t_ast	*tmp;
@@ -139,13 +148,7 @@ static void		sort_ast(t_ast *lst, t_ast **sort)
 		else if (tmp->type != CMD)
 			link_new_node(sort, tmp, node);
 		else if (tmp->type == CMD)
-		{
-			if (!node->left)
-				node->left = tmp;
-			else if (!node->right)
-				node->right = tmp;
-			tmp->back = node;
-		}
+			cmd_ast(node, tmp);
 		tmp = tmp->next;
 	}
 }
