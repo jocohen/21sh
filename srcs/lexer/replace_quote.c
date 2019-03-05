@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/05 13:28:33 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/05 19:09:50 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,14 @@ int			remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 		else if (!(sub = ft_back_quote(sub, lst_env, alloc)))
 			return (0);
 	}
-	x = ft_strlen(sub);
 	(sub != NULL) ? ft_insert(s, sub, save - 1, *i) : 0;
-	return (x + 1);
+	return (1);
 }
 
 int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
+	int		save;
 
 	i = 0;
 	short_cut(s, *lst_env);
@@ -137,9 +137,12 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			if (!(i = remove_quote(s, &i, *lst_env, alloc)))
+			save = i;
+			if (!(remove_quote(s, &i, *lst_env, alloc)))
 				return (-1);
-			 i -= 1;
+			// i -= 1;
+			// i = save - 1;
+			ft_printf("s: |%s|\n=>s[%d]: |%s|\n", *s, i, &(*s)[i]);
 		}
 		else
 			i += 1;

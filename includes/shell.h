@@ -6,7 +6,7 @@
 /*   By: jocohen <jocohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 12:01:28 by jocohen           #+#    #+#             */
-/*   Updated: 2019/03/02 15:35:46 by jocohen          ###   ########.fr       */
+/*   Updated: 2019/03/05 18:06:29 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,7 +451,8 @@ void					add_input_prev_cmd(char **s, int end, int start,
 void					get_last_index_split(int *i, char *s, int *wd);
 int						main(int argc, char **argv, char **env);
 int						check_opening_quote(char **str, t_alloc *alloc);
-int						ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc);
+int						ft_is_redir(t_ast *elem, int fd[3], t_alloc *alloc,
+						t_env **lst_env);
 int						ft_is_agreg(t_ast *elem, int fd[3], t_alloc *alloc);
 int						heredoc_content(t_alloc *alloc, t_ast *elem, char *s);
 int						get_last_index(int *i, char *s, int *save,

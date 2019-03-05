@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 18:31:21 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/02 19:09:00 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:11:00 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	agreg_1(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
 	while ((ft_is_agreg(elem, fd, *alloc) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
+		|| ft_is_redir(elem, fd, *alloc, lst_env) == 1) && elem->left)
 		elem = elem->left;
 	(elem->type != AGREG) ? elem = elem->back : 0;
 	dup2(fd[1], 1);
@@ -42,7 +42,7 @@ int	agreg_2(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd[2] = -1;
 	(elem->right) ? elem->right->print = 1 : 0;
 	while ((ft_is_agreg(elem, fd, *alloc) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
+		|| ft_is_redir(elem, fd, *alloc, lst_env) == 1) && elem->left)
 		elem = elem->left;
 	(elem->type != AGREG) ? elem = elem->back : 0;
 	dup2(fd[1], 1);
@@ -69,7 +69,7 @@ int	agreg_3(t_ast *elem, t_env **lst_env, char **tab_path, t_alloc **alloc)
 	fd_redir = (dig == 1) ? ft_atoi(elem->input[0]) : 1;
 	(elem->right) ? elem->right->print = 1 : 0;
 	while (((ret1 = ft_is_agreg(elem, fd, *alloc)) == 1
-		|| ft_is_redir(elem, fd, *alloc) == 1) && elem->left)
+		|| ft_is_redir(elem, fd, *alloc, (*alloc)->env) == 1) && elem->left)
 		elem = elem->left;
 	(elem->type != AGREG) ? elem = elem->back : 0;
 	if (ret1 == -1)

@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:20:09 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/02 19:43:18 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:12:15 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	agreg_type_3(int fd[3], t_ast *elem, t_alloc *alloc)
 		dup2(fd_redir, fd_new);
 	}
 	elem = elem->left;
-	while (ft_is_redir(elem, fd_tmp, alloc) == 1 && elem->left)
+	while (ft_is_redir(elem, fd_tmp, alloc, alloc->env) == 1 && elem->left)
 		elem = elem->left;
 	(elem) ? elem = elem->back : 0;
 	reinit_fd(fd_tmp, alloc);
