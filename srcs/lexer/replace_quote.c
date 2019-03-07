@@ -6,7 +6,7 @@
 /*   By: tcollard <tcollard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/01 11:26:07 by tcollard          #+#    #+#             */
-/*   Updated: 2019/03/05 19:09:50 by tcollard         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:43:20 by tcollard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ int			remove_quote(char **s, int *i, t_env *lst_env, t_alloc **alloc)
 int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 {
 	int		i;
-	int		save;
 
 	i = 0;
 	short_cut(s, *lst_env);
@@ -137,12 +136,9 @@ int			convert_quote(char **s, t_env **lst_env, t_alloc **alloc)
 		}
 		else if (ft_isquote((*s)[i]) == 1)
 		{
-			save = i;
 			if (!(remove_quote(s, &i, *lst_env, alloc)))
 				return (-1);
-			// i -= 1;
-			// i = save - 1;
-			ft_printf("s: |%s|\n=>s[%d]: |%s|\n", *s, i, &(*s)[i]);
+			i -= 1;
 		}
 		else
 			i += 1;
